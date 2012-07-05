@@ -1,0 +1,8 @@
+//hide specline_line destroyed
+$('table#<%=@spec_line_div[0]%>').hide();
+$('li#<%=@spec_line_div[0]%>').hide();
+
+if(<%=@spec_line_div[1]%> != 'not_last_row'){
+$('table#<%=@spec_line_div[1]%>').hide();
+$('li#<%=@spec_line_div[1]%>').hide();
+}

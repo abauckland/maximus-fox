@@ -1,0 +1,30 @@
+<%= form_for(@sponsor) do |f| %>
+  <% if @sponsor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sponsor.errors.count, "error") %> prohibited this sponsor from being saved:</h2>
+
+      <ul>
+      <% @sponsor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div id="supplier_form">
+    <p>
+    	<label><%= f.label :supllier_id %></label>
+    	<%= f.select(:supplier_id , Supplier.all.collect {|p| [ p.company, p.id ] })  %>
+    </p>
+          
+	<p
+		<label><%= f.label :subsection_id %></label>
+		<%= f.select(:subsection_id , Subsection.all.collect {|p| [ p.subsection_full_code_and_title, p.id ] }) %>
+	</p>
+   
+  </div>
+  <div id="supplier_submit">
+    <%= f.submit %>
+  </div>
+<% end %>

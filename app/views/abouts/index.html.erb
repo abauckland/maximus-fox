@@ -1,0 +1,17 @@
+<div id="page_title">ABOUT US</div>
+
+  <a id="small_trial_link" href="<%=sign_up_path %>">  
+    <t class="small_trial_link_text">Try Specright free</t>
+  </a>
+
+<div id="line"></div>
+
+<div id="about_box">
+<table> 
+  <% @abouts.each do |about|%>
+  <tr>    
+    <td id="term_text"><%= about.text.html_safe%></td>
+  </tr>
+  <% end %>
+  </table> 
+</div>

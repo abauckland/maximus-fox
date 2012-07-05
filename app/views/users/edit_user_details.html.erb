@@ -1,0 +1,45 @@
+<div id="page_title">Edit User Details</div>
+
+<div id="line_admin"></div>
+
+<div id="edit_box_less">
+
+<%= form_for(@user, :url => update_user_details_user_path(@user), :html => { :method => :put }) do |f| %>
+
+      <p>
+      <label>First Name:</label> 
+      <%= f.text_field :first_name, {:size => 25} %>
+      </p>
+
+      <p>
+      <label>Surname:</label> 
+      <%= f.text_field :surname, {:size => 25} %>
+      </p>
+
+      <p>
+      <label>Email:</label> 
+      <%= f.text_field :email, {:size => 25} %>
+      </p>
+
+      <p>
+      <label>New Password:</label>
+      <%= password_field_tag :new_password %><t><i> (leave blank if you do not wish to change your password)</i></t> 
+      </p>
+
+      <p>
+      <label>Confirm Password:</label> 
+      <%= password_field_tag :new_password_confirmation %><t><i> (re-enter new password)</i></t> 
+      </p>
+      
+      <p>
+      <label>Existing Password:</label> 
+      <%= f.password_field :password, {:size => 20} %><i> (required to allow changes to be saved)</i></t> 
+      </p>
+</div>
+
+<div id="bottom_button"><%= f.submit "Update" %></div>
+<% end %>
+
+
+
+</div>

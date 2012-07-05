@@ -1,0 +1,64 @@
+
+
+var line_prefix = "<table id='<%=@specline_update.id.to_s%>' width='100%'><tr class='new_specline_row'><td class='pad' width = '90'><%= escape_javascript(image_tag("move.png", :mouseover =>"move_rollover.png", :border=>0)) %></td>";
+var line_suffix = "<td class='padding'></td><td class='specline_link'><%= escape_javascript(link_to image_tag("insrow.png", :mouseover =>"insrow-rollover.png", :border=>0), {:controller => "speclines", :action => "new_specline", :id => @specline_update.id}, :class => "get")%><%= escape_javascript(link_to image_tag("edit.png", :mouseover =>"edit_rollover.png", :border=>0), {:controller => "speclines", :action => "edit", :id => @specline_update.id}, :class => "get")%><%= escape_javascript(link_to image_tag("delete.png", :mouseover =>"delete-rollover.png", :border=>0), {:controller => "speclines", :action => "delete_specline", :id => @specline_update.id}, :class => "delete")%></td></tr></table>";
+                                                                      
+var linetype_3 = "<td width='10px'></td><td class='prefix' width='18'><%= @specline_update.txt1.text%>.</td><td><span class='new_editable_text4'><%= @specline_update.txt4.text%></span>: <span class='new_editable_text5' style='color: #0000ff'><%= @specline_update.txt5_text%>.</span></td>";
+var linetype_4 = "<td width='10px'></td><td class='prefix' width='18'><%= @specline_update.txt1.text%>.</td><td><span id='<%= @specline_update.id.to_s%>' class='new_editable_text4'><%= @specline_update.txt4.text.to_s%></span>.</td>";
+var linetype_5 = "<td class='prefix' width='10px'>-</td><td><table><tr><td><span class='new_editable_text3'><%=@specline_update.txt3.text.to_s%></span><td>:</td><td width = '5'></td><td><span class='new_editable_text6' style='color: #0000ff'><%=@specline_update.txt6.text.to_s%>.</span></td></tr></table></td>";
+var linetype_6 = "<td class='prefix' width='10px'>-</td><td><table><tr><td><span class='new_editable_text3'><%=@specline_update.txt3.text.to_s%></span><td>:</td><td width = '5'></td><td><span class='new_editable_text5' style='color: #0000ff'><%=@specline_update.txt5.text.to_s%>.</span></td></tr></table></td>";
+var linetype_7 = "<td class='prefix' width='10px'>-</td><td><span class='new_editable_text4'><%= @specline_update.txt4.text.to_s%></span>.</td>";
+var linetype_8 = "<td class='prefix' width='10px'>-</td><td><span class='new_editable_text4'><%=@specline_update.txt4.text.to_s%></span>: <span class='new_editable_text5' style='color: #0000ff'><%=@specline_update.txt5.text.to_s%>.</span></td>";
+var linetype_9 = "<td class='specline_guide' ><span class='new_editable_text4'><%= @specline_update.txt4.text.to_s%></span>.</td>";
+
+
+switch(<%=@specline_update.linetype_id%>){
+case 3: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_3 + line_suffix); break;
+case 4: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_4 + line_suffix); break;
+case 5: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_5 + line_suffix); break;
+case 6: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_6 + line_suffix); break;
+case 7: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_7 + line_suffix); break;
+case 8: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_8 + line_suffix); break;
+case 9: $('table#<%=@specline_update.id%>').replaceWith(line_prefix + linetype_9 + line_suffix); break;
+}
+
+$('table#<%=@specline_update.id%> a.delete').deleteWithAjax();
+$('table#<%=@specline_update.id%> a.put').putWithAjax();
+$('table#<%=@specline_update.id%> a.get').getWithAjax();
+$('table#<%=@specline_update.id%> a.post').postWithAjax();
+
+
+$('tr.new_specline_row').mouseenter(function (){
+  $(this).children('td.specline_link').show();
+      $(this).children('td.pad').children('img').show();
+  $(this).children('td.padding').hide();
+  $(this).css('background-color', '#efefef');
+  });
+  
+$('table#<%=@specline_update.id%> span.new_editable_text3').mouseover(function(){
+$(this).editable('/speclines/<%=@specline_update.id%>/update_specline_3', {id: <%=@specline_update.id%>, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%=@specline_update.id%>', authenticity_token: AUTH_TOKEN}});    
+});
+$('table#<%=@specline_update.id%> span.new_editable_text4').mouseover(function(){
+$(this).editable('/speclines/<%=@specline_update.id%>/update_specline_4', {id: <%=@specline_update.id%>, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%=@specline_update.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('table#<%=@specline_update.id%> span.new_editable_text5').mouseover(function(){
+$(this).editable('/speclines/<%=@specline_update.id%>/update_specline_5', {id: <%=@specline_update.id%>, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%=@specline_update.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('table#<%=@specline_update.id%> span.new_editable_text6').mouseover(function(){
+$(this).editable('/speclines/<%=@specline_update.id%>/update_specline_6', {id: <%=@specline_update.id%>, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%=@specline_update.id%>', authenticity_token: AUTH_TOKEN}});    
+});  
+  
+$('tr.new_specline_row').mouseleave(function (){
+  $(this).children('td.specline_link').hide();
+      $(this).children('td.pad').children('img').hide();
+  $(this).children('td.padding').show();
+  $(this).css('background-color', '#ffffff');
+  });
+
+
+
+<% if !@subsequent_prefixes.blank? %>
+	<% @subsequent_prefixes.each do |sub_prefix|%>
+		$('table#<%=sub_prefix[0]%> tr td.prefix').html('<%=sub_prefix[1]%>');
+	<% end %>
+<% end %>

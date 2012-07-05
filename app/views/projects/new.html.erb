@@ -1,0 +1,73 @@
+<div id="option_band">
+    <div id="option_select_1">Create new project</div>
+    <div id="back_button"><%= link_to "back", {:controller => "projects", :action => "index"} %></div>
+</div>
+
+  <% if @project.errors.any? %>  
+  <div id="project_create_error">  
+    <%= pluralize(@project.errors.count, "error") %> prohibited this account from being created 
+  </div>  
+  <% end %>
+
+<%= form_for @project, :html => { :multipart => true } do |f| %>
+
+<div id="edit_box">
+
+  <div id="new_prj_details"> 
+      <p>
+        <label>Project Code:*</label>
+        <%= f.text_field :code, :size => 6 %>
+        <%= error_check(@project, :code)%> 
+      </p>
+      
+      <p>
+        <label>Project Title:*</label>
+        <%= f.text_field :title, :size => 40 %>
+        <%= error_check(@project, :title)%> 
+      </p>
+  </div>
+  <div id="new_prj_details"> 
+      <p style="color: #245893; font-style: italic">
+        The following are defaut settings.
+      </p>
+      <p>
+        <label>Project Status:</label>
+        Draft<%= f.hidden_field :project_status, :value =>'Draft' %>
+      </p>
+      <p>
+        <label>Revision Method:</label>
+        Project<%= f.hidden_field :rev_method, :value =>'Project' %>
+      </p>
+  </div>
+<!--move above array into variable so that it can be used elsewhere -->
+  <div id="new_prj_details"> 
+      <p style="color: #245893; font-style: italic">
+        The Template Project is the default template/project from which subsections and clauses will be copied to form the new project.
+      </p>
+      <p>
+        <label>Project Template:</label>
+        <%= f.collection_select(:parent_id, Project.where(:company_id => [1, current_user.company_id]).order("company_id, code"), :id, :project_code_and_title) %>
+      </p>  
+  </div>
+  <div id="new_prj_details"> 
+      <p style="color: #245893; font-style: italic">
+        The following information will be printed on the front cover of the document.
+      </p>
+      <p>
+        <label>Project Client:</label>
+        <%= f.text_field :client, :size => 40 %>
+      </p>
+
+      <p>
+        <label><%= f.label :photo, "Client Logo:" %></label>
+        <%= f.file_field :photo %>
+      </p>    
+
+  </div>
+</div>
+
+<div id="bottom_button">
+<%= f.submit 'Create Project' %>
+</div>
+<%end%>
+

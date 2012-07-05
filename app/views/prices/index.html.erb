@@ -1,0 +1,38 @@
+<div id="page_title">PRICING</div>
+<div id="small_trial_link"><%= link_to "Try Specright free", sign_up_path%></div>
+
+<div id="line"></div>
+
+<div id="usp">
+
+  <div id="usp_text">
+  
+  <p><%= @feature.longtext_1 %></p>  
+  <ul>
+     <% @properties.each do |property|%>
+       <li><%= property.text %></li>  
+     <% end %>
+  </ul>
+  <p><%= @feature.longtext_2 %></p>  
+  </div> 
+</div>
+
+
+<div id="price_matrix">
+
+<div id="matrix_header">
+    <div id="matrix_cell">Company Size</div>
+    <div id="matrix_cell">Licences</div>
+    <div id="matrix_cell">Price</div>
+    <div id="matrix_cell">Plan</div>
+</div>
+
+<div id="matrix_row">
+  <% @plans.each do |plan|%>
+    <div id="matrix_cell"><%= plan.company_size %></div>
+    <div id="matrix_cell"><%= plan.licence_nos %></div>
+    <div id="matrix_cell"><%= plan.price %></div>
+    <div id="matrix_cell"><%= plan.plan %></div>
+  <% end %>
+</div>
+</div>

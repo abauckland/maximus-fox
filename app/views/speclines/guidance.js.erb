@@ -1,0 +1,20 @@
+$('#guide').remove();
+
+var p = $('table#<%=@selected_specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.specline_link');
+var position = p.offset();
+var p_top = position.top
+
+var notes = "<div id='guide' class='ui.draggable'><%= escape_javascript(render 'guide') %></div>";
+
+$('body').after(notes);
+
+$('#guide').css({top: p_top});
+
+$('#guide').draggable();
+
+$('div#guide_close').click(function() {
+  $('#guide').remove();
+  $('tr.specline_row').children('td.specline_link').hide();
+  $('tr.specline_row').children('td.padding').show();
+  $('tr.specline_row').css('background-color', '#ffffff');
+});

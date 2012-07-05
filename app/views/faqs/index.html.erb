@@ -1,0 +1,25 @@
+<div id="page_title">FREQUENTLY ASKED QUESTIONS</div>
+
+  <a id="small_trial_link" href="<%=sign_up_path %>">  
+    <t class="small_trial_link_text">Try Specright free</t>
+  </a>
+
+<div id="line"></div>
+
+<div id="extra_questions">
+If your question is not in the list below please 
+<span class="extra_questions_link"><%= mail_to "info@specright.co.uk", "contact us", :subject => "Web Enquiry" %></span>
+</div>
+
+<div id="faq_box">
+  <div id="firstpane" class="menu_list">
+  
+    <% @faqs.each do |faq|%>
+      <p class="menu_head"><%= faq.id %>. <%= faq.question%></p>
+        <div class="menu_body">
+          <div><%= faq.answer %></div>
+        </div>
+    <% end %>
+  </div>
+</div>
+

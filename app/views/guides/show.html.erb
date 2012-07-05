@@ -1,0 +1,22 @@
+
+<div id="option_band">
+  <div id="option_select_1">Section
+    <div id="section_select">                                 
+      <%= select_tag "section", options_from_collection_for_select(@guide_sections, :id, :section_code_and_title, @selected_guide_section.id), :onchange => "window.location='/guides/#{@current_project.id}?section_id='+this.value;"  %>
+    </div>
+  </div>
+  <div id="option_select_2">Subsection
+    <div id="subsection_select">                               
+      <%= select_tag "subsection", options_from_collection_for_select(@guide_subsections, :id, :subsection_code_and_title, @selected_guide_subsection.id), :onchange => "window.location='/guides/#{@current_project.id}?subsection_id='+this.value;"  %>    
+    </div>
+  </div>   
+</div>
+
+<div id="edit_box_full">
+<% @applicable_clauses.each do |applicable_clause| %>
+
+  <div id="guide_clause_title"><%= applicable_clause.clause_code%> <%= applicable_clause.clausetitle.text %></div>
+  <div id="guide_clause_text"><%= applicable_clause.guide.text.html_safe %></div>
+
+<% end %>
+</div>

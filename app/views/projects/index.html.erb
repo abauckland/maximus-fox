@@ -1,0 +1,40 @@
+<div id="project_info">
+  <div id="project_title">   
+    Welcome <span class="user_welcome_name"><%= current_user.first_name.capitalize %> <%= current_user.surname.capitalize %></span>. Please select a project or create a new project.
+  </div>
+</div>
+
+
+<div id="option_band">
+  <div id="option_select_1">Project
+    <div id="project_select">                                 
+      <%= select_tag "project", options_from_collection_for_select(@projects, :id, :project_code_and_title, @current_project.id), {:class => 'project_select', :onchange => "window.location='/projects/'+this.value;"} %>
+    </div>
+  </div>
+  <div id="new_project_button">  
+    <%= link_to "create new project", {:controller => "projects", :action => "new"}%>                                                      
+  </div> 
+</div>
+
+<div id="edit_box_full">
+  <div id="revision_help_text">
+
+
+<%if @not_used != true %>
+      	<p>To learn more about how the application works view one of the following tutorials:</p>
+			<ul>
+  			<% @tutorials.each do |tutorial|%>
+    			<li class ="tutorial_link"><%= link_to "#{tutorial.title}", {:controller => "helps", :action => "tutorial", :id => tutorial.id}, :target => "_blank" %></li>
+  			<% end%>
+			</ul>
+		<p>These tutorials can be access at any time via the help menu at the top righthand corner of the screen</p>
+		<p>If you require any further assistance, have any questions or would like to provide us with feedback please contact us at: info@specright.co.uk</p>
+<%else%>    
+	<% render :partial => "new_user_intro", :current_project => @current_project %> 
+<%end%> 
+
+  </div>
+</div>
+
+</div>
+

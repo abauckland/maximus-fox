@@ -1,0 +1,10 @@
+if(<%=@hide_line_in_view%> == true)
+{
+$('tr#<%=@reinstate_clause%>').children('td.specline_link').children('a').remove();
+$('.tipsy').hide();
+}
+else
+{
+$('tr#<%=@reinstate_clause%>').remove();
+$('.tipsy').hide();
+}

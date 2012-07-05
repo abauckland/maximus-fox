@@ -1,0 +1,65 @@
+<div id="project_info">
+  <div id="current_project_title">   
+    <%= @current_project.project_code_and_title %>
+  </div>
+  <div id="project_status">
+    Status: <%= @current_project.project_status %>
+  </div>
+  <div id="project_rev">
+    Rev: <%= @current_revision_rev %>
+  </div>
+</div>
+
+<div id="option_band">
+  <div id="option_select_1">Section
+    <div id="section_select">                                 
+      <%= select_tag "section", options_from_collection_for_select(@project_sections, :id, :section_code_and_title, @selected_key_section.id), :onchange => "window.location='/projects/#{@current_project.id}?section='+this.value;"  %>
+    </div>
+  </div>
+
+
+  <div id="option_select_2">Subsection
+    <div id="subsection_select">                               
+      <%= select_tag "subsection", options_from_collection_for_select(@selected_subsections, :id, :subsection_code_and_title, @selected_key_subsection.id), :onchange => "window.location='/projects/#{@current_project.id}?subsection='+this.value;"  %>    
+    </div>
+  </div>
+  
+  
+  <div id="edit_subsections_button">  
+    <%= link_to "add/delete sections", {:controller => "projects", :action => "manage_subsections"}%>                                                      
+  </div>
+  
+  <%= guidance_check(@current_project.id, @selected_key_subsection.id) %>
+  
+</div>
+
+<% if @selected_key_section.id == 1 %>
+
+	<div id="prelim_show">
+		<% @selected_specline_lines.each do |spec_line| %>
+			<%= clausetype_filter(spec_line, 'true', 'true') %>     
+		<%end%>
+    	<table><tr class='specline_row'><td></td></tr></table>
+	</div>
+
+<% else %>
+
+<div id="usual1" class="usual">
+  <ul>
+    <% @clausetypes.each do |clausetype|%>
+      <li><a <%= class_and_href_ref(clausetype.id, @current_clausetype.id)%>><%= clausetype.text %></a></li>
+    <%end%>
+  </ul>
+	<% @clausetypes.each do |clausetype|%>
+	<div id="<%= clausetype.id %>edit_view" class="<%= clausetype.id %>">    
+		<% @selected_specline_lines.each do |spec_line| %>   
+			<%= clausetype_filter(spec_line, spec_line.clause.clauseref.clausetype_id, clausetype.id) %>    
+		<%end%>
+		<table><tr class='specline_row'><td></td></tr></table>
+	</div>    
+	<%end%>
+</div>
+
+<% end %>
+
+

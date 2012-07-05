@@ -1,0 +1,39 @@
+<div id ="bottom_form_title" style="display: <%= display %>">
+
+<% if @user.errors.any? %>   
+    <t style="color: #ff0000">A number of errors prohibited this user from being created, please complete highlighted items </t>
+<% else %>
+    Add New User <i>(email must not already be in use and password should be at least 8 characters long)</i>
+<% end %>
+
+</div>
+
+<div id ="bottom_form" style="display: <%= display %>">
+<%= form_for @user do |f| %>   
+    <%= f.hidden_field(:role, {:value => 'user'})%> 
+  <%= f.hidden_field(:id, {:value => @current_project.id})%> 
+  <%= f.hidden_field(:company_id, {:value => company_id})%> 
+  <div id="bottom_form_table">
+  <table>
+  <tr>
+    <td width="120"><%= label_error_check(@user, 'first_name', 'First Name')%></td>
+    <td width="150"><%= label_error_check(@user, 'surname', 'Surname')%></td>  
+    <td width="380"><%= label_error_check(@user, 'email', 'Email')%></td>
+    <td width="120"><%= label_error_check(@user, 'password', 'Password')%></td>
+    <td width="120"><%= label_error_check(@user, 'password', 'Password Confirmation')%></td>
+  </tr> 
+  <tr>
+    <td width="120"><%= f.text_field :first_name, {:size =>15} %></td>
+    <td width="150"><%= f.text_field :surname, {:size =>15} %></td>     
+    <td width="380"><%= f.text_field :email, {:size =>53} %></td>  
+    <td width="140"><%= f.password_field :password, {:size =>18} %></td>
+    <td width="170"><%= f.password_field :password_confirmation, {:size =>18} %></td>  
+  </tr>
+  </table>
+  </div>
+</div>
+  
+<div id="bottom_button" style="display: <%= display %>">
+<%= f.submit %>
+</div>  
+<% end %>

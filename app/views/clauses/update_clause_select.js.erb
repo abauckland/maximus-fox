@@ -1,0 +1,4 @@
+
+var updated_clone_clause_select = "<%= escape_javascript(select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title, @current_clone_clause))%>";
+
+$('select#clone_clause_id').replaceWith(updated_clone_clause_select);

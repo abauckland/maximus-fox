@@ -1,0 +1,43 @@
+<div id="home">
+  <div id="home_strapline">
+  <t>Great designs require</t></br>
+  <t style="padding: 0px 0px 0px 100px">great specifications</t>
+  </div>
+  <div id="home_intro_text"><%= @home.strapline%></div>
+
+
+         
+  <a id="large_trial_link" href="<%=sign_up_path %>">  
+    <t class="large_trial_link_text_1">start creating today</t></br>
+    <t class="large_trial_link_text_2">free single user licence</t>
+  </a>
+  
+  <div id="home_intro_text_2"><%= @home.intro_text%>
+
+  </div>
+    
+  <div id="home_image_web">
+    <%= link_to image_tag("test_page.png", :width=>475, :height=>325, :border=>0), features_path %>
+  </div>
+  
+  <div id="home_image_mob">
+    <%= link_to image_tag("iphone_web.png", :width=>260, :height=>160, :border=>0), features_path %>
+  </div>
+  
+  <div id="home_options">
+    <div id="home_option_1">
+      <div id="option_title"><%= link_to "Office Specifications", feature_path(7) %> </div>
+      <div class="option_text"><%= @home.option_1_text%></div>
+    </div>
+    <div id="home_option_2">
+      <div id="option_title"><%= link_to "Project Specifications", feature_path(8) %> </div>
+      <div class="option_text"><%= @home.option_2_text%></div>
+    </div>
+    <div id="home_option_3">
+      <div id="option_title"> <%= link_to "Additional Services", feature_path(9) %> </div>
+      <div class="option_text"><%= @home.option_3_text%></div>
+    </div>
+  </div>
+      
+</div>
+

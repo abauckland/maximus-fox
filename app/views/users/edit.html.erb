@@ -1,0 +1,37 @@
+<div id="page_title">Licences for <%= @company.company_name %></div>
+
+<div id="line_admin"></div> 
+
+
+  <%= licence_status(@active_licences.count, @account.no_licence) %>
+
+
+<div id="edit_box_half">
+
+  <table>
+    <tr>
+      <th width ="170" style="padding-left: 15px; padding-bottom: 5px" >Name</td>
+      <th width ="250" style="padding-left: 15px; padding-bottom: 5px" >Email</td>
+      <th width ="100" style="padding-bottom: 5px" >Created</td>
+      <th width ="80" style="padding-bottom: 5px" >Log-ins</td>
+      <th width ="150" style="padding-bottom: 5px" >Last Log-in</td>
+    </tr>
+  </table>
+
+  
+  <% @licences.each do |licence|%>
+    <div class="licence_table" class="<%= licence.user_id%>">
+    <div id = "licence_name"><%= licence.user.first_name %> <%= licence.user.surname %></div>
+      <div id = "licence_email"><%= licence.user.email %></div>
+      <div id = "licence_created"><%= created(licence) %></div>
+      <div id = "licence_vists"><%= number_times_logged_in(licence) %></div>
+      <div id = "licence_seen"><%= last_seen(licence) %></div>
+      <%= check_active(licence) %>
+      <%= locked_at(licence) %>
+    </div>
+  <%end%>
+</div>
+
+<%= add_user(@active_licences.count, @account.no_licence, current_user.company_id) %>
+
+

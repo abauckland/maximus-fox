@@ -1,0 +1,79 @@
+<div id="project_info">
+  <div class = "edit_subsection_title">Create new clause in <%=@current_subsection.subsection_full_code_and_title%></div>
+</div>
+
+
+<div id="option_band">
+  <div id="back_button"><%= link_to "back", {:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :project_id => @current_project.id, :subsection => @current_subsection.id} %></div>
+</div>
+
+<%= form_for @clause do |f| %>
+<div id="edit_box">
+		
+	
+
+		<%= f.hidden_field(:project_id, {:value => @current_project.id})%>  
+		<%= hidden_field_tag(:specline_id, @selected_specline_id)%> 
+	<div id="prj_details">
+    	<table>
+    		<tr>
+    			<td style="color: #245893; font-style: italic" colspan = 5>Complete new clause reference and title:</td>
+    		</tr>
+       		<tr>
+    			<td width ='75'>Reference:</td>
+    			
+				<%= f.fields_for :clauseref do |ref| %>
+      				<td width ='20'><%=@current_subsection.subsection_code%>.</td>
+      				<td width ='90'><%= ref.text_field :full_clause_ref, :size => 2 %></td>
+      				
+      				<%= ref.hidden_field(:subsection_id, {:value => @current_subsection.id})%> 
+				<% end %>   
+
+				<td width ='75'>Clause Title:</td>
+				<td>
+				<%= f.text_field :title_text, :size => 75, :blank => true %>
+    			</td>
+    		</tr>
+    		</table>
+    		
+    		<table>
+    		<% if flash.any? %> 
+    			<tr><td><%= flash[:error] %></td></tr>
+    		<% end %> 
+    		
+    		<% if @clause.errors.any? %> 
+				<tr><td><%= error_check(@clause, :'clauseref.full_clause_ref')%></td></tr>	
+				<tr><td><%= error_check(@clause, :'title_text')%></td></tr>
+			<% end %> 
+    		</table>
+    		
+	</div>
+	<div id="prj_details">
+    	<table>    	
+      		<tr><td style="color: #245893; font-style: italic" >Select content of new clause:</td></tr>
+      		<tr><td><%= radio_button_tag :clause_content, 'blank_content', :checked => true %> Blank content suitable for editing.</td></tr>
+      		<tr><td><%= radio_button_tag :clause_content, 'clone_content' %>  Clone content from:</td></tr>
+      		<tr><td>
+      			<div id ="clone_select">
+      				<table><tr><td>
+      						Project/Template:
+      						</td>
+      						<td>
+      							<%= select_tag "clone_template_id", options_from_collection_for_select(@projects, :id, :project_code_and_title, @current_project.id), {:disabled => true} %>
+						</td></tr>
+						<tr><td>
+      						Project Clause:
+      						</td>
+      						<td>
+      						<%= select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title, @current_clone_clause.id), {:disabled => true} %>
+ 					</td></tr>
+ 					</table>
+ 				</div>	     		
+      		</td></tr>
+    	</table>
+	</div>
+
+</div>
+<div id="bottom_button"><%= f.submit 'Find/Create' %></div> 
+<%end %>
+ 

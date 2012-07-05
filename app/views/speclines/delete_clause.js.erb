@@ -1,0 +1,9 @@
+var substr = <%=@array_of_lines_deleted%>
+
+$('table#<%=@clause_title_to_delete%>').hide();
+
+var i;
+for (i = 0; i < substr.length; ++i) {
+$("table#" + substr[i]).hide();
+}
+

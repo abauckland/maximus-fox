@@ -1,0 +1,60 @@
+<div id="page_title">Edit Company Details</div>
+
+<div id="line_admin"></div>
+
+  <% if @company.errors.any? %>  
+  <div id="company_edit_error">  
+    <%= pluralize(@company.errors.count, "error") %> prohibited this account from being updated 
+  </div>  
+  <% end %>
+
+
+<div id="edit_box">
+
+<%= form_for @company, :html => { :multipart => true } do |f| %>
+      <%= hidden_field_tag('current_project', @current_project.id)%>
+      <p>
+      <label>Registered Name:</label> 
+      <%= f.text_field :reg_name, {:size => 40, :onchange => "this.form.submit();"} %>
+      </p>
+      
+      <p>
+      <label>Company Number:</label> 
+      <%= f.text_field :reg_number, {:size => 20, :onchange => "this.form.submit();"} %>
+      </p>
+      
+      <p>
+      <label>Registered Address:</label> 
+  <%= f.text_field :reg_address, {:size => 60, :onchange => "this.form.submit();"} %>
+      </p>
+      
+      <p>
+      <label>Registered Location:</label> 
+  <%= f.text_field :reg_location, {:size => 40, :onchange => "this.form.submit();"} %>
+      </p>
+      
+      <p>
+      <label>Telephone No:</label> 
+      <%= f.text_field :tel, {:size => 20, :onchange => "this.form.submit();"} %>
+      <%= error_check(@company, :tel)%>
+      </p>
+      
+      <p>
+      <label>Website Address:</label> 
+      <%= f.text_field :www, {:size => 40, :onchange => "this.form.submit();"} %>
+      </p>
+      
+      <p>
+      <label><%= f.label :photo, "Company Logo:" %></label> 
+        <%= @company.photo_file_name%>
+      </p>
+      <p>
+        <label>Change Logo:</label>
+        <%= f.file_field :photo, {:onchange => "this.form.submit();"}  %>
+      </p>
+
+</div>
+
+<% end %>
+
+</div>

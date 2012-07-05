@@ -1,0 +1,57 @@
+    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
+    <html>  
+      <head>  
+    <%= stylesheet_link_tag 'specright-ff' if !mobile_device?  %>
+      <%= stylesheet_link_tag 'specright-mobile' if mobile_device? %> 
+    
+    <%= javascript_include_tag   'jquery', 'rails.js', 'jquery.idTabs.min', 'autocomplete-rails.js', 'application' if !mobile_device?  %>
+      <%= javascript_include_tag   'jquery', 'rails.js', 'mobile' if mobile_device? %>
+    </head>  
+      <body>
+ 
+  <div class="current">  
+
+    <div id="toolbar"> 
+      <%= link_to "Back", {:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline_clause_subsection.subsection_id}, :class => "back", :rel => "external" %>
+      <h2>    
+        <table>
+        <tr><td><%= @current_project.code %> rev <%= @current_revision_rev %></td></tr>
+        <tr><td><%= @specline.clause.clause_code %></td></tr>
+        </table>      
+      </h2>
+      <%= link_to "Change Linetype", {:controller => "speclines", :action => "mob_change_linetype", :id => @specline.project_id, :specline_id => @specline.id}, :class => "change_linetype", :rel => "external"   %>  
+    </div>  
+
+       
+  <%= form_for @specline, :url => mob_line_update_specline_path(@specline) do |f| %> 
+
+    
+    <ul>
+      <% if @specline.linetype_id == 4%>
+        <li class='specline_type'>Prefix (automatically assigned)</li>
+        <li class='specline_type'>Text</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+      <% elsif @specline.linetype_id == 3%>
+        <li class='specline_type'>Prefix (automatically assigned)</li>
+        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+      <% elsif @specline.linetype_id == 5%>
+        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text %></li>
+        <li class='specline_type'>Product Attribute</li><li class='specline_edit' ><%= f.text_area :txt6_text %></li>
+      <% elsif @specline.linetype_id == 6%>
+        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+      <% elsif @specline.linetype_id == 7%>
+        <li class='specline_type'>Text</li><li class='specline_edit'><%= f.text_area :txt4_text %></li>
+      <% elsif @specline.linetype_id == 8%>
+        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+      <% end %> 
+    </ul>
+    <%= f.submit "Save" %>
+  <% end %>
+
+  
+</div>     
+</body>  
+</html> 

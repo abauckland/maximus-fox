@@ -1,0 +1,34 @@
+<div id="page_title_2">EDIT USER DETAILS</div>
+
+<div id="line"></div>
+
+<div id="about_box_less">
+<%= form_for(@user, :url => update_user_details_user_path(@user), :html => { :method => :put }) do |f| %>
+
+
+  <table>
+      <tr>
+      <td width ="160"><%= f.label :first_name %>:</td><td><%= f.text_field :first_name %></td>
+    </tr>
+        <tr>
+      <td width ="160"><%= f.label :surname %>:</td><td><%= f.text_field :surname %></td>
+    </tr>
+    <tr>
+      <td width ="160"><%= f.label :email %>:</td><td><%= f.text_field :email %></td>
+    </tr>
+    <tr>
+      <td width ="160">New Password:</td><td><%= f.password_field :password %></td><td><i>(leave blank if you don't want to change it)</i></td>
+    </tr>
+
+
+  </table>
+</div>
+
+<div id="bottom_button">
+<%= f.submit "Update" %>Unhappy? <%= link_to "Cancel my account", nil, :confirm => "Are you sure?", :method => :delete %>.
+</div>
+<% end %>
+
+
+
+</div>
