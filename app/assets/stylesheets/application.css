@@ -5,9 +5,10 @@
  
 
  *= require_self
+
+*= require jquery.selectBox.css.scss
+*= require specright-ff.css.scss
+*= require guides.css.scss
+*= require suppliers.css.scss
+*= require sponsors.css.scss   
 */
-@import "jquery.selectBox.css.scss";
-@import "specright-ff.css.scss";
-@import "guides.css.scss";
-@import "suppliers.css.scss";
-@import "sponsors.css.scss";
