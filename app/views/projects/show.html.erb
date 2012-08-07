@@ -29,7 +29,7 @@
     <%= link_to "add/delete sections", {:controller => "projects", :action => "manage_subsections"}%>                                                      
   </div>
   
-  <%= guidance_check(@current_project.id, @selected_key_subsection.id) %>
+  <%= guidance_link(@current_project.id, @selected_key_subsection.id) %>
   
 </div>
 

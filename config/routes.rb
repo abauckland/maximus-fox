@@ -24,10 +24,15 @@ SpecrightDev::Application.routes.draw do
   resources :publics
   resources :clauserefs
   resources :features
-  resources :guides
+  resources :guidenotes
+
+  resources :guidedownloads
   resources :sessions
   resources :posts do
     resources :comments
+  end
+  resources :guidepdfs do
+    get :download_guides, :on => :member
   end
 
   resources :clausetitles do

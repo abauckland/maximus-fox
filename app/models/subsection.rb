@@ -3,6 +3,7 @@ class Subsection < ActiveRecord::Base
 has_many :clauserefs
 has_many :sponsors
 belongs_to :section
+belongs_to :guidepdf
 
 def subsection_code
     section.ref.to_s + sprintf("%02d", ref).to_s

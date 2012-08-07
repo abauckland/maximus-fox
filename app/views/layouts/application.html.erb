@@ -49,7 +49,7 @@
 
 <%= yield %>
 
-
+<% if params[:controller] != 'posts' %>
 
   <div id="foot_bar">
       <div id="foot_item"><%= link_to "About Us", about_us_path, :class => check_current('abouts', 'abouts')%></div>
@@ -58,6 +58,8 @@
       
       <div id="foot_links"><%= link_to image_tag("twitter.png", :width=> 20, :height=>20, :border=> 0), "https://twitter.com/#!/specright"%></div>
   </div>
+<% end %>
+  
 </div>
 </body>
 </html>
