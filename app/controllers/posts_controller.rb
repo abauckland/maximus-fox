@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+
+
+
   # GET /posts
   # GET /posts.xml
   def index
@@ -21,7 +24,7 @@ class PostsController < ApplicationController
   # GET /posts/1.xml
   def show
     @post = Post.find(params[:id])
-    
+@comment = Comment.new(params[:post])
     @topics = Post.all.collect{|i| i.topic}.uniq.sort
 
     respond_to do |format|
@@ -35,6 +38,7 @@ class PostsController < ApplicationController
   def new
     @post = Post.new
 
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @post }

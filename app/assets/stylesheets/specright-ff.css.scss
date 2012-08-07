@@ -1895,7 +1895,7 @@ height: 20px;
 #price_col{
 }
 
-#terms_box, #about_box, #about_box_small, #post_box, #comment_box_1, #comment_box_2, #about_box_less {
+#terms_box, #about_box, #post_box, #comment_box_1, #comment_box_2, #about_box_less {
   position: absolute;
   top: 140px;
   left: 20px;
@@ -1911,6 +1911,19 @@ height: 20px;
   color: #000;
   }
 }
+
+#about_box_small{
+  position: absolute;
+  top: 140px;
+  left: 20px;
+  width: 950px;
+  padding: 5px 5px 5px 5px;
+      color: #000;
+  td{
+  color: #000;
+  }
+}
+
 
 #comment_box_1 {
   height: 300px;
@@ -2083,7 +2096,7 @@ height: 20px;
 
 #blog_line {
   float: left;
-  width: 730px;
+  width: 750px;
   height: 1px;
   border-top: 1px solid #bebebe;
 }
@@ -2124,6 +2137,7 @@ height: 20px;
   position: absolute;
   top:   140px;
   left: 820px;
+
 }
 
 #blog_index_title{
@@ -2146,23 +2160,27 @@ height: 20px;
   left: 0px;
   width: 250px;
   font: normal 14px arial;
+  color: $title-colour;
   ul{
   padding: 0px;
   margin: 0px;
   };
     li {
   list-style-type: none;
+  color: $title-colour;
   };
     a {
-  color: #000;
+  color: $title-colour;
   };
 }
 
 .current_topic {
   font: bold 14px arial;
+    &:hover{text-decoration: underline;}
 }
 
 .not_topic{
+    &:hover{text-decoration: underline;}
 }
 
 

@@ -7,7 +7,7 @@ has_many :speclines, :uniq => true
 
 belongs_to :clauseref, :include => [:clausetype]
 belongs_to :clausetitle
-belongs_to :guide
+belongs_to :guidenote
 
 has_many :associations
 has_many :associates, :through => :associations

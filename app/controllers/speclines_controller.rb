@@ -782,10 +782,9 @@ end
 def guidance
 
       @selected_specline = Specline.where('id =?', params[:spec_id]).first
+      #clause = Clause.includes(:clauseref).where('id =?', params[:id]).first
 
-      clause = Clause.includes(:clauseref).where('id =?', params[:id]).first
-
-      @guide = Guide.where('id =?', clause.guide_id).first
+      @guidenote = Guidenote.includes(:clause).where('clauses.id =?', params[:id]).first
       @guide_sponsors = Sponsor.includes(:supplier).where(:subsection_id => clause.clauseref.subsection_id)
 
 

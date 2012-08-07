@@ -58,7 +58,7 @@ layout "projects"
     if params[:section].blank?
       if params[:subsection].blank?     
           @selected_key_section = @project_sections.first
-          @selected_key_subsection = Subsection.select('id, www').where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first    
+          @selected_key_subsection = Subsection.select('id, guidepdf_id').where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first    
       else         
           @selected_key_subsection = Subsection.find(params[:subsection])
           @selected_key_section = Section.select('id').where(:id => @selected_key_subsection.section_id).first
@@ -75,7 +75,7 @@ layout "projects"
     selected_clauses = Clause.joins(:clauseref).select('DISTINCT(clauses.id)').where('clauses.id' => @current_project_clause_ids, 'clauserefs.subsection_id' => @selected_key_subsection.id)
     array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
 
-    @selected_specline_lines = Specline.includes(:clause => [:clausetitle, :guide, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+    @selected_specline_lines = Specline.includes(:clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
 
     
     #establish list of clausetypes to build tabulated view in show    

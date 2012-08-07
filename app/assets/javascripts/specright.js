@@ -146,9 +146,14 @@ $('#password').focusout(function() {
 
 
 
-$("#firstpane p.menu_head").click(function()
+$("#firstpane p.menu_head").mouseover(function()
 {
-    $(this).css({backgroundImage:"url(feature.png) repeat-x"}).next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");
+    $(this).css({backgroundImage:"url(feature.png) repeat-x"}).next("div.menu_body").show();
+    $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
+});
+$("#firstpane p.menu_head").mouseout(function()
+{
+    $(this).css({backgroundImage:"url(feature.png) repeat-x"}).next("div.menu_body").hide();
     $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
 });
 //end of wen site jquery
