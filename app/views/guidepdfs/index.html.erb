@@ -1,0 +1,44 @@
+<div id="page_title">Guidance Note Download</div>
+  
+
+
+<div id="line"></div>
+
+<div id="usp">
+	<div id="feature_text_1">
+		
+<p>We are continually expanding our range of templates and guidance notes. If you would like to keep informed of updates and new releases follow us on twitter or sign up for email notifications below.</p>		
+<!-- Begin MailChimp Signup Form -->
+<table>
+<form action="http://bubbleenterprises.us2.list-manage.com/subscribe/post?u=a0295a52484ead8ca409d2f76&amp;id=f8f6d334c5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+<tr>	
+<td width="230px">Subscribe for email notification</td>
+<td ><input type="email" value="" name="EMAIL"  placeholder="email address" required></td>
+<td><input type="submit" value="Subscribe" name="subscribe" id="#small_trial_link"></td>
+</tr>
+</form>
+</table>
+<!--End mc_embed_signup-->		
+		
+		
+	</div>
+	<div id="feature_text_2">
+	 	
+	 	<%= form_tag(guidepdfs_path) do %>
+     <table>
+      <tr>Select Guidance Notes to Download:</td>
+      </tr>
+      <tr>
+        <td>     
+			<%= select_tag "subsection_ids", options_from_collection_for_select(@guidepdfs, :subsection_id, :subsection_full_code_and_title), :multiple => true, :size => 26 %>    
+        </td>
+      </tr>
+      <tr>
+        <td>
+			<%= submit_tag "download selected guidance", :class=>"edit_submit" %>
+        </td>
+      </tr>
+     </table>
+		<% end %>
+	</div>
+</div>
