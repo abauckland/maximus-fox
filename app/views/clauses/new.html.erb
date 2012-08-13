@@ -38,7 +38,7 @@
     		
     		<table>
     		<% if flash.any? %> 
-    			<tr><td><%= flash[:error] %></td></tr>
+    			<tr><td style="color: red"><%= flash[:error] %></td></tr>
     		<% end %> 
     		
     		<% if @clause.errors.any? %> 
@@ -55,7 +55,8 @@
       		<tr><td><%= radio_button_tag :clause_content, 'clone_content' %>  Clone content from:</td></tr>
       		<tr><td>
       			<div id ="clone_select">
-      				<table><tr><td>
+      				<table>
+      					<tr><td>
       						Project/Template:
       						</td>
       						<td>
@@ -66,7 +67,7 @@
       						</td>
       						<td>
       						<%= select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title, @current_clone_clause.id), {:disabled => true} %>
- 					</td></tr>
+ 						</td></tr>
  					</table>
  				</div>	     		
       		</td></tr>

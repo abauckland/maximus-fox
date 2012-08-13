@@ -47,7 +47,7 @@ layout "projects"
 
     clone_clause_ids = Specline.where(:project_id => @current_project.id).collect{|i| i.clause_id}.uniq
     @clone_clauses = Clause.joins(:clauseref, :clausetitle).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
-    @current_clone_clause = @clone_clauses.first
+    @current_clone_clause = Clause.first#@clone_clauses.first
 
 
     current_clauseref = Specline.joins(:clause => :clauseref).where(:project_id => @current_project, 'clauserefs.subsection_id' => params[:clause][:clauseref_attributes][:subsection_id], 'clauserefs.clausetype_id' => params[:clause][:clauseref_attributes][:full_clause_ref][0,1], 'clauserefs.clause' => params[:clause][:clauseref_attributes][:full_clause_ref][1,2], 'clauserefs.subclause' => params[:clause][:clauseref_attributes][:full_clause_ref][3,1]).first
@@ -59,7 +59,9 @@ layout "projects"
       end
     else
       #check not case sensitive
-      clausetitle_check = Clausetitle.where(:text => params[:clause][:title_text]).first
+      clausetitle_check = Specline.joins(:clause => [:clauseref, :clausetitle]).where(:project_id => @current_project, 'clauserefs.subsection_id' => params[:clause][:clauseref_attributes][:subsection_id], 'clausetitles.text' => params[:clause][:title_text]).first
+
+      #clausetitle_check = Clausetitle.where(:text => params[:clause][:title_text]).first
       if !clausetitle_check.blank?
         flash.now[:error] = 'A clause with the same title already exists in this Work Section'        
         respond_to do |format|

@@ -65,7 +65,7 @@ layout "projects"
       end
     else
           @selected_key_section = Section.select('id').where(:id => params[:section]).first
-          @selected_key_subsection = Subsection.select('id, www').where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first      
+          @selected_key_subsection = Subsection.where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first      
     end
     @selected_subsections = Subsection.where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id)
 
