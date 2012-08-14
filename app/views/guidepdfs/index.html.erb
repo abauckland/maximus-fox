@@ -6,11 +6,11 @@
 
 <div id="usp">
 	<div id="feature_text_1">
-		
-<p>We are continually expanding our range of templates and guidance notes. If you would like to keep informed of updates and new releases follow us on twitter or sign up for email notifications below.</p>		
+<p>Specright provides FREE to download specification Guidance Notes. Written by Architects in collaboration with leading manufacturers they are updated on a regular basis.</p>		
+<p>We are continually expanding our range of guidance notes. If you would like to keep informed of updates and new releases follow us on twitter or sign up for email notifications below.</p>		
 <!-- Begin MailChimp Signup Form -->
 <table>
-<form action="http://bubbleenterprises.us2.list-manage.com/subscribe/post?u=a0295a52484ead8ca409d2f76&amp;id=f8f6d334c5" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+<form action="http://specright.us5.list-manage.com/subscribe/post?u=023f024767796ab065700e0dc&amp;id=01239b3a0f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
 <tr>	
 <td width="230px">Subscribe for email notification</td>
 <td ><input type="email" value="" name="EMAIL"  placeholder="email address" required></td>
@@ -18,24 +18,23 @@
 </tr>
 </form>
 </table>
-<!--End mc_embed_signup-->		
-		
-		
+<!--End mc_embed_signup-->				
+<p>If you have any comments regarding the contents of our Guidance Notes, would be interested in contributing or would like to see a Guidance Note for a particular Works Section please do contact us.</p>		
 	</div>
 	<div id="feature_text_2">
 	 	
-	 	<%= form_tag(guidepdfs_path) do %>
+	 	<%= form_tag(:action => "download", :id => 1) do %>
      <table>
-      <tr>Select Guidance Notes to Download:</td>
+      <tr>Select Guidance Note(s) to Download:</td>
       </tr>
       <tr>
         <td>     
-			<%= select_tag "subsection_ids", options_from_collection_for_select(@guidepdfs, :subsection_id, :subsection_full_code_and_title), :multiple => true, :size => 26 %>    
+			<%= select_tag :subsection_ids, options_from_collection_for_select(@guidepdfs, :id, :title), :multiple => true, :size => 26 %>    
         </td>
       </tr>
       <tr>
         <td>
-			<%= submit_tag "download selected guidance", :class=>"edit_submit" %>
+			<%= submit_tag "download selected Guidance Notes", :class=>"edit_submit" %>
         </td>
       </tr>
      </table>

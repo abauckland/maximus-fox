@@ -24,7 +24,7 @@
     			
 				<%= f.fields_for :clauseref do |ref| %>
       				<td width ='20'><%=@current_subsection.subsection_code%>.</td>
-      				<td width ='90'><%= ref.text_field :full_clause_ref, :size => 2 %></td>
+      				<td width ='90'><%= ref.text_field :full_clause_ref, :size => 2%></td>
       				
       				<%= ref.hidden_field(:subsection_id, {:value => @current_subsection.id})%> 
 				<% end %>   

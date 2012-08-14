@@ -72,8 +72,18 @@ layout "projects"
       #if clausetitle_id and clauseref_id are in use in clause do not create new clause record but usse existing to create speclines  
                   
       else    
-        respond_to do |format|
+
           if @clause.save
+            #create title line
+              @new_specline = Specline.new do |n|
+                n.project_id = @current_project.id
+                n.clause_id = @clause.id
+                n.clause_line = 0
+                n.linetype_id = 1
+              end
+              @new_specline.save
+              @clause_change_record = 2      
+              record_new
             #get information on content to be created
                 clausetype_id = params[:clause][:clauseref_attributes][:full_clause_ref][0,1]
                 
@@ -86,7 +96,7 @@ layout "projects"
                   when '6' ;  @linetype_id = 7
                 end
           
-            if params[:clause_content] == 'blank_content'
+            if params[:clause_content] == 'blank_content'              
               @new_specline = Specline.new do |n|
                 n.project_id = @current_project.id
                 n.clause_id = @clause.id
@@ -97,19 +107,21 @@ layout "projects"
               @clause_change_record = 2      
               record_new
             else  
-              clone_speclines = Specline.where('clause_id = ? AND project_id = ? AND clause_line > ?', params[:clone_clause], params[:clone_project], 0)
-           
+ 
+              clone_speclines = Specline.where('clause_id = ? AND project_id = ? AND clause_line > ?', params[:clone_clause_id], params[:clone_template_id], 0)         
               clone_speclines.each do |clone_line|
-                @new_specline = Specline.new(clone_line.attributes.merge({:project_id => project_id, :clause_id => @clause.id}))      
+                @new_specline = Specline.new(clone_line.attributes.merge({:project_id => @current_project.id, :clause_id => @clause.id}))      
                 @new_specline.save
                 @clause_change_record = 2
                 record_new
               end            
             end
-            
+         
+            redirect_to(:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :subsection_id => @current_subsection.id, :clausetype_id => 1)
             #render to manage clauses page 
-            format.html { render :action => "new"}
+            #format.html { render :action => "new"}
           else
+          respond_to do |format|
             format.html { render :action => "new"}
             format.xml  { render :xml => @clause.errors, :status => :unprocessable_entity }
           end

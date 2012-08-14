@@ -1,22 +1,22 @@
 class GuidepdfsController < ApplicationController
 
 #before_filter :require_user, :except => [:index]
-layout "application", :except => [:show]
+layout "application", :except => [:show, :new]
 
  def index
-  @guidepdfs = Guidepdf.includes(:subsection => :section).all#.order('sections.id, subsections.id')
+  @guidepdfs = Guidepdf.includes(:subsections => :section).all#.order('sections.id, subsections.id')
  end
 
 
- def show
-   guidepdfs = Guidepdf.where(:subsection_id => params[:subsection_ids])#.collect{|i| i.id}
+ def download
+   guidepdf_ids = Subsection.where(:id => params[:subsection_ids])#.collect{|i| i.id}
    
-   #guidepdf = Guidepdf.where(:subsection_id => params[:subsection_id]).first
+   guidepdfs = Guidepdf.where(:id => guidepdf_ids)
    
    if guidepdfs
-    guidepdfs.each do |guidepdf| 
-      #have to change config files to get app to send file
-      send_file("#{Rails.root}/public#{guidepdf.pdf.url.sub!(/\?.+\Z/, '') }", :type => 'application/pdf', :filename => guidepdf.photo_file_name)   
+    guidepdfs.each do |guidepdf|
+
+      send_file("#{Rails.root}/public#{guidepdf.photo.url.sub!(/\?.+\Z/, '') }", :type => 'application/pdf', :filename => guidepdf.photo_file_name)   
    
       #record download
       #capture IP address
@@ -27,7 +27,5 @@ layout "application", :except => [:show]
    end
  end
 
-
-
-
 end
+ 

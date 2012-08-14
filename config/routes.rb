@@ -31,9 +31,7 @@ SpecrightDev::Application.routes.draw do
   resources :posts do
     resources :comments
   end
-  resources :guidepdfs do
-    get :download_guides, :on => :member
-  end
+
 
   resources :clausetitles do
     get :autocomplete_clausetitle_text, :on => :collection
@@ -48,7 +46,7 @@ SpecrightDev::Application.routes.draw do
     get :edit_user_details, :on => :member
     get :update_licence_status, :on => :member
     get :unlock_user, :on => :member
-        get :unlocked, :on => :member
+    get :unlocked, :on => :member
     member do
       put :update_licence_status
       put :update_user_details
@@ -118,6 +116,11 @@ SpecrightDev::Application.routes.draw do
   resources :changes do
     get :reinstate, :on => :member
     get :reinstate_clause, :on => :member
+  end
+
+  resources :guidepdfs do
+    post :download, :on => :member
+    #get :download, :on => :member
   end
   
 end
