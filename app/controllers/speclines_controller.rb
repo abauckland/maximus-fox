@@ -802,12 +802,18 @@ def mob_edit_specline
     @specline = Specline.where('id =?', params[:specline_id]).first
     current_revision_render(@current_project)
     @specline_clause_subsection = Clause.where(:id => @specline.clause_id).first  
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
 end
 
 def mob_change_linetype
     current_revision_render(@current_project)    
     @linetypes = Linetype.where("id > ?", 2)
     @specline = Specline.where('id =?', params[:specline_id]).first       
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
 end
 
 def mob_update
@@ -912,7 +918,9 @@ def mob_specline_templates
     @selectable_templates = Project.where(:id => relevant_templates_array) 
 
 
-
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
 end
 
 def mob_show_clauses
@@ -933,6 +941,9 @@ def mob_show_clauses
 
     @current_subsection_id =params[:subsection_id]
 
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
 end
 
 def mob_show_clauses_del
@@ -944,6 +955,9 @@ def mob_show_clauses_del
     @current_subsection_clauses = Clause.joins(:clauseref).where(:id => current_specline_clause_array, 'clauserefs.subsection_id' => params[:subsection_id]).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
 
     @current_subsection_id =params[:subsection_id]
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
 end
 
 
@@ -964,7 +978,7 @@ def mob_add_clause
     #@last_available_clause = []
 
 
-    #redirect_to(:controller => "speclines", :action => "mob_show_clauses", :id => @current_project.id, :subsection_id => params[:subsection_id], :template_id => params[:template_id])
+    #redirect_to(:controller => "speclines", :action => "mob_show_clauses", :id => @current_project.id, :subsection_id => params[:subsection_id], :template_id => params[:template_id])  
 end
 
 
@@ -1086,7 +1100,7 @@ end
    # end
     
     
-    #redirect_to(:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline.clause.subsection_id)   
+    #redirect_to(:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline.clause.subsection_id)    
   end
 
 

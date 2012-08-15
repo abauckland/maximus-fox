@@ -6,7 +6,7 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <meta name="google-site-verification" content="cop_cwN1MoCJd6HTFIZ18oRjhp4JmxbCt3_JQ2StDN0" />
   <title></title>
-    <%= stylesheet_link_tag  'application' %>   
+    <%= stylesheet_link_tag  'application-main' %>   
     <%= javascript_include_tag 'application' %>
     
     <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
@@ -25,14 +25,10 @@
       <div id="menu_item"><%= link_to "BLOG", posts_path, :class => check_current('posts', 'posts')%></div>
     </div>
   
-
-     
     <%= form_tag sessions_path do %>
     <div id="login">       
-        <%= text_field_tag :email, params[:email], :id=>"login_email_default", :value=>"Email address", :size => 25 %>
-          <%= text_field_tag :email, params[:email], :id=>"login_email", :size => 25 %>  
-        <%= text_field_tag :password, params[:password], :id=>"password_instructions", :size => 12, :value=>"Password" %> 
-          <%= password_field_tag :password, params[:password], :id=>"password", :size => 12 %>  
+          <%= text_field_tag :email, params[:email], :id=>"login_email", :placeholder => "Email address", :size => 25 %>  
+          <%= password_field_tag :password, params[:password], :id=>"password", :placeholder => "Password", :size => 12 %>  
      </div>               
      <div id="login_submit">
         <%= submit_tag :login, :class => "login_submit"%> 

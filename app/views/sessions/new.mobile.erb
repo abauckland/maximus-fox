@@ -1,23 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <div id="toolbar">  
+      <h1><%= image_tag ("specright_logo.png"), :width => 108, :height=> 33%></h1>  
+		  <%= link_to "Full Site", root_url(:mobile => 0), :class => "full_site", :rel => "external" %>
+    </div> 
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Projects: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'specright-mobile'%> 
-  <%= javascript_include_tag   'jquery', 'rails.js', 'jquery.jeditable', 'autocomplete-rails.js', 'mobile' %>
-  
-  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
-</head>
-<body>
-
-<div id="toolbar">
-
-  <div id="logo"><%= image_tag ("specright_logo.png"), :width => 120, :height=> 36%></div>
-  <%= link_to "Full Site", root_url(:mobile => 0), :class => "full_site", :rel => "external" %>
-</div>  
-  
   <%= form_tag sessions_path do %> 
     <div id="login">
       <table>
@@ -27,12 +12,10 @@
         </tr>
         <tr>
           <td id="login_text">Password:</td>
-          <td id="login_field"><%= password_field_tag :password %></td>
+          <td id="login_password"><%= password_field_tag :password %></td>
         </tr>
       </table>
     <div id="login_submit"><%= submit_tag :login, :class => "login_submit" %></div>
     </div>
   <% end %>
       
-</body>  
-</html>

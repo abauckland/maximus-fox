@@ -1,14 +1,4 @@
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
-    <html>  
-      <head>   
-        <%= stylesheet_link_tag 'specright-mobile' %>  
-        <%= javascript_include_tag   'jquery', 'rails.js', 'mobile' %>
-        <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>     
-      </head>  
-      <body>
- 
-  <div class="current">  
+<div class="current">  
   
     <div id="toolbar">  
       <%= link_to "Back", {:controller => "speclines", :action => "mob_edit_specline", :id => @specline.project_id, :specline_id => @specline.id}, :class => "back", :rel => "external" %>
@@ -29,16 +19,10 @@
       </div>  
     <% end %>
     
-       
-  
+         
     <ul>
       <% @linetypes.each do |linetype| %> 
         <li class="arrow"><%= link_to "#{linetype.description}", {:controller => "speclines", :action => "mob_update", :id => @specline.project_id, :specline_id => @specline.id, :linetype => linetype.id}%></li>
       <% end %>
-    </ul>
-  
-  
-  
+    </ul>  
 </div>     
-</body>  
-</html> 

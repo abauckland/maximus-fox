@@ -6,7 +6,7 @@ before_filter :prepare_for_mobile
   
         respond_to do |format|  
         format.html 
-        format.mobile 
+        format.mobile {render :layout => "mobile"}
       end 
   
     

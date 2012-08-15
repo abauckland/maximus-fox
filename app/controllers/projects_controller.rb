@@ -24,7 +24,7 @@ layout "projects"
     #render :layout => false
       respond_to do |format|  
         format.html 
-        format.mobile 
+        format.mobile {render :layout => "mobile"}
       end    
   end
           
@@ -93,7 +93,7 @@ layout "projects"
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @project }
-        format.mobile
+        format.mobile {render :layout => "mobile"}
       end 
     end
   end
@@ -101,14 +101,23 @@ layout "projects"
   def project_sections
 
     current_revision_render(@current_project)
-    @project_sections = Section.joins(:subsections => [{:clauserefs => [{:clauses => :speclines}]}]).select('DISTINCT(sections.id)').where('speclines.project_id' => @current_project.id)    
+    project_section_ids = Section.joins(:subsections => [{:clauserefs => [{:clauses => :speclines}]}]).where('speclines.project_id' => @current_project.id).collect{|i| i.id}.uniq    
+    @project_sections = Section.where(:id => project_section_ids)    
+
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end    
   end
 
   def project_subsections
 
     current_revision_render(@current_project)
-    @project_subsections = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).select('DISTINCT subsections.id').where('speclines.project_id' => @current_project.id)   
+    project_subsection_ids = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id).collect{|i| i.id}.uniq    
+    @project_subsections = Subsection.where(:id => project_subsection_ids)
     @selected_key_section = Section.where(:id => params[:section]).first   
+      respond_to do |format|
+        format.mobile {render :layout => "mobile"}
+      end  
   end
 
 

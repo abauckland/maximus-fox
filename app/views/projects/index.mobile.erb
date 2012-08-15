@@ -1,14 +1,3 @@
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  
-      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">  
-    <html>  
-      <head>  
-    <%= stylesheet_link_tag 'specright-ff' if !mobile_device?  %>
-      <%= stylesheet_link_tag 'specright-mobile' if mobile_device? %> 
-    
-    <%= javascript_include_tag   'jquery', 'rails.js', 'jquery.idTabs.min', 'autocomplete-rails.js', 'application' if !mobile_device?  %>
-      <%= javascript_include_tag   'jquery', 'rails.js', 'mobile' if mobile_device? %>
-    </head>  
-      <body>
  
   <div class="current">  
 
@@ -24,8 +13,4 @@
   <li class="arrow"><%= link_to "#{project.code} #{project.title}", project_sections_project_path(project.id) %></li>    
   <% end %>
   </ul>    
-
-   
-  </div>     
-      </body>  
-    </html> 
+</div> 

@@ -18,14 +18,7 @@ def clausetypes
     clausetypes = Clausetype.all
 end
 
-#used for preliminaires section only
-#def get_subsection_speclines(current_project_id, subsection_id, clause_ids)
 
- #   array_of_selected_clauses = Clause.joins(:clauseref).where('clauses.id' => clause_ids, 'clauserefs.subsection_id' => subsection_id).collect{|item6| item6.id}.sort.uniq
-
-  # @selected_specline_lines = Specline.select('id, clause_id, clause_line, txt1_id, txt3_id, txt4_id, txt5_id, txt6_id, txt1s.id, txt1s.text, txt3s.id, txt3s.text, txt4s.id, txt4s.text, txt5s.id, txt5s.text, txt6s.id, txt6s.text, clauses.id, clauses.subsection_id, clauses.clausetype_id, clauses.clause, clauses.subclause, clauses.clausetitle_id, clauses.guidenote_id, clausetitles.id, clausetitles.text, subsections.id, subsections.ref, subsections.section_id, guidenotes.id, guidenotes.text').includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
-
-#end
 
 #switch statement to generate contents of each line depending on linetype_id
 def clausetype_filter(specline, clausetype, selected)
@@ -112,8 +105,8 @@ end
 
 def guidance_link(current_project_id, subsection_id)
  check_guide = Subsection.where(:id => subsection_id).first
-  if check_guide.guidepdf_id.nil?
-    "<div id='guidance_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'show', :subsection_ids => subsection_id}}</div>".html_safe
+  if !check_guide.guidepdf_id.nil?
+    "<div id='guidance_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'download', :subsection_ids => subsection_id}}</div>".html_safe
   end
 end
 
@@ -125,6 +118,16 @@ end
 
 
 #MOBILE HELPER METHODDS
+#used for preliminaires section only
+def get_subsection_speclines(current_project_id, subsection_id, clause_ids)
+
+    array_of_selected_clauses = Clause.joins(:clauseref).where('clauses.id' => clause_ids, 'clauserefs.subsection_id' => subsection_id).collect{|item6| item6.id}.sort.uniq
+
+   @selected_specline_lines = Specline.select('id, clause_id, clause_line, txt1_id, txt3_id, txt4_id, txt5_id, txt6_id, txt1s.id, txt1s.text, txt3s.id, txt3s.text, txt4s.id, txt4s.text, txt5s.id, txt5s.text, txt6s.id, txt6s.text, clauses.id, clauses.subsection_id, clauses.clausetype_id, clauses.clause, clauses.subclause, clauses.clausetitle_id, clauses.guidenote_id, clausetitles.id, clausetitles.text, subsections.id, subsections.ref, subsections.section_id, guidenotes.id, guidenotes.text').includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+
+end
+
+
 def mobile_filter(specline)
   
   @line = specline
