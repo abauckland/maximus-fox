@@ -21,7 +21,7 @@ top: 4px;
 left: 4px;
 right: 4px;
 height: 30px;
-background: url(guide_header.png) repeat-x;
+background: image-url('guide_header.png') repeat-x;
 @include corners-all;
 @include shadow-all;  
   
@@ -53,7 +53,7 @@ left: 7px;
   top: 5px;
   right: 6px;
   font: normal 12px verdana;
-  background: url(button_red.png) repeat-x;
+  background: image-url('button_red.png') repeat-x;
   border: none;
   padding: 3px 5px 3px 5px;  
   color: #fff;

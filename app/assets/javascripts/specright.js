@@ -107,42 +107,6 @@ $('.login').blur(function(){
 
 
 
-//login text and password field
-var $password = $('#login_email');
-        $password.hide(); //hide input with type=password
-
-        $("#login_email_default").click(function() {
-                $( this ).hide();
-                $('#login_email').show();
-                $('#login_email').focus();
-        });
-
-$('#login_email').focusout(function() {
-    if ($(this).val().length === 0) { //if password field is empty            
-        $(this).hide();
-        $('#login_email_default').show();
-        $('#login_email_default').default_value('Enter a password'); //will clear on click
-    }
-});
-
-
-
-var $password = $('#password');
-        $password.hide(); //hide input with type=password
-
-        $("#password_instructions").click(function() {
-                $( this ).hide();
-                $('#password').show();
-                $('#password').focus();
-        });
-
-$('#password').focusout(function() {
-    if ($(this).val().length === 0) { //if password field is empty            
-        $(this).hide();
-        $('#password_instructions').show();
-        $('#password_instructions').default_value('Enter a password'); //will clear on click
-    }
-});
 
 
 
@@ -156,7 +120,7 @@ $("#firstpane p.menu_head").mouseout(function()
     $(this).css({backgroundImage:"url(feature.png) repeat-x"}).next("div.menu_body").hide();
     $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
 });
-//end of wen site jquery
+//end of web site jquery
 
 
 //sets up the tabs for the edit window
@@ -570,8 +534,16 @@ $("#clone_template_id").change(function() {
 });
 
 
+$("#firstpane p.menu_head").click(function()
+{
+    $(this).css({backgroundImage:"url(feature.png) repeat-x"}).next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");
+    $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
+});
 
-Cufon.replace('#home_strapline');
+
+
+Cufon.replace('#home_strapline, #menu_item, #home_intro_text, #foot_item, .feature_title, #option_title, .extra_questions_link, .large_trial_link_text_1, .small_trial_link_text, .feature_title_small', { fontFamily: 'TitilliumText25L_800'});
+Cufon.replace('#home_intro_text, #home_intro_text_2, .login_submit', { fontFamily: 'TitilliumText25L_300'});
 
 //end
 });                                                              

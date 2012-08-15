@@ -32,7 +32,7 @@ body {
 
 #toolbar {
     height: 55px;
-    background: url(header_mob.png) repeat-x;
+    background: image-url('header_mob.png') repeat-x;
     position: relative;
     @include corners-all;
     @include shadow-all;
@@ -41,7 +41,8 @@ body {
 #logo {
   position: absolute;
   top: 6px;
-  left: 100px;
+  margin-left: auto;
+  margin-right: auto;
   border: inset 2px #555; 
 }
 
@@ -110,7 +111,7 @@ h3{
 
 .login_submit{
   font: normal 24px verdana;
-  background: url(button_green_mob.png) repeat-x;
+  background: image-url('button_green_mob.png') repeat-x;
   border: none;
   padding: 0px 0px 5px 0px;  
   color: #fff;
@@ -133,7 +134,7 @@ h3{
     font: bold 14px verdana;
     color: #fff;
     text-decoration: none;
-    background: url(button_green.png) ;
+    background: image-url('button_green.png');
     @include corners-all;
 }
 
@@ -142,46 +143,46 @@ h3{
     position: absolute;
     top: 13px;
     left: 12px;
-    background: url(button_green_mob.png) ;
+    background: image-url('button_green_mob.png');
     padding: 5px 15px 5px 15px; 
 }
 
 .logout {
     position: absolute;
     left: 12px;
-    background: url(button_red_mob.png) ;  
+    background: image-url('button_red_mob.png');  
 }
 
 .del, .full_site {
     position: absolute;
     right: 12px;
-    background: url(button_orange_mob.png) ; 
+    background: image-url('button_orange_mob.png') ; 
 }
 
 .del {
     position: absolute;
     right: 12px;
-    background: url(button_green_mob.png) ;
+    background: image-url('button_green_mob.png') ;
     padding: 5px 10px 5px 10px;   
 }
 
 .add {
     position: absolute;
     right: 90px;
-    background: url(button_green_mob.png);
+    background: image-url('button_green_mob.png');
     padding: 5px 20px 5px 20px;  
 }
 
 .change_linetype {
     position: absolute;
     right: 12px;
-    background: url(button_green_mob.png) ;
+    background: image-url('button_green_mob.png') ;
     padding: 5px 10px 5px 10px; 
 }
 
 
 .add:active, .del:active, .full_site:active, .logout:active {
-    -webkit-border-image: url(img/activeButton.png) 0 5 0 5;	
+    -webkit-border-image: image-url('img/activeButton.png') 0 5 0 5;	
 }
 
 
@@ -317,7 +318,7 @@ ul li input[type="checkbox"] {
   margin: 15px 12px 0px 0px;
   border: none;
   padding: 0px 0px 5px 0px;  
-  background: url(button_green_mob.png) repeat-x;
+  background: image-url('button_green_mob.png') repeat-x;
   @include corners-all;
   @include shadow-all;
   &:hover {
@@ -333,21 +334,21 @@ ul li.arrow_blank {
 
 ul li.arrow {
     color: black;
-    background-image: url(chevron.png);
+    background-image: image-url('chevron.png');
     background-position: right center;
     background-repeat: no-repeat;
 }
 
 ul li.add_arrow {
     color: black;
-    background-image: url(add.png);
+    background-image: image-url('add.png');
     background-position: 96% 55%;
     background-repeat: no-repeat;
 }
 
 ul li.del_arrow {
     color: black;
-    background-image: url(delete_mob.png);
+    background-image: image-url('delete_mob.png');
     background-position: 96% 55%;
     background-repeat: no-repeat;
 }
@@ -365,3 +366,6 @@ select, input {
     font-weight: bold;
 }
 
+input #password {
+display: block;
+}
