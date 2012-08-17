@@ -112,9 +112,10 @@ layout "projects"
   def project_subsections
 
     current_revision_render(@current_project)
-    project_subsection_ids = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id).collect{|i| i.id}.uniq    
+    @selected_key_section = Section.where(:id => params[:section]).first 
+    project_subsection_ids = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id, :section_id => @selected_key_section.id).collect{|i| i.id}.uniq    
     @project_subsections = Subsection.where(:id => project_subsection_ids)
-    @selected_key_section = Section.where(:id => params[:section]).first   
+  
       respond_to do |format|
         format.mobile {render :layout => "mobile"}
       end  
