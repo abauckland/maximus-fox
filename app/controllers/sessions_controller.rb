@@ -49,9 +49,9 @@ before_filter :prepare_for_mobile
       @licence = Licence.where('user_id = ?', user.id).first 
       @licence.failed_attempts = @licence.failed_attempts += 1
       if @licence.failed_attempts == 3
-        if user.role != 'admin'
+        #if user.role != 'admin'
           @licence.locked_at = 1
-        end
+        #end
       end      
       @licence.save 
       redirect_to home_path

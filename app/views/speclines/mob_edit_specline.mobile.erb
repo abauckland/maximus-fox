@@ -3,7 +3,7 @@
   <div class="current">  
 
     <div id="toolbar"> 
-      <%= link_to "Back", {:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline_clause_subsection.subsection_id}, :class => "back", :rel => "external" %>
+      <%= link_to "Back", {:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline_clause_subsection.clauseref.subsection_id}, :class => "back", :rel => "external" %>
       <h2>    
         <table>
         <tr><td><%= @current_project.code %> rev <%= @current_revision_rev %></td></tr>

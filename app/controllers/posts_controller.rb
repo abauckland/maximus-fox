@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   # GET /posts/1.xml
   def show
     @post = Post.find(params[:id])
-@comment = Comment.new(params[:post])
+    @comment = Comment.new(params[:post])
     @topics = Post.all.collect{|i| i.topic}.uniq.sort
 
     respond_to do |format|
