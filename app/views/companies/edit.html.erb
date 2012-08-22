@@ -46,10 +46,10 @@
       
       <p>
       <label><%= f.label :photo, "Company Logo:" %></label> 
-        <%= @company.photo_file_name%>
+        <%= show_image(@current_project)%>
       </p>
       <p>
-        <label>Change Logo:</label>
+        <label>Change Logo</br>(1Mb max):</label>
         <%= f.file_field :photo, {:onchange => "this.form.submit();"}  %>
       </p>
 

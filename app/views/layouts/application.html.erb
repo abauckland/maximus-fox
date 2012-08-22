@@ -23,8 +23,14 @@
 <!--       <div id="menu_item"><%= link_to "PRICING", prices_path, :class => check_current('prices', 'prices')%></div> -->
       <div id="menu_item"><%= link_to "FAQ", faqs_path, :class => check_current('faqs', 'faqs')%></div>
       <div id="menu_item"><%= link_to "BLOG", posts_path, :class => check_current('posts', 'posts')%></div>
-    </div>
+ </div>
   
+  <% if flash[:notice] %>
+  	<div id="password_reminder">  
+    	<%= link_to 'Forgotten Password?', new_password_reset_path %>  
+  	</div>
+  <% end %> 
+   
     <%= form_tag sessions_path do %>
     <div id="login">       
           <%= text_field_tag :email, params[:email], :id=>"login_email", :placeholder => "Email address", :size => 25 %>  
@@ -37,11 +43,7 @@
      
   </div>
 
-  <div >
-  <% if flash[:notice] %>
-    <p id="password_reminder"><%= flash[:notice] %></p>
-  <% end %>
-  </div>
+
 
 <%= yield %>
 

@@ -117,7 +117,7 @@ layout "application", :except => [:edit]
     
 
       @current_project = Project.where(:id => params[:current_project]).first
-        format.html { redirect_to(:controller => 'companies', :action => 'edit', :id => @current_project.id) }
+        format.html { redirect_to(edit_company_path(@company)) }
         format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
 
     end

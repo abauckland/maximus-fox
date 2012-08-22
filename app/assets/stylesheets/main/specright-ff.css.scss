@@ -1420,6 +1420,21 @@ background: image-url('header.png') repeat-x;
 .not_link {
 }
 
+#password_reminder{
+  position: absolute;
+  top: 15px;
+  right: 402px;
+  font: 11px verdana;
+  background: image-url('button_orange.png') repeat-x;
+  border: solid 1px black;
+  padding: 2px 5px 2px 5px;  
+  @include corners-all;
+  @include shadow-all;
+  &:hover {
+   border: solid 1px #eee;
+  }      
+}
+
 #login{
   position: absolute;
   right: 85px;
@@ -1431,7 +1446,7 @@ background: image-url('header.png') repeat-x;
 #login_submit{
   position: absolute;
   right: 25px;
-  padding: 12px 10px 0px 10px;
+  padding: 13px 10px 0px 10px;
   font: bold 12px verdana;
   color: #fff;
 }
@@ -1460,7 +1475,11 @@ background: image-url('header.png') repeat-x;
   }    
 }
 
-
+#password_reset{
+  position: absolute;
+  top: 140px;
+  left: 20px;  
+}
 
 
 #menu_band {

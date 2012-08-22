@@ -60,5 +60,12 @@ module ApplicationHelper
         "#{label_text}:".html_safe
       end
   end
-    
+  
+  def show_image(photo)
+    if photo.photo_file_name
+          image_tag (photo.photo.url), :height=> 60
+       else
+          "No image has been uploaded".html_safe
+        end
+    end
 end

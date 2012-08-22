@@ -8,7 +8,7 @@
       <%= select_tag "selected_template_id", options_from_collection_for_select(@project_templates, "id", "project_code_and_title", @current_project_template.id), {:onchange => "window.location='/projects/#{@current_project.id}/manage_subsections?selected_template_id='+this.value;"} %>    </div>
   </div>
 
-  <div id="back_button"><%= link_to "back", {:controller => "projects", :action => "show", :id => @current_project.id} %></div>
+  <div id="back_button"><%= link_to "back", project_path(@current_project) %></div>
 </div>
 
 <div id="edit_box">

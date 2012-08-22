@@ -32,7 +32,8 @@ layout "projects"
   # GET /projects/1.xml
   def show      
     
-    @projects = Project.select('id, code, title').where('company_id =?', current_user.company_id).order("code") 
+    @projects = Project.where('company_id =?', current_user.company_id).order("code") 
+  
     @current_project_template = Project.select('code, title').where('id = ?', @current_project.parent_id).first
     
     #call to protected method that restablishes text to be shown for project revision status
@@ -141,7 +142,7 @@ layout "projects"
   
     #call to protected method that restablishes text to be shown for project revision status
     current_revision_render(@current_project)
-    
+   
      if params[:selected_template_id].blank? == true    
         @current_project_template = Project.find(@current_project.parent_id)
       else
@@ -260,15 +261,14 @@ end
   
   # GET /projects/1/edit
   def edit
-      
+    #check_project_ownership in before filter sets up variables for current_project
     current_project_and_templates(@current_project.id, current_user.company_id)
-        
+    @project = @current_project    
     if @current_project.project_status == 'Draft'
       @available_status_array = [['Draft', 'Draft'],['Preliminary', 'Preliminary'], ['Tender', 'Tender'], ['Contract', 'Contract'], ['As Built', 'As Built']]
     else
       @available_status_array = [['Preliminary', 'Preliminary'], ['Tender', 'Tender'], ['Contract', 'Contract'], ['As Built', 'As Built']]
-    end
-    
+    end   
     #call to protected method that restablishes text to be shown for project revision status
     current_revision_render(@current_project)  
   end  
@@ -276,10 +276,9 @@ end
 
   def update_project
     @project = Project.find(params[:id])
-                
-      respond_to do |format|
-        #if 
-        @project.update_attributes(params[:project]) 
+            
+    
+      @project.update_attributes(params[:project]) 
          if @project.project_status != 'Draft'
            check_rev_exists = Revision.where('project_id = ?', @project.id).first
             if check_rev_exists.rev.blank?
@@ -287,9 +286,15 @@ end
                check_rev_exists.save
             end
          end
-        #end
-      format.html { redirect_to(:controller => 'projects', :action => 'edit') }
-      format.xml  { head :ok }
+    respond_to do |format|     
+    if @project.save   
+         format.html { redirect_to(edit_project_path(@project)) }
+    else
+      format.html { redirect_to edit_project_path(@project)}   
+     # format.html { redirect_to edit_project_path(@project)  }
+      #format.json { render json: @project.errors, status: :unprocessable_entity }
+      format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+    end
     end
   end
 

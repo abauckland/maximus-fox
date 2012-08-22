@@ -19,10 +19,12 @@ gem 'jquery-rails'
 gem 'mysql2'
 gem 'prawn',   '~> 0.8.4'
 gem 'prawnto'
-gem 'paperclip'
+gem 'paperclip', '~> 3.1.4'
 gem 'rails3-jquery-autocomplete'
 gem 'mail'
 gem 'bcrypt-ruby', :require => 'bcrypt'
+
+gem 'hominid', '~> 3.0.5'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

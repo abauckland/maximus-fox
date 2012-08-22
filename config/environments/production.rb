@@ -58,4 +58,11 @@ SpecrightDev::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  
+  #custom added for password reset action
+  config.action_mailer.default_url_options = { :host => 'www.specright.co.uk' }
+  config.action_mailer.sendmail_settings = {
+          :location => '/usr/sbin/sendmail',
+          :arguments => '-i'
+        }
 end

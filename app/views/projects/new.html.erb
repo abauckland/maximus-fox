@@ -1,11 +1,11 @@
 <div id="option_band">
     <div id="option_select_1">Create new project</div>
-    <div id="back_button"><%= link_to "back", {:controller => "projects", :action => "index"} %></div>
+    <div id="back_button"><%= link_to "back", projects_path %></div>
 </div>
 
   <% if @project.errors.any? %>  
-  <div id="project_create_error">  
-    <%= pluralize(@project.errors.count, "error") %> prohibited this account from being created 
+  <div id="sign_up_error">  
+    <%= pluralize(@project.errors.count, "error") %> prohibited this project from being created 
   </div>  
   <% end %>
 
@@ -59,7 +59,7 @@
       </p>
 
       <p>
-        <label><%= f.label :photo, "Client Logo:" %></label>
+        <label><%= f.label :photo, "Project Image:" %></br>(1Mb max):</label>
         <%= f.file_field :photo %>
       </p>    
 

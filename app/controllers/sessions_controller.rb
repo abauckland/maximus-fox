@@ -14,12 +14,12 @@ before_filter :prepare_for_mobile
      
   def create  
     if params[:email].blank? || params[:password].blank?
-      redirect_to home_path
+       redirect_to home_path, notice: 'show forgotten password link'      
     else
     
     email_check = User.where('email = ?', params[:email]).first      
     if email_check.blank? 
-      redirect_to home_path      
+      redirect_to home_path, notice: 'show forgotten password link'       
     else
       
     user = User.authenticate(params[:email], params[:password]) 
@@ -29,10 +29,10 @@ before_filter :prepare_for_mobile
       user = User.where('email=?', params[:email]).first
       @licence = Licence.where('user_id = ?', user.id).first      
       if @licence.locked_at == 1
-        redirect_to home_path
+        redirect_to home_path, notice: 'show forgotten password link' 
       else
         if @licence.active_licence == 0     
-          redirect_to home_path        
+          redirect_to home_path, notice: 'show forgotten password link'        
         else    
         @licence.last_sign_in = Time.now
         @licence.number_times_logged_in = @licence.number_times_logged_in += 1
@@ -54,7 +54,7 @@ before_filter :prepare_for_mobile
         #end
       end      
       @licence.save 
-      redirect_to home_path
+      redirect_to home_path, notice: 'show forgotten password link' 
     end  
   end
 

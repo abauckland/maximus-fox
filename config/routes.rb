@@ -32,6 +32,7 @@ SpecrightDev::Application.routes.draw do
     resources :comments
   end
 
+  resources :password_resets
 
   resources :clausetitles do
     get :autocomplete_clausetitle_text, :on => :collection

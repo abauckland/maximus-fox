@@ -1,0 +1,20 @@
+<div id="page_title">PASSWORD RESET</div>
+
+<div id="line"></div>
+
+
+<div id="password_reset">
+	<%= form_tag password_resets_path, :method => :post do %>
+  	<div class="field">
+    	Please enter your e-mail address:</br></br>
+    	<%= text_field_tag :email, params[:email], :size => 50 %> 
+  	</div>
+  	<div class="actions">
+  	</br>
+  		<%= submit_tag "Reset Password" %>
+  		</br>
+  		</br>
+  		An e-mail will be sent to you with password reset instructions.
+  	</div>
+	<% end %>
+</div>
