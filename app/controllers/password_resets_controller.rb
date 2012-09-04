@@ -25,4 +25,14 @@ layout "application"
     end
   end
 
+
+  def locked
+    
+  end
+  
+  def deactivated
+    
+  end
+
+
 end

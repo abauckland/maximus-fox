@@ -524,7 +524,7 @@ padding: 5px 0px 5px 15px;
 
 #licence_name{width: 170px;}
 #licence_email{width: 240px;}
-#licence_created{width: 85px;}
+#licence_created{width: 115px;}
 #licence_vists{width: 65px;}
 #licence_seen{width: 115px;}
 
@@ -1924,7 +1924,7 @@ height: 20px;
 #price_col{
 }
 
-#terms_box, #about_box, #post_box, #comment_box_1, #comment_box_2, #about_box_less {
+#terms_box, #about_box, #post_box, #comment_box_1, #comment_box_2{
   position: absolute;
   top: 140px;
   left: 20px;
@@ -1939,6 +1939,28 @@ height: 20px;
   td{
   color: #000;
   }
+}
+
+#about_box_less{
+ position: absolute;
+  top: 140px;
+  left: 20px;
+  width: 950px;  
+  border: 1px solid #fff;
+  padding: 5px 5px 5px 5px;
+
+      color: #000;
+  @include shadow-all;
+  @include corners-all;
+  td{
+  color: #000;
+  } 
+}
+
+#accept_terms{
+  position: absolute; 
+   top: 415px;
+  left: 4px; 
 }
 
 #about_box_small{

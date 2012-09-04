@@ -4,12 +4,10 @@ before_filter :prepare_for_mobile
 
   def new
   
-        respond_to do |format|  
+      respond_to do |format|  
         format.html 
         format.mobile {render :layout => "mobile"}
-      end 
-  
-    
+      end    
   end
      
   def create  
@@ -29,10 +27,12 @@ before_filter :prepare_for_mobile
       user = User.where('email=?', params[:email]).first
       @licence = Licence.where('user_id = ?', user.id).first      
       if @licence.locked_at == 1
-        redirect_to home_path, notice: 'show forgotten password link' 
+        #redirect to locked page        
+        redirect_to(:controller => 'password_resets', :action => 'locked', :id => @licence.id)
       else
-        if @licence.active_licence == 0     
-          redirect_to home_path, notice: 'show forgotten password link'        
+        if @licence.active_licence == 0
+          #redirect to inactive licence page 
+          redirect_to(:controller => 'password_resets', :action => 'deactivated', :id => @licence.id)         
         else    
         @licence.last_sign_in = Time.now
         @licence.number_times_logged_in = @licence.number_times_logged_in += 1

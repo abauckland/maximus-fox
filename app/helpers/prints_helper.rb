@@ -13,23 +13,39 @@ module PrintsHelper
   end
   
   
-  def watermark_checkbox(current_project, last_project_revisions, selected_revision)    
-    if selected_revision == last_project_revisions     
-      if current_project[:project_status] == 'Draft'
-        "A 'not for issue' watermark is placed on the documents when it is in Draft status.".html_safe 
+  def watermark_checkbox(superseded, current_project, project_revisions, selected_revision)    
+    project_revision_ids = project_revisions.collect{|i| i.id}
+    if project_revision_ids.include?(selected_revision.id) 
+      if superseded[0].to_i == 1
+        "The selected revision of the document has already been published. A watermark 'Superseded' will be added to each page".html_safe      
+      else
+        if current_project.project_status == 'Draft' 
+          "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
+        else
+          "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
+        end            
+      end
+    else
+      if current_project.project_status == 'Draft' 
+        "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
       else
         "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
-      end      
-    else
-      "The select revision of the document has already been published. A watermark 'Superseded' will be added to each page".html_safe
+      end
     end
   end
   
-  def print_help(current_project)
-    if current_project.project_status == 'Draft'
-      render :partial => "print_help_draft"
-    else
-      render :partial => "print_help"
+  def print_help(superseded, current_project, project_revisions, selected_revision)
+     project_revision_ids = project_revisions.collect{|i| i.id}
+    if project_revision_ids.include?(selected_revision.id) 
+      if superseded[0].to_i == 1
+        render :partial => "print_help_superseded"
+      end
+    else       
+      if current_project.project_status == 'Draft'
+        render :partial => "print_help_draft"
+      else
+        render :partial => "print_help"
+      end
     end
   end
  

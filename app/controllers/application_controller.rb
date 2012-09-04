@@ -28,29 +28,30 @@ end
 
 def current_revision_render(current_project)
 
-    @all_project_revisions = Revision.select('id').where('project_id = ?', current_project.id).order('created_at')
-    project_revision_array = @all_project_revisions.collect{|item| item.id}
-
-    last_rev_check = Change.where(:project_id => current_project.id, :revision_id => project_revision_array.last)
-    if last_rev_check.blank?
-    last_rev = project_revision_array.last 
-      used_revisions = project_revision_array.delete(last_rev)   
-      @project_revisions = Revision.select('id, rev').where(:id => project_revision_array)        
-    else
-      @project_revisions = Revision.select('id, rev').where('project_id = ?', current_project.id) 
-    end
+    @all_project_revisions = Revision.where('project_id = ?', current_project.id).order('created_at')    
+    last_revision = @all_project_revisions.last 
     
-    @current_revision = Revision.select('id, rev').where('project_id = ?', current_project.id).last
-    last_revision = @current_revision.rev 
-    if !last_revision.blank?
-      if last_revision == '-'
+    project_revision_array = @all_project_revisions.collect{|i| i.id}
+    project_revision_array.delete(project_revision_array.last)
+    @used_revision_id_array = project_revision_array  
+
+    last_rev_check = Change.where(:project_id => current_project.id, :revision_id => last_revision.id).first
+    if last_rev_check
+      @project_revisions = Revision.where('project_id = ?', current_project.id)        
+    else
+      @project_revisions = Revision.where(:id => @used_revision_id_array) 
+    end
+    @last_project_revision = @project_revisions.last
+    
+    if @last_project_revision.rev
+      if @last_project_revision.rev == '-'
         @current_revision_rev = '-'
       else
-        if last_rev_check.blank?
-        current_revision = @project_revisions.last
-        @current_revision_rev = current_revision.rev.capitalize
+        if last_rev_check
+          @current_revision_rev = @last_project_revision.rev.capitalize
         else
-        @current_revision_rev = last_revision.capitalize
+          current_revision = @project_revisions.last
+          @current_revision_rev = current_revision.rev.capitalize
         end
       end
     else
@@ -170,20 +171,25 @@ end
       current_revision = Revision.where('project_id =?', @specline.project_id).last
 
       existing_change_record = Change.where('specline_id =? AND revision_id =?', @specline.id, current_revision.id).first
-      if !existing_change_record.blank? #if change record does exist for given specline_line then...  
-        if existing_change_record.event == 'new'
-          existing_delete_record = Change.where(:project_id => @specline_update.project_id, :linetype_id => @specline_update.linetype_id, :clause_id => @specline_update.clause_id, :txt3_id => @specline_update.txt3_id, :txt4_id => @specline_update.txt4_id, :txt5_id => @specline_update.txt5_id, :txt6_id => @specline_update.txt6_id, :event => 'deleted', :revision_id => current_revision.id).first
-          if existing_delete_record.blank?
-            existing_change_record.linetype_id = @specline_update.linetype_id
-            existing_change_record.txt3_id = @specline_update.txt3_id
-            existing_change_record.txt4_id = @specline_update.txt4_id
-            existing_change_record.txt5_id = @specline_update.txt5_id
-            existing_change_record.txt6_id = @specline_update.txt6_id
-            existing_change_record.user_id = current_user.id
-            existing_change_record.save
-          else
-            existing_delete_record.destroy
-            existing_change_record.destroy               
+      if existing_change_record #if change record does exist for given specline_line then...  
+        check_new_match_previous = Change.where(:revision_id => current_revision.id, :specline_id => @specline.id, :clause_id => @specline_update.clause_id, :linetype_id => @specline_update.linetype_id, :txt3_id => @specline_update.txt3_id, :txt4_id => @specline_update.txt4_id, :txt5_id => @specline_update.txt5_id, :txt6_id => @specline_update.txt6_id).first
+        if check_new_match_previous
+          existing_change_record.destroy        
+        else
+          if existing_change_record.event == 'new'
+            existing_delete_record = Change.where(:project_id => @specline_update.project_id, :linetype_id => @specline_update.linetype_id, :clause_id => @specline_update.clause_id, :txt3_id => @specline_update.txt3_id, :txt4_id => @specline_update.txt4_id, :txt5_id => @specline_update.txt5_id, :txt6_id => @specline_update.txt6_id, :event => 'deleted', :revision_id => current_revision.id).first
+            if existing_delete_record.blank?
+              existing_change_record.linetype_id = @specline_update.linetype_id
+              existing_change_record.txt3_id = @specline_update.txt3_id
+              existing_change_record.txt4_id = @specline_update.txt4_id
+              existing_change_record.txt5_id = @specline_update.txt5_id
+              existing_change_record.txt6_id = @specline_update.txt6_id
+              existing_change_record.user_id = current_user.id
+              existing_change_record.save
+            else
+              existing_delete_record.destroy
+              existing_change_record.destroy               
+            end
           end
         end                        
       else
@@ -201,8 +207,8 @@ end
           n.txt6_id = @specline.txt6_id
           n.user_id = current_user.id
         end
-        new_change_rec.save              
-      end
+        new_change_rec.save
+      end              
     end  
   end
 

@@ -33,7 +33,7 @@
       
       <p>
       <label>Password*:</label> 
-      <%= builder.password_field :password, :size => 20  %>
+      <%= builder.password_field :password, :size => 20  %> (min 8 characters long)
       <%= error_check(@company, :'users.password')%> 
       </p>
       
@@ -41,10 +41,6 @@
       <label>Confirm Password*:</label>   
       <%= builder.password_field :password_confirmation, :size => 20  %>
       <%= error_check(@company, :'users.password')%>  
-      </p>
-      
-      <p>
-      Your password should be at least 8 characters long and should idealy contain a combination of numerical, alphabetical and special charaters
       </p>
       
 <% end %>
@@ -91,8 +87,8 @@
       <%= f.file_field :photo %>
       </p>
   
-      <p>
-      <label>Accept Terms & Conditions*</label>  
+      <p id="accept_terms">
+      <label >Accept Terms of Use*</label>  
       <%= f.check_box :read_term %>
       <%= error_check(@company, :read_term)%>
       </p>

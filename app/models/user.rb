@@ -40,10 +40,10 @@ has_one :licence
   end 
   
   def add_user_to_mailchimp  
-    mailchimp = Hominid::API.new(4d0b1be76e0e5a65e23b00efa3fe8ef3-us5)
+    mailchimp = Hominid::API.new('4d0b1be76e0e5a65e23b00efa3fe8ef3-us5')
     list_id = mailchimp.find_list_id_by_name('Specright Users')
 
-    mailchimp.list_subscribe(list_id, self.email, {'FNAME' => self.first_name, 'LNAME' => self.surname}, 'html', false, false, false, true))
+    mailchimp.list_subscribe(list_id, self.email, {'FNAME' => self.first_name, 'LNAME' => self.surname}, 'html', false, false, false, true)
   end
 
 

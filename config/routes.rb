@@ -6,7 +6,7 @@ SpecrightDev::Application.routes.draw do
 
   root :to => "homes#index"  
   match 'prints/:id/print_project' => 'prints#print_project', :defaults => { :format => 'pdf' }
-
+ 
   get "home" => "homes#index", :as => "home"
   get "mob_home" => "sessions#new", :as => "mob_home"    
   get "log_out" => "sessions#destroy", :as => "log_out"      
@@ -32,7 +32,10 @@ SpecrightDev::Application.routes.draw do
     resources :comments
   end
 
-  resources :password_resets
+  resources :password_resets do
+    get :locked, :on => :member
+    get :deactivated, :on => :member
+  end
 
   resources :clausetitles do
     get :autocomplete_clausetitle_text, :on => :collection

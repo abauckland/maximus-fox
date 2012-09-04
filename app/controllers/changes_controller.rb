@@ -9,8 +9,6 @@ class ChangesController < ApplicationController
       event_type_check = @changed_clause_lines.collect{|item| item.event}.uniq
 
       if event_type_check[0] == 'new'
-      #@clause_title_line = Specline.where('project_id = ? AND clause_id = ? AND clause_line = ?', params[:project_id], params[:id], 0).first
-      #@clause_title_line.destroy
           @changed_clause_lines.each do |changed_clause_line|
              #delete title line as well
              
@@ -30,23 +28,6 @@ class ChangesController < ApplicationController
       end
 
       if event_type_check[0] == 'deleted'     
-          
-        ##reinstate clause title line 
-        #check_clause = Clause.find(params[:id])
-        #if check_clause.subclause == 0
-        #  new_linetype = 1
-        #else
-        #  new_linetype = 2
-        #end     
-       # #reinstate clause title line  
-       # clause_title = Specline.new do |n|
-       #n.project_id = params[:project_id]
-       # n.clause_id = params[:id]
-       # n.clause_line = 0
-       # n.linetype_id = new_linetype
-       # end
-       # clause_title.save
-          
         #establish clause_line of resinstated line
         @changed_clause_lines.each do |changed_clause_line|
           
@@ -88,7 +69,7 @@ class ChangesController < ApplicationController
         #implement application controller event to create new change record for delete of line that was added previously
         record_delete
         @hide_line_in_view = true
-        ##? add in redirect to reload the page if no chnages against current project rev        
+        ##? add in redirect to reload the page if no changes against current project rev        
         else
         @change.destroy
         @hide_line_in_view = false
@@ -180,15 +161,15 @@ private
     end
                          
     @new_specline = Specline.new do |n|
-    n.project_id = changed_clause_line.project_id
-    n.clause_id = changed_clause_line.clause_id
-    n.clause_line = @insert_clause_line
-    n.linetype_id = changed_clause_line.linetype_id
-    n.txt1_id = @txt1_id
-    n.txt3_id = changed_clause_line.txt3_id
-    n.txt4_id = changed_clause_line.txt4_id
-    n.txt5_id = changed_clause_line.txt5_id
-    n.txt6_id = changed_clause_line.txt6_id
+      n.project_id = changed_clause_line.project_id
+      n.clause_id = changed_clause_line.clause_id
+      n.clause_line = @insert_clause_line
+      n.linetype_id = changed_clause_line.linetype_id
+      n.txt1_id = @txt1_id
+      n.txt3_id = changed_clause_line.txt3_id
+      n.txt4_id = changed_clause_line.txt4_id
+      n.txt5_id = changed_clause_line.txt5_id
+      n.txt6_id = changed_clause_line.txt6_id
     end
     @new_specline.save
   end 

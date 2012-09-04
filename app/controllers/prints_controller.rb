@@ -42,7 +42,33 @@ layout "projects", :except => [:print_project]
         @selected_revision = Revision.find(params[:revision])
       end
       
-      @last_project_revision = Revision.where('project_id = ?', @current_project.id).last
+    #show if print with superseded
+      @superseded = []  
+
+#'-' only after published - NULL before, use count to establish if document has been published
+if @all_project_revisions.count == 1
+  @superseded[0] = 2 #do not show
+else
+  if @selected_revision == @all_project_revisions.last 
+    @superseded[0] = 2 #do not show    
+  else
+    revision = @selected_revision.rev
+    next_revision = revision.next 
+    last_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
+    if last_rev_check 
+      @superseded[0] = 1 #show
+    else
+      if @selected_revision.rev == '-' 
+        @superseded[0] = 1 #show      
+      else
+        @superseded[0] = 2 #do not show
+      end       
+    end
+  end  
+end      
+
+  
+      #@last_project_revisions = Revision.where('project_id = ?', @current_project.id)
     #respond_to do |format|
     #  format.html # show.html.erb
     #  format.xml  { render :xml => @revision }
@@ -65,14 +91,29 @@ layout "projects", :except => [:print_project]
       @selected_revision = Revision.find(params[:revision])
     end
 
-    @superseded = []
-    @current_revision = Revision.where(:project_id => params[:id]).last
-    if @selected_revision.rev == @current_revision.rev
-      @superseded[0] = 2
+      current_revision_render(@current_project)
+      
+      @superseded = []  
+if @all_project_revisions.count == 1
+  @superseded[0] = 2 #do not show
+else
+  if @selected_revision == @all_project_revisions.last 
+    @superseded[0] = 2 #do not show    
+  else
+    revision = @selected_revision.rev
+    next_revision = revision.next 
+    last_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
+    if last_rev_check 
+      @superseded[0] = 1 #show
     else
-      @superseded[0] = 1
+      if @selected_revision.rev == '-' 
+        @superseded[0] = 1 #show      
+      else
+        @superseded[0] = 2 #do not show
+      end       
     end
-
+  end  
+end   
 
     @watermark = []    
     if @current_project.project_status == 'Draft'
