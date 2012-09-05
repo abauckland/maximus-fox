@@ -21,7 +21,8 @@ def current_project_and_templates(project_id, company_id)
       master_templates = Project.where("company_id =?", 1)
       @project_templates =  project_templates + master_templates
     else
-      @project_templates =  project_templates
+      admin_templates = Project.where("company_id =?", 2)
+      @project_templates =  project_templates + admin_templates
     end
     @current_project_template = Project.find(@current_project.parent_id)  
 end
@@ -43,7 +44,7 @@ def current_revision_render(current_project)
     end
     @last_project_revision = @project_revisions.last
     
-    if @last_project_revision.rev
+    if @last_project_revision
       if @last_project_revision.rev == '-'
         @current_revision_rev = '-'
       else

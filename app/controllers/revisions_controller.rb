@@ -22,9 +22,11 @@ layout "projects"
         #last_revision_with_changes = @project_revisions.collect{|item| item.id}.last
         #if last_revision_with_changes.blank?
         #  @selected_revision = Revision.where('project_id = ?', @current_project.id).last
-        #else
-        @selected_revision = @last_project_revision
-        #end
+        if @last_project_revision
+          @selected_revision = @last_project_revision
+        else
+          @selected_revision = Revision.where('project_id = ?', @current_project.id).first
+        end
       else              
         @selected_revision = Revision.find(params[:revision])
       end
