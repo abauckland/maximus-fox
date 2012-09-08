@@ -21,6 +21,7 @@ def manage_clauses
     current_revision_render(@current_project)
 
 #####this does not work
+
       if params[:selected_template_id].blank? == true    
       @current_project_template = Project.find(@current_project.parent_id)
       else
@@ -29,13 +30,21 @@ def manage_clauses
           
     #new variable that contains only those projects that have the selected subsection    
     project_templates = Project.where("id != ? AND company_id =?", @current_project.id, current_user.company_id).order("code")
-    master_templates = Project.where("company_id =?", 1)
-    @project_templates =  project_templates + master_templates
+    if company_id != 1
+      master_templates = Project.where("company_id =?", 1)
+      @project_templates =  project_templates + master_templates
+    else
+      admin_templates = Project.where("company_id =?", 2)
+      @project_templates =  project_templates + admin_templates
+    end
     project_id_array = @project_templates.collect{|item1| item1.id}.sort
  
     relevant_clauses_array = Clause.joins(:clauseref).select('DISTINCT(clauses.id)').where('clauserefs.subsection_id' => @current_subsection.id).collect{|item1| item1.id}.sort
     relevant_templates_array = Specline.select('DISTINCT project_id').where(:project_id => project_id_array, :clause_id => relevant_clauses_array).collect{|item1| item1.project_id}.sort
     @selectable_templates = Project.where(:id => relevant_templates_array)  
+    
+
+    
     
       
     #specline_line_array = Specline.where("project_id = ?", @current_project.id).collect{|item1| item1.clause_id}.sort     
