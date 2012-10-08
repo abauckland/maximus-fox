@@ -43,29 +43,23 @@ layout "projects", :except => [:print_project]
       end
       
     #show if print with superseded
-      @superseded = []  
+    @superseded = []  
+    if @all_project_revisions.count != 1 
 
-#'-' only after published - NULL before, use count to establish if document has been published
-if @all_project_revisions.count == 1
-  @superseded[0] = 2 #do not show
-else
-  if @selected_revision == @all_project_revisions.last 
-    @superseded[0] = 2 #do not show    
-  else
-    revision = @selected_revision.rev
-    next_revision = revision.next 
-    last_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
-    if last_rev_check 
-      @superseded[0] = 1 #show
-    else
-      if @selected_revision.rev == '-' 
-        @superseded[0] = 1 #show      
+      revision = @selected_revision.rev
+      #if revision == '-'
+      #  next_revision = 'a'
+      #else
+        next_revision = revision.next
+      #end
+
+      next_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
+      if next_rev_check 
+        @superseded[0] = 1 #show
       else
-        @superseded[0] = 2 #do not show
-      end       
-    end
-  end  
-end      
+        @superseded[0] = 2 #do not show    
+      end  
+    end      
 
   
       #@last_project_revisions = Revision.where('project_id = ?', @current_project.id)
@@ -124,7 +118,7 @@ end
       else
         @watermark[0] = 2
           
-      ###update revision status of project  
+      ###update revision status of project if document is issued
         current_revision = Revision.where(:project_id => @current_project.id).last
         if @selected_revision.rev  == current_revision.rev       
           check_revision_use = Change.where(:project_id => params[:id], :revision_id => current_revision.id).first

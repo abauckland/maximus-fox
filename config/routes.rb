@@ -123,8 +123,7 @@ SpecrightDev::Application.routes.draw do
   end
 
   resources :guidepdfs do
-    post :download, :on => :member
-    #get :download, :on => :member
+    get :download, :on => :member
   end
   
 end

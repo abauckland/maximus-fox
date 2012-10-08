@@ -246,9 +246,9 @@ module RevisionsHelper
         render :partial => "revision_help_draft"
       else
         current_revision_check = Revision.select('id, rev, date').where('project_id = ?', current_project.id).last
-        if current_revision_check.date == nil
+        if current_revision_check.date != nil
           if selected_revision.rev == '-'
-            "<div id='edit_box_full'><div id='revision_help_text'><p>This is the original document before any revisions.</p></div></div>".html_safe
+            "<div id='edit_box_full'><div id='revision_help_text'><p>No changes have been made to the original document.</p></div></div>".html_safe
           else
             "<div id='edit_box_full'><div id='revision_help_text'><p>No changes have been made to the document since it was last published.</p></div></div>".html_safe
           end

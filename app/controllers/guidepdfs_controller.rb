@@ -14,9 +14,9 @@ layout "application", :except => [:show, :new]
 
 
  def download
-   guidepdf_ids = Subsection.where(:id => params[:subsection_ids])#.collect{|i| i.id}
+   subsection = Subsection.where(:id => params[:subsection_ids]).first
    
-   guidepdfs = Guidepdf.where(:id => guidepdf_ids)
+   guidepdfs = Guidepdf.where(:id => subsection.guidepdf_id)
    
    if guidepdfs
     guidepdfs.each do |guidepdf|

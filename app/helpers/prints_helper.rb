@@ -14,24 +14,33 @@ module PrintsHelper
   
   
   def watermark_checkbox(superseded, current_project, project_revisions, selected_revision)    
-    project_revision_ids = project_revisions.collect{|i| i.id}
-    if project_revision_ids.include?(selected_revision.id) 
+    #project_revision_ids = project_revisions.collect{|i| i.id}
+    #if project_revision_ids.include?(selected_revision.id) 
       if superseded[0].to_i == 1
         "The selected revision of the document has already been published. A watermark 'Superseded' will be added to each page".html_safe      
       else
         if current_project.project_status == 'Draft' 
           "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
         else
+          check_all_project_revisions = Revision.where('project_id = ?', current_project.id).order('created_at')
+          if project_revisions.last != check_all_project_revisions.last
+          #if project rev has been issued but no changes to next  
+          "This document has already been published, no subsequent changes have been made to it. To create another copy click the 'Print Document' button" 
+          else
+          #if project rev has been issued and there are subsequent changes but the next revision has not been issued
+            
+          #if project rev has not been issued  
           "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
-        end            
+          end
+        end                    
       end
-    else
-      if current_project.project_status == 'Draft' 
-        "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
-      else
-        "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
-      end
-    end
+    #else
+      #if current_project.project_status == 'Draft' 
+      #  "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
+      #else
+     #   "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
+     # end
+    #end
   end
   
   def print_help(superseded, current_project, project_revisions, selected_revision)

@@ -31,14 +31,9 @@ layout "projects"
         @selected_revision = Revision.find(params[:revision])
       end
     
-    #@revision_clause_id_array = Change.where('project_id = ? AND revision_id = ?', @current_project.id, @selected_revision.id).collect{|item| item.clause_id}.sort   
+   revision_subsection_id_array = Clauseref.joins(:clauses => [:changes]).where('changes.project_id' => @current_project.id, 'changes.revision_id' => @selected_revision.id).collect{|i| i.subsection_id}.sort.uniq
     
-    #revision_subsection_id_array = Clause.joins(:clauseref).where(:id => @revision_clause_id_array).collect{|i| i.clauseref.subsection_id}.sort.uniq
-    
-    revision_subsection_id_array = Clauseref.joins(:clauses => [:changes]).where('changes.project_id' => @current_project.id, 'changes.revision_id' => @selected_revision.id).collect{|i| i.subsection_id}.sort.uniq
-    
-    
-    
+       
     @revision_prelim_subsections = Subsection.where(:id => revision_subsection_id_array, :section_id => 1)
     revision_prelim_subsection_id_array = @revision_prelim_subsections.collect{|item| item.id}.sort
     

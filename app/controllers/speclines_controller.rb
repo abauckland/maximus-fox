@@ -30,7 +30,7 @@ def manage_clauses
           
     #new variable that contains only those projects that have the selected subsection    
     project_templates = Project.where("id != ? AND company_id =?", @current_project.id, current_user.company_id).order("code")
-    if company_id != 1
+    if current_user.company_id != 1
       master_templates = Project.where("company_id =?", 1)
       @project_templates =  project_templates + master_templates
     else
@@ -426,7 +426,7 @@ end
 
     new_clause_line_limit = new_limit_ref - 1
     next_speclines = Specline.where('clause_id = ? AND project_id = ? AND clause_line > ?', new_above_specline.clause_id,  new_above_specline.project_id, new_clause_line_limit).order('clause_line')
-    next_specline_id_array = next_speclines.collect{|i| i.id}
+    next_specline_id_array = next_speclines.collect{|item| item.id}
     next_specline_id_array_length = next_specline_id_array.length
 #id of new below position
 
@@ -557,32 +557,46 @@ end
   # PUT /projects/update_specline_3/id
   def update_specline_3
     
+    #before filter establishes @specline
     @specline_update = @specline
-   
-    value = params[:value].strip#.chomp(':').chomp(',').chomp('.').chomp('!').chomp('?')
+    existing_text = @specline.txt3.text
+    
+    #application controller
+    #removes white space and punctuation from end of text
+    clean_text(params[:value])
+    
+    #value = new text
+    if @value
+ 
+      #txt3_exist_match_array = Txt3.where('text =?', @value).collect{|item| item.text}
+    
 
-    if !value.blank?
-    txt3_exist = Txt3.where('BINARY text =?', value).first
-      if txt3_exist.blank?
-         new_txt3_text = Txt3.create(:text => value)
+      #save new text if exact match does not exist in Txt table
+      #get new text info
+      txt3_exist = Txt3.where('BINARY text =?', @value).first 
+        if txt3_exist.blank?
+          new_txt3_text = Txt3.create(:text => @value)
+        else
+          new_txt3_text = txt3_exist
+        end
+     
+      #check if new text is similar to old text 
+      check_text_similartity = @specline.txt3.text.casecmp(@value)
+      if check_text_similartity == 0
+        #if new text is similar to old text save change to text only - do not create change record
+        @specline_update.txt3_id = new_txt3_text.id   
+        @specline_update.save 
       else
-         #if value == txt3_exist.text
-           new_txt3_text = txt3_exist
-         #else
-         #  new_txt3_text = Txt3.create(:text => value)
-         #end
+        #if new text is not similar to old text save change to text and create change record
+        @specline_update.txt3_id = new_txt3_text.id 
+
+          record_change  
+        
+        @specline_update.save
       end
     end
-    
-    
-    if  @specline.txt3_id != new_txt3_text.id
-      @specline_update.txt3_id = new_txt3_text.id
-      record_change
-      @specline_update.save
-    end
-    render :text=> params[:value]
-      
-  end
+    render :text=>  @value   
+  end  
   
   
   # PUT /projects/update_specline_4/id
@@ -597,15 +611,11 @@ end
       if txt4_exist.blank?
          new_txt4_text = Txt4.create(:text => value)
       else
-         #if value == txt4_exist.text
-           new_txt4_text = txt4_exist
-         #else
-         #  new_txt4_text = Txt4.create(:text => value)
-         #end
+         new_txt4_text = txt4_exist
       end
     end
     
-    if  @specline.txt4_id != new_txt4_text.id
+    if @specline.txt4_id != new_txt4_text.id
 
       
       @specline_update.txt4_id = new_txt4_text.id
@@ -628,11 +638,7 @@ end
       if txt5_exist.blank?
          new_txt5_text = Txt5.create(:text => value)
       else
-         #if value == txt5_exist.text
-           new_txt5_text = txt5_exist
-         #else
-        #   new_txt5_text = Txt5.create(:text => value)
-        # end
+         new_txt5_text = txt5_exist
       end
     end
     
@@ -659,11 +665,7 @@ end
       if txt6_exist.blank?
          new_txt6_text = Txt6.create(:text => value)
       else
-         #if value == txt6_exist.text
-           new_txt6_text = txt6_exist
-         #else
-         #  new_txt6_text = Txt6.create(:text => value)
-         #end
+         new_txt6_text = txt6_exist
       end
     end
     
