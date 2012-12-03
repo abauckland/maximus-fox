@@ -97,8 +97,8 @@ layout "application", :except => [:edit]
     end
   end
   
-    # PUT /specs/1
-  # PUT /specs/1.xml
+  # PUT /companies/1
+  # PUT /companies/1.xml
   def update_www
     @company = Company.find(params[:id])
     @company.www = params[:value]
@@ -117,7 +117,7 @@ layout "application", :except => [:edit]
     
 
       @current_project = Project.where(:id => params[:current_project]).first
-        format.html { redirect_to(edit_company_path(@company)) }
+        format.html { redirect_to(edit_company_path(@current_project)) }
         format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
 
     end
