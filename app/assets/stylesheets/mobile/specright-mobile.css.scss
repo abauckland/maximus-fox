@@ -4,7 +4,7 @@ $corner-radius: 4px;
 $shadow-right: 1px 1px 1px #000;
 $shadow-inset-right: inset 1px 1px 1px #000;
 $shadow-bottom: 1px 1px 1px #000;
-$shadow-all: 0px 0px 5px #aeaeae;
+$shadow-all: 0px 0px 10px #aeaeae;
 $shadow-tab: 0px 0px 5px 2px #aeaeae;
 
 @mixin shadow-bottom {-moz-box-shadow: $shadow-bottom; -webkit-box-shadow: $shadow-bottom; box-shadow: $shadow-bottom;}
@@ -91,40 +91,40 @@ p{
 #mob_home_logo {
   position: fixed;
   top: 30px;
-  width: 180px;
+  width: 252px;
   left: 50%;
-  margin-left: -90px;
-  margin-right: -90px;
+  margin-left: -126px;
+  margin-right: -126px;
 }
 
 #mob_home_strapline {
   position: fixed;
-  top: 95px;
-  width: 380px;
+  top: 120px;
+  width: 460px;
   left: 50%;
-  margin-left: -190px;
-  margin-right: -190px;
-  font: normal 20px sans-serif;
+  margin-left: -230px;
+  margin-right: -230px;
+  font: normal 24px sans-serif;
 }
 
 #mob_home_image_web {
   position: fixed;
-  top: 160px;
-  width: 400px;
-  height: 275px;
+  top:200px;
+  width: 535px;
+  height: 367px;
   left: 50%;
-  margin-left: -220px;
-  margin-right: -200px;
+  margin-left: -300px;
+  margin-right: -255px;
   border: 1px solid #bebebe;
     @include shadow-all;
 }
 
 
 #mob_home_image_mob {
-  position: absolute;
-  top: 320px;
-  width: 260px;
-  height: 160px;
+  position: fixed;
+  top: 410px;
+  width: 342px;
+  height: 211px;
   left: 50%;
   margin-left: -25px;
   margin-right: -200px;
@@ -133,27 +133,27 @@ p{
 
 #mob_home_intro_text{
   position: fixed;
-  top: 470px;
-  width: 440px;
+  top: 610px;
+  width: 600px;
   left: 50%;
-  margin-left: -220px;
-  margin-right: -220px;
-  font: normal 18px sans-serif; 
+  margin-left: -300px;
+  margin-right: -300px;
+  font: normal 24px sans-serif; 
   text-align: center;   
 }
 
 #login {
-  position: absolute;
-  top: 610px;
+  position: fixed;
+  top: 800px;
   left: 50%;
-  width: 450px;
-  margin-left: -225px;
-  margin-right: -225px;
+  width: 600px;
+  margin-left: -300px;
+  margin-right: -300px;
 }
 
 #login_text {
   width: 100px;
-  font: normal 24px verdana;
+  font: normal 30px verdana;
   padding: 0px 10px 10px 0px; 
 }
 
@@ -169,7 +169,7 @@ p{
 }
 
 .login_submit{
-  font: normal 24px;
+  font: normal 30px;
   background: image-url('button_green_mob.png') repeat-x;
   border: none;
   padding: 0px 0px 5px 0px;  
