@@ -8,7 +8,7 @@ SpecrightDev::Application.routes.draw do
   match 'prints/:id/print_project' => 'prints#print_project', :defaults => { :format => 'pdf' }
  
   get "home" => "homes#index", :as => "home"
-  get "mob_home" => "sessions#new", :as => "mob_home"    
+  #get "mob_home" => "sessions#new", :as => "mob_home"    
   get "log_out" => "sessions#destroy", :as => "log_out"      
   get "sign_up" => "companies#new", :as => "sign_up"  
   get "prices" => "prices#index", :as => "prices"

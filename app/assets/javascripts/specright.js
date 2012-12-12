@@ -542,8 +542,8 @@ $("#firstpane p.menu_head").click(function()
 
 
 
-Cufon.replace('#home_strapline, #menu_item, #home_intro_text, #foot_item, .feature_title, #option_title, .extra_questions_link, .large_trial_link_text_1, .small_trial_link_text, .feature_title_small', { fontFamily: 'TitilliumText25L_800'});
-Cufon.replace('#home_intro_text, #home_intro_text_2, .login_submit', { fontFamily: 'TitilliumText25L_300'});
+Cufon.replace('#home_strapline, #mob_home_strapline, #menu_item, #home_intro_text, #foot_item, .feature_title, #option_title, .extra_questions_link, .large_trial_link_text_1, .small_trial_link_text, .feature_title_small', { fontFamily: 'TitilliumText25L_800'});
+Cufon.replace('#home_intro_text, #mob_home_intro_text, #home_intro_text_2, .login_submit', { fontFamily: 'TitilliumText25L_300'});
 
 //end
 });                                                              

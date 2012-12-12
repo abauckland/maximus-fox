@@ -88,15 +88,67 @@ p{
   text-align: center;  
 }
 
+#mob_home_logo {
+  position: fixed;
+  top: 30px;
+  width: 180px;
+  left: 50%;
+  margin-left: -90px;
+  margin-right: -90px;
+}
 
+#mob_home_strapline {
+  position: fixed;
+  top: 95px;
+  width: 380px;
+  left: 50%;
+  margin-left: -190px;
+  margin-right: -190px;
+  font: normal 20px sans-serif;
+}
+
+#mob_home_image_web {
+  position: fixed;
+  top: 160px;
+  width: 400px;
+  height: 275px;
+  left: 50%;
+  margin-left: -220px;
+  margin-right: -200px;
+  border: 1px solid #bebebe;
+    @include shadow-all;
+}
+
+
+#mob_home_image_mob {
+  position: absolute;
+  top: 320px;
+  width: 260px;
+  height: 160px;
+  left: 50%;
+  margin-left: -25px;
+  margin-right: -200px;
+}
+
+
+#mob_home_intro_text{
+  position: fixed;
+  top: 470px;
+  width: 440px;
+  left: 50%;
+  margin-left: -220px;
+  margin-right: -220px;
+  font: normal 18px sans-serif; 
+  text-align: center;   
+}
 
 #login {
   position: absolute;
-  top: 130px;
-  left: 30px;
+  top: 610px;
+  left: 50%;
   width: 450px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: -225px;
+  margin-right: -225px;
 }
 
 #login_text {
@@ -117,7 +169,7 @@ p{
 }
 
 .login_submit{
-  font: normal 24px verdana;
+  font: normal 24px;
   background: image-url('button_green_mob.png') repeat-x;
   border: none;
   padding: 0px 0px 5px 0px;  

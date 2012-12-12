@@ -1,7 +1,6 @@
 class HomesController < ActionController::Base
 
 before_filter :prepare_for_mobile
-before_filter :mobile_redirect, :except => :new
 
 layout "application"
 
@@ -10,6 +9,11 @@ layout "application"
   def index
     @home = Home.first
     @reference = Reference.first
+    
+    respond_to do |format|  
+      format.html 
+      format.mobile {render :layout => "mobile"}
+    end
   end
   
   def new
@@ -28,14 +32,9 @@ layout "application"
   helper_method :mobile_device?
   
   def prepare_for_mobile  
-  session[:mobile_param] = params[:mobile] if params[:mobile]  
-  request.format = :mobile if mobile_device?  
-end
-
-  def mobile_redirect
-    if mobile_device?
-      redirect_to(mob_home_path)
-    end
+    session[:mobile_param] = params[:mobile] if params[:mobile]  
+    request.format = :mobile if mobile_device?  
   end
+
     
 end
