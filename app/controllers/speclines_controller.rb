@@ -559,7 +559,7 @@ end
     
     #before filter establishes @specline
     @specline_update = @specline
-    existing_text = @specline.txt3.text
+    #existing_text = @specline.txt3.text
     
     #application controller
     #removes white space and punctuation from end of text
@@ -567,11 +567,7 @@ end
     
     #value = new text
     if @value
- 
-      #txt3_exist_match_array = Txt3.where('text =?', @value).collect{|item| item.text}
-    
-
-      #save new text if exact match does not exist in Txt table
+          #save new text if exact match does not exist in Txt table
       #get new text info
       txt3_exist = Txt3.where('BINARY text =?', @value).first 
         if txt3_exist.blank?
@@ -589,9 +585,7 @@ end
       else
         #if new text is not similar to old text save change to text and create change record
         @specline_update.txt3_id = new_txt3_text.id 
-
           record_change  
-        
         @specline_update.save
       end
     end
@@ -603,24 +597,32 @@ end
   def update_specline_4
     
     @specline_update = @specline
-    
-    value = params[:value].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?')
 
-    if !value.blank?
+    #application controller
+    #removes white space and punctuation from end of text
+    clean_text(params[:value])
+    
+    #value = new text
+    if @value
     txt4_exist = Txt4.where('BINARY text =?', value).first
       if txt4_exist.blank?
          new_txt4_text = Txt4.create(:text => value)
       else
          new_txt4_text = txt4_exist
       end
-    end
     
-    if @specline.txt4_id != new_txt4_text.id
-
-      
-      @specline_update.txt4_id = new_txt4_text.id
-      record_change
-      @specline_update.save
+      #check if new text is similar to old text 
+      check_text_similartity = @specline.txt4.text.casecmp(@value)
+      if check_text_similartity == 0
+        #if new text is similar to old text save change to text only - do not create change record
+        @specline_update.txt4_id = new_txt4_text.id   
+        @specline_update.save 
+      else
+        #if new text is not similar to old text save change to text and create change record
+        @specline_update.txt4_id = new_txt4_text.id 
+          record_change  
+        @specline_update.save
+      end
     end
     render :text=> params[:value]    
   end  
@@ -631,25 +633,33 @@ end
     
     @specline_update = @specline
     
-    value = params[:value].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?')
+    #application controller
+    #removes white space and punctuation from end of text
+    clean_text(params[:value])
     
-    if !value.blank?
+    #value = new text
+    if @value
     txt5_exist = Txt5.where('BINARY text =?', value).first
       if txt5_exist.blank?
          new_txt5_text = Txt5.create(:text => value)
       else
          new_txt5_text = txt5_exist
       end
-    end
     
-    if  @specline.txt5_id != new_txt5_text.id
-      #required so that text is saved if letter case is changed
-      @specline_update.txt5_id = new_txt5_text.id
-      record_change
-      @specline_update.save
+      #check if new text is similar to old text 
+      check_text_similartity = @specline.txt5.text.casecmp(@value)
+      if check_text_similartity == 0
+        #if new text is similar to old text save change to text only - do not create change record
+        @specline_update.txt5_id = new_txt5_text.id   
+        @specline_update.save 
+      else
+        #if new text is not similar to old text save change to text and create change record
+        @specline_update.txt5_id = new_txt5_text.id 
+          record_change  
+        @specline_update.save
+      end
     end
-    render :text=> params[:value]
-     
+    render :text=> params[:value] 
   end
 
   
@@ -658,24 +668,33 @@ end
     
     @specline_update = @specline
     
-    value = params[:value].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?')
-      
-    if !value.blank?
+    #application controller
+    #removes white space and punctuation from end of text
+    clean_text(params[:value])
+    
+    #value = new text
+    if @value
     txt6_exist = Txt6.where('BINARY text =?', value).first
       if txt6_exist.blank?
          new_txt6_text = Txt6.create(:text => value)
       else
          new_txt6_text = txt6_exist
       end
-    end
     
-    if  @specline.txt6_id != new_txt6_text.id     
-      @specline_update.txt6_id = new_txt6_text.id
-      record_change    
-      @specline_update.save     
+      #check if new text is similar to old text 
+      check_text_similartity = @specline.txt6.text.casecmp(@value)
+      if check_text_similartity == 0
+        #if new text is similar to old text save change to text only - do not create change record
+        @specline_update.txt6_id = new_txt6_text.id   
+        @specline_update.save 
+      else
+        #if new text is not similar to old text save change to text and create change record
+        @specline_update.txt6_id = new_txt6_text.id 
+          record_change  
+        @specline_update.save
+      end
     end
-    render :text=> params[:value]
-    
+    render :text=> params[:value]   
   end
   
   # PUT /speclines/1

@@ -14,8 +14,10 @@ class ApplicationController < ActionController::Base
 protected
 
   def clean_text(value)
-    @value = value
-    @value.strip 
+    @value = value 
+    @value.strip
+    @value.chomp
+    @value.chomp   
     while [".", ",", ";", ":", "!", "?"].include?(value.last)
     @value.chop!
     end

@@ -2,6 +2,7 @@ class Txt6 < ActiveRecord::Base
 #associations
 has_many :speclines
 has_many :changes
+has_many :performances
 
 #validation                                                 
 #validates_uniqueness_of :id

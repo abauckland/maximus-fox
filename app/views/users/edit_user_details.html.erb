@@ -2,6 +2,7 @@
 
 <div id="line_admin"></div>
 
+
 <div id="edit_box_less">
 
 <%= form_for(@user, :url => update_user_details_user_path(@user), :html => { :method => :put }) do |f| %>
@@ -36,8 +37,10 @@
       <%= f.password_field :password, {:size => 20} %><i> (required to allow changes to be saved)</i></t> 
       </p>
 </div>
-
-<div id="bottom_button"><%= f.submit "Update" %></div>
+<div id="watermark_check">
+	<i>Please note: you will be automatically logged out after you update your details.</i>
+</div>	
+<div id="bottom_button"><%= f.submit "Update" %> </div>
 <% end %>
 
 
