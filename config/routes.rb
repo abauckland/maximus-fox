@@ -25,6 +25,7 @@ SpecrightDev::Application.routes.draw do
   resources :clauserefs
   resources :features
   resources :guidenotes
+  resources :sponsors
 
   resources :guidedownloads
   resources :sessions
