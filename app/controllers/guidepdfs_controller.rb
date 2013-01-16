@@ -24,9 +24,13 @@ layout "application", :except => [:show, :new]
       send_file("#{Rails.root}/public#{guidepdf.photo.url.sub!(/\?.+\Z/, '') }", :type => 'application/pdf', :filename => guidepdf.photo_file_name)   
    
       #record download
+      if defined?(current_user)
+        current_user_id = current_user.id
+      end
+      
       #capture IP address
       ip = request.remote_ip
-      @guide_downloads = Guidedownload.new(:guidepdf_id => guidepdf.id, :ipaddress => ip)
+      @guide_downloads = Guidedownload.new(:guidepdf_id => guidepdf.id, :user_id => current_user_id, :ipaddress => ip)
       @guide_downloads.save
     end
    end
