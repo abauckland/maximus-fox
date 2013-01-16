@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
 #associations
-  belongs_to :range
+  belongs_to :productgroup
   has_many :characteristics
 
 end

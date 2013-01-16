@@ -4,8 +4,7 @@ class Clause < ActiveRecord::Base
 has_many :projects, :through => :speclines
 has_many :changes
 has_many :speclines, :uniq => true
-has_many :ranges
-
+has_many :productgroups
 belongs_to :clauseref, :include => [:clausetype]
 belongs_to :clausetitle
 belongs_to :guidenote
