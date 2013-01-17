@@ -76,7 +76,7 @@ layout "projects"
     selected_clauses = Clause.joins(:clauseref).select('DISTINCT(clauses.id)').where('clauses.id' => @current_project_clause_ids, 'clauserefs.subsection_id' => @selected_key_subsection.id)
     array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
 
-    @selected_specline_lines = Specline.includes(:clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
 
     
     #establish list of clausetypes to build tabulated view in show    

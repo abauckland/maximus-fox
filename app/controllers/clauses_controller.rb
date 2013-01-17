@@ -24,8 +24,7 @@ layout "projects"
     @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code") 
 
     
-    clone_clause_ids = Specline.where(:project_id => @current_project.id).collect{|i| i.clause_id}.uniq
-    @clone_clauses = Clause.joins(:clauseref, :clausetitle).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
+    @clone_clauses = Clause.includes(:speclines, :clausetitle, :clauseref => [:subsection => [:section]]).where('speclines.project_id' => @current_project.id).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
     @current_clone_clause = @clone_clauses.first
   
   end
@@ -45,8 +44,8 @@ layout "projects"
     @current_project_clauses = Clause.includes(:clauseref).where(:id => array_current_project_clauses).order('clauserefs.subsection_id, clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
     @clause = Clause.new(params[:clause])
 
-    clone_clause_ids = Specline.where(:project_id => @current_project.id).collect{|i| i.clause_id}.uniq
-    @clone_clauses = Clause.joins(:clauseref, :clausetitle).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
+
+    @clone_clauses = Clause.includes(:speclines, :clausetitle, :clauseref => [:subsection => [:section]]).where('speclines.project_id' => @current_project.id).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
     @current_clone_clause = Clause.first#@clone_clauses.first
 
 

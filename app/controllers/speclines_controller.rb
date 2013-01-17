@@ -604,9 +604,9 @@ end
     
     #value = new text
     if @value
-    txt4_exist = Txt4.where('BINARY text =?', value).first
+    txt4_exist = Txt4.where('BINARY text =?', @value).first
       if txt4_exist.blank?
-         new_txt4_text = Txt4.create(:text => value)
+         new_txt4_text = Txt4.create(:text => @value)
       else
          new_txt4_text = txt4_exist
       end
@@ -639,9 +639,9 @@ end
     
     #value = new text
     if @value
-    txt5_exist = Txt5.where('BINARY text =?', value).first
+    txt5_exist = Txt5.where('BINARY text =?', @value).first
       if txt5_exist.blank?
-         new_txt5_text = Txt5.create(:text => value)
+         new_txt5_text = Txt5.create(:text => @value)
       else
          new_txt5_text = txt5_exist
       end
@@ -674,9 +674,9 @@ end
     
     #value = new text
     if @value
-    txt6_exist = Txt6.where('BINARY text =?', value).first
+    txt6_exist = Txt6.where('BINARY text =?', @value).first
       if txt6_exist.blank?
-         new_txt6_text = Txt6.create(:text => value)
+         new_txt6_text = Txt6.create(:text => @value)
       else
          new_txt6_text = txt6_exist
       end

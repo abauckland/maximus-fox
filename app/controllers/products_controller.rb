@@ -37,13 +37,8 @@ def csv_product_import
         header_txt3_id_array[i] = header_txt3_check.id
         #starts from 5...
       end
-
-
-
-
-
-
-
+      #erase nil records from start of array
+      header_txt3_id_array.compact
     
     #find or create product record
       #get clause_id for clause reference - clauseref and clause title
@@ -53,7 +48,12 @@ def csv_product_import
       
         #if not valid
           #stop import or 
-          #do not import row and record row not added.
+          #do not import row and record row not added - error log?           
+            #create error hash
+            #if error hash is emply then process
+            #if error hash is not empty do not process and report errors
+            #hash = row number, column, type of error.
+            #print option of import errors
       
       #check txt4 record for clause substitle - find or create
       clause_subtitle = line[2]
