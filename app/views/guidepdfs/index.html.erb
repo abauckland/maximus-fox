@@ -1,4 +1,4 @@
-<div id="page_title">Guidance Note Download</div>
+<div id="page_title">Specification Guides</div>
   
 
 
@@ -6,38 +6,83 @@
 
 <div id="usp">
 	<div id="feature_text_1">
-<p>Specright provides FREE to download specification Guidance Notes. Written by Architects in collaboration with leading manufacturers they are updated on a regular basis.</p>		
-<p>We are continually expanding our range of guidance notes. If you would like to keep informed of updates and new releases please sign up for email notifications below.</p>		
+<p>Specright Specification Guides are available FREE to registerd subscribers. You do not have an account with us or be using the application to subscribe, so if you would like to recieve Specright Specification Guides and keep informed of updates please sign up below. </p>		
+
+
 <!-- Begin MailChimp Signup Form -->
-<table>
-<form action="http://specright.us5.list-manage.com/subscribe/post?u=023f024767796ab065700e0dc&amp;id=01239b3a0f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
-<tr>	
-<td width="230px">Subscribe for email notification</td>
-<td ><input type="email" value="" name="EMAIL"  placeholder="email address" required></td>
-<td><input type="submit" value="Subscribe" name="subscribe" id="#small_trial_link"></td>
-</tr>
+<form action="http://specright.us5.list-manage.com/subscribe/post?u=023f024767796ab065700e0dc&amp;id=01239b3a0f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+	<p>We do not share the information you provide with anyone else and you can unsubscribe at any time <i>(* indicates required)</i></p>
+<!-- <div class="indicates-required"><span class="asterisk">*</span> indicates required</div> -->
+
+    <div>
+    <table width="350">
+		<tr>
+    		<td>
+				<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span></label>
+				<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+			</td>
+		</tr>
+		<tr>
+    		<td>
+				<label for="mce-FIRST_NAME">First Name  <span class="asterisk">*</span></label>
+				<input type="text" value="" name="FIRST_NAME" class="required" id="mce-FIRST_NAME">
+			</td>
+		</tr>
+		<tr>
+    		<td>
+				<label for="mce-SURNAME">Surname  <span class="asterisk">*</span></label>
+				<input type="text" value="" name="SURNAME" class="required" id="mce-SURNAME">
+			</td>
+		</tr>
+		<tr>
+    		<td>
+				<label for="mce-SUBCMPNY">Company  <span class="asterisk">*</span></label>
+				<input type="text" value="" name="SUBCMPNY" class="required" id="mce-SUBCMPNY">
+			</td>
+		</tr>
+	</table>
+	</br>
+    <table width="400"">
+		<tr>
+    		<td>
+    			Select prefered email format:
+			</td>    		
+    		<td>
+    			<input type="radio" value="html" name="EMAILTYPE" id="mce-EMAILTYPE-0">html
+			</td>
+			<td>
+				<input type="radio" value="text" name="EMAILTYPE" id="mce-EMAILTYPE-1">text
+			</td>
+			<td>
+				<input type="radio" value="mobile" name="EMAILTYPE" id="mce-EMAILTYPE-2">mobile
+			</td>
+		</tr>
+	</table>
+	</div>
+	</br>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>
+	<div class="clear">
+		<input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">		
+	</div>
 </form>
+<!--End mc_embed_signup-->
+
+
+
+
 </table>
 <!--End mc_embed_signup-->				
-<p>If you have any comments regarding the contents of our Guidance Notes, would be interested in contributing or would like to see a Guidance Note for a particular Works Section please do contact us.</p>		
+<p>If you have any comments regarding the contents of our Guidance Notes, would be interested in contributing or would like to see a Guidance Note for a particular Works Section please contact us.</p>		
+
 	</div>
-	<div id="feature_text_2">
-	 	
-	 	<%= form_tag(:action => "download", :id => 1) do %>
-     <table>
-      <tr>Select Guidance Note(s) to Download:</td>
-      </tr>
-      <tr>
-        <td>     
-			<%= select_tag :subsection_ids, options_from_collection_for_select(@guidepdfs, :id, :title), :multiple => true, :size => 26 %>    
-        </td>
-      </tr>
-      <tr>
-        <td>
-			<%= submit_tag "download selected Guidance Notes", :class=>"edit_submit" %>
-        </td>
-      </tr>
-     </table>
-		<% end %>
-	</div>
+
+
+  <div id="show_image_guide">
+    <%= image_tag "guide_sample_doc.png", :width=>300, :height=>400, :border=>0 %>
+  </div>
+
+
 </div>

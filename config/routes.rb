@@ -128,7 +128,7 @@ SpecrightDev::Application.routes.draw do
   end
   
   resources :products do
-    get :csv_product_import, :on => :member
+    get :csv_product_upload, :on => :member
   end
   
 end

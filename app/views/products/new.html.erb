@@ -1,0 +1,66 @@
+<div id="project_info">
+  <div id="current_project_title">   
+company name
+  </div>
+</div>
+
+
+<div id="option_band">
+
+</div>
+
+<div id="edit_box_less">
+
+<div id="">
+	<table>
+	<% if @product_import_errors %>
+		<!-- error reporting-->
+  		<% @product_import_errors.each_with_index do |import_error, i|%>
+    		<tr><td>Row <%= i %>: <%= import_error %></td></tr>
+  		<% end %>
+	
+	<% else %>
+		<!-- success reporting-->
+  		<% if @product_import_reports %>
+  		<% @product_import_reports.each do |import_report|%>
+    		<tr><td><%= import_report %></td></tr>
+  		<% end %>
+  		<% end %>
+	<% end %>
+	</table>
+</div>	
+
+<!-- csv upload form and import options -->
+	<%= form_tag('/create') do %>
+	<!-- company uploading products -->
+	<%= hidden_field_tag(:company_id, current_user.company_id)%>   
+
+	<table>
+		<tr>
+			<td>
+				<!-- options - keep/delete existing products -->
+				Retain existing product data <%= radio_button_tag 'existing', 'retain', true %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Overwrite existing product data <%= radio_button_tag 'existing', 'overwrite' %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<!-- file with new products -->
+				<%= file_field_tag :file %>	
+			</td>
+		</tr>	
+	</table>
+
+</div>
+<div id="bottom_button">
+	<%= submit_tag "Import CSV"%>
+</div>	
+
+	<% end %>
+
+
+

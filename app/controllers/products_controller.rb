@@ -1,10 +1,71 @@
-class ProductsController < ActionController::Base
+class ProductsController < ApplicationController
 
-layout "supplier"
+before_filter :require_user
+
+
+layout "suppliers"
 
 def index
-   @abouts = About.all
+  current_user = User.first
+  
+  @txt3_id_array = Txt3.joins(:performances => [:characteristics => [:product => [:productgroup]]]).where('productgroups.supplier_id' => 1).order('text')
+  
+  @products = Product.includes(:productgroup =>[:txt4, :supplier, :clause => [:clausetitle]]).where('productgroups.supplier_id' => 1).order('productgroups.clause_id', 'productgroup_id')
+
 end
+
+def new
+  @product = Product.new
+end
+
+def create
+  
+  require 'tempfile' 
+  require 'csv'
+  
+  csv = CSV.read(params[:csv_file].tempfile.to_path.to_s, {:headers => true, }) 
+  
+  product_import_error_check(csv)  
+  
+end
+
+
+def product_import_error_check(csv)
+
+  product_import_errors = []
+   
+  headers = csv.headers
+   
+  #check no header values are nil
+  if headers.length != headers.compact.length
+       product_import_errors[0] = 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.'   
+  else
+    #check fixed headers are correct
+  check_array = ['Clause Ref','Subtitle','Product Ref','Product Name','Item Ref', 'Item Name']
+    check_heaer_array = headers[0..5]   
+    if check_array != check_header_array
+       product_import_errors[0] = 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.'
+    else
+      if clause.blank?
+        @csv.each_with_index do |line, i| 
+          #private method
+          clause_check(line[0], line[1])
+                 
+          if check_clause.blank?      
+            product_import_errors[i] = 'Clause reference' << line[0] << 'does not exist.' 
+          end
+        end
+      end
+    end
+   
+    if product_import_errors.empty?
+      
+    else
+      redirect_to :action=>'new'      
+    end
+  end
+end
+
 
 
 def csv_product_import
@@ -23,44 +84,32 @@ def csv_product_import
     #line[2] = clause substitle
     #line[3] = product reference
     #line[4] = product name
+    #line[5] = item reference
+    #line[6] = item name
+
 
     #array of tx3)ids for headers
     line_array_length = line.length
       
       header_txt3_id_array = []        
-      (5..line_array_length).each do |i|        
+      (7..line_array_length).each do |i|        
 
-        header_txt3_check = Txt4.where(:test => headers[i]).first
-        if header_txt3_check.blank?
-          header_txt3_check = Txt4.create(:test => headers[i]).first               
-        end
+        header_txt3_check = Txt3.find_or_create_by_text(headers[i])
+        #header_txt3_check = Txt3.where(:text => headers[i]).first_or_create
         header_txt3_id_array[i] = header_txt3_check.id
-        #starts from 5...
-      end
-      #erase nil records from start of array
+        #starts from 7...
+      end      
+      #erase nil records from start of array 0..6
       header_txt3_id_array.compact
     
     #find or create product record
       #get clause_id for clause reference - clauseref and clause title
-      clauseref = line[0]
-      clausetitle = line[1]
-      clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first
-      
-        #if not valid
-          #stop import or 
-          #do not import row and record row not added - error log?           
-            #create error hash
-            #if error hash is emply then process
-            #if error hash is not empty do not process and report errors
-            #hash = row number, column, type of error.
-            #print option of import errors
-      
-      #check txt4 record for clause substitle - find or create
-      clause_subtitle = line[2]
-      subtitle_check = Txt4.where(:test => clause_subtitle).first
-      if subtitle_check.blank?
-        subtitle_check = Txt4.create(:test => clause_subtitle).first               
-      end
+      #private method
+      clause_check(line[0], line[1])
+            
+      #check txt4 record for clause substitle - find or create     
+      subtitle_check = Txt4.find_or_create_by_text(line[2])
+      #subtitle_check = Txt4.where(:text => line[2]).first_or_create
       
       #find or create product record
       
@@ -71,15 +120,12 @@ def csv_product_import
 
       performance_id_array = [] 
        
-      (5..line_array_length).each do |i|
+      (7..line_array_length).each do |i|
                      
-        txt6_check = Txt6.where(:test => line[i]).first
-        if txt6_check.blank?
-          txt6_check = Txt6.create(:test => line[i]).first               
-        end
-        txt6_id = txt6_check.id
-        
-        performance = Performances.includes(:txt3).where(txt3_id => header_txt3_id_array[i], txt6_id => txt6_id ).first
+        txt6_check = Txt6.find_or_create_by_text(line[i])
+        #txt6_check = Txt6.where(:text => line[i]).first_or_create        
+
+        performance = Performances.includes(:txt3).where(txt3_id => header_txt3_id_array[i], txt6_id => txt6_check.id).first
         performance_id_array[i] = performance.id          
       end       
       performance_id_array.compact
@@ -107,13 +153,11 @@ def csv_product_import
     
     end  
   end
-  
 end
 
 private
 
 def find_current_performance_pairs(current_specline)
-  ####!!!!!!!!!! i + n does not work 
 
   performance_id_array = []
   txt3_array = []
@@ -133,19 +177,27 @@ def find_current_performance_pairs(current_specline)
         text.strip
         find_create_txt6(text)
         #search performance ids
-        performance = Performances.includes(:txt3).where(txt3_id => clause_specline.txt3_id, txt6_id => txt6_id).first
-        performance_id_array[i] = performance.id        
-        txt3_array[i] = performance.txt3.text
-        txt3_array.compact        
+        txt3_text_array(clause_specline.txt3_id, txt6_id)         
       end      
     else
       #search performance ids
-      performance = Performances.includes(:txt3).where(txt3_id => clause_specline.txt3_id, txt6_id => clause_specline.txt6_id).first
-      performance_id_array[i] = performance.id        
-      txt3_array[i] = performance.txt3.text
-      txt3_array.compact        
+      txt3_text_array(clause_specline.txt3_id, clause_specline.txt6_id)       
     end
   end
 end
+
+
+def txt3_text_array(txt3_id, txt6_id)
+  performance = Performances.includes(:txt3).where(txt3_id => txt3_id, txt6_id => txt6_id).first
+  performance_id_array[i] = performance.id        
+  txt3_array[i] = performance.txt3.text
+  txt3_array.compact  
+end
+
+
+def clause_check(clauseref, clausetitle)
+  clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first  
+end
+
     
 end
