@@ -9,7 +9,7 @@
 
   <% @posts.each do |post| %>
 
-    <div id="blog_title"><%= link_to post.title.capitalize, post_path(post) %></div >
+    <div id="blog_title"><%= link_to post.title, post_path(post) %></div >
 
     <div id="blog_info"><%= post.comments.count %> Comments. Published <%= post.created_at.strftime("%A %e %B %Y") %></div >
 

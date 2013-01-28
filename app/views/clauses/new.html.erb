@@ -11,8 +11,8 @@
 <div id="edit_box">
 		
 	
-
-		<%= f.hidden_field(:project_id, {:value => @current_project.id})%>  
+		<!-- value set to '1' for all new clauses, if different does not work with revision tracking and clause management -->
+		<%= f.hidden_field(:project_id, {:value => 1})%>  
 		<%= hidden_field_tag(:specline_id, @selected_specline_id)%> 
 	<div id="prj_details">
     	<table>

@@ -19,111 +19,145 @@ layout "projects", :except => [:print_project]
   # GET /txt1s/1
   # GET /txt1s/1.xml
   def show
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
-    
+
+    #check user is owner of the project 
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first    
     if @current_project.blank?
-      redirect_to(:controller => "devise/sessions", :action => "destroy")
-    else
-    
+      redirect_to log_out_path
+    end
+
+    #get all projects and current project template for view
     @projects = Project.where('company_id =?', current_user.company_id).order("code") 
     @current_project_template = Project.find(@current_project.parent_id)
     
     #call to protected method that restablishes text to be shown for project revision status
+    #returns all_project_revisions
     current_revision_render(@current_project)
     
-      if params[:revision].blank?
-        last_revision_with_changes = @project_revisions.collect{|item| item.id}.last
-        if last_revision_with_changes.blank?
-          @selected_revision = Revision.where('project_id = ?', @current_project.id).last
-        else
-          @selected_revision = Revision.find(last_revision_with_changes)
-        end
-      else              
-        @selected_revision = Revision.find(params[:revision])
+    #establish selected revision for project    
+    if params[:revision].blank?
+      last_revision_with_changes = @project_revisions.collect{|item| item.id}.last
+      if last_revision_with_changes.blank?
+        @selected_revision = Revision.where('project_id = ?', @current_project.id).last
+      else
+        @selected_revision = Revision.find(last_revision_with_changes)
       end
+    else              
+      @selected_revision = Revision.find(params[:revision])
+    end
       
     #show if print with superseded
-    @superseded = []  
-    if @all_project_revisions.count != 1 
+    #check if selected revision has been superseded, i.e. nest revision has been published
+        
+    if @current_project.project_status == 'Draft'
+      
+      @print_status_show = 'draft'
+      
+    else
+          
+      project_rev_array = @all_project_revisions.collect{|i| i.rev}
 
-      revision = @selected_revision.rev
-      #if revision == '-'
-      #  next_revision = 'a'
-      #else
-        next_revision = revision.next
-      #end
-
-      next_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
-      if next_rev_check 
-        @superseded[0] = 1 #show
-      else
-        @superseded[0] = 2 #do not show    
+      total_revisions = project_rev_array.length        
+      selected_revision = project_rev_array.index(@selected_revision.rev)    
+      number_revisions_old = total_revisions - selected_revision - 1  
+        
+      if number_revisions_old > 1
+        @print_status_show = 'superseded'
       end  
-    end      
+ 
+      if number_revisions_old == 1
+        @print_status_show = 'issue'    
+      end 
 
+      if number_revisions_old == 0
+        @print_status_show = 'not for issue'
+      end 
+    
+    end
   
       #@last_project_revisions = Revision.where('project_id = ?', @current_project.id)
     #respond_to do |format|
     #  format.html # show.html.erb
     #  format.xml  { render :xml => @revision }
     #end
-    end
+
   end
   
   
   def print_project
-
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
     
-  if @current_project.blank?
-    redirect_to(:controller => "devise/sessions", :action => "destroy")
-  else
+    #check user is owner of the project 
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first    
+    if @current_project.blank?
+      redirect_to log_out_path
+    end
 
+
+    #establish selected revision for project
     if params[:revision].blank?
       @selected_revision = Revision.where(:project_id => params[:id]).last
     else
       @selected_revision = Revision.find(params[:revision])
     end
-
-      current_revision_render(@current_project)
-      
-      @superseded = []  
-if @all_project_revisions.count == 1
-  @superseded[0] = 2 #do not show
-else
-  if @selected_revision == @all_project_revisions.last 
-    @superseded[0] = 2 #do not show    
-  else
-    revision = @selected_revision.rev
-    next_revision = revision.next 
-    last_rev_check = Change.joins(:revision).where('changes.project_id = ? AND revisions.rev = ?', @current_project.id, next_revision).first
-    if last_rev_check 
-      @superseded[0] = 1 #show
-    else
-      if @selected_revision.rev == '-' 
-        @superseded[0] = 1 #show      
-      else
-        @superseded[0] = 2 #do not show
-      end       
-    end
-  end  
-end   
-
-    @watermark = []    
+    #get list of all project revisions
+    current_revision_render(@current_project)
+ 
+    
+    #watermark printing
+    @superseded = []    
+    @watermark = [] 
     if @current_project.project_status == 'Draft'
-       @watermark[0] = 1
+      
+      @watermark[0] = 1 #show
+      @superseded[0] = 2 #do not show
+      
     else
-      if params[:issue] == 'true'
-        @watermark[0] = 1
-      else
-        @watermark[0] = 2
           
-      ###update revision status of project if document is issued
-        current_revision = Revision.where(:project_id => @current_project.id).last
-        if @selected_revision.rev  == current_revision.rev       
-          check_revision_use = Change.where(:project_id => params[:id], :revision_id => current_revision.id).first
-          if !check_revision_use.blank?  #if there are revisions
-            next_revision_ref = current_revision.rev.next
+      project_rev_array = @all_project_revisions.collect{|i| i.rev}
+
+      total_revisions = project_rev_array.length        
+      selected_revision = project_rev_array.index(@selected_revision.rev)    
+      number_revisions_old = total_revisions - selected_revision - 1  
+        
+      if number_revisions_old > 1
+        @superseded[0] = 1
+        @watermark[0] = 2 #do not show
+      end  
+ 
+      if number_revisions_old == 1
+        @watermark[0] = 2 #do not show
+        @superseded[0] = 2 #do not show     
+      end 
+
+      if number_revisions_old == 0
+        if params[:issue] == 'true'
+          @watermark[0] = 1 #show
+          @superseded[0] = 2 #do not show      
+        else
+          @watermark[0] = 2 #do not show
+          @superseded[0] = 2 #do not show        
+        end
+      end     
+    end
+
+
+    ###update revision status of project if document is issued
+    if @current_project.project_status != 'Draft'                
+      current_revision = Revision.where(:project_id => @current_project.id).last
+      if @selected_revision.rev == current_revision.rev       
+        check_revision_use = Change.where(:project_id => params[:id], :revision_id => current_revision.id).first
+        if !check_revision_use.blank?  #if there are revisions
+          next_revision_ref = current_revision.rev.next
+          @new_rev_record = Revision.new do |n|
+            n.rev = next_revision_ref
+            n.project_id = params[:id]
+            n.user_id =  current_user.id
+            n.date = Date.today
+          end  
+          @new_rev_record.save
+        else
+          if @selected_revision.rev == '-'
+            next_revision_ref = 'a'
             @new_rev_record = Revision.new do |n|
               n.rev = next_revision_ref
               n.project_id = params[:id]
@@ -131,24 +165,14 @@ end
               n.date = Date.today
             end  
             @new_rev_record.save
-          else
-            if @selected_revision.rev == '-'
-              next_revision_ref = 'a'
-              @new_rev_record = Revision.new do |n|
-                n.rev = next_revision_ref
-                n.project_id = params[:id]
-                n.user_id =  current_user.id
-                n.date = Date.today
-              end  
-              @new_rev_record.save
-            end  
-          end                                      
-        end
-        @current_revision_rev = current_revision.rev.capitalize  
-      end       
+          end  
+        end                                      
+      end
+      @current_revision_rev = current_revision.rev.capitalize       
     end
 
-    ######start of code speclineific to printing
+
+    ######start of code specific to printing
     ###!!!!!!!!needs updating for variables passed from print view
     
     revision_clause_id_array = Change.select('DISTINCT clause_id').where(:project_id => @current_project.id, :revision_id => @selected_revision.id).collect{|item| item.clause_id}.sort    
@@ -294,5 +318,5 @@ end
       prawnto :filename => @current_project.code+"_rev_"+@print_revision_rev+".pdf", :prawn => {:page_size => "A4", :margin => [20.mm, 14.mm, 5.mm, 20.mm], :font => 'Times-Roman'}, :inline=>false     
     #end
   end
-  end
+
 end

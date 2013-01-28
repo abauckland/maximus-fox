@@ -3,8 +3,8 @@ class SpeclinesController < ApplicationController
 skip_before_filter :prepare_for_mobile, :except => [:mob_edit_specline, :mob_edit_linetype, :mob_specline_templates, :mob_show_clauses, :mob_show_clauses_del, :mob_delete, :mob_new_specline, :mob_line_update]
 
 before_filter :require_user
-before_filter :check_project_ownership, :except => [:add_clause, :edit_clauses, :guidance, :mob_edit_specline, :mob_change_linetype, :mob_update, :mob_line_update, :mob_specline_templates, :mob_delete_clause, :mob_delete, :mob_add_clause, :mob_show_clauses, :mob_show_clauses_del, :mob_new_specline]
-before_filter :check_project_ownership_mob, :except => [:add_clause, :manage_clauses, :manage_clauses_2, :edit_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance, :mob_delete, :mob_new_specline, :mob_line_update]
+before_filter :check_specline_ownership, :except => [:add_clause, :edit_clauses, :guidance, :mob_edit_specline, :mob_change_linetype, :mob_update, :mob_line_update, :mob_specline_templates, :mob_delete_clause, :mob_delete, :mob_add_clause, :mob_show_clauses, :mob_show_clauses_del, :mob_new_specline]
+before_filter :check_project_ownership, :except => [:add_clause, :manage_clauses, :manage_clauses_2, :edit_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance, :mob_delete, :mob_new_specline, :mob_line_update]
 
 before_filter :prepare_for_mobile
 
@@ -60,6 +60,8 @@ def manage_clauses
      
 end
 #########################################################
+
+#this method is currently not in use
 def manage_clauses_2
       
     @projects = Project.where('company_id =?', current_user.company_id).order("code") 
@@ -175,21 +177,23 @@ def manage_clauses_2
   
     
 end
-
-
-
 #############################################################
-def edit_clauses
 
+def edit_clauses
+    
+    #check use is owner of the project   
     @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
-       
+  
     if @current_project.blank?
       redirect_to log_out_path
     else
 
+  #get all clauses that are in include list
 	clauses_array = Clause.where(:id => params[:project_clauses]).collect{|i| i.id}
+  #get all clauses that are already in project
 	clauses_array_existing = Specline.joins(:clause => :clauseref).where(:project_id => params[:project_id], 'clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.clause_id}.uniq
 
+  #create list of clauses to be added
 	clauses_to_add = clauses_array - clauses_array_existing
 	if !clauses_to_add.blank?
 		speclines_to_add = Specline.where(:project_id => params[:template_id], :clause_id => clauses_to_add) 
@@ -201,6 +205,7 @@ def edit_clauses
 		end                   
 	end
 
+  #create list of clauses to be deleted
 	clauses_to_delete = clauses_array_existing - clauses_array
 	if !clauses_to_delete.blank?       
     specline_lines_to_deleted = Specline.where(:project_id => params[:project_id], :clause_id => clauses_to_delete)      
@@ -223,9 +228,11 @@ def edit_clauses
     end
 	end 
 
+  #find if any clauses are in current subsection after changes
   subsection_clauses_array = Clause.joins(:clauseref).where('clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.id}.uniq
   get_valid_spline_ref = Specline.where(:project_id => params[:project_id], :clause_id => subsection_clauses_array).last
 
+  #if no clauses in subsection redirect to subsection manager
   if get_valid_spline_ref.blank?
     redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:project_id], :selected_template_id => params[:template_id])
   else
@@ -234,9 +241,11 @@ def edit_clauses
   
   end
 end
+######################################
 
 def add_clause
-  
+    
+    #check user is owner of the project     
     @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
        
     if @current_project.blank?
@@ -266,14 +275,14 @@ def add_clause
                        
     redirect_to(:controller => "speclines", :action => "manage_clauses", :id => params[:id], :project_id => params[:project_id])
  end  
-
+################################
 
 
   # GET
   def new_specline
-
-    @specline = Specline.find(params[:id])
     
+    #check use is owner of the specline and project
+    @specline = Specline.find(params[:id])    
     @current_project = Project.where('id = ? AND company_id =?', @specline.project_id, current_user.company_id).first
     
     if @current_project.blank?
@@ -281,7 +290,7 @@ def add_clause
     end
      
     #call to protected method in application controller that changes the clause_line ref in any subsequent speclines    
-   existing_subsequent_specline_lines = Specline.where('clause_id = ? AND project_id = ? AND clause_line > ?', @specline.clause_id, @specline.project_id, @specline.clause_line).order('clause_line')    
+    existing_subsequent_specline_lines = Specline.where('clause_id = ? AND project_id = ? AND clause_line > ?', @specline.clause_id, @specline.project_id, @specline.clause_line).order('clause_line')    
     update_subsequent_specline_clause_line_ref(existing_subsequent_specline_lines, 'new', @specline)
       
     if @specline.clause_line == 0
@@ -323,7 +332,7 @@ def add_clause
     respond_to do |format|
         format.js   { render :new_specline, :layout => false } 
   end
-
+#################################
 
 
 def move_specline
@@ -1135,7 +1144,7 @@ end
 
 
 protected
-def check_project_ownership
+def check_specline_ownership
 
     @specline = Specline.find(params[:id])
     @current_project = Project.where('id = ? AND company_id =?', @specline.project_id, current_user.company_id).first
@@ -1145,8 +1154,8 @@ def check_project_ownership
     end
 end
 
-def check_project_ownership_mob
-        @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first    
+def check_project_ownership
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first    
     if @current_project.blank?
       redirect_to log_out_path
     end

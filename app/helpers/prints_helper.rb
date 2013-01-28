@@ -7,55 +7,34 @@ module PrintsHelper
       "<div id='revision_select'>#{print_revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe  
     end
   end
+
     
   def print_revision_select_input(project_revisions, selected_revision, current_project)
     select_tag "revision", options_from_collection_for_select(project_revisions, :id, :rev, selected_revision.id), {:onchange => "window.location='/prints/#{current_project.id}?revision='+this.value;"}
   end
   
   
-  def watermark_checkbox(superseded, current_project, project_revisions, selected_revision)    
-    #project_revision_ids = project_revisions.collect{|i| i.id}
-    #if project_revision_ids.include?(selected_revision.id) 
-      if superseded[0].to_i == 1
-        "The selected revision of the document has already been published. A watermark 'Superseded' will be added to each page".html_safe      
-      else
-        if current_project.project_status == 'Draft' 
-          "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
-        else
-          check_all_project_revisions = Revision.where('project_id = ?', current_project.id).order('created_at')
-          if project_revisions.last != check_all_project_revisions.last
-          #if project rev has been issued but no changes to next  
-          "This document has already been published, no subsequent changes have been made to it. To create another copy click the 'Print Document' button" 
-          else
-          #if project rev has been issued and there are subsequent changes but the next revision has not been issued
-            
-          #if project rev has not been issued  
-          "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
-          end
-        end                    
-      end
-    #else
-      #if current_project.project_status == 'Draft' 
-      #  "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe 
-      #else
-     #   "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe
-     # end
-    #end
-  end
-  
-  def print_help(superseded, current_project, project_revisions, selected_revision)
-     project_revision_ids = project_revisions.collect{|i| i.id}
-    if project_revision_ids.include?(selected_revision.id) 
-      if superseded[0].to_i == 1
-        render :partial => "print_help_superseded"
-      end
-    else       
-      if current_project.project_status == 'Draft'
-        render :partial => "print_help_draft"
-      else
-        render :partial => "print_help"
-      end
+  def watermark_checkbox(print_status_show)    
+
+    case print_status_show            
+      when 'draft' ;  "A 'not for issue' watermark is placed on the documents when the specification is in Draft status.".html_safe
+      when 'superseded' ; "The selected revision of the document has already been published. A watermark 'Superseded' will be added to each page".html_safe    
+      when 'issue' ; "This document has already been published, no subsequent changes have been made to it. To create another copy click the 'Print Document' button".html_safe
+      when 'not for issue' ; "Confirm this revision of the document will not be issued. A watermark 'Not for Issue' will be added to each page#{check_box_tag 'issue', true, checked = true}".html_safe    
     end
+
+  end
+
+  
+  def print_help(print_status_show)
+  
+     case print_status_show            
+      when 'draft' ;  render :partial => "print_help_draft"
+      when 'superseded' ;  render :partial => "print_help_superseded"  
+      when 'issue' ; 
+      when 'not for issue' ; render :partial => "print_help"
+    end
+ 
   end
  
  

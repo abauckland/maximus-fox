@@ -12,7 +12,7 @@ class PostsController < ApplicationController
       @posts = Post.where('topic = ?', params[:topic])
     end
 
-    @topics = Post.all.collect{|i| i.topic}.uniq.sort
+    @topics = Post.all.collect{|i| i.topic}.uniq.compact
 
     respond_to do |format|
       format.html # index.html.erb
