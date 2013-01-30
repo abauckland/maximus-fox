@@ -34,7 +34,7 @@ layout "application", :except => [:download]
         end
       end
     end
-  render :text => '' # or whatever
+  return
  end
 
 end
