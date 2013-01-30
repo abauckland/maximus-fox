@@ -2,7 +2,7 @@ class GuidepdfsController < ApplicationController
 
 before_filter :prepare_for_mobile
 #before_filter :require_user, :except => [:index]
-layout "application", :except => [:show, :new]
+layout "application", :except => [:download]
 
  def index
   @guidepdfs = Guidepdf.includes(:subsections => :section).all#.order('sections.id, subsections.id') 
@@ -14,26 +14,27 @@ layout "application", :except => [:show, :new]
 
 
  def download
-   subsection = Subsection.where(:id => params[:subsection_ids]).first
+   subsection = Subsection.where(:id => params[:id]).first
    
-   guidepdfs = Guidepdf.where(:id => subsection.guidepdf_id)
+   @project = Project.first
+   @guidepdf = Guidepdf.where(:id => subsection.guidepdf_id).first
    
-   if guidepdfs
-    guidepdfs.each do |guidepdf|
-
-      send_file("#{Rails.root}/public#{guidepdf.photo.url.sub!(/\?.+\Z/, '') }", :type => 'application/pdf', :filename => guidepdf.photo_file_name)   
-   
-      #record download
-      if defined?(current_user)
-        current_user_id = current_user.id
-      end
+   if @guidepdf
+  
+      send_file("#{Rails.root}/public#{@guidepdf.pdf.url.sub!(/\?.+\Z/, '') }", :type => 'application/pdf', :filename => @guidepdf.pdf_file_name)   
       
-      #capture IP address
-      ip = request.remote_ip
-      @guide_downloads = Guidedownload.new(:guidepdf_id => guidepdf.id, :user_id => current_user_id, :ipaddress => ip)
-      @guide_downloads.save
+      #record download
+      if defined?(:current_user)
+        if current_user
+          current_user_id = current_user.id
+          #capture IP address
+          @guide_downloads = Guidedownload.create(:guidepdf_id => @guidepdf.id, :user_id => current_user_id, :ipaddress => request.remote_ip)
+        else
+          @guide_downloads = Guidedownload.create(:guidepdf_id => @guidepdf.id, :ipaddress => request.remote_ip)          
+        end
+      end
     end
-   end
+  render :text => '' # or whatever
  end
 
 end

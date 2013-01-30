@@ -20,10 +20,8 @@ end
 
 def create
   
-  require 'tempfile' 
-  require 'csv'
-  
-  csv = CSV.read(params[:csv_file].tempfile.to_path.to_s, {:headers => true, }) 
+  #not checked this works
+  csv = CSV.read(params[:file].path, headers: true)
   
   product_import_error_check(csv)  
   
@@ -154,6 +152,24 @@ def csv_product_import
     end  
   end
 end
+
+def product_specline_update
+  
+  all_projects = Project.all
+  
+  all_projects.each do |project|
+    clauses_ids = Clause.joints(:speclines).where('speclines.project_id = ?  AND speclines.linetype_id = ?', project.id, 5).collect{|i| i.id}
+    
+    clauses_ids.each do |clauses_id|
+      #get relevant speclines for clause
+      clause_ speclines = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 5) 
+    
+    
+    end  
+  end  
+  
+end
+
 
 private
 
