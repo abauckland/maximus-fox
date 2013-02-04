@@ -106,7 +106,7 @@ end
 def guidance_link(current_project_id, subsection_id)
  check_guide = Subsection.where(:id => subsection_id).first
   if !check_guide.guidepdf_id.nil?
-    "<div id='guidance_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'download', :subsection_ids => subsection_id}}</div>".html_safe
+    "<div id='guidance_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'download', :id => check_guide.guidepdf_id}}</div>".html_safe
   end
 end
 

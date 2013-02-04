@@ -14,10 +14,10 @@ layout "application", :except => [:download]
 
 
  def download
-   subsection = Subsection.where(:id => params[:id]).first
+   #subsection = Subsection.where(:id => params[:id]).first
    
-   @project = Project.first
-   @guidepdf = Guidepdf.where(:id => subsection.guidepdf_id).first
+   #@project = Project.first
+   @guidepdf = Guidepdf.where(:id => params[:id]).first
    
    if @guidepdf
   
