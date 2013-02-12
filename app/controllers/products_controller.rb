@@ -16,6 +16,7 @@ end
 
 def new
   @product = Product.new
+  @product_import_errors =params[:product_import_errors] 
 end
 
 def create
@@ -23,12 +24,12 @@ def create
   #not checked this works
   csv = CSV.read(params[:file].path, headers: true)
   
-  product_import_error_check(csv)  
+#  product_import_error_check(csv)  
   
-end
+#end
 
 
-def product_import_error_check(csv)
+#def product_import_error_check(csv)
 
   product_import_errors = []
    
@@ -56,22 +57,20 @@ def product_import_error_check(csv)
       end
     end
    
-    if product_import_errors.empty?
-      
+    if product_import_errors.empty? 
+      redirect_to :action=>'csv_product_upload'  
     else
-      redirect_to :action=>'new'      
+      redirect_to :action=>'new', :product_import_errors => product_import_errors     
     end
   end
 end
 
 
 
-def csv_product_import
+def csv_product_upload
 
-  require 'tempfile' 
-  require 'csv'
-  
-  @csv = CSV.read(params[:csv_file].tempfile.to_path.to_s, {:headers => true, }) 
+  #get using paperclip
+  #@csv = CSV.read("#{Rails.root}/public#{@csv.csv.url.sub!(/\?.+\Z/, '') }", {:headers => true, }) 
 
   #validate csv to check that correct columns are included and they are completed
 

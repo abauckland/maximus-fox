@@ -31,7 +31,7 @@ layout "projects"
 
   def create
 
-    @current_project = Project.where('id = ? AND company_id =?', params[:clause][:project_id], current_user.company_id).first
+    @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
     
     if @current_project.blank?
       redirect_to log_out_path

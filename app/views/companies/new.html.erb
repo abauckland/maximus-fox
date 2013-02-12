@@ -27,28 +27,24 @@
       
       <p>
       <label>Email Address*:</label> 
-      <%= builder.text_field :email, :size => 40 %>
-      <%= error_check(@company, :'users.email')%>     
+      <%= builder.text_field :email, :size => 40 %><%= error_check(@company, :'users.email')%>          
       </p>
       
       <p>
       <label>Password*:</label> 
-      <%= builder.password_field :password, :size => 20  %> (min 8 characters long)
-      <%= error_check(@company, :'users.password')%> 
+      <%= builder.password_field :password, :size => 20  %> (min 8 characters long)<%= error_check(@company, :'users.password')%>       
       </p>
       
       <p>
       <label>Confirm Password*:</label>   
-      <%= builder.password_field :password_confirmation, :size => 20  %>
-      <%= error_check(@company, :'users.password')%>  
+      <%= builder.password_field :password_confirmation, :size => 20  %><%= error_check(@company, :'users.password')%>       
       </p>
       
 <% end %>
 
       <p>
       <label>Company Name*:</label> 
-      <%= f.text_field :company_name, :size => 40 %>
-      <%= error_check(@company, :company_name)%>
+      <%= f.text_field :company_name, :size => 40 %><%= error_check(@company, :company_name)%>      
       </p>
       
       <p>
@@ -73,8 +69,7 @@
       
       <p>
       <label>Telephone No*:</label> 
-      <%= f.text_field :tel, :size => 20 %>
-      <%= error_check(@company, :tel)%>
+      <%= f.text_field :tel, :size => 20 %><%= error_check(@company, :tel)%>      
       </p>
       
       <p>
@@ -89,8 +84,7 @@
   
       <p id="accept_terms">
       <label >Accept Terms of Use*</label>  
-      <%= f.check_box :read_term %>
-      <%= error_check(@company, :read_term)%>
+      <%= f.check_box :read_term %><%= error_check(@company, :read_term)%>      
       </p>
 
 </div>
