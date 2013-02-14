@@ -62,7 +62,7 @@ namespace :cleanup do
   end
   
   desc "remove all session records"
-  taks :session_clean   => :environment do
+  task :session_clean   => :environment do
     sessions = Session.all
     sessions.each do |session|
       session.destroy
