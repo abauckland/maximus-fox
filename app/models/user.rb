@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
 
 belongs_to :company
 has_one :licence
+has_many :productimport
 
 
 

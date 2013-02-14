@@ -1,0 +1,74 @@
+<div id="project_info">
+  <div id="current_project_title">   
+company name
+  </div>
+</div>
+
+
+<div id="option_band">
+
+</div>
+
+<div id="edit_box_less">
+
+	<% if @productimport.errors[:productimport] %>
+  		<div id="">      		
+    		<% @productimport.errors.values.each_with_index do |value| %> 
+				<t style='color: #ff0000'><%= value[0] %></t>
+    		<% end %>  
+  		</div>
+  		<!-- not correct -->
+  		<% if !@productimport.errors[:productimport].blank? %>	
+  		<form action="print" method="get" >
+  			<%= hidden_field_tag "id", current_user.id %>
+  			<%= hidden_field_tag "productimport", @productimport %>
+  			<div id="">
+    			<%= submit_tag 'Print Error Report'%>
+  			</div>
+		</form>
+		<% end %>
+		  
+	<% end %> 
+
+	<% if flash[:notice] %>
+    	<div id="notice">
+    		<t style='color: green'><%= flash[:notice] %></t>
+    	</div>
+	<% end %>
+
+
+<!-- csv upload form and import options -->
+	<%= form_for(@productimport) do |f| %>
+
+	<!-- user uploading products -->
+	<%= f.hidden_field(:user_id, {:value => current_user.id})%>   
+
+	<table>
+		<tr>
+			<td>
+				<!-- options - keep/delete existing products -->
+				Retain existing product data <%= f.radio_button :action, 'retain', :checked => true %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Overwrite existing product data <%= f.radio_button :action, 'overwrite' %>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<!-- file with new products -->
+				<%= f.file_field :csv %>	
+			</td>
+		</tr>	
+	</table>
+
+</div>
+<div id="bottom_button">
+	<%= f.submit "Import CSV"%>
+</div>	
+
+	<% end %>
+
+
+

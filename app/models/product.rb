@@ -1,6 +1,5 @@
-class Product < ActiveRecord::Base
+class Productimport < ActiveRecord::Base
 #associations
-  belongs_to :productgroup
-  has_many :characteristics
+  belongs_to :user
 
 end

@@ -127,8 +127,10 @@ SpecrightDev::Application.routes.draw do
     get :download, :on => :member
   end
   
-  resources :products do
+  resources :products
+  resources :productimports do
     get :csv_product_upload, :on => :member
+    get :print, :on => :member
   end
   
 end
