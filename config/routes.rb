@@ -6,6 +6,7 @@ SpecrightDev::Application.routes.draw do
 
   root :to => "homes#index"  
   match 'prints/:id/print_project' => 'prints#print_project', :defaults => { :format => 'pdf' }
+  match 'productimports/:id/product_error_print' => 'productimports#product_error_print', :defaults => { :format => 'pdf' } 
  
   get "home" => "homes#index", :as => "home"
   #get "mob_home" => "sessions#new", :as => "mob_home"    
@@ -130,7 +131,7 @@ SpecrightDev::Application.routes.draw do
   resources :products
   resources :productimports do
     get :csv_product_upload, :on => :member
-    get :print, :on => :member
+    get :product_error_print, :on => :member
   end
   
 end

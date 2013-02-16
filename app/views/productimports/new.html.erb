@@ -19,7 +19,7 @@ company name
   		</div>
   		<!-- not correct -->
   		<% if !@productimport.errors[:productimport].blank? %>	
-  		<form action="print" method="get" >
+  		<form action="product_error_print" method="get" >
   			<%= hidden_field_tag "id", current_user.id %>
   			<%= hidden_field_tag "productimport", @productimport %>
   			<div id="">
