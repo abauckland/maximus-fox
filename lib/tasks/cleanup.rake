@@ -4,7 +4,7 @@
 namespace :cleanup do
 
  desc "remove unused records from database"
- task :remove_unused_records => [:txt3_clean, :txt4_clean, :txt5_clean, :session_clean] do 
+ task :remove_unused_records => [:txt3_clean, :txt4_clean, :txt5_clean, :clausetitle_clean, :session_clean] do 
  end 
  
  desc "remove unused txt3 text"
@@ -25,8 +25,8 @@ namespace :cleanup do
 		 
   end
   
-   desc "remove unused txt4 text"
-   task :txt4_clean  => :environment do
+  desc "remove unused txt4 text"
+  task :txt4_clean  => :environment do
      
   #next section does not work, fail on finding Specline
     speclines = Specline.all.collect{|i| i.txt4_id}.uniq
@@ -43,7 +43,7 @@ namespace :cleanup do
      
   end
   
-   desc "remove unused txt5 text"
+  desc "remove unused txt5 text"
   task :txt5_clean  => :environment do
      
   #next section does not work, fail on finding Specline
@@ -61,10 +61,29 @@ namespace :cleanup do
      
   end
   
+  
+  desc "remove unused clausetitles"
+  task :clausetitle_clean  => :environment do
+     
+  #next section does not work, fail on finding Specline
+    clauses = Clause.all.collect{|i| i.clausetitle_id}.uniq
+    clausetitle_id_array = Clausetitle.all.collect{|i| i.id}
+        
+    unused_clausetitle_id_array = clausetitle_id_array - clauses
+
+    @unused_clausetitle = Clausetitle.where(:id => unused_clausetitle_id_array)
+     
+    @unused_clausetitle.each do |title|
+      title.destroy
+    end  
+     
+  end
+  
+  
   desc "remove all session records"
   task :session_clean   => :environment do
-    sessions = Session.all
-    sessions.each do |session|
+    @sessions = Session.where('created_at > ?', 1.day.ago)
+    @sessions.each do |session|
       session.destroy
     end    
   end
