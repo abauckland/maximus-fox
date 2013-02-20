@@ -1,4 +1,4 @@
-class Productimport < ActiveRecord::Base
+class Product < ActiveRecord::Base
 #associations
   belongs_to :user
 
