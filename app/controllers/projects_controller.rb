@@ -165,7 +165,7 @@ layout "projects"
 
       @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
     if @current_project.blank?
-      redirect_to(:controller => "devise/sessions", :action => "destroy")
+      redirect_to log_out_path
     else
     
 subsection_list = Subsection.where(:id => params[:project_subsections]).collect{|i| i.id}

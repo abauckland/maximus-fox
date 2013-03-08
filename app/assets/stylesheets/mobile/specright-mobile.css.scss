@@ -24,10 +24,12 @@ $shadow-tab: 0px 0px 5px 2px #aeaeae;
 @mixin corners-top {-webkit-border-radius-topright: $corner-radius; -webkit-border-radius-topleft: $corner-radius;-moz-border-radius-topright: $corner-radius; -moz-border-radius-topleft: $corner-radius; border-radius-topright: $corner-radius; border-radius-topleft: $corner-radius;}
 
 
-body {  
+html {
+  font-size: 62.5%; 
+  font-family: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
+  } 
 
-  font-family: verdana;
-  font-size:   12px;
+body {  
 }
 
 #toolbar {
@@ -88,96 +90,73 @@ p{
   text-align: center;  
 }
 
-#mob_home_logo {
-  position: fixed;
-  top: 30px;
-  width: 252px;
-  left: 50%;
-  margin-left: -126px;
-  margin-right: -126px;
+.mob_home_logo {
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
 }
 
-#mob_home_strapline {
-  position: fixed;
-  top: 120px;
-  width: 460px;
-  left: 50%;
-  margin-left: -230px;
-  margin-right: -230px;
-  font: normal 24px sans-serif;
+.mob_home_strapline {
+  float: left;
+  width: 100%;
+  text-align: center;
+  font: italic 1.5rem sans-serif;
+  margin-top: 10px;
 }
 
-#mob_home_image_web {
-  position: fixed;
-  top:200px;
-  width: 535px;
-  height: 367px;
-  left: 50%;
-  margin-left: -300px;
-  margin-right: -255px;
-  border: 1px solid #bebebe;
-    @include shadow-all;
+.mob_home_image_web {
+  float: left;
+  width: 100%;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.mob_page_container{
+  max-width:450px;
+  margin: auto;
+}
+
+.mob_home_intro_text{
+  float: left;
+  width: 100%;
+  font-size: 1.4rem; 
+  text-align: center;
+  padding: 0, 20px, 0, 20px;
+  margin-top: 5px;   
+}
+
+.mob_login_form{
+  float: left;
+  width: 100%; 
+  text-align: center;
+  margin-top: 20px;     
 }
 
 
-#mob_home_image_mob {
-  position: fixed;
-  top: 410px;
-  width: 342px;
-  height: 211px;
-  left: 50%;
-  margin-left: -25px;
-  margin-right: -200px;
+
+.mob_login {
+  float: left;
+  width: 100%;
+
+  text-align: center;
+  input {   
+  width: 60%;  
+  }
 }
 
-
-#mob_home_intro_text{
-  position: fixed;
-  top: 610px;
-  width: 600px;
-  left: 50%;
-  margin-left: -300px;
-  margin-right: -300px;
-  font: normal 24px sans-serif; 
-  text-align: center;   
-}
-
-#login {
-  position: fixed;
-  top: 800px;
-  left: 50%;
-  width: 600px;
-  margin-left: -300px;
-  margin-right: -300px;
-}
-
-#login_text {
-  width: 100px;
-  font: normal 30px verdana;
-  padding: 0px 10px 10px 0px; 
-}
-
-#login_field{
-  width: 350px;
-}
-
-#login_submit{
-  position: absolute;
-  top: 120px;
-  right: 0px;
-  width: 100px;
-}
 
 .login_submit{
   font: normal 30px;
   background: image-url('button_green_mob.png') repeat-x;
-  border: none;
-  padding: 0px 0px 5px 0px;  
+  border: none; 
   color: #fff;
+  margin-top: 10px; 
+  width: 60%;
+      padding: 5px 5px 5px 5px; 
   @include corners-all;
   @include shadow-all;
   &:hover {
-  padding: 0px 0px 5px 0px; 
    border: solid 1px #fff;
   }    
 }
@@ -413,7 +392,7 @@ ul li.del_arrow {
 }
 
 
-select, input {
+select {
     width: 100%;
     height: 40px;
     line-height:40px;

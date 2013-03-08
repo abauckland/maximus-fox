@@ -13,65 +13,85 @@ end
 def create
   @productimport = Productimport.new(params[:productimport])
     
-  csv = CSV.read(params[:productimport][:csv].path, headers: true)   
-  headers = csv.headers
-   
+  require 'csv'
+  
+  @csv = CSV.read(params[:productimport][:csv].path)   
+  headers = @csv[0]
+
+  
+  @product_import_errors = []
   #check no header values are nil
-  if headers.length != headers.compact.length
-       @productimport.errors.add(:productimport, 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.')   
-  else
-    #check fixed headers are correct
+  if headers.include?(nil)
+    missing_header_count = headers.length - headers.compact.length
+        @product_import_errors << (missing_header_count.to_s << ' column heading(s) are blank, please ensure that all columns have a header title')   
+  end
+  
+  
+  #check fixed headers are correct
   check_array = ['Clause Ref','Subtitle','Product Ref','Product Name','Item Ref', 'Item Name']
-    check_heaer_array = headers[0..5]   
-    if check_array != check_header_array
-       @productimport.errors.add(:productimport, 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.')
-    else
-      if clause.blank?
-        @csv.each_with_index do |line, i| 
+  check_header_array = headers[0..5]   
+  if check_array != check_header_array
+       @product_import_errors << ('Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct errors and reload file.')
+  end
+  
+  @csv_no_headers = @csv.drop(1)
+  
+  if !@csv_no_headers.empty?
+    if @productimport.empty?
+    
+      #check if clause references are valid for each line
+      if clause.blank?      
+        @csv_no_headers.each_with_index do |line, i| 
           #private method
-          clause_check(line[0], line[1])
-                 
+          clause_check(line[0], line[1])                 
           if check_clause.blank?      
-            @productimport.errors.add(:productimport, 'Clause reference' << line[0] << 'does not exist.') 
+            @product_import_errors << ('Clause reference' << line[0].to_s << 'does not exist.') 
           end
         end
       end
+
+      @csv.each_with_index do |line, i|    
+        line.each_with_index do |cell, n|
+
+          if cell.strip! != nil
+            @product_import_errors << ('Line ' << i.to_s << ', cell '<< n.to_s << ', Cell data error: white space before and, or, after text.')     
+          end
+          
+          punt_list = [".", ",", ";", ":", "!", "?", "/", "'"]
+          if punt_list.include?(cell.last)
+            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: punctuation after text.')     
+          end
+          
+          unit_list = [" mm", " m ", " cm", " ft", " kg", " g ", " l ", " W ", " Pa "]
+          if unit_list.include?(cell.last)
+            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: space between units and number.')     
+          end
+          
+          unit_list = [" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
+          if unit_list.include?(cell.last)
+            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sqm, sq ft, etc.')     
+          end
+          
+          if cell.first != cell.first.capitalize
+            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: first letter must be a capital letter.')     
+          end
+          #degrees and other sufixes          
+        end   
+      end
+    
     end
-  end           
-  
-  @csv.each_with_index do |line, i|    
-    line.each_with_index do |cell, n|
-      if cell.strip! != nil
-        @productimport.errors.add(:productimport, 'Line ' << i << ', cell '<< n << ', Cell data error: white space before and, or, after text.')     
-      end
-      punt_list = [".", ",", ";", ":", "!", "?", "/", "'"]
-      if punt_list.include?(cell.last)
-        @productimport.errors.add(:productimport, 'Line ' << i << ', cell '<< n << ', Cell data error: punctuation after text.')     
-      end
-      unit_list = [" mm", " m ", " cm", " ft", " kg", " g ", " l ", " W ", " Pa "]
-      if unit_list.include?(cell.last)
-        @productimport.errors.add(:productimport, 'Line ' << i << ', cell '<< n << ', Cell data error: space between units and number.')     
-      end
-      unit_list = [" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
-      if unit_list.include?(cell.last)
-        @productimport.errors.add(:productimport, 'Line ' << i << ', cell '<< n << ', Cell data error: define area using sqm, sq ft, etc.')     
-      end
-      if cell.first != cell.first.capitalize
-        @productimport.errors.add(:productimport, 'Line ' << i << ', cell '<< n << ', Cell data error: first letter must be a capital letter.')     
-      end
-      #degrees and other sufixes          
-    end   
   end
+
   
   respond_to do |format|
-    if @productimport.errors.empty?   
+    if @product_import_errors.empty?   
       @productimport.save
-      flash[:notice] = 'Company was successfully created.'
+      flash[:notice] = 'CSV uploaded successfully.'
       format.html { render :action => "new" }
       #format.xml  { render :xml => @company, :status => :created, :location => @company }
     else
       format.html { render :action => "new" }
-      format.xml  { render :xml => @productimport.errors, :status => :unprocessable_entity }
+      format.xml  { render :xml => @product_import_errors, :status => :unprocessable_entity }
     end
   end  
 end
@@ -80,7 +100,7 @@ end
 
 
 def product_error_print
-    @productimport = params[:productimport]
+    @productimport_errors = params[:import_errors]
     prawnto :filename => "product_upload_error_log.pdf", :prawn => {:page_size => "A4", :margin => [20.mm, 14.mm, 5.mm, 20.mm], :font => 'Times-Roman'}, :inline=>false     
 end
 

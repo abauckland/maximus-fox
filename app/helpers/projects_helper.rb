@@ -136,17 +136,17 @@ def mobile_filter(specline)
 
       when 1, 2 ; "<li id='#{specline.id}' class='clause_title'><table width =100%><tr><td width = '100'>#{clause_ref_text(specline)}</td><td>#{specline.clause.clausetitle.text}</td><td width='35'></td></tr></table></li>".html_safe
     
-      when 3 ; "#{mob_html_prefix(specline)}  <td width='18'>#{specline.txt1.text}.</td><td>#{specline.txt4.text}: #{specline.txt5_text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
+      when 3 ; "#{mob_html_prefix(specline)}  <td width='18'>#{specline.txt1.text}.</td><td>#{specline.txt4.text}: #{specline.txt5.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
 
       when 4 ; "#{mob_html_prefix(specline)}  <td width='18'>#{specline.txt1.text}.</td><td>#{specline.txt4.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
-      when 5 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt6_text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
+      when 5 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt6.text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
 
-      when 6 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt5_text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
+      when 6 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt5.text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
 
       when 7 ; "#{mob_html_prefix(specline)}  <td>#{specline.txt4.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-      when 8 ; "#{mob_html_prefix(specline)}  <td>#{specline.txt4.text}: #{specline.txt5_text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
+      when 8 ; "#{mob_html_prefix(specline)}  <td>#{specline.txt4.text}: #{specline.txt5.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
 
   end
 end

@@ -20,22 +20,22 @@
     <ul>
       <% if @specline.linetype_id == 4%>
         <li class='specline_type'>Prefix (automatically assigned)</li>
-        <li class='specline_type'>Text</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+        <li class='specline_type'>Text</li><li class='specline_edit' ><%= f.text_area :txt5_text, :value => @specline.txt5.text %></li>
       <% elsif @specline.linetype_id == 3%>
         <li class='specline_type'>Prefix (automatically assigned)</li>
-        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text %></li>
-        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text, :value => @specline.txt4.text  %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text, :value => @specline.txt5.text  %></li>
       <% elsif @specline.linetype_id == 5%>
-        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text %></li>
-        <li class='specline_type'>Product Attribute</li><li class='specline_edit' ><%= f.text_area :txt6_text %></li>
+        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text, :value => @specline.txt3.text  %></li>
+        <li class='specline_type'>Product Attribute</li><li class='specline_edit' ><%= f.text_area :txt6_text, :value => @specline.txt6.text  %></li>
       <% elsif @specline.linetype_id == 6%>
-        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text %></li>
-        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+        <li class='specline_type'>Category</li><li class='specline_edit' ><%= f.text_field :txt3_text, :value => @specline.txt3.text  %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text, :value => @specline.txt5.text  %></li>
       <% elsif @specline.linetype_id == 7%>
-        <li class='specline_type'>Text</li><li class='specline_edit'><%= f.text_area :txt4_text %></li>
+        <li class='specline_type'>Text</li><li class='specline_edit'><%= f.text_area :txt4_text, :value => @specline.txt4.text  %></li>
       <% elsif @specline.linetype_id == 8%>
-        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text %></li>
-        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text %></li>
+        <li class='specline_type'>Description</li><li class='specline_edit' ><%= f.text_area :txt4_text, :value => @specline.txt4.text  %></li>
+        <li class='specline_type'>Attribute</li><li class='specline_edit' ><%= f.text_area :txt5_text, :value => @specline.txt5.text  %></li>
       <% end %> 
     </ul>
     <%= f.submit "Save" %>

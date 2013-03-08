@@ -29,9 +29,10 @@
       <%= image_tag "specright_logo.png", :width => 100, :height=> 30, :border=>0%> 
   </div>
   <div id="menu">
-    <div id="menu_item_project"><%= link_to "PRODUCTS", products_path, :class => check_current('projects', 'project')%></div>
-    <div id="menu_item_project"><%= link_to "IMPORT", new_product_path, :class => check_current('projects', 'document')%></div>
-    <div id="menu_item_project"><%= link_to "EXPORT", nil, :class => check_current('revisions', 'revision')%></div>
+    <div id="menu_item_project"><%= link_to "PRODUCTS", products_path, :class => check_current('products', 'product')%></div>
+    <div id="menu_item_project"><%= link_to "IMPORT", new_productimport_path, :class => check_current('productimports', 'import')%></div>
+    <div id="menu_item_project"><%= link_to "EXPORT", productexports_path, :class => check_current('productexports', 'exports')%></div>
+    <div id="menu_item_project"><%= link_to "REPORTS", NIL, :class => check_current('revisions', 'revision')%></div>
   </div>
 
 

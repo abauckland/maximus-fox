@@ -586,21 +586,16 @@ end
         end
      
       #check if new text is similar to old text 
-      check_text_similartity = @specline.txt3.text.casecmp(@value)
-      if check_text_similartity == 0
-        #if new text is similar to old text save change to text only - do not create change record
-        @specline_update.txt3_id = new_txt3_text.id   
-        @specline_update.save 
-      else
+      @specline_update.txt3_id = new_txt3_text.id 
+      if @specline.txt3.text.casecmp(@value) != 0
         #if new text is not similar to old text save change to text and create change record
-        @specline_update.txt3_id = new_txt3_text.id 
-          record_change  
-        @specline_update.save
+          record_change         
       end
+      @specline_update.save
     end
     render :text=>  @value   
   end  
-  
+ 
   
   # PUT /projects/update_specline_4/id
   def update_specline_4
@@ -621,17 +616,12 @@ end
       end
     
       #check if new text is similar to old text 
-      check_text_similartity = @specline.txt4.text.casecmp(@value)
-      if check_text_similartity == 0
-        #if new text is similar to old text save change to text only - do not create change record
-        @specline_update.txt4_id = new_txt4_text.id   
-        @specline_update.save 
-      else
+      @specline_update.txt4_id = new_txt4_text.id 
+      if @specline.txt4.text.casecmp(@value) != 0
         #if new text is not similar to old text save change to text and create change record
-        @specline_update.txt4_id = new_txt4_text.id 
-          record_change  
-        @specline_update.save
+          record_change         
       end
+      @specline_update.save
     end
     render :text=> params[:value]    
   end  
@@ -656,17 +646,12 @@ end
       end
     
       #check if new text is similar to old text 
-      check_text_similartity = @specline.txt5.text.casecmp(@value)
-      if check_text_similartity == 0
-        #if new text is similar to old text save change to text only - do not create change record
-        @specline_update.txt5_id = new_txt5_text.id   
-        @specline_update.save 
-      else
+      @specline_update.txt5_id = new_txt5_text.id 
+      if @specline.txt5.text.casecmp(@value) != 0
         #if new text is not similar to old text save change to text and create change record
-        @specline_update.txt5_id = new_txt5_text.id 
-          record_change  
-        @specline_update.save
+          record_change         
       end
+      @specline_update.save
     end
     render :text=> params[:value] 
   end
@@ -691,17 +676,12 @@ end
       end
     
       #check if new text is similar to old text 
-      check_text_similartity = @specline.txt6.text.casecmp(@value)
-      if check_text_similartity == 0
-        #if new text is similar to old text save change to text only - do not create change record
-        @specline_update.txt6_id = new_txt6_text.id   
-        @specline_update.save 
-      else
+      @specline_update.txt6_id = new_txt6_text.id 
+      if @specline.txt6.text.casecmp(@value) != 0
         #if new text is not similar to old text save change to text and create change record
-        @specline_update.txt6_id = new_txt6_text.id 
-          record_change  
-        @specline_update.save
+          record_change         
       end
+      @specline_update.save
     end
     render :text=> params[:value]   
   end
@@ -895,45 +875,82 @@ def mob_line_update
 
       @specline_update = @specline
     
-      if params[:specline][:txt3_text] != nil          
-        value_3 = params[:specline][:txt3_text].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?').capitalize      
-        new_txt3_text = Txt3.find_or_create_by_text(value_3) unless value_3.blank?
-        if  @specline.txt3_id != new_txt3_text.id     
-          @specline_update.txt3_id = new_txt3_text.id
-          record_change
-          @specline_update.save
+      if params[:specline][:txt3_text] != nil           
+        clean_text(params[:specline][:txt3_text])
+        if @value
+        txt3_exist = Txt3.where('BINARY text =?', @value).first
+          if txt3_exist.blank?
+            new_txt3_text = Txt3.create(:text => @value)
+          else   
+            new_txt3_text = txt3_exist
+          end
+        #check if new text is similar to old text 
+        @specline_update.txt3_id = new_txt3_text.id 
+          if @specline.txt3.text.casecmp(@value) != 0
+            #if new text is not similar to old text save change to text and create change record
+            record_change         
+          end
+        @specline_update.save
         end
-      end
+       end
+     
+            
+      if params[:specline][:txt4_text] != nil           
+        clean_text(params[:specline][:txt4_text])
+        if @value
+        txt4_exist = Txt4.where('BINARY text =?', @value).first
+          if txt4_exist.blank?
+            new_txt4_text = Txt4.create(:text => @value)
+          else   
+            new_txt4_text = txt4_exist
+          end
+        #check if new text is similar to old text 
+        @specline_update.txt4_id = new_txt4_text.id 
+          if @specline.txt4.text.casecmp(@value) != 0
+            #if new text is not similar to old text save change to text and create change record
+            record_change         
+          end
+        @specline_update.save
+        end
+       end
       
-      if params[:specline][:txt4_text] != nil          
-        value_4 = params[:specline][:txt4_text].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?').capitalize      
-        new_txt4_text = Txt4.find_or_create_by_text(value_4) unless value_4.blank?
-        if  @specline.txt4_id != new_txt4_text.id     
-          @specline_update.txt4_id = new_txt4_text.id
-          record_change
-          @specline_update.save
+       if params[:specline][:txt5_text] != nil           
+        clean_text(params[:specline][:txt5_text])
+        if @value
+        txt5_exist = Txt5.where('BINARY text =?', @value).first
+          if txt5_exist.blank?
+            new_txt5_text = Txt5.create(:text => @value)
+          else   
+            new_txt5_text = txt5_exist
+          end
+        #check if new text is similar to old text 
+        @specline_update.txt5_id = new_txt5_text.id 
+          if @specline.txt5.text.casecmp(@value) != 0
+            #if new text is not similar to old text save change to text and create change record
+            record_change         
+          end
+        @specline_update.save
         end
-      end
+       end
       
-      if params[:specline][:txt5_text] != nil          
-        value_5 = params[:specline][:txt5_text].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?').capitalize      
-        new_txt5_text = Txt5.find_or_create_by_text(value_5) unless value_5.blank?
-        if  @specline.txt5_id != new_txt5_text.id     
-          @specline_update.txt5_id = new_txt5_text.id
-          record_change
-          @specline_update.save
+       if params[:specline][:txt6_text] != nil           
+        clean_text(params[:specline][:txt6_text])
+        if @value
+        txt3_exist = Txt6.where('BINARY text =?', @value).first
+          if txt6_exist.blank?
+            new_txt6_text = Txt6.create(:text => @value)
+          else   
+            new_txt6_text = txt6_exist
+          end
+        #check if new text is similar to old text 
+        @specline_update.txt6_id = new_txt6_text.id 
+          if @specline.txt6.text.casecmp(@value) != 0
+            #if new text is not similar to old text save change to text and create change record
+            record_change         
+          end
+        @specline_update.save
         end
-      end
-      
-      if params[:specline][:txt6_text] != nil          
-        value_6 = params[:specline][:txt6_text].strip.chomp(':').chomp(':').chomp(',').chomp('.').chomp('!').chomp('?').capitalize      
-        new_txt6_text = Txt6.find_or_create_by_text(value_6) unless value_6.blank?
-        if  @specline.txt6_id != new_txt6_text.id     
-          @specline_update.txt6_id = new_txt6_text.id
-          record_change
-          @specline_update.save
-        end
-      end
+       end
     redirect_to(:controller => "projects", :action => "show", :id => @current_project.id, :subsection => @specline.clause.clauseref.subsection_id)     
 end
 

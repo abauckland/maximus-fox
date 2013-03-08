@@ -11,24 +11,31 @@ company name
 
 <div id="edit_box_less">
 
-	<% if @productimport.errors[:productimport] %>
+	<% if @product_import_errors %>
   		<div id="">      		
-    		<% @productimport.errors.values.each_with_index do |value| %> 
-				<t style='color: #ff0000'><%= value[0] %></t>
+
+    		<% @product_import_errors.each_with_index do |error, i| %> 
+				<t style='color: #ff0000'>Error <%= (i + 1) %>: <%= error %></t></br>
+
     		<% end %>  
-  		</div>
+  		</div> 
   		<!-- not correct -->
-  		<% if !@productimport.errors[:productimport].blank? %>	
-  		<form action="product_error_print" method="get" >
+
+  		<form action="<%= product_error_print_productimport_path(current_user.id) %>" method="get" >
   			<%= hidden_field_tag "id", current_user.id %>
-  			<%= hidden_field_tag "productimport", @productimport %>
+  			  		
+				
+				<% @product_import_errors.each_with_index do |error, i| %>
+				<%= hidden_field_tag  :import_errors[i], error %> 
+	 			<% end %>
   			<div id="">
     			<%= submit_tag 'Print Error Report'%>
   			</div>
 		</form>
-		<% end %>
+
 		  
-	<% end %> 
+	<% end %>
+
 
 	<% if flash[:notice] %>
     	<div id="notice">
