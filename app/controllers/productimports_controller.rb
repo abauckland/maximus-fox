@@ -2,11 +2,16 @@ class ProductimportsController < ApplicationController
 
 before_filter :require_user
 
-layout "suppliers"
+layout "products"
 
 
 def new
   @productimport = Productimport.new
+  
+  
+  @product_import_queue = Productimport.joins(:user).where('users.company_id = ? AND date_completed IS ?', current_user.company_id, nil).order('created_at')
+  @product_import_history = Productimport.joins(:user).where('users.company_id = ? AND date_completed IS NOT ?', current_user.company_id, nil).order('created_at')
+
 end
 
 

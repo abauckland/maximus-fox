@@ -1,0 +1,72 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//core-ui
+@import "core";
+
+
+
+.column_link_list{
+  margin: 10px 0px 0px 10px;
+}
+
+.help_link a{
+  color:#66aa00;
+  font-size: 1.2rem;
+  font-weight: normal;
+  @include icon-video;
+  &:hover{
+    @include icon-video-rollover;
+  } 
+}
+///////////////////////////////////////////////////
+//company edit form
+.company_form_label {
+  width: 150px;
+  text-align: left;   
+}
+
+
+
+////////////////////////////////////////////////////
+//add user form
+.user_form_label{
+  width: 130px;
+  text-align: left;   
+}
+
+
+////////////////////////////////////////////////////
+//formatting for licence table
+.column_1_2 .column_content table {
+  width: 100%;
+  tr{
+      &:hover{
+        background: #eee;
+      }
+      th{
+        border-bottom: 2px solid #dddddd;
+        padding: 5px 0px 5px 0px;
+      }      
+      td{
+        padding: 5px 0px 5px 0px;
+      }
+    }
+}
+
+
+@media screen and (max-width: $s_tab) {
+  .mob_cell {display: none;}
+}
+
+@media screen and (max-width: $mob) {
+  .mob_cell {display: none;}
+  .s_tab_cell {display: none;}   
+}
+
+input[type=text], input[type=password]{
+  width: 170px;
+}
+
+

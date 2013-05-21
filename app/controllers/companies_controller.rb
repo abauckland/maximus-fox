@@ -6,32 +6,19 @@ before_filter :require_user, :except => [:new, :create]
 layout "application", :except => [:edit]
 
 
-  # GET /companies/1
-  # GET /companies/1.xml
-  def show
-    @companies = Company.all
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @company }
-    end
-  end
-
-
   # GET /companies/1/edit
   def edit
       
     @current_user = User.where('id = ? ', current_user.id).first    
     if @current_user.role == 'user'
       redirect_to log_out_path
-    else  
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
-    @company = Company.find(current_user.company_id)
+    end  
+
+    @company = Company.find(current_user.company_id)    
     
-    end
     respond_to do |format|
-      format.html   { render :layout => 'projects'}
-      format.xml  { render :xml => @company, :layout => 'project'}
+      format.html   { render :layout => 'users'}
+      format.xml  { render :xml => @company, :layout => 'users'}
     end
   end
 
@@ -96,6 +83,7 @@ layout "application", :except => [:edit]
       end
     end
   end
+
   
   # PUT /companies/1
   # PUT /companies/1.xml
@@ -106,20 +94,16 @@ layout "application", :except => [:edit]
     render :text=> params[:value]
   end
 
+
   # PUT /companies/1
   # PUT /companies/1.xml
   def update
     @company = Company.find(params[:id])
 
-    respond_to do |format|
-    
-    @company.update_attributes(params[:company])
-    
-
-      @current_project = Project.where(:id => params[:current_project]).first
-        format.html { redirect_to(edit_company_path(@current_project)) }
-        format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
-
+    respond_to do |format|    
+      @company.update_attributes(params[:company])
+      format.html { redirect_to(edit_company_path(@company.id)) }
+      format.xml  { render :xml => @company.errors, :status => :unprocessable_entity }
     end
   end
 

@@ -462,6 +462,7 @@
                     //input[0].setAttribute('autocomplete','off');
                     input.attr('autocomplete','off');
                     $(this).append(input);
+                    ('.character_menu').css('visibility', 'visible'); 
                     return(input);
                 }
             },

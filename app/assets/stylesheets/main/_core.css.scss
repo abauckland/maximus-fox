@@ -1,0 +1,929 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+$s_tab: 1240px;
+$mob: 720px;
+
+//scredn sizes for change to header
+//if these are changed also need to change settings in functions contained within project.js
+$large_menu: 1050px;
+$medium_menu: 800px;
+$small_menu: 400px;
+
+
+
+$guide_text_color: #006699;
+$bold_text_color: #404040;
+$error_text_color: #ff3300;  
+$heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
+
+
+//background_gradient
+@mixin gradient($start_colour, $stop_colour) {
+  background-image: -moz-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* Mozilla Firefox */ 
+  background-image: -o-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* Opera */ 
+  background-image: -webkit-gradient(linear, top, bottom, color-stop(0.05, $start_colour), color-stop(1, $stop_colour));/* Webkit (Safari/Chrome 10) */ 
+  background-image: -webkit-linear-gradient(bottom, $start_colour 45%, $stop_colour 55%);/* Webkit (Chrome 11+) */ 
+  background-image: -ms-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* IE10 Consumer Preview */
+  background-image: linear-gradient(to bottom, $start_colour 5%, $stop_colour 100%);/* W3C Markup, IE10 Release Preview */  
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$start_colour', endColorstr='$stop_colour'); /* for IE */
+}
+
+
+//button sass
+@mixin border-radius($var) {-moz-border-radius:$var; -webkit-border-radius:$var; border-radius:$var;}
+@mixin border-radius-top($var) {-moz-border-top-right-radius:$var; -webkit-border-top-right-radius:$var; border-top-right-radius:$var; -moz-border-top-left-radius:$var; -webkit-border-top-left-radius:$var; border-top-left-radius:$var;}
+@mixin button-box-shadow($colour) {-moz-box-shadow:inset 0px 1px 0px 0px $colour; -webkit-box-shadow:inset 0px 1px 0px 0px $colour; box-shadow:inset 0px 1px 0px 0px $colour;} 
+
+@mixin shadow-all($shadows...) {-moz-box-shadow: $shadows; -webkit-box-shadow: $shadows; box-shadow: $shadows;}
+
+//buttons
+@mixin common-button-params{
+  display:inline-block;
+  color:#ffffff;
+  font-weight:bold;
+  text-decoration:none;
+  text-shadow:1px 1px 0px #528009;
+  cursor:pointer;
+}
+
+@mixin medium-button {
+  font-size:1.2rem;
+  padding:0.2rem 0.4rem;
+  border:1px solid; 
+  @include common-button-params; 
+  @include border-radius(0.5rem);       
+}
+
+@mixin small-button {
+  font-size:1.2rem;
+  padding:0.2rem 0.4rem;
+  border:1px solid; 
+  @include common-button-params; 
+  @include border-radius(0.5rem);       
+}
+
+@mixin green-button {border-color: #b0db64; @include gradient(#77a809, #89c403); @include button-box-shadow(#a4e271);
+                      &:hover {@include gradient(#89c403, #77a809); }}
+@mixin orange-button {border-color: #ebc178; @include gradient(#ce0100, #fe1a00); @include button-box-shadow(#f29c93);
+                      &:hover {@include gradient(#fe1a00, #ce0100); }}
+@mixin red-button {border-color: #db817b; @include gradient(#d29105, #f6b33d); @include button-box-shadow(#fed897);
+                      &:hover {@include gradient(#f6b33d, #d29105); }}
+                      
+                      
+.small_green_button{
+  font-family: $heading_font;
+  @include small-button;
+  @include green-button;
+  border: 1px solid #77a809;
+  }
+  
+.small_red_button{
+  font-family: $heading_font;
+  @include small-button;
+  @include red-button;
+  border: 1px solid #ce0100;
+  }
+                        
+                      
+                      
+//icons
+@mixin icon-save {background: image-url('icons.png') no-repeat; background-position:  0px -120px;}
+@mixin icon-save-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -278px;}
+
+@mixin icon-upload {background: image-url('icons.png') no-repeat; background-position:  0px -80px;}
+@mixin icon-upload-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -160px;}
+
+@mixin icon-download {background: image-url('icons.png') no-repeat; background-position:  0px -80px;}
+@mixin icon-download-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -160px;}
+
+@mixin icon-error-report-download {background: image-url('icons.png') no-repeat; background-position:  0px -237px;}
+@mixin icon-error-report-download-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -197px;}
+
+@mixin icon-video {background: image-url('icons.png') no-repeat; background-position:  0px -308px;}
+@mixin icon-video-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -375px;}
+
+@mixin icon-cancel {background: image-url('icons.png') no-repeat; background-position:  0px -308px;}
+@mixin icon-cancel-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -375px;}
+
+
+//links with icon and text
+@mixin icon-text-link($image, $hover-image) {
+  display: block;
+  text-decoration:none;
+  color:#66aa00;
+  font-family: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
+  font-size:1.1em;
+  font-weight:bold;
+  padding: 5px 5px 5px 30px;
+  @include icon-save;
+  &:hover{
+    text-decoration:underline; @include icon-save-rollover;
+    }
+  }
+//exmaple of link class
+//.delete-icon-text-link {@include icon-text-link(icon-delete, icon-delete-rollover);}
+
+
+
+html {
+  font-size: 62.5%; 
+  font-family: $heading_font;
+  background: #fbfbfb;
+  } 
+
+p{
+  display: block;
+  margin: 0px 0px 5px 0px;
+}
+
+figure {
+  margin: 0px 0px 0px 0px;
+}
+
+
+//header
+.app_page_header{
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  right: 10px;
+  height: 26px;     
+  padding: 10px 10px 10px 10px;
+  @include border-radius(0.5rem);
+  @include shadow-all(0px 0px 5px #aeaeae);
+  @include gradient(#5d5d5d, #7c7c7c);
+  min-width:270px
+  }  
+  @media screen and (max-width: $medium_menu) {
+    .app_page_header {
+      height: 18px; 
+    }  
+  }
+
+.app_logo{
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  height: 30px;
+  width: 100px;
+  border: inset 1px #555;
+  background: image-url('specright_logo.png') no-repeat;
+  background-size:100px 30px;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_logo {
+      height: 24px;
+      width: 80px;
+      background: image-url('specright_logo.png') no-repeat;
+      background-size:80px 24px; 
+    }  
+  }
+
+
+.app_menu{  
+  position: absolute;
+  top: 0px;
+  left: 115px;
+  width: 500px; 
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_menu {
+      position: absolute;
+      height: 24px;
+      width: 100%; 
+      left: 0px;
+      right: 0px;
+      top: 45px;
+      @include border-radius(0.5rem);
+      @include shadow-all(0px 0px 5px #aeaeae);
+      @include gradient(#5d5d5d, #7c7c7c);
+    }
+  }
+  @media screen and (max-width: $small_menu) {
+    .app_menu {
+      top: 45px;
+      width: 100%;  
+    }  
+  }
+
+
+  @media screen and (max-width: $medium_menu) {
+    .menu_item_container {
+      margin-left: 10px;
+      height: 24px;
+      border-left: solid 1px #aeaeae;
+    }  
+  }
+  @media screen and (max-width: $small_menu) {
+    .menu_item_container {
+      margin-left: 4px;
+    }  
+  }
+
+
+.app_menu_item a{
+  float: left;
+  height: 21px;
+  font-family: $heading_font;
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: none;
+  padding: 15px 9px 0px 9px;
+  color: #fff;
+  &:hover {text-decoration: underline;
+    }
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_menu_item a {
+      font-size: 1.2rem;
+      padding: 4px 8px 0px 8px;
+      border-right: solid 1px #aeaeae;
+      &:hover {text-decoration: underline;
+        }
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .app_menu_item a {
+      font-size: 1.2rem;
+      padding: 4px 8px 0px 8px;
+      border-right: solid 1px #aeaeae;
+      &:hover {text-decoration: underline;
+        }
+      }
+  }
+
+@media screen and (max-width: $mob) {
+  .s_tab{display:none;}
+  }
+
+.app_user_name{
+  position: absolute;
+  top: 0;
+  right: 65px;
+  height: 30px;
+  font-size: 1.4rem;
+  font-family: $heading_font;
+  color: #fff;
+  cursor: pointer;
+  padding: 15px 18px 0px 0px;
+  background: image-url('settings-icon-white.png') no-repeat;
+  background-position: 100% 55%;
+  text-decoration: none;
+  &:hover{
+  text-decoration: underline;
+  };
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_user_name {
+      padding: 10px 18px 0px 0px;
+      background-position: 100% 50%;
+    }  
+  }
+  @media screen and (max-width: $small_menu) {
+    .app_user_name {
+      right: 75px;
+      width: 20px;
+      color: transparent;
+        }
+  }
+
+.app_user_menu{
+  display: none; 
+  position: absolute;
+  top: 54px;
+  right: 75px;
+  width: 110px;
+  background: #000;
+  padding:0px 5px 0px 10px;
+  z-index: 1000;
+  ul{
+    list-style-type: none; 
+    -webkit-padding-start: 0px;
+    margin: 0px; //require so displays properly in firefox, ie
+    padding: 0px; //require so displays properly in firefox, ie
+    li{
+      padding: 2px 0px 2px 0px;     
+    }
+  }
+  a{
+    text-align: left;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: #fff;
+    text-decoration: none;
+    &:hover{    
+      text-decoration: underline; 
+    }
+  }
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_user_menu {
+    top: 45px;
+    }  
+  }
+
+
+.app_logout{
+  position: absolute;
+  top: 11px; //how is this set so logo is centered on header?
+  right: 8px;
+  font-family: $heading_font;
+  @include small-button;
+  @include orange-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_logout {
+      top: 7px;
+    }  
+  }
+  
+
+/*project index page - information css*/  
+.project_info {
+  position: absolute;
+  width:100%;
+  top:60px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #777777;
+  padding: 4px 0px 0px 0px;
+  min-width:310px
+  }
+  @media screen and (max-width: $medium_menu) {
+    .project_info {
+      top:78px;
+      font-size: 1.2rem;
+      }
+  }
+
+.project_title{
+  position: absolute;
+  left: 10px;
+}
+
+.project_code{
+  float: left;
+}
+
+.project_code_title{
+  float: left;
+  padding: 0px 0px 0px 3px;
+  max-width: 350px;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+}
+  @media screen and (max-width: $medium_menu) {
+    .project_code_title{
+      max-width: 200px;
+      overflow:hidden;}  
+  }
+  @media screen and (max-width: $small_menu) {
+    .project_code_title{display: none;}  
+  }
+
+.project_name{
+  float: left;
+  padding: 0px 0px 0px 10px;
+  overflow:hidden;
+  height: 20px;
+  max-width: 550px;
+  }
+  @media screen and (max-width: $s_tab) {
+    .project_name {
+      display: none;
+      }
+  }
+
+.project_status{
+position: absolute;
+right: 100px;
+}
+  @media screen and (max-width: $medium_menu) {
+    .project_status {
+      display: none;
+      }
+  }
+
+.project_rev{
+position: absolute;
+right: 30px;
+}
+
+
+/*project index page - options css*/  
+.option_band_single {
+  position: absolute;
+  top: 84px;
+  left: 10px;
+  right: 10px;
+  height: 26px;
+  min-width:280px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  padding: 2px 0px 0px 7px;
+  border: 1px solid #bababa;
+  @include border-radius(0.5rem);
+  @include gradient(#cacaca, #dadada);
+  .error{
+  color: #ff0000;
+  }
+  }
+  @media screen and (max-width: $medium_menu) {
+    .option_band_single {
+      top: 100px;
+      }
+  }
+
+.option_band {
+  position: absolute;
+  top: 84px;
+  left: 10px;
+  right: 10px;
+  height: 26px;
+  min-width:280px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  padding: 2px 0px 0px 7px;
+  border: 1px solid #bababa;
+  @include border-radius(0.5rem);
+  @include gradient(#cacaca, #dadada);
+  .error{
+  color: #ff0000;
+  }
+  }
+  @media screen and (max-width: $medium_menu) {
+    .option_band {
+      top: 100px;
+      height: 52px;
+      }
+  }
+ 
+
+
+
+
+
+
+
+/*project index page - title css*/ 
+.page_title {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  right: 10px;
+  height: 30px;
+  padding: 10px 0px 0px 7px;
+  font-family: $heading_font;
+  font-size: 3rem;
+  color: #333333;
+  border-bottom: 2px solid #dddddd;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .page_title  {
+      top: 75px;
+      height: 30px;
+      padding: 20px 0px 0px 7px;
+      font-size: 2.8rem;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      white-space:nowrap;
+      min-width:285px
+      }
+  }
+
+
+/* begin css tabs */
+/* Style for tabs */
+ul.tabs, ul.tabs_2{
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  padding: 6px 0px 6px 0px;
+  border-bottom: 2px solid #dddddd;
+  list-style-type: none;
+  margin: 0px;
+  li {
+    display: inline;
+    font-size: 1.4rem;
+    font-weight: bold;
+    a {  
+      color: #fff;
+      text-decoration: none;
+      @include border-radius(0.4rem);
+      @include gradient(#cacaca, #dadada);
+      cursor:pointer;
+      padding: 6px 6px 6px 6px;
+      &:hover{
+        background: #fff;
+        color: #000;
+      }
+      &.active{
+        background: #fff;
+        color: #000;
+        border: 2px solid #dddddd;
+      }
+    }
+  }  
+}
+      
+ul.tabs{
+  padding: 6px 0px 6px 0px;
+  border-bottom: 2px solid #dddddd;
+  li {
+  color: #fff;
+    a {  
+      border: 2px solid #dddddd;
+      @include border-radius-top(0.4rem);
+      margin: 0;
+      &.active  {
+        border-bottom-color: white;
+      }
+    } 
+  }
+}
+  @media screen and (max-width: $medium_menu) {
+    ul.tabs {
+      min-width:277px;
+      }
+  }
+
+ul.tabs_2 {
+  padding: 2px 4px 0px 4px;
+  border: 2px solid #dddddd;
+  @include border-radius(0.4rem);
+  line-height:34px;
+  background: #d9d9d9;
+  li {
+    a {  
+      border: solid 1px white;
+      @include border-radius(0.4rem);
+    } 
+  }
+}
+  @media screen and (max-width: $medium_menu) {
+    ul.tabs_2 {
+      min-width:277px;
+      li {
+        white-space:nowrap;
+        }
+      }
+  }
+
+
+//stype for tab content div
+.tab_content {
+  position: absolute;
+  top: 482px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  min-width:280px;
+  overflow: auto;
+  background: #fff;
+  border: 2px solid #dddddd;
+  border-top: none;
+  padding: 5px 0px 20px 0px; 
+  z-index: 0;
+}
+
+.tab_sub_menu{
+  position: absolute;
+  right: 10px;
+  z-index: 1000;  
+}
+
+
+
+
+/*css for 3 column layout*/  
+.content {
+  position: absolute;
+  top:110px;
+  left:10px;
+  right:10px;
+  padding: 0px 0px 0px 0px;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .content {
+      top:125px;
+      }
+  }
+
+
+
+.column_1, .column_2, .column_3, .column_1_2 {
+  float: left;
+  border: 2px solid #dddddd;
+  padding: 10px 10px 10px 10px;
+  margin-top:15px;
+  @include border-radius(4px);
+  height: 400px;
+    background: #fff; 
+  }
+//correction so column lines up on right hand side of the screen correctly  
+
+
+
+.column_content{
+  position: relative;
+}
+
+.column_sub_content{
+  position: absolute;
+  top: 45px;
+  bottom: 40px;
+  width: 100%;
+
+}
+
+.column_title {
+  height: 20px;
+  color:#66aa00;
+  font-family: $heading_font;
+  font-size:2.4rem;
+  line-height: 2.4rem;
+  padding: 10px 5px 10px 5px;
+  border-bottom: 2px solid #dddddd;
+}
+
+.column_footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  padding: 10px 5px 0px 5px;
+  border-top: 2px solid #dddddd;
+}
+
+
+.column_text {
+  font-size:1.2em;
+  padding: 10px 10px 10px 10px
+}
+
+.column_guide {
+  font-size:1.2rem;
+  font-style: italic;
+  text-align:justify;
+  color: $guide_text_color;
+  padding: 8px 10px 10px 10px;
+  border-bottom: 2px solid #dddddd;
+  ul{
+    margin: 2px 0px 0px 2px;
+    padding: 0px 0px 0px 15px;
+  }
+}
+
+.column_sub_guide {
+  font-size:1.2rem;
+  font-style: italic;
+  text-align:justify;
+  color: $guide_text_color;
+  margin: 15px 0px 10px 0px;
+  padding: 8px 10px 5px 10px;
+  border-bottom: 2px solid #dddddd;
+  border-top: 2px solid #dddddd;
+  ul{
+    margin: 2px 0px 0px 2px;
+    padding: 0px 0px 0px 15px;
+  }
+}
+
+.column_form {
+  padding: 10px 5px 10px 5px
+}
+
+.column_image {
+  padding: 10px 10px 10px 10px
+}
+
+.column_table {
+  padding: 20px 5px 10px 5px;  
+  table{
+    width: 100%;
+    border: none;
+    tr{
+      &:hover{
+          background: #eee;
+      }
+    }
+  }
+}
+
+.column_table_header{
+  padding: 0px 0px 10px 0px;
+  table{
+      border-bottom: 1px solid #dddddd;    
+  }  
+}
+
+.column_table_table{
+  max-height: 400px;  //jquery - change this dynamically
+  overflow: auto;  
+  td{
+    max-width: 115px; //jquery - change this dynamically
+    text-overflow: ellipsis;}  
+}
+
+
+.column_error {  
+  font-size:1.2rem;
+  padding: 0px 10px 0px 10px;
+  margin: 10px 0px 10px 0px;
+  border: 2px solid #ff3300;
+  @include border-radius(4px);
+  color: $error_text_color;
+}
+
+.column_error_heading{
+  width: 100%;
+  font-weight: bold;
+  border-bottom: 1px solid red;
+  margin: 10px 0px 5px 0px;    
+}
+
+.column_error_content{
+  max-height: 100px;  //jquery - change this dynamically
+  overflow: auto;   
+}
+
+.column_error_print{
+  width: 100%;
+  padding: 10px 0px 0px 0px;
+  border-top: 1px solid red;
+  margin: 5px 0px 0px 0px; 
+}
+
+
+.column_blank{
+  background: #eee;
+}
+
+  
+//form elements
+.radio_button_div{
+  float:left;  
+}
+  
+.radio_button{
+  float:left;  
+  padding: 3px 5px 5px 5px; 
+}
+
+.radio_button_label{
+  float:left;  
+  padding: 5px 5px 5px 5px;    
+}
+
+.form_input_label{
+  font-weight: bold;
+  float:left;  
+  padding: 10px 5px 0px 0px;
+  color: $bold_text_color;    
+}
+
+.form_label_note{
+  font-size:1rem;
+  font-style: italic;
+  color: $guide_text_color;   
+}
+
+.form_input{
+  float:left;
+  padding: 5px 0px 0px 0px;  
+}
+
+.form_input_note{ 
+  font-size:1.2rem;
+  font-style: italic;
+  color: $guide_text_color;    
+}
+
+.form_input_error{ 
+  font-size:1.2rem;
+  font-style: italic;
+  color: $error_text_color;    
+}
+
+.form_default{
+  font-weight: normal;
+  float:left;  
+  padding: 10px 5px 0px 0px;
+  color: $bold_text_color;  
+}
+
+.column_sub_form{
+  padding-left: 35px;
+  td{
+  color: #a5a5a5;      
+}
+}
+
+.column_submit a{
+  display: block;
+  height:20px;
+  text-decoration:none;
+  color:#66aa00;
+  font-size:1.4rem;
+  font-weight:bold;
+  padding: 0px 0px 0px 30px;
+    @include icon-save;
+  &:hover{
+    text-decoration:underline;
+    @include icon-save-rollover;
+  }
+} 
+
+.column_submit input[type=submit]{
+  display: block;
+  border: none;
+  height:22px;
+  text-decoration:none;
+  color:#66aa00;
+  font-size:1.4rem;
+  font-weight:bold;
+  font-family: $heading_font;
+  border: none;
+  padding: 0px 0px 0px 30px;
+  @include icon-save;
+  cursor: pointer;
+  &:hover{
+    text-decoration:underline;
+    @include icon-save-rollover;
+      border: none;
+      padding: 0px 0px 0px 30px;
+      cursor: pointer;
+  }
+}
+
+.column_footer_right_button{ 
+
+}
+
+.column_cancel a{
+  display: block;
+  position: absolute; 
+  height:22px;
+  right:10px;
+  top:10px;
+  text-decoration:none;
+  color:red;
+  font-size:1.4rem;
+  font-weight:bold;
+  font-family: $heading_font;
+  padding: 0px 0px 0px 30px;
+    @include icon-download;
+  &:hover{
+    text-decoration:underline;
+    @include icon-download-rollover;
+    border: none;
+    padding: 0px 0px 0px 30px;
+    cursor: pointer;
+  }
+} 
+
+.column_download input[type=submit]{
+  display: block;
+  border: none;
+  height:22px;
+  text-decoration:none;
+  color:#66aa00;
+  font-size:1.4rem;
+  font-weight:bold;
+  font-family: $heading_font;
+  border: none;
+  padding: 0px 0px 0px 30px;
+  @include icon-download;
+  cursor: pointer;
+  &:hover{
+    text-decoration:underline;
+    @include icon-download-rollover;
+      border: none;
+      padding: 0px 0px 0px 30px;
+      cursor: pointer;
+  }
+}
+
+.column_link a{
+  display: block;
+  line-height: 20px;
+  text-decoration:none;
+  font-size:1.4rem;
+  font-weight:bold;
+  padding: 3px 0px 10px 30px;
+  &:hover{
+    text-decoration:underline;
+  }  
+}
+
+
+ 
+
+
+

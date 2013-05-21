@@ -1,0 +1,61 @@
+<div class="page_title">Edit User Details</div>
+
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">       
+			<div class="column_title">Update details</div>   
+    			
+    		<div class="column_sub_content">
+
+				<div class="column_guide">
+					<p>Please note: you will be automatically logged out when you save changes made.</p>
+      			</div>
+
+				<div class="column_form">
+				<%= form_for(@user) do |f| %>
+	
+						<table>
+						<tr><td>
+							<div class="user_form_label form_input_label">First Name:</div>
+							<div class="form_input"><%= f.text_field :first_name %></div>					
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label">Surname:</div>
+							<div class="form_input"><%= f.text_field :surname %></div>				
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label">Email:</div>
+							<div class="form_input"><%= f.text_field :email %></div>				
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label">Current Password:</div>
+							<div class="form_input"><%= f.password_field :password %>
+								<div class="form_input_note">confirm to save changes</div>
+								</div>					
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label">New Password:</div>
+							<div class="form_input"><%= password_field_tag :new_password %></div>			
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label">Re-enter Password:</div>
+							<div class="form_input"><%= password_field_tag :new_password_confirmation %></div>				
+						</td></tr>												
+
+						</table>	      	
+      			</div>
+    		</div>
+    	
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "update"%></div>              
+        		</div>   
+      		</div>
+        		<% end %>       		
+      	</div>   
+	</div>
+	
+	<div class="column_2 column_blank"></div> 
+    <div class="column_3 column_blank"></div>
+     
+</div>

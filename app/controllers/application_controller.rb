@@ -16,9 +16,10 @@ protected
   def clean_text(value)
     @value = value 
     @value.strip
+    @value = @value.gsub(/\n/,"")
     @value.chomp
     @value.chomp   
-    while [".", ",", ";", ":", "!", "?"].include?(value.last)
+    while [",", ";", "!", "?"].include?(value.last)
     @value.chop!
     end
   end

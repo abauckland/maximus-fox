@@ -1,73 +1,87 @@
-<div id="option_band">
-    <div id="option_select_1">Create new project</div>
-    <div id="back_button"><%= link_to "back", projects_path %></div>
-</div>
+<div class="page_title">Create Project</div>
 
-  <% if @project.errors.any? %>  
-  <div id="sign_up_error">  
-    <%= pluralize(@project.errors.count, "error") %> prohibited this project from being created 
-  </div>  
-  <% end %>
-
-<%= form_for @project, :html => { :multipart => true } do |f| %>
-
-<div id="edit_box">
-
-  <div id="new_prj_details"> 
-      <p>
-        <label>Project Code:*</label>
-        <%= f.text_field :code, :size => 6 %>
-        <%= error_check(@project, :code)%> 
-      </p>
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">
+      		<div class="column_title">Project details</div>   
       
-      <p>
-        <label>Project Title:*</label>
-        <%= f.text_field :title, :size => 40 %>
-        <%= error_check(@project, :title)%> 
-      </p>
-  </div>
-  <div id="new_prj_details"> 
-      <p style="color: #245893; font-style: italic">
-        The following are defaut settings.
-      </p>
-      <p>
-        <label>Project Status:</label>
-        Draft<%= f.hidden_field :project_status, :value =>'Draft' %>
-      </p>
-      <p>
-        <label>Revision Method:</label>
-        Project<%= f.hidden_field :rev_method, :value =>'Project' %>
-      </p>
-  </div>
-<!--move above array into variable so that it can be used elsewhere -->
-  <div id="new_prj_details"> 
-      <p style="color: #245893; font-style: italic">
-        The Template Project is the default template/project from which subsections and clauses will be copied to form the new project.
-      </p>
-      <p>
-        <label>Project Template:</label>
-        <%= f.collection_select(:parent_id, Project.where(:company_id => [1, current_user.company_id]).order("company_id, code"), :id, :project_code_and_title) %>
-      </p>  
-  </div>
-  <div id="new_prj_details"> 
-      <p style="color: #245893; font-style: italic">
-        The following information will be printed on the front cover of the document.
-      </p>
-      <p>
-        <label>Project Client:</label>
-        <%= f.text_field :client, :size => 40 %>
-      </p>
+      		<% if @project.errors.any? %> 
+      		<div class="column_error">
+        		<p><%= pluralize(@project.errors.count, "error") %> prohibited this project from being created</p>
+      		</div>
+	  		<% end %> 
 
-      <p>
-        <label><%= f.label :photo, "Project Image:" %></br>(1Mb max):</label>
-        <%= f.file_field :photo %> (the image will be scaled proportionally to maximum 90mm high x 120mm wide)
-      </p>    
+    		<div class="column_sub_content">
 
-  </div>
+				<div class="column_guide">
+ 					<p>The following information will be printed on the final document.</p>
+ 					<p>The uploaded project image will be scaled proportionally to maximum 90mm high x 120mm wide</p>     			
+      			</div>
+
+				<div class="column_form">
+				<%= form_for @project, :html => { :multipart => true } do |f| %>
+						<%= f.hidden_field :project_status, :value =>'Draft' %>
+        				<%= f.hidden_field :rev_method, :value =>'Project' %>
+        				<%= f.hidden_field :parent_id, :value => 13 %>
+						<table>
+						<tr><td>
+							<div class="project_form_label form_input_label">Project Code:*</div>
+							<div class="form_input"><%= f.text_field :code %>
+								<div class="form_error_note"><%= error_check(@project, :code)%> </div>
+							</div>						
+						</td></tr>
+						<tr><td>
+							<div class="project_form_label form_input_label">Project Title:*</div>
+							<div class="form_input"><%= f.text_field :title %>
+								<div class="form_error_note"> <%= error_check(@project, :title)%> </div>
+							</div>				
+						</td></tr>
+						<tr><td>
+							<div class="project_form_label form_input_label">Project Client:</div>
+							<div class="form_input"><%= f.text_field :client %></div>				
+						</td></tr>												
+						<tr><td>
+							<div class="project_form_label form_input_label">Upload Image:<br><span class="form_label_note"> (1Mb max)</span></div>
+							<div class="form_input"><%= f.file_field :photo %></div>			
+						</td></tr>
+						</table>	      	
+      			</div>
+    		</div>
+    	
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "save"%></div>              
+        		<% end %>       		             
+        		</div>   
+      		</div>
+      	</div>   
+	</div>
+	
+	<div class="column_2">
+		<div class="column_content">
+      		<div class="column_title">Project settings</div>   
+      
+    		<div class="column_sub_content">
+
+				<div class="column_guide">
+					<p>The following are default settings which can be changed once the project has been created:</p>
+					<ul>
+						<li>Project Status: Draft</li>
+						<li>Project Template: Specright Standard Template</li>
+						<li>Revision Method: Project</li>						
+					</ul>
+					<p>The Template Project is the default template/project from which subsections and clauses will be copied to form the new project.</p>   			
+      			</div>
+
+    		</div>
+    	
+      	</div>   
+	</div>		
+		 
+    <div class="column_3 column_blank"></div>
+  
 </div>
 
-<div id="bottom_button">
-<%= f.submit 'Create Project' %>
-</div>
-<%end%>
 
+
+  

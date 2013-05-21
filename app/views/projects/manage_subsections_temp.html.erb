@@ -1,0 +1,70 @@
+<div class="project_info">
+	<div class="project_title">
+		Add/remove subsections from projec
+	</div>
+</div>
+
+<div class="option_band_single">	
+	<div class="project_select">
+		<div class="project_label_select">Template Project:</div>
+		<div class="small_hide project_option_select">
+      		<%= select_tag "selected_template_id", options_from_collection_for_select(@project_templates, "id", "project_code_and_title", @current_project_template.id), {:onchange => "window.location='/projects/#{@current_project.id}/manage_subsections?selected_template_id='+this.value;"} %>    </div>
+		</div>
+		<div class="small_show project_option_select">
+      		<%= select_tag "selected_template_id", options_from_collection_for_select(@project_templates, "id", "project_code", @current_project_template.id), {:onchange => "window.location='/projects/#{@current_project.id}/manage_subsections?selected_template_id='+this.value;"} %>    </div>
+		</div>
+	</div> 
+</div>
+
+
+
+  <div id="back_button"><%= link_to "back", project_path(@current_project) %></div>
+
+
+<div id="edit_box">
+
+      <div id="available_list">
+        <table>      
+          <tr>
+            <td>Sub-sections in Template but not in Project:</td>
+          </tr>
+          <tr>
+            <td>
+              <%= select_tag "template_subsections", options_from_collection_for_select(@template_project_subsections, :id, :subsection_full_code_and_title), :multiple => true, :size => 8 %>
+            </td>
+          </tr>   
+        </table>
+
+      </div>
+
+    <div id="edit_list">
+      <div id="add_all"> >> </div>    
+      <div id="add_some"> > </div>
+      <div id="remove_some"> < </div>
+      <div id="remove_all"> << </div>
+    </div>
+
+
+     <div id="included_list">
+     <%= form_tag(:controller => "projects", :action => "edit_subsections") do %>
+     <table>
+      <tr>
+        <td>Sub-sections in Project:</td>
+      </tr>
+      <tr>
+        <td>
+          <%= hidden_field_tag "project_id", @current_project.id%>
+          <%= hidden_field_tag "template_id", @current_project_template.id%>
+          <%= select_tag "project_subsections", options_from_collection_for_select(@current_project_subsections, :id, :subsection_full_code_and_title), :multiple => true, :size => 8 %>    
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= submit_tag "save changes to project", :class=>"edit_submit", :confirm => "Subsections moved from the Project will be deleted premanently, they are not copied to the template project. Do you wish to continue?" %>
+        </td>
+      </tr>
+     </table>
+     <% end %>
+     </div>
+
+</div>

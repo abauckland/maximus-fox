@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+  <title>Specright: Product Management</title>
+    <%= stylesheet_link_tag  'application-main' %>   
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+	<%= csrf_meta_tags %>
+</head>
+
+<body>
+
+<div class="app_page_container">
+	
+	<!-- menu header-->
+	<header class="app_page_header">
+   
+		<figure class="app_logo"></figure>
+
+		<nav class="app_menu">
+			<div class="menu_item_container">
+    			<div class="app_menu_item"><%= link_to "DASHBOARD", productreports_path %></div>
+    			<div class="app_menu_item s_tab"><%= link_to "PRODUCTS", products_path %></div>
+    			<div class="app_menu_item s_tab"><%= link_to "IMPORT", new_productimport_path %></div>
+    			<div class="app_menu_item s_tab"><%= link_to "EXPORT", productexports_path %></div>   			
+    			<div class="app_menu_item"><%= link_to "SPECIFICATIONS", projects_path %></div>
+    		</div>
+  		</nav>
+
+  		<!-- show icon only in mob version -->
+  		<nav class="app_user_name"><%= current_user.first_name.capitalize %> <%= current_user.surname.capitalize %></nav>  
+		<nav class="app_logout"><%= link_to "logout", log_out_path %></nav> 
+	</header>
+
+	<!-- drop down user settings menu -->
+	<%= render :partial => "user_menu", :current_user => current_user %>
+
+	<%= yield %>
+
+</div>
+</body>
+</html>

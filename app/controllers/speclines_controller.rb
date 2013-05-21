@@ -599,7 +599,6 @@ end
   
   # PUT /projects/update_specline_4/id
   def update_specline_4
-    
     @specline_update = @specline
 
     #application controller
@@ -608,6 +607,10 @@ end
     
     #value = new text
     if @value
+    #check if similar text exists
+##is this right???    
+    txt4_check = Txt4.where(:text => @value).first
+    
     txt4_exist = Txt4.where('BINARY text =?', @value).first
       if txt4_exist.blank?
          new_txt4_text = Txt4.create(:text => @value)
@@ -615,9 +618,10 @@ end
          new_txt4_text = txt4_exist
       end
     
+    
       #check if new text is similar to old text 
-      @specline_update.txt4_id = new_txt4_text.id 
-      if @specline.txt4.text.casecmp(@value) != 0
+      @specline_update.txt4_id = new_txt4_text.id
+      if txt4_check.blank?
         #if new text is not similar to old text save change to text and create change record
           record_change         
       end

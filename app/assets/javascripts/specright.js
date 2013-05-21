@@ -139,152 +139,6 @@ $("#firstpane p.menu_head").mouseout(function()
 //end of web site jquery
 
 
-//sets up the tabs for the edit window
-$("#usual1 ul").idTabs("!mouseover");
-
-//sets revision window height based on window size
-$(function(){
-  $('.edit_box').css({'height':(($(window).height())-170)+"px"});
-  $(window).resize(function(){
-  $('.edit_box').css({'height':(($(window).height())-170)+"px"});
-  });
-});
-
-//sets revision window height based on window size
-$(function(){
-  $('#new_project_details, #revision_help_draft').css({'height':(($(window).height())-190)+"px"});
-  $(window).resize(function(){
-  $('#new_project_details, #revision_help_draft').css({'height':(($(window).height())-190)+"px"});
-  });
-});
-
-//sets revision window height based on window size
-$(function(){
-  $('#edit_box_print').css({'height':(($(window).height())-235)+"px"});
-  $(window).resize(function(){
-  $('#edit_box_print').css({'height':(($(window).height())-235)+"px"});
-  });
-});
-
-//sets revision window height based on window size
-$(function(){
-  $('#line1').css({'height':(($(window).height())-115)+"px"});
-  $(window).resize(function(){
-  $('#line1').css({'height':(($(window).height())-115)+"px"});
-  });
-});
-
-
-
-//sets revision window width based on window size                                                                   
-$(function(){                                                      
-  $('.edit_box, .edit_box_2, #revision_help_draft').css({'width':(($(window).width())-32)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('.edit_box, .edit_box_2, #revision_help_draft').css({'width':(($(window).width ())-32)+"px"});
-  });
-});
-
-var minWidth = '1000';
-
-
-$(function(){                                                      
-  $('#header').css({'width':($(window).width()-30)+"px"});                                                                 
-  $(window).resize(function(){
-  if($(window).width() >= minWidth)
-  {$('#header').css({'width':($(window).width()-30)+"px"});}
-  else
-  {$('#header').css({'width': (minWidth - 30)+"px"});}  
-  });
-});
-
-
-$(function(){                                                      
-  $('#project_info, div.usual, #edit_box_full, #edit_box_less, #edit_box, #edit_box_half, #bottom_form').css({'width':(($(window).width())-60)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  if($(window).width() >= minWidth)
-  {$('#project_info, div.usual, #edit_box_full, #edit_box_less, #edit_box, #edit_box_half, #bottom_form').css({'width':($(window).width()-60)+"px"});}
-  else
-  {$('#project_info, div.usual, #edit_box_full, #edit_box_less, #edit_box, #edit_box_half, #bottom_form').css({'width': (minWidth - 60)+"px"});}  
-  });                         
-});
-
-$(function(){                                                      
-  $('#option_band').css({'width':(($(window).width())-70)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  if($(window).width() >= minWidth)
-  {$('#option_band').css({'width':($(window).width()-70)+"px"});}
-  else
-  {$('#option_band').css({'width': (minWidth - 70)+"px"});}  
-  });
-});
-
-
-//size of subsection anc clause add/remove pages 
-$(function(){                                                      
-  $('#project_subsections, #template_subsections, #project_clauses, #template_clauses').css({'width':((($(window).width())-90)/2 - 100)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  if($(window).width() >= minWidth)
-  {$('#project_subsections, #template_subsections, #project_clauses, #template_clauses').css({'width':((($(window).width())-90)/2 - 100)+"px"});}
-  else
-  {$('#project_subsections, #template_subsections, #project_clauses, #template_clauses').css({'width': ((minWidth -90)/2 - 100)+"px"});}  
-  });
-});
-
-$(function(){                                                      
-  $('#template_subsections, #project_subsections, #project_clauses, #template_clauses').attr('size', (($(window).height())-304)/16);                                                              
-  $(window).resize(function(){                                     
-  $('#template_subsections, #project_subsections, #project_clauses, #template_clauses').attr('size', (($(window).height())-304)/16);
-  });
-});
-
-
-
-
-
-//sets revision window width based on window size                                                                   
-$(function(){                                                      
-  $('#loadingdiv').css({'left':((($(window).width())/2)-50)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('#loadingdiv').css({'left':((($(window).width())/2)-50)+"px"});
-  });
-});
-
-$(function(){                                                      
-  $('#loadingdiv').css({'top':((($(window).height())/2)-25)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('#loadingdiv').css({'top':((($(window).height())/2)-25)+"px"});
-  });
-});
-
-
-
-
-
-
-$(function(){                                                      
-  $('#new_prj_details_1, #new_prj_details_2, #new_prj_details_3, #new_prj_details_4, #prj_details_1, #prj_details_2, #prj_details_3, #prj_details_4').css({'width':(($(window).width())-60)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('#new_prj_details_1, #new_prj_details_2, #new_prj_details_3, #new_prj_details_4, #prj_details_1, #prj_details_2, #prj_details_3, #prj_details_4').css({'width':(($(window).width())-60)+"px"});
-  });
-});
-
-
-//MOB sets revision window width based on window size                                                                   
-$(function(){                                                      
-  $('form.user_new').children('#user_submit').css({'width':(($(window).width())-40)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('form.user_new').children('#user_submit').css({'width':(($(window).width())-40)+"px"});
-  });
-});
-
-$(function(){                                                      
-  $('#specline_submit').css({'width':(($(window).width())-40)+"px"});                                                                 
-  $(window).resize(function(){                                     
-  $('#specline_submit').css({'width':(($(window).width())-40)+"px"});
-  });
-});
-
-
 //jeditbale functions
 $.editable.addInputType('autogrow', {
                 element : function(settings, original) {
@@ -309,11 +163,11 @@ $.editable.addInputType('autogrow', {
                     $(this).append(textarea);
                     return(textarea);
                 },
-                plugin : function(settings, original) {
-        $('textarea', this).autogrow(settings.autogrow);
-    }
+//!!the following code prevented jeditable from working in jquery 1.7 but ok in 1.3 - no idea why!
+//                plugin : function(settings, original) {
+//        $('textarea', this).autogrow(settings.autogrow);
+//    }
 });
-
 
 
 $('.editable_text3').mouseover(function(){
@@ -334,18 +188,31 @@ $(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type:
 });    
 
 
-//show/hide user settings menu
-$('div#user_name').click(function (){
-  $('div#user_menu').toggle();
-});
-  
-$('div#header').mouseover(function (){
-  $('div#user_menu').hide();
-});
 
-$('div#user_menu').mouseleave(function (){
-  $(this).hide();
-});
+
+//loads ajax functionality to links with specified class
+ajaxLinks();
+
+//sortable test
+$('.1, .2, .3, .4, .5, .6, #prelim_show').sortable({
+ axis: 'y',
+ cancel: '.clause_title, span',
+ cursor: 'pointer',
+ handle: 'td.pad img',
+ stop: function(event, ui){
+  var sortorder=$(this).sortable('toArray');
+  var moved = $(ui.item).attr('id');	
+   
+   $.ajax({
+   	type: 'put',
+   	url: '/speclines/'+moved+'/move_specline',
+   	dataType: 'script',
+   	data: 'table_id_array='+sortorder +'',
+   	complete: function(){
+    }
+   	});   
+   }	 		
+}) ;
 
 
 
@@ -377,56 +244,6 @@ $('tr.rev_row, tr.rev_row_strike, tr.clause_title_2').hover(function (){
   }
 );
 
-
-
-$('.submittable').live('change', function() {
- $(this).closest('form#new_clause').submit();
-   return false;
-});
-
-$('.submittable2').live('click', function() {
- $(this).parents('form:first').submit();
-   return false;
-});
-
-
-
-//loads ajax functionality to links with specified class
-ajaxLinks();
-
-//sortable test
-$('.1, .2, .3, .4, .5, .6, #prelim_show').sortable({
- axis: 'y',
- cancel: '.clause_title, span',
- cursor: 'pointer',
- handle: 'td.pad img',
- stop: function(event, ui){
-  var sortorder=$(this).sortable('toArray');
-  var moved = $(ui.item).attr('id');	
-   
-   $.ajax({
-   	type: 'put',
-   	url: '/speclines/'+moved+'/move_specline',
-   	dataType: 'script',
-   	data: 'table_id_array='+sortorder +'',
-   	complete: function(){
-    }
-   	});   
-   }	 		
-}) ;
-
-
-jQuery.ajaxSetup({
-  beforeSend: function() {
-     $('#loadingdiv').fadeIn(400)
-  },
-  complete: function(){
-     $('#loadingdiv').hide()
-  },
-  success: function() {
-  	 $('#loadingdiv').hide()
-  }
-}); 
 
 $('#section_select').change(function () {
   $('td.dg_title_subsection').hide()
@@ -480,6 +297,8 @@ $('select#section, select#subsection').selectBox();
 $('select#revision').selectBox();
 $('select#selected_template_id').selectBox();
 
+$('select#template_sections').selectBox();
+$('select#project_sections').selectBox();
 
 
 

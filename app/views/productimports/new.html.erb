@@ -1,81 +1,157 @@
-<div id="project_info">
-  <div id="current_project_title">   
-company name
-  </div>
-</div>
+
+<div class="page_title">Import product data</div>
 
 
-<div id="option_band">
-
-</div>
-
-<div id="edit_box_less">
-
-	<% if @product_import_errors %>
-  		<div id="">      		
-
-    		<% @product_import_errors.each_with_index do |error, i| %> 
-				<t style='color: #ff0000'>Error <%= (i + 1) %>: <%= error %></t></br>
-
-    		<% end %>  
-  		</div> 
-  		<!-- not correct -->
-
-  		<form action="<%= product_error_print_productimport_path(current_user.id) %>" method="get" >
-  			<%= hidden_field_tag "id", current_user.id %>
-  			  		
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">       
+			<div class="column_title">Upload Data</div>   
+    			
+    		<div class="column_sub_content">
 				
-				<% @product_import_errors.each_with_index do |error, i| %>
-				<%= hidden_field_tag  :import_errors[i], error %> 
-	 			<% end %>
-  			<div id="">
-    			<%= submit_tag 'Print Error Report'%>
-  			</div>
-		</form>
 
-		  
-	<% end %>
+					<div class="column_error">      		    
+        				<div class="column_error_heading">
+        					<p>The file has not been uploaded, the following errors exist:</p>
+        				</div>
+        				<div class="column_error_content">
+        					<ul>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+								<li>Error</li>
+        					</ul>
+        				</div>
+        				<div class="column_error_print">
+        					<div class="column_link error_print_link">
+        						<%= link_to 'download error report', nil %>
+        					</div>
+        				</div>
+					</div>
 
+				
+					<div class="column_guide">
+						<p>guide text here:</p>
+						<ul>
+							<li>first set of guidance here to see if it wraps when at end of div</li>
+							<li>first set of guidance</li>
+							<li>first set of guidance</li>
+						</ul>
+      				</div>
 
-	<% if flash[:notice] %>
-    	<div id="notice">
-    		<t style='color: green'><%= flash[:notice] %></t>
-    	</div>
-	<% end %>
+      				<div class="column_form">
+						<%= form_for(@productimport) do |f| %>
 
+						<!-- user uploading products -->
+						<%= f.hidden_field(:user_id, {:value => current_user.id})%>   
 
-<!-- csv upload form and import options -->
-	<%= form_for(@productimport) do |f| %>
+						<!-- options - keep/delete existing products -->		
+						<table>
+						<tr><td>
+							<div class="radio_button"><%= f.radio_button :action, 'retain', :checked => true %></div>
+							<div class="radio_button_label">Retain existing product data</div>				
+						</td></tr>
+						<tr><td>
+							<div class="radio_button"><%= f.radio_button :action, 'overwrite' %></div>
+							<div class="radio_button_label">Overwrite existing product data</div>				
+						</td></tr>
+						<tr><td>
+							<!-- file with new products -->
+							<%= f.file_field :csv %>
+						</td></tr>
+						</table>	      	
+      				</div>
+    		</div>
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "upload csv file"%></div>
+        			<% end %>               
+        		</div>   
+      		</div>  
+		</div> 
+	</div>
+	<div class="column_2">
+		<div class="column_content">       
+			<div class="column_title">Queued Jobs</div>   
+    			
+    		<div class="column_sub_content">
 
-	<!-- user uploading products -->
-	<%= f.hidden_field(:user_id, {:value => current_user.id})%>   
+				<div class="column_guide">
+					<p>Once upload, data is processed overnight. The list below identifies files waiting to be processed.</p>
+      			</div>
+          
+				<div class="column_table">
+					<div class="column_table_header">
+						<% if @product_import_queue.blank? %>
+							There are no queued jobs waiting.
 
-	<table>
-		<tr>
-			<td>
-				<!-- options - keep/delete existing products -->
-				Retain existing product data <%= f.radio_button :action, 'retain', :checked => true %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Overwrite existing product data <%= f.radio_button :action, 'overwrite' %>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<!-- file with new products -->
-				<%= f.file_field :csv %>	
-			</td>
-		</tr>	
-	</table>
-
+						<% else %>  
+						<table>
+							<tr>
+								<th>file name</th>
+								<th width="65px">action</th>
+								<th width="30px"></th>
+							</tr>
+						</table> 
+					</div>
+					<div class="column_table_table">	 		
+    						<% @product_import_queue.each do |job| %>
+    						<table>
+    						<tr>  
+								<td><%= job.csv_file_name %></td>
+								<td width="50px"><%= job.action %></td>
+								<td width="30px">
+									<%= link_to image_tag("delete.png", :mouseover =>"delete-rollover.png", :border=>0), nil, :class => "delete", :title => "delete queued job" %>	
+								</td>
+    						</tr>
+    						<% end %>  			
+							</table>
+						<% end %> 			
+					</div>	
+      			</div>
+    		</div>
+ 
+		</div> 
+	</div>
+	
+	<div class="column_3">
+		<div class="column_content">       
+			<div class="column_title">History</div>   
+    			
+    		<div class="column_sub_content">
+				<% if @product_import_history.blank? %>
+				<div class="column_guide">
+						<p>No data has been processed.</p>
+      			</div>			
+				<% else %>       			
+      			<div class="column_table">    	
+					<div class="column_table_header"> 
+					<table>
+					<tr>
+						<th>file name</th>
+						<th width="50px">action</th>
+						<th width="90px">processed</th>
+					</tr>
+					</table>
+					</div>
+					<div class="column_table_table">			 		
+    				<% @product_import_history.each do |job| %>
+    				<table>
+    				<tr>   
+						<td><%= job.csv_file_name %></td>
+						<td width="50px"><%= job.action %></td>
+						<td width="90px"><%= job.date_completed.strftime("%e %B %Y") %></td>    		 
+					</tr>
+					<% end %> 
+					</table>							
+				</div>
+				<% end %> 
+			</div>
+ 
+		</div> 
+	</div>
 </div>
-<div id="bottom_button">
-	<%= f.submit "Import CSV"%>
-</div>	
-
-	<% end %>
-
-
-

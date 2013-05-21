@@ -1,25 +1,67 @@
-<div id="project_info">
-  <div id="current_project_title">   
-company name
-  </div>
-</div>
+<div class="page_title">Export product data</div>
 
 
-<div id="option_band">
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">        
+			<div class="column_title">Download data</div>   
+     
+    		<div class="column_sub_content">            
+					
+				<div class="column_guide">
+					<p>guide text here:</p>
+					<ul>
+						<li>first set of guidance here to see if it wraps when at end of div</li>
+						<li>first set of guidance</li>
+						<li>first set of guidance</li>
+					</ul>
+      			</div>
 
-</div>
-
-<div id="edit_box_less">
-	
-Export Products
-
-select clauses to download
-
-multipart select
-
-export button
-
-all as an option
-
-
+      			<div class="column_form">
+					  
+			<%= form_tag() do %>
+			<!-- options - download existing products -->		
+			<table>
+			<tr><td>
+				<div class="radio_button"><%= radio_button_tag :data, 'template', :checked => true %></div>
+				<div class="radio_button_label">Sample spreadsheet template</div>			
+			</td></tr>
+			<tr><td>
+				<div class="radio_button"><%= radio_button_tag :data, 'company_template'%></div>
+				<div class="radio_button_label">Company spreadsheet template</div>			
+			</td></tr>
+			<tr><td>
+				<div class="radio_button"><%= radio_button_tag :data, 'clauses'%></div>
+				<div class="radio_button_label">Retain existing product data</div>			
+			</td></tr>
+			<tr><td>
+      			<div class="column_sub_form">
+      				<table>
+						<tr><td>
+      						Clauses with associated product data:
+      					</td></tr>
+      					<tr><td>
+      						<%= select_tag "clause_ids", nil, {:disabled => true, :multiple => true, :size => 12}  %>
+ 						</td></tr>
+ 					</table>
+ 				</div>
+			</td></tr>
+			</table>
+			<% end %>	      	
+      			</div>
+      		</div>
+ 
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= submit_tag "download product data" %></div>
+                  
+        		</div>   
+      		</div>
+      	</div>  
+    </div>
+        
+    <div class="column_2 column_blank"></div>
+ 
+    <div class="column_3 column_blank"></div>
+    
 </div>

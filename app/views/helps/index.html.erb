@@ -1,0 +1,28 @@
+<div class="page_title">Tutorials</div>
+
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">       
+			<div class="column_title">Screencasts</div>   
+    			
+    		<div class="column_sub_content">
+
+				<div class="column_guide">
+					To learn more about how the application works select one of the following tutorials:
+				</div> 
+
+  				<div class="column_link_list">
+  				<% @tutorials.each do |tutorial|%>  
+          			<div class="column_link help_link">
+        				<%= link_to "#{tutorial.title}", {:controller => "helps", :action => "tutorial", :id => tutorial.id}, :target => "_blank" %>
+        			</div>
+        		<% end%>
+        		</div> 
+      		</div>
+      	</div>   
+	</div>
+	
+	<div class="column_2 column_blank"></div> 
+    <div class="column_3 column_blank"></div>
+     
+</div>

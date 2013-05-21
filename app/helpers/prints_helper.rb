@@ -2,15 +2,15 @@ module PrintsHelper
 
   def print_revision_select_list(current_project, project_revisions, selected_revision)    
     if current_project.project_status == 'Draft'
-      "<div id='revision_select_draft'>Draft</div>".html_safe    
+      "<div class='revision_select_draft'>Draft</div>".html_safe    
     else
-      "<div id='revision_select'>#{print_revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe  
+      "<div class='project_option_select'>#{print_revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe  
     end
   end
 
     
   def print_revision_select_input(project_revisions, selected_revision, current_project)
-    select_tag "revision", options_from_collection_for_select(project_revisions, :id, :rev, selected_revision.id), {:onchange => "window.location='/prints/#{current_project.id}?revision='+this.value;"}
+    select_tag "revision", options_from_collection_for_select(project_revisions, :id, :rev, selected_revision.id), {:class => 'publish_selectBox', :onchange => "window.location='/prints/#{current_project.id}?revision='+this.value;"}
   end
   
   

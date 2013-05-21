@@ -2,13 +2,13 @@ class ProductexportsController < ApplicationController
 
 before_filter :require_user
 
-layout "suppliers"
+layout "products"
 
 
 def index
 
   #list of all relevant clauses that can be selected for download
-  @product_clauses = Clause.joins(:productgroup).where('productgroup.company_id' => current_user.company_id)
+  #@product_clauses = Clause.joins(:productgroup).where('productgroup.company_id' => current_user.company_id)
 
   
 end

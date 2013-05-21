@@ -6,15 +6,14 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.9.custom.min
-//= require cufon-yui
-//= require jquery.jeditable
-//= require autogrow
-//= require jquery.idTabs.min
-//= require jquery.tipsy
-//= require autocomplete-rails.js
-//= require jquery.selectBox
-//= require TitilliumText25L_800.font
-//= require TitilliumText25L_300.font
+//= require jquery-ui
+//= require cufon-yui.js
+//= require jquery.jeditable.js
+//= require autogrow.js
+//= require jquery.idTabs.min.js
+//= require jquery.tipsy.js
+//= require jquery.selectBox.js
+//= require TitilliumText25L_800.font.js
+//= require TitilliumText25L_300.font.js
 //= require specright
-
+//= require_tree .

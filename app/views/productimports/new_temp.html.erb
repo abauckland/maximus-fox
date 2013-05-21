@@ -1,0 +1,157 @@
+
+<div class="page_title">Import product data</div>
+
+
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">       
+			<div class="column_title">Upload Data</div>   
+    			
+    			<div class="column_sub_content">   
+				<% if @product_import_errors %>
+					<div class="column_error">      		    
+        				<p>error text here:</p>
+        				<ul>
+    					<% @product_import_errors.each_with_index do |error, i| %> 
+							<li>Error <%= (i + 1) %>: <%= error %></li>
+    					<% end %>  
+        				</ul>
+					</div>
+				<% end %>
+            
+					<div class="column_guide">
+						guide text here:
+						<ul>
+							<li>first set of guidance here to see if it wraps when at end of div</li>
+							<li>first set of guidance</li>
+							<li>first set of guidance</li>
+						</ul>
+      				</div>
+
+      				<div class="column_form">
+						<%= form_for(@productimport) do |f| %>
+
+						<!-- user uploading products -->
+						<%= f.hidden_field(:user_id, {:value => current_user.id})%>   
+
+						<!-- options - keep/delete existing products -->		
+						<table>
+						<tr><td>
+							<div class="radio_button"><%= f.radio_button :action, 'retain', :checked => true %></div>
+							<div class="radio_button_label">Retain existing product data</div>				
+						</td></tr>
+						<tr><td>
+							<div class="radio_button"><%= f.radio_button :action, 'overwrite' %></div>
+							<div class="radio_button_label">Overwrite existing product data</div>				
+						</td></tr>
+						<tr><td>
+							<!-- file with new products -->
+							<%= f.file_field :csv %>
+						</td></tr>
+						</table>	      	
+      				</div>
+    			</div> 
+
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "upload csv file"%></div>
+        			<% end %>               
+        		</div>   
+      		</div>  
+		</div> 
+	</div>
+    
+    
+    <div class="column_2">
+		<div class="column_content">        
+			<div class="column_title">Queued Jobs</div>   
+    			
+    		<div class="column_sub_content">       
+				<div class="column_guide">
+					Once upload, data is processed overnight. The list below identifies files waiting to be processed.
+      			</div>
+          
+				<div class="column_table">
+					<div class="column_table_header">
+						<% if @product_import_queue.blank? %>
+							There are no queued jobs waiting.
+
+						<% else %>  
+						<table>
+							<tr>
+								<th>file name</th>
+								<th width="65px">action</th>
+								<th width="30px"></th>
+							</tr>
+						</table> 
+					</div>
+					<div class="column_table_table">	 		
+    						<% @product_import_queue.each do |job| %>
+    						<table>
+    						<tr>  
+								<td><%= job.csv_file_name %></td>
+								<td width="50px"><%= job.action %></td>
+								<td width="30px">
+									<%= link_to image_tag("delete.png", :mouseover =>"delete-rollover.png", :border=>0), nil, :class => "delete", :title => "delete queued job" %>	
+								</td>
+    						</tr>
+    						<% end %>  			
+							</table>
+						<% end %> 			
+					</div>	
+      			</div>
+    		</div>
+    	</div>
+	</div> 
+
+    
+    <div class="column_3">
+<div class="column_content">     	
+    	<div class="column_title">History</div> 
+    <div class="column_sub_content"> 
+		<div class="column_table">    	
+		<div class="column_table_header">
+		<% if @product_import_history.blank? %>
+			No records exist.
+		<% else %>  
+			<table>
+			<tr>
+				<th>file name</th>
+				<th width="50px">action</th>
+				<th width="90px">processed</th>
+			</tr>
+			</table>
+		</div>
+		<div class="column_table_table">			 		
+    		<% @product_import_history.each do |job| %>
+    		<table>
+    		<tr>   
+				<td><%= job.csv_file_name %></td>
+				<td width="50px"><%= job.action %></td>
+				<td width="90px"><%= job.date_completed.strftime("%e %B %Y") %></td>    		 
+			</tr>
+			<% end %> 
+			</table>
+		<% end %> 			
+		</div>
+    	
+         
+        <% if @product_import_errors %>
+  		<!-- not correct -->
+  		<form action="<%= product_error_print_productimport_path(current_user.id) %>" method="get" >
+  			<%= hidden_field_tag "id", current_user.id %>
+  			  		
+				
+				<% @product_import_errors.each_with_index do |error, i| %>
+				<%= hidden_field_tag  :import_errors[i], error %> 
+	 			<% end %>
+  			<div id="">
+    			<%= submit_tag 'Print Error Report'%>
+  			</div>
+		</form>		  
+	<% end %>
+    </div>
+    </div>
+</div> 
+    
+</div>

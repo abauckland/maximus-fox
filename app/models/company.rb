@@ -27,7 +27,7 @@ validates :tel,
           :presence => true
 
 validates_attachment :photo,
-  :attachment_content_type => { :content_type => ["image/png", "image/jpg", "image/jpeg", "image/gif", "image/bmp"] },
+  :attachment_content_type => { :content_type => ["image/png", "image/jpg"] },
   :size => { :in => 0..1000.kilobytes }
 
 

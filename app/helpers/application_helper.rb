@@ -30,11 +30,6 @@ module ApplicationHelper
     end
   end
 
-
-  def show_spinner
-  content_tag "div", "Working... " + image_tag("ajax-loader.gif"), 
-              :id => "busy", :style => "display:none;"
-  end
   
   def check_current_topic(topic)
     if request.parameters[:topic].blank? && topic == 'all'
@@ -61,11 +56,13 @@ module ApplicationHelper
       end
   end
   
-  def show_image(photo)
+  def show_image(photo, height)
     if photo.photo_file_name
-          image_tag (photo.photo.url), :height=> 60
-       else
-          "No image has been uploaded".html_safe
-        end
+      image_tag (photo.photo.url), :height=> height
+    else
+      "No image has been uploaded".html_safe
     end
+  end
+  
+  
 end

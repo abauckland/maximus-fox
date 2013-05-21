@@ -1,28 +1,53 @@
-<div id="project_info">
-  <div id="current_project_title">   
-    <%= @current_project.project_code_and_title %>
-  </div>
-  <div id="project_status">
-    Status: <%= @current_project.project_status %>
-  </div>
-  <div id="project_rev">
-    Rev: <%= @current_revision_rev %>
-  </div>
+<div class="project_info">
+	<div class="project_title">
+		<div class="project_code">   
+    		<%= @current_project.code%>
+		</div>
+		<div class="project_code_title">   
+    		<%= @current_project.title %>
+		</div>
+	</div>	
+	<div class="project_status">
+		Status: <%= @current_project.project_status %>
+	</div>
+	<div class="project_rev">
+    	Rev: <%= @current_revision_rev %>
+  	</div>
 </div>
 
-<div id="option_band">
-  <div id="option_select_1">Revision
-                                     
-      <%= revision_select(@project_revisions, @selected_revision, @current_project, @revision_clause_id_array) %>
-    
-  </div>
+<div class="option_band_single">	
+	<div class="project_select">
+		<div class="project_label_select">Revision:</div>
+      	<%= revision_select(@project_revisions, @selected_revision, @current_project, @revision_clause_id_array) %>
+	</div>
 </div>
 
-<%= revision_help(@revision_subsections, @selected_revision, @current_project) %>
 
-<div id="usual1" class="usual">
+<% if @revision_subsections.blank? %>
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">
+      		<div class="column_title">Revisions</div>   
+      
+    		<div class="column_sub_content">
 
-<ul>
+				<div class="column_guide">
+					<%= revision_help(@revision_subsections, @selected_revision, @current_project) %>
+				</div>	
+      		</div>
+      	</div>   
+	</div>
+
+	<div class="column_2 column_blank"></div>
+    <div class="column_3 column_blank"></div>
+  
+</div> 						
+
+<% else %>
+
+
+<div class="revision_tabs">
+	<ul class='tabs'>
   <% if !@revision_prelim_subsections.blank? %>
     <li><a <%= get_class_and_href_ref(@first_prelim_susbsection.id, @current_revision)%>><%= @first_prelim_susbsection.section.ref%>--</a></li>
   <% end%>
@@ -35,7 +60,7 @@
 
   <% if !@revision_prelim_subsections.blank? %>
 
-  <div id="<%= @first_prelim_susbsection.id%>rev_view" class="<%= @first_prelim_susbsection.id%>">
+  <div id="<%= @first_prelim_susbsection.id%>rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
 
     <% if !@array_of_deleted_prelim_subsections_compacted.blank? %>
       <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Deleted Subsections:</td></tr></table>
@@ -104,7 +129,7 @@
 
   <% if !@revision_none_prelim_subsections.blank? %>
   <% @revision_none_prelim_subsections.each do |revision_subsection|%>
-    <div id="<%= revision_subsection.id%>rev_view" class="<%= revision_subsection.id%>">
+    <div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
 
     <%= new_subsection_text(revision_subsection) %>
     <%= deleted_subsection_text(revision_subsection) %>
@@ -149,3 +174,5 @@
   <%end%>
 </div>
 </div>
+
+<% end %>

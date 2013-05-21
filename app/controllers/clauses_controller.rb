@@ -58,19 +58,19 @@ layout "projects"
       end
     else
       #check not case sensitive
-      clausetitle_check = Specline.joins(:clause => [:clauseref, :clausetitle]).where(:project_id => @current_project, 'clauserefs.subsection_id' => params[:clause][:clauseref_attributes][:subsection_id], 'clausetitles.text' => params[:clause][:title_text]).first
+#      clausetitle_check = Specline.joins(:clause => [:clauseref, :clausetitle]).where(:project_id => @current_project, 'clauserefs.subsection_id' => params[:clause][:clauseref_attributes][:subsection_id], 'clausetitles.text' => params[:clause][:title_text]).first
 
       #clausetitle_check = Clausetitle.where(:text => params[:clause][:title_text]).first
-      if !clausetitle_check.blank?
-        flash.now[:error] = 'A clause with the same title already exists in this Work Section'        
-        respond_to do |format|
-          format.html { render :action => "new"}
-          format.xml  { render :xml => @clause.errors, :status => :unprocessable_entity }
-        end 
+#      if !clausetitle_check.blank?
+#        flash.now[:error] = 'A clause with the same title already exists in this Work Section'        
+#        respond_to do |format|
+#          format.html { render :action => "new"}
+#          format.xml  { render :xml => @clause.errors, :status => :unprocessable_entity }
+#        end 
         
       #if clausetitle_id and clauseref_id are in use in clause do not create new clause record but usse existing to create speclines  
                   
-      else    
+#      else    
 
           if @clause.save
             #create title line
@@ -125,7 +125,7 @@ layout "projects"
             format.xml  { render :xml => @clause.errors, :status => :unprocessable_entity }
           end
         end 
-      end
+#      end
     end
   end
 

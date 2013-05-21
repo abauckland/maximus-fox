@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 before_filter :require_user
 
 
-layout "suppliers"
+layout "products"
 
 def index
   current_user = User.first

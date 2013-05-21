@@ -1,61 +1,57 @@
-<div id="project_info">
-  <div class = "edit_subsection_title">Create new clause in <%=@current_subsection.subsection_full_code_and_title%></div>
-</div>
+<div class="page_title">Create New Clause</div>
 
-
-<div id="option_band">
-  <div id="back_button"><%= link_to "back", {:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :project_id => @current_project.id, :subsection => @current_subsection.id} %></div>
-</div>
-
-<%= form_for @clause do |f| %>
-<div id="edit_box">
-		
-	
-		<!-- value set to '1' for all new clauses, if different does not work with revision tracking and clause management -->
-		<%= f.hidden_field(:project_id, {:value => 1})%>
-		<%= hidden_field_tag(:project_id, @current_project.id)%>    
-		<%= hidden_field_tag(:specline_id, @selected_specline_id)%> 
-	<div id="prj_details">
-    	<table>
-    		<tr>
-    			<td style="color: #245893; font-style: italic" colspan = 5>Complete new clause reference and title:</td>
-    		</tr>
-       		<tr>
-    			<td width ='75'>Reference:</td>
+<div class="content">
+    <div class="column_1">
+		<div class="column_content">       
+			<div class="column_title">Create new clause in <%=@current_subsection.subsection_code%></div>   
     			
-				<%= f.fields_for :clauseref do |ref| %>
-      				<td width ='20'><%=@current_subsection.subsection_code%>.</td>
-      				<td width ='90'>      				
-      				        		<%= ref.text_field :full_clause_ref, :id=>"enter_clause_ref_default", :value=>"????", :size => 2 %>
-          							<%= ref.text_field :full_clause_ref, :id=>"enter_clause_ref", :value=>"", :size => 2 %>  
-      				</td>
-      				<%= ref.hidden_field(:subsection_id, {:value => @current_subsection.id})%> 
-				<% end %>   
+    		<div class="column_sub_content">
 
-				<td width ='75'>Clause Title:</td>
-				<td>
-				<%= f.text_field :title_text, :size => 75, :blank => true %>
-    			</td>
-    		</tr>
-    		</table>
-    		
-    		<table>
-    		<% if flash.any? %> 
-    			<tr><td style="color: red"><%= flash[:error] %></td></tr>
-    		<% end %> 
-    		
-    		<% if @clause.errors.any? %> 
-				<tr><td><%= error_check(@clause, :'clauseref.full_clause_ref')%></td></tr>	
-				<tr><td><%= error_check(@clause, :'title_text')%></td></tr>
-			<% end %> 
-    		</table>
-    		
-	</div>
-	<div id="prj_details">
-    	<table>    	
-      		<tr><td style="color: #245893; font-style: italic" >Select content of new clause:</td></tr>
+				<div class="column_guide">
+					<p>Create new clause in <%=@current_subsection.subsection_code%></p>
+      			</div>
+
+				<div class="column_form">
+				<%= form_for @clause do |f| %>
+				<!-- value set to '1' for all new clauses, if different does not work with revision tracking and clause management -->
+						<%= f.hidden_field(:project_id, {:value => 1})%>
+						<%= hidden_field_tag(:project_id, @current_project.id)%>    
+						<%= hidden_field_tag(:specline_id, @selected_specline_id)%> 
+					
+						<table>
+						<tr><td>
+							<%= f.fields_for :clauseref do |ref| %>
+							<%= ref.hidden_field(:subsection_id, {:value => @current_subsection.id})%> 	
+							<div class="clause_form_label form_input_label">Reference:</div>
+							<div class="form_input">
+								<%=@current_subsection.subsection_code%>.
+								<%= ref.text_field :full_clause_ref, :id=>"enter_clause_ref_default", :value=>"????", :size => 2 %>
+          						<%= ref.text_field :full_clause_ref, :id=>"enter_clause_ref", :value=>"", :size => 2 %> 
+							</div>
+							<% end %> 					
+						</td></tr>
+						<tr><td>
+							<div class="clause_form_label form_input_label">Title:</div>
+							<div class="form_input"><%= f.text_field :title_text, :size => 75, :blank => true %>
+								<% if flash.any? %>
+									<div class="form_error_note"><%= flash[:error] %></div>
+								<% end %>
+    							<% if @clause.errors.any? %> 
+									<div class="form_error_note"><%= error_check(@clause, :'clauseref.full_clause_ref')%></div>	
+									<div class="form_error_note"><%= error_check(@clause, :'title_text')%></div>
+								<% end %>								 
+								</div>					
+						</td></tr>											
+						</table>				
+      		      		
+      			<div class="column_sub_guide">
+					<p>Select content of new clause:</p>
+      			</div>
+      		
+						<table>
+		      		
       		<tr><td><%= radio_button_tag :clause_content, 'blank_content', :checked => true %> Blank content suitable for editing.</td></tr>
-      		<tr><td><%= radio_button_tag :clause_content, 'clone_content' %>  Clone content from:</td></tr>
+      		<tr><td><%= radio_button_tag :clause_content, 'clone_content' %>  Clone content from:</td></tr>					
       		<tr><td>
       			<div id ="clone_select">
       				<table>
@@ -71,13 +67,31 @@
       						<td>
       						<%= select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title, @current_clone_clause.id), {:disabled => true} %>
  						</td></tr>
- 					</table>
- 				</div>	     		
-      		</td></tr>
-    	</table>
-	</div>
+ 					</table>												
 
+								</div>					
+						</td></tr>											
+
+						</table>	      	
+      			</div>
+    		</div>
+    	
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "Find/Create"%></div>
+
+        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :project_id => @current_project.id, :subsection => @current_subsection.id} %></div>              
+        		</div>   
+      		</div>
+        		<% end %>       		
+      	</div>   
+	</div>
+	
+	<div class="column_2 column_blank"></div> 
+    <div class="column_3 column_blank"></div>
+     
 </div>
-<div id="bottom_button"><%= f.submit 'Find/Create' %></div> 
-<%end %>
+
+
+
  

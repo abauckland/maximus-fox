@@ -1,37 +1,67 @@
-<div id="page_title">Licences for <%= @company.company_name %></div>
+<div class="page_title"><%= @company.company_name %></div>
 
-<div id="line_admin"></div> 
+<div class="content">
+    <div class="column_1_2">
+		<div class="column_content">       
+			    			
+			<table class="users">
+				<tr>
+					<th>Name</th>
+					<th class="mob_cell">Email</th>
+					<th class="mob_cell">Created</th>
+					<th class="s_tab">Log-ins</th>
+					<th class="s_tab">Last Log-in</th>
+					<th width="60px"></th>
+					<th width="52px"></th>
+				</tr>
+				<% @licences.each do |licence|%>
+				<tr>
+					<td><%= licence.user.first_name %> <%= licence.user.surname %></td>
+					<td class="mob_cell"><%= licence.user.email %></td>
+					<td class="mob_cell"><%= created(licence) %></td>
+					<td class="s_tab"><%= licence.number_times_logged_in %></td>
+					<td class="s_tab"><%= last_seen(licence) %></td>
+					<td><%= check_active(licence) %></td> 
+					<td><%= locked_at(licence) %></td>    
+				</tr>
+				<%end%>  
+			</table>           
+    	</div>
+	</div>
 
 
-  <%= licence_status(@active_licences.count, @account.no_licence) %>
-
-
-<div id="edit_box_half">
-
-  <table>
-    <tr>
-      <th width ="170" style="padding-left: 15px; padding-bottom: 5px" >Name</td>
-      <th width ="250" style="padding-left: 15px; padding-bottom: 5px" >Email</td>
-      <th width ="130" style="padding-bottom: 5px" >Created</td>
-      <th width ="80" style="padding-bottom: 5px" >Log-ins</td>
-      <th width ="150" style="padding-bottom: 5px" >Last Log-in</td>
-    </tr>
-  </table>
-
-  
-  <% @licences.each do |licence|%>
-    <div class="licence_table" class="<%= licence.user_id%>">
-    <div id = "licence_name"><%= licence.user.first_name %> <%= licence.user.surname %></div>
-      <div id = "licence_email"><%= licence.user.email %></div>
-      <div id = "licence_created"><%= created(licence) %></div>
-      <div id = "licence_vists"><%= number_times_logged_in(licence) %></div>
-      <div id = "licence_seen"><%= last_seen(licence) %></div>
-      <%= check_active(licence) %>
-      <%= locked_at(licence) %>
-    </div>
-  <%end%>
+    <div class="column_3">
+		<div class="column_content">       
+			<div class="column_title">Add new user</div>   
+    			<div class="column_sub_content">
+    				
+    				<div class="column_guide">
+						<p><%= licence_status(@active_licences.count, @account.no_licence) %></p>
+      				</div>
+					<% if @user.errors.any? %> 
+					<div class="column_error">      		    
+        				<div class="column_error_heading">
+        					<p>A number of errors prohibited this user from being created, please complete highlighted items:</p>
+        				</div>
+        				<div class="column_error_content">
+        					<ul>
+								<li>Error</li>
+								<li>Error</li>
+        					</ul>
+        				</div>
+					</div>
+					<% end %>
+					<%= add_user(@active_licences.count, @account.no_licence, current_user.company_id) %>
+				</div>       		      		
+      		</div> 
+		</div> 
+	</div>	
 </div>
 
-<%= add_user(@active_licences.count, @account.no_licence, current_user.company_id) %>
+
+
+
+
+
 
 

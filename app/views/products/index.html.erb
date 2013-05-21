@@ -1,43 +1,15 @@
-<div id="project_info">
-  <div id="current_project_title">   
-company name
-  </div>
-</div>
+<div class="app_tab_1">
+	<ul class='tabs'>
+		<li><a href='#tab1'>current</a></li>
+		<li><a href='#tab2'>discontinued</a></li>
+	</ul>
 
-
-<div id="option_band">
-
-</div>
-
-<div id="edit_box_less">
+	<div id="tab1" class="tab_content">    
+		<%= render :partial => "product_table", :locals => { :products => @products, :txt3_id_array => @txt3_id_array } %>
+	</div>    
 	
-	<table border = "1">
-		<tr>
-    		<th>Clause Ref</th>
-    		<th>Clause Title</th>
-    		<th>Clause Subtitle</th>
-    		<th>Product Ref</th>
-    		<th>Product Name</th>
-    		<th>Item Ref</th>
-    		<th>Item Name</th>    
-    		<% @txt3_id_array.each do |txt3_id| %>
-      			<th><%= txt3_id.text %></th>
-    		<% end %>
-  		</tr>                     
-    
-  		<% @products.each do |product| %>
-  			<tr>       
-    			<td><%= product.productgroup.clause.clause_code %></td>
-    			<td><%= product.productgroup.clause.clausetitle.text %></td>
-    			<td><%= product.productgroup.txt4.text %></td>
-    			<td><%= product.productgroup.ref %></td>
-    			<td><%= product.productgroup.name %></td>
-    			<td><%= product.ref %></td>
-    			<td><%= product.name %></td>
-    			<% @txt3_id_array.each do |txt3_id| %>    
-					<%= product_performance_text(product.id, txt3_id) %>
-    			<% end %>
-  			</tr>
-		<% end %>
-	</table>
+	<div id="tab2" class="tab_content">    
+		<%= render :partial => "product_table", :locals => { :products => @products, :txt3_id_array => @txt3_id_array } %>
+	</div>  
 </div>
+

@@ -134,5 +134,6 @@ SpecrightDev::Application.routes.draw do
     get :csv_product_upload, :on => :member
     get :product_error_print, :on => :member
   end
+  resources :productreports
   
 end
