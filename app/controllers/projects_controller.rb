@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
 before_filter :require_user
 before_filter :check_project_ownership, :except => [:index, :new, :create, :edit_subsections]
-before_filter :prepare_for_mobile
+
 
 layout "projects"
 
@@ -24,7 +24,6 @@ layout "projects"
     #render :layout => false
       respond_to do |format|  
         format.html 
-        format.mobile {render :layout => "mobile"}
       end    
   end
           
@@ -39,41 +38,42 @@ layout "projects"
     #call to protected method that restablishes text to be shown for project revision status
     current_revision_render(@current_project)
 
-    #establish project clauses, subsections & sections
-    @current_project_clause_ids = Specline.select('DISTINCT clause_id').where('project_id = ?', @current_project.id).collect{|item1| item1.clause_id}.uniq.sort   
-    
-    current_project_subsection_ids = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id)   
-    current_project_section_ids = current_project_subsection_ids.collect{|i| i.section_id}.uniq.sort      
-
-    @project_sections = Section.where(:id => current_project_section_ids)
-
-#check for other variables that are needed below
-
+    #establish project clauses, subsections & sections    
+    @project_subsections = Subsection.select('subsections.id, subsections.section_id, subsections.ref, subsections.text').joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id).uniq.sort  
 
     #if no contents redirect to manage_subsection page
-    if @project_sections.blank?
+    if @project_subsections.blank?
       redirect_to(:controller => "projects", :action => "empty_project", :id => @current_project.id)
-    else
-    
+    end
+
+    array_project_subsection_ids = @project_subsections.collect{|i| i.id}
+    array_project_section_ids = @project_subsections.collect{|i| i.section_id}.uniq.sort      
+
+    # @project_sections = Section.where(:id => array_project_section_ids)
+    @project_sections = Section.where(:id => array_project_section_ids)
+    #check for other variables that are needed below
+
+  
     #estabish list and current value for section and subsection select menues
     if params[:section].blank?
       if params[:subsection].blank?     
           @selected_key_section = @project_sections.first
-          @selected_key_subsection = Subsection.select('id, guidepdf_id').where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first    
+          @selected_key_subsection = Subsection.select('id, guidepdf_id').where(:id => array_project_subsection_ids, :section_id => @selected_key_section.id).first    
       else         
           @selected_key_subsection = Subsection.find(params[:subsection])
           @selected_key_section = Section.select('id').where(:id => @selected_key_subsection.section_id).first
       end
     else
           @selected_key_section = Section.select('id').where(:id => params[:section]).first
-          @selected_key_subsection = Subsection.where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id).first      
+          @selected_key_subsection = Subsection.where(:id => array_project_subsection_ids, :section_id => @selected_key_section.id).first      
     end
-    @selected_subsections = Subsection.where(:id => current_project_subsection_ids, :section_id => @selected_key_section.id)
+    @selected_subsections = Subsection.where(:id => array_project_subsection_ids, :section_id => @selected_key_section.id)
 
  #if @selected_key_section.id != 1
-  
+   # @current_project_clause_ids = Specline.select('DISTINCT clause_id').where('project_id = ?', @current_project.id).collect{|item1| item1.clause_id}.uniq.sort   
+   
     #get all speclines for selected subsection
-    selected_clauses = Clause.joins(:clauseref).select('DISTINCT(clauses.id)').where('clauses.id' => @current_project_clause_ids, 'clauserefs.subsection_id' => @selected_key_subsection.id)
+    selected_clauses = Clause.joins(:clauseref, :speclines).select('DISTINCT(clauses.id)').where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id)
     array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
 
     @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
@@ -94,32 +94,7 @@ layout "projects"
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @project }
-        format.mobile {render :layout => "mobile"}
       end 
-    end
-  end
-
-  def project_sections
-
-    current_revision_render(@current_project)
-    project_section_ids = Section.joins(:subsections => [{:clauserefs => [{:clauses => :speclines}]}]).where('speclines.project_id' => @current_project.id).collect{|i| i.id}.uniq    
-    @project_sections = Section.where(:id => project_section_ids)    
-
-      respond_to do |format|
-        format.mobile {render :layout => "mobile"}
-      end    
-  end
-
-  def project_subsections
-
-    current_revision_render(@current_project)
-    @selected_key_section = Section.where(:id => params[:section]).first 
-    project_subsection_ids = Subsection.joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => @current_project.id, :section_id => @selected_key_section.id).collect{|i| i.id}.uniq    
-    @project_subsections = Subsection.where(:id => project_subsection_ids)
-  
-      respond_to do |format|
-        format.mobile {render :layout => "mobile"}
-      end  
   end
 
 

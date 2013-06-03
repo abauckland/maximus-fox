@@ -46,7 +46,7 @@ function form_input() {
 }
 	
 
-function section_select_width(){
+function section_select_location(){
 	if ($(window).width() > 800){ //refer to meduium menu size set in core.css
 	var label_width = $('.select_1').outerWidth();
 	var select_width = $('.document_selectBox_1').outerWidth();
@@ -60,12 +60,10 @@ function section_select_width(){
 
 //controls width of section and subsection select when select menu is stacked
 function section_select_input_1_width(){
-	var window_width = $(window).width();
-	var section_label_width = $('.select_1').outerWidth();
-	var subsection_button_width = $('.subsection_button').outerWidth();
-	var select_width = (window_width - section_label_width - subsection_button_width - 40);	
-	
-	$('.selectBox-dropdown').css({'max-width': select_width +"px"});
+	if ($(window).width()<800){ //refer to meduium menu size set in core.css
+		var select_width = ($(window).width() - 240);		
+		$('.selectBox-dropdown').css({'max-width': select_width +"px"});
+	}
 }
 
 //controls width of section and subsection select when select menus are inline
@@ -76,7 +74,7 @@ function section_select_input_1_2_width(){
 	var section_label_width = $('.select_1').outerWidth();
 	var subsection_label_width = $('.select_2').outerWidth();
 	var subsection_button_width = $('.subsection_button').outerWidth();
-	var select_width = ((window_width - section_label_width - subsection_button_width - subsection_button_width - 60)/2);	
+	var select_width = ((window_width - section_label_width - subsection_label_width - subsection_button_width - 60)/2);	
 	
 	$('.selectBox-dropdown').css({'max-width': select_width +"px"});
 	
@@ -85,18 +83,40 @@ function section_select_input_1_2_width(){
 	}
 }
 
+function tab_2_label_width(){
+//limit label size in document end tabs
+	if ($(window).width()<400){
+		$('.document_tabs ul').find('a').each(function(){
+			var text=$(this).text()
+			if (text.length>14)
+				$(this).val(text).text(text.substr(0,11)+'..')
+		});
+	}	
+}	
+
 $(document).ready(function(){
+
+
+		$('select#section option').each(function(){
+			var text=$(this).text()
+			if (text.length>14)
+				$(this).val(text).text(text.substr(0,13)+'…')
+		})
+
+
 
 //table input width for new user
 	tab_format();
 	form_input();
-	section_select_width();
+	tab_2_label_width();
+	section_select_location();
 	section_select_input_1_width()
 	section_select_input_1_2_width()
 	$(window).resize(function(){
 		tab_format();
 		form_input();
-		section_select_width();
+		tab_2_label_width();
+		section_select_location();
 		section_select_input_1_width()
 		section_select_input_1_2_width()
 	});	

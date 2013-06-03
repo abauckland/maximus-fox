@@ -2,9 +2,9 @@ module PrintsHelper
 
   def print_revision_select_list(current_project, project_revisions, selected_revision)    
     if current_project.project_status == 'Draft'
-      "<div class='revision_select_draft'>Draft</div>".html_safe    
+      "<div class='project_label_select'>Project status is 'Draft'</div>".html_safe    
     else
-      "<div class='project_option_select'>#{print_revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe  
+      "<div class='project_label_select'>Revision:</div><div class='project_option_select'>#{print_revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe  
     end
   end
 

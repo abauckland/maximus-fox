@@ -51,7 +51,7 @@ function single_column_height(column_name) {
 			});
 			$(column_name).children('.column_content').children('.column_sub_content').height(totalHeight);
 			$(column_name).children('.column_content').children('.column_footer').css('top', (totalHeight+48) + 'px');
-			$(column_name).height(totalHeight + 76);
+			$(column_name).height(totalHeight + 86);
 		}
 };
 
@@ -89,7 +89,7 @@ var limit = limit;
 		$.each(array_columns_2, function(i, column_name) {
 			$(column_name).children('.column_content').children('.column_sub_content').height(highestCol-68);
 			$(column_name).children('.column_content').children('.column_footer').css('top', (highestCol-28) + 'px');
-			$(column_name).height(highestCol);
+			$(column_name).height(highestCol + 10);//10 added to provide adequate space below submit button in footer
 		});		
 		//set height properties on lower column		
 		if ($('.column_3').find('.column_title').length){
@@ -115,7 +115,7 @@ var limit = limit;
 			$.each(array_columns_2, function(i, column_name) {
 				$(column_name).children('.column_content').children('.column_sub_content').height(highestCol-68);
 				$(column_name).children('.column_content').children('.column_footer').css('top', (highestCol-28) + 'px');
-				$(column_name).height(highestCol);
+				$(column_name).height(highestCol + 10);//10 added to provide adequate space below submit button in footer
 			});
 	}	
 };

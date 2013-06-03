@@ -12,8 +12,6 @@
 
 <body>
 
-
-
 <div class="app_page_container">
 	
 	<!-- menu header-->
@@ -32,6 +30,11 @@
     			<% end %>
     		</div>
   		</nav>
+		
+		<nav class="mob_menu"></nav>	
+		<!-- drop general menu for mobile-->
+		<%= render :partial => "spec_menu", :current_project => @current_project %>
+
 
   		<!-- show icon only in mob version -->
   		<nav class="app_user_name"><%= current_user.first_name.capitalize %> <%= current_user.surname.capitalize %></nav>  
@@ -39,6 +42,8 @@
 	</header>
 	<!-- drop down user settings menu -->
 	<%= render :partial => "user_menu", :current_user => current_user %>
+	
+	
 
 <%= yield %>
 

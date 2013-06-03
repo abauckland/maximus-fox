@@ -1,6 +1,5 @@
 class GuidepdfsController < ApplicationController
 
-before_filter :prepare_for_mobile
 #before_filter :require_user, :except => [:index]
 layout "application", :except => [:download]
 
@@ -8,7 +7,6 @@ layout "application", :except => [:download]
   @guidepdfs = Guidepdf.includes(:subsections => :section).all#.order('sections.id, subsections.id') 
        respond_to do |format|  
         format.html 
-        format.mobile {render :layout => "mobile"}
       end   
  end
 

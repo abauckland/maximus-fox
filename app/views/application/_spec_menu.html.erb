@@ -1,0 +1,11 @@
+<nav class="mob_spec_menu">
+    <ul>
+      <li><%= link_to "Project", edit_project_path(@current_project.id)%></li>
+      <li><%= link_to "Document", project_path(@current_project.id) %></li>
+      <li><%= link_to "Revisions", revision_path(@current_project.id)%></li>
+      <li><%= link_to "Publish", print_path(@current_project.id)%></li>
+    <% if current_user.company.type == 'manufacturer'%>    
+    	<li><%= link_to "Dashboard", nil %></li>
+    <% end %>                
+    </ul>
+</nav>

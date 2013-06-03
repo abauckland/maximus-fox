@@ -1,7 +1,5 @@
 class SessionsController < ApplicationController
 
-before_filter :prepare_for_mobile
-
   def new
   
       respond_to do |format|  

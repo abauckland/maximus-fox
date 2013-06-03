@@ -287,21 +287,7 @@ padding: 15px 5px 0px 20px;
 font: italic 24px verdana;
 }
 
-input[type=submit] {
-height: 21px;
-  font: normal 12px;
-  background: image-url('button_green.png') repeat-x;
-  border: solid 1px #000;
-  padding: 1px 7px 8px 7px;  
-  color: #fff;
-  @include corners-all;
-  @include shadow-all;
-  z-index: 999;
-  &:hover {
-  padding: 1px 7px 8px 7px;
-   border: solid 1px #fff;
-  }    
-} 
+
 
 #guidance_button {
   position: absolute;

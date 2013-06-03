@@ -3,7 +3,7 @@ module RevisionsHelper
   def revision_select(project_revisions, selected_revision, current_project, revision_clause_id_array)
 
     if current_project.project_status == 'Draft'
-      "<div id='revision_select_draft'>Project status is 'Draft', changes are not currently recorded</div>".html_safe
+      "<div id='revision_select_draft'>n/a (project status is 'Draft')</div>".html_safe
     else
       if revision_clause_id_array.blank?
         "<div id='revision_select'>#{revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe

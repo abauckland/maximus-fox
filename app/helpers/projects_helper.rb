@@ -1,7 +1,6 @@
 module ProjectsHelper
 
 
-
 #establishes the identity of each edit_box tab
 def class_and_href_ref(clausetype_id, current_clausetype_id)
   
@@ -119,59 +118,13 @@ end
 
 #MOBILE HELPER METHODDS
 #used for preliminaires section only
-def get_subsection_speclines(current_project_id, subsection_id, clause_ids)
+#def get_subsection_speclines(current_project_id, subsection_id, clause_ids)
 
-    array_of_selected_clauses = Clause.joins(:clauseref).where('clauses.id' => clause_ids, 'clauserefs.subsection_id' => subsection_id).collect{|item6| item6.id}.sort.uniq
+#    array_of_selected_clauses = Clause.joins(:clauseref).where('clauses.id' => clause_ids, 'clauserefs.subsection_id' => subsection_id).collect{|item6| item6.id}.sort.uniq
 
-   @selected_specline_lines = Specline.select('id, clause_id, clause_line, txt1_id, txt3_id, txt4_id, txt5_id, txt6_id, txt1s.id, txt1s.text, txt3s.id, txt3s.text, txt4s.id, txt4s.text, txt5s.id, txt5s.text, txt6s.id, txt6s.text, clauses.id, clauses.subsection_id, clauses.clausetype_id, clauses.clause, clauses.subclause, clauses.clausetitle_id, clauses.guidenote_id, clausetitles.id, clausetitles.text, subsections.id, subsections.ref, subsections.section_id, guidenotes.id, guidenotes.text').includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+#   @selected_specline_lines = Specline.select('id, clause_id, clause_line, txt1_id, txt3_id, txt4_id, txt5_id, txt6_id, txt1s.id, txt1s.text, txt3s.id, txt3s.text, txt4s.id, txt4s.text, txt5s.id, txt5s.text, txt6s.id, txt6s.text, clauses.id, clauses.subsection_id, clauses.clausetype_id, clauses.clause, clauses.subclause, clauses.clausetitle_id, clauses.guidenote_id, clausetitles.id, clausetitles.text, subsections.id, subsections.ref, subsections.section_id, guidenotes.id, guidenotes.text').includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
 
-end
-
-
-def mobile_filter(specline)
-  
-  @line = specline
-    
-    case specline.linetype_id
-
-      when 1, 2 ; "<li id='#{specline.id}' class='clause_title'><table width =100%><tr><td width = '100'>#{clause_ref_text(specline)}</td><td>#{specline.clause.clausetitle.text}</td><td width='35'></td></tr></table></li>".html_safe
-    
-      when 3 ; "#{mob_html_prefix(specline)}  <td width='18'>#{specline.txt1.text}.</td><td>#{specline.txt4.text}: #{specline.txt5.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-
-      when 4 ; "#{mob_html_prefix(specline)}  <td width='18'>#{specline.txt1.text}.</td><td>#{specline.txt4.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-      when 5 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt6.text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-
-      when 6 ; "#{mob_html_prefix(specline)}  <td><table><tr><td>#{specline.txt3.text}:</td><td width = '5'></td><td>#{specline.txt5.text}.</td></tr></table></td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-
-      when 7 ; "#{mob_html_prefix(specline)}  <td>#{specline.txt4.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
-      when 8 ; "#{mob_html_prefix(specline)}  <td>#{specline.txt4.text}: #{specline.txt5.text}.</td><td width='35'>#{mob_delete_line_link(specline)}</td></tr></table></li>".html_safe
-
-  end
-end
-
-
-def mob_html_prefix(specline)
-    "<li id='#{specline.id}' class='specline_line'><table width =100%><tr><td width = '50'>#{mob_new_line_link(specline)}</td><td width='50'>#{mob_edit_line_link(specline)}</td>".html_safe
-end
-
-def mob_delete_clause_link(current_project, current_subsection_id, clause)
-link_to "#{clause.clause_section_full_title}", {:controller => "speclines", :action => "mob_delete_clause", :id => @current_project.id, :del_clause_id => clause.id, :subsection_id => @current_subsection_id}, :class => "delete"
-end
-
-def mob_delete_line_link(specline)
-link_to image_tag("delete_mob.png"),  {:controller => "speclines", :action => "mob_delete", :id => specline.id}, :class => "delete", :confirm => "Are you sure?"
-end 
-
-def mob_edit_line_link(specline)
-link_to image_tag("edit_mob.png"), {:controller => "speclines", :action => "mob_edit_specline", :id => specline.project_id, :specline_id => specline.id}, :class => "small", :rel => "external"
-end
-
-def mob_new_line_link(specline)
-link_to image_tag("insrow_mob.png"), {:controller => "speclines", :action => "mob_new_specline", :id => specline.id}, :class => "get"
-end 
-
+#end
 
 
 #end of class

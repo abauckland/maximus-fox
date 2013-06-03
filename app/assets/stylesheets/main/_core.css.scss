@@ -17,17 +17,25 @@ $bold_text_color: #404040;
 $error_text_color: #ff3300;  
 $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 
+//background gradient image
+@mixin dark_grey_46_gradient {background: image-url('dark_grey_46.png') repeat-x};
+@mixin dark_grey_38_gradient {background: image-url('dark_grey_38.png') repeat-x};
+@mixin dark_grey_24_gradient {background: image-url('dark_grey_24.png') repeat-x};
 
-//background_gradient
-@mixin gradient($start_colour, $stop_colour) {
-  background-image: -moz-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* Mozilla Firefox */ 
-  background-image: -o-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* Opera */ 
-  background-image: -webkit-gradient(linear, top, bottom, color-stop(0.05, $start_colour), color-stop(1, $stop_colour));/* Webkit (Safari/Chrome 10) */ 
-  background-image: -webkit-linear-gradient(bottom, $start_colour 45%, $stop_colour 55%);/* Webkit (Chrome 11+) */ 
-  background-image: -ms-linear-gradient(bottom, $start_colour 5%, $stop_colour 100%);/* IE10 Consumer Preview */
-  background-image: linear-gradient(to bottom, $start_colour 5%, $stop_colour 100%);/* W3C Markup, IE10 Release Preview */  
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='$start_colour', endColorstr='$stop_colour'); /* for IE */
-}
+@mixin light_grey_28_gradient {background: image-url('light_grey_28.png') repeat-x};
+
+@mixin dark_grey_28_gradient {background: image-url('dark_grey_28.png') repeat-x};
+
+
+@mixin green_28_gradient {background: image-url('green_28.png') repeat-x}; 
+@mixin orange_28_gradient {background: image-url('orange_28.png') repeat-x}; 
+@mixin red_28_gradient {background: image-url('red_28.png') repeat-x};
+@mixin grey_28_gradient {background: image-url('grey_28.png') repeat-x};
+
+@mixin inverted_green_28_gradient {background: image-url('inverted_green_28.png') repeat-x}; 
+@mixin inverted_orange_28_gradient {background: image-url('inverted_orange_28.png') repeat-x}; 
+@mixin inverted_red_28_gradient {background: image-url('inverted_red_28.png') repeat-x};    
+@mixin inverted_grey_28_gradient {background: image-url('inverted_grey_28.png') repeat-x};
 
 
 //button sass
@@ -63,12 +71,12 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
   @include border-radius(0.5rem);       
 }
 
-@mixin green-button {border-color: #b0db64; @include gradient(#77a809, #89c403); @include button-box-shadow(#a4e271);
-                      &:hover {@include gradient(#89c403, #77a809); }}
-@mixin orange-button {border-color: #ebc178; @include gradient(#ce0100, #fe1a00); @include button-box-shadow(#f29c93);
-                      &:hover {@include gradient(#fe1a00, #ce0100); }}
-@mixin red-button {border-color: #db817b; @include gradient(#d29105, #f6b33d); @include button-box-shadow(#fed897);
-                      &:hover {@include gradient(#f6b33d, #d29105); }}
+@mixin green-button {border-color: #b0db64; @include green_28_gradient; @include button-box-shadow(#a4e271);
+                      &:hover {@include inverted_green_28_gradient; }}
+@mixin orange-button {border-color: #ebc178; @include orange_28_gradient; @include button-box-shadow(#f29c93);
+                      &:hover {@include inverted_orange_28_gradient; }}
+@mixin red-button {border-color: #db817b; @include red_28_gradient; @include button-box-shadow(#fed897);
+                      &:hover {@include inverted_red_28_gradient; }}
                       
                       
 .small_green_button{
@@ -152,11 +160,12 @@ figure {
   padding: 10px 10px 10px 10px;
   @include border-radius(0.5rem);
   @include shadow-all(0px 0px 5px #aeaeae);
-  @include gradient(#5d5d5d, #7c7c7c);
+  @include dark_grey_46_gradient;
   min-width:270px
   }  
   @media screen and (max-width: $medium_menu) {
     .app_page_header {
+      @include dark_grey_38_gradient;
       height: 18px; 
     }  
   }
@@ -197,13 +206,12 @@ figure {
       top: 45px;
       @include border-radius(0.5rem);
       @include shadow-all(0px 0px 5px #aeaeae);
-      @include gradient(#5d5d5d, #7c7c7c);
+      @include dark_grey_24_gradient;;
     }
   }
   @media screen and (max-width: $small_menu) {
     .app_menu {
-      top: 45px;
-      width: 100%;  
+      display: none;
     }  
   }
 
@@ -257,6 +265,43 @@ figure {
   .s_tab{display:none;}
   }
 
+.mob_spec_menu{
+  display: none; 
+  position: absolute;
+  top: 38px;
+  left: 95px;
+  width: 110px;
+  background: #000;
+  padding:0px 5px 0px 10px;
+  z-index: 1000;
+  ul{
+    list-style-type: none; 
+    -webkit-padding-start: 0px;
+    margin: 0px; //require so displays properly in firefox, ie
+    padding: 0px; //require so displays properly in firefox, ie
+    li{
+      padding: 2px 0px 2px 0px;     
+    }
+  }
+  a{
+    text-align: left;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: #fff;
+    text-decoration: none;
+    &:hover{    
+      text-decoration: underline; 
+    }
+  }
+  }
+  @media screen and (max-width: $small_menu) {
+    .mob_spec_menu {
+    display: block;
+    top: 38px;
+    }  
+  }
+
+
 .app_user_name{
   position: absolute;
   top: 0;
@@ -282,7 +327,7 @@ figure {
   }
   @media screen and (max-width: $small_menu) {
     .app_user_name {
-      right: 75px;
+      right: 65px;
       width: 20px;
       color: transparent;
         }
@@ -358,6 +403,12 @@ figure {
       font-size: 1.2rem;
       }
   }
+  @media screen and (max-width: $small_menu) {
+    .project_info {
+      display:none;
+      }
+  }
+
 
 .project_title{
   position: absolute;
@@ -428,7 +479,7 @@ right: 30px;
   padding: 2px 0px 0px 7px;
   border: 1px solid #bababa;
   @include border-radius(0.5rem);
-  @include gradient(#cacaca, #dadada);
+  @include light_grey_24_gradient;
   .error{
   color: #ff0000;
   }
@@ -438,38 +489,29 @@ right: 30px;
       top: 100px;
       }
   }
-
-.option_band {
-  position: absolute;
-  top: 84px;
-  left: 10px;
-  right: 10px;
-  height: 26px;
-  min-width:280px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #000;
-  padding: 2px 0px 0px 7px;
-  border: 1px solid #bababa;
-  @include border-radius(0.5rem);
-  @include gradient(#cacaca, #dadada);
-  .error{
-  color: #ff0000;
-  }
-  }
-  @media screen and (max-width: $medium_menu) {
-    .option_band {
-      top: 100px;
-      height: 52px;
+  @media screen and (max-width: $small_menu) {
+    .option_band_single {
+      top: 55px;
       }
   }
+
+
+.section_select_desktop{display: none}  
+  @media screen and (min-width: $medium_menu) {
+    .section_select_desktop{display: block}
+  }
+
+.section_select_tablet{display: none}
+  @media screen and (min-width: $small_menu) and (max-width: $medium_menu){  
+    .section_select_tablet{display: block}
+  }
+
+.section_select_mobile{display: none}
+  @media screen and (max-width: $small_menu) {
+    .section_select_mobile{display: block}
+  }
  
-
-
-
-
-
-
+ 
 
 /*project index page - title css*/ 
 .page_title {
@@ -516,7 +558,7 @@ ul.tabs, ul.tabs_2{
       color: #fff;
       text-decoration: none;
       @include border-radius(0.4rem);
-      @include gradient(#cacaca, #dadada);
+      @include light_grey_24_gradient;
       cursor:pointer;
       padding: 6px 6px 6px 6px;
       &:hover{
@@ -531,6 +573,7 @@ ul.tabs, ul.tabs_2{
     }
   }  
 }
+
       
 ul.tabs{
   padding: 6px 0px 6px 0px;
@@ -560,17 +603,25 @@ ul.tabs_2 {
   line-height:34px;
   background: #d9d9d9;
   li {
+    white-space:nowrap;
     a {  
       border: solid 1px white;
       @include border-radius(0.4rem);
     } 
   }
 }
-  @media screen and (max-width: $medium_menu) {
+  @media screen and (max-width: $small_menu) {
     ul.tabs_2 {
-      min-width:277px;
+      padding: 0px 1px 1px 1px;
+        line-height:28px;
+      min-width:277px;      
       li {
+        padding: 0px 1px 0px 1px;
+        font-size: 1.2rem;
         white-space:nowrap;
+        a{
+         padding: 4px 4px 4px 4px;
+        }
         }
       }
   }
@@ -582,7 +633,7 @@ ul.tabs_2 {
   top: 482px;
   left: 10px;
   right: 10px;
-  bottom: 10px;
+
   min-width:280px;
   overflow: auto;
   background: #fff;
@@ -591,6 +642,13 @@ ul.tabs_2 {
   padding: 5px 0px 20px 0px; 
   z-index: 0;
 }
+  @media screen and (min-width: $small_menu) {
+    .tab_content {
+  bottom: 10px;      
+      }
+  }
+
+
 
 .tab_sub_menu{
   position: absolute;
@@ -614,7 +672,11 @@ ul.tabs_2 {
       top:125px;
       }
   }
-
+  @media screen and (max-width: $small_menu) {
+    .content {
+      top: 80px;
+      }
+  }
 
 
 .column_1, .column_2, .column_3, .column_1_2 {

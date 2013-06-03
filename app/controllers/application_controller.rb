@@ -3,8 +3,7 @@
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  #before_filter :prepare_for_mobile  
+  protect_from_forgery # See ActionController::RequestForgeryProtection for details 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
   helper_method :current_user  
@@ -595,26 +594,6 @@ private
     @current_user ||= User.find(session[:user_id]) if session[:user_id]  
   end 
   
-  def mobile_device?  
-    if session[:mobile_param]  
-      session[:mobile_param] == "1"  
-    else  
-      request.user_agent =~ /Mobile|webOS/  
-    end  
-  end  
-  helper_method :mobile_device?
-  
-  def prepare_for_mobile  
-    session[:mobile_param] = params[:mobile] if params[:mobile]  
-    request.format = :mobile if mobile_device?  
-  end
-
-  def mobile_redirect
-    if mobile_device?
-    redirect_to mob_new_session_path
-    end
-  end
-
 
   def  specline_current_text_match_check(specline_update, current_revision)
 

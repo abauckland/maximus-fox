@@ -16,24 +16,50 @@
 </div>
 
 
-
-<div class="option_band">
-	<div class="select_1">
-		<div class="label_select_1">Section:</div>
-		<div class="option_select_1">
-      		<%= select_tag "section", options_from_collection_for_select(@project_sections, :id, :section_code_and_title, @selected_key_section.id), {:class => 'document_selectBox_1', :onchange => "window.location='/projects/#{@current_project.id}?section='+this.value;"}  %>	
-		</div>
-	</div>
-	<div class="select_2">
-		<div class="label_select_1">Subsection:</div>
-		<div class="option_select_2">
-      		<%= select_tag "subsection", options_from_collection_for_select(@selected_subsections, :id, :subsection_code_and_title, @selected_key_subsection.id), {:class => 'document_selectBox_2', :onchange => "window.location='/projects/#{@current_project.id}?subsection='+this.value;"}  %>	
-		</div>
-	</div>
+<div class="option_band_single">
 	
-	<div class="small_hide subsection_button"><%= link_to 'add/delete sections', manage_subsections_project_path %></div>
-	<div class="small_show subsection_button"><%= link_to '+/- sections', manage_subsections_project_path %></div> 	
+	<div class="section_select_mobile">
+		<div class="select_1">
+			<div class="label_select_1">Subsection:</div>
+			<div class="option_select_1">
+      			<%= select_tag "section", options_from_collection_for_select(@project_subsections, :id, :subsection_code, @selected_key_subsection.id), {:class => 'document_selectBox_1', :onchange => "window.location='/projects/#{@current_project.id}?subsection='+this.value;"}  %>	
+			</div>
+		</div>
+		<div class="small_show subsection_button"><%= link_to '+/-', manage_subsections_project_path %></div> 
+		
+	</div>
+	<div class="section_select_tablet">
+		<div class="select_1">
+			<div class="label_select_1">Subsection:</div>
+			<div class="option_select_1">
+      			<%= select_tag "section", options_from_collection_for_select(@project_subsections, :id, :subsection_full_code_and_title, @selected_key_subsection.id), {:class => 'document_selectBox_1', :onchange => "window.location='/projects/#{@current_project.id}?subsection='+this.value;"}  %>	
+			</div>
+		</div>
+		<div class="small_show subsection_button"><%= link_to '+/- sections', manage_subsections_project_path %></div> 
+	</div>
+
+	<div class="section_select_desktop">
+		<div class="select_1">
+			<div class="label_select_1">Section:</div>
+			<div class="option_select_1">
+      			<%= select_tag "section", options_from_collection_for_select(@project_sections, :id, :section_code_and_title, @selected_key_section.id), {:class => 'document_selectBox_1', :onchange => "window.location='/projects/#{@current_project.id}?section='+this.value;"}  %>	
+			</div>
+		</div>
+		<div class="select_2">
+			<div class="label_select_1">Subsection:</div>
+			<div class="option_select_2">
+      			<%= select_tag "subsection", options_from_collection_for_select(@selected_subsections, :id, :subsection_code_and_title, @selected_key_subsection.id), {:class => 'document_selectBox_2', :onchange => "window.location='/projects/#{@current_project.id}?subsection='+this.value;"}  %>	
+			</div>
+		</div>
+		<div class="small_hide subsection_button"><%= link_to 'add/delete sections', manage_subsections_project_path %></div>
+	</div>
+			
 </div>
+
+
+
+
+
 
 
 
