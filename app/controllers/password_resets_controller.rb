@@ -1,7 +1,6 @@
 class PasswordResetsController < ApplicationController
 
-layout "application"
-
+layout "websites"
 
   def create
     user = User.find_by_email(params[:email])

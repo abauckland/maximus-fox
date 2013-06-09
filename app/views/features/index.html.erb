@@ -1,23 +1,22 @@
-<div id="page_title">FEATURES</div>
+<div class="web_page_body">
+	
+	<div class="web_title">Features</div>
+	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-
-  <a id="small_trial_link" href="<%=sign_up_path %>">  
-    <t class="small_trial_link_text">Try Specright free</t>
-  </a>
-
-
-<div id="line"></div>
-
-<% @features.each do |feature|%>
-    <a href="<%=feature_path(feature) %>">
-  <div id="feature_frame<%= feature.id %>">          
-
-       <%= image_tag "#{feature.title}.png", :border=>0, :alt => 'foo', :class=>"feature_img" %>
-       <p class="feature_title"><%= feature.title %></p>
-       <p class="feature_text"><%= feature.shorttext %></p>
-       
-
-  </div>
-    </a>
-
-<% end %>
+	<div class="web_feature_index_large">
+		<div class="web_feature_index_large_container">
+		<% @features.each do |feature|%>
+		    <div class="web_feature_menu_item_large">
+      			<a href="<%=feature_path(feature) %>">
+       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_large_img" %>
+       				<p class="web_feature_title_large"><%= feature.title %></p>
+       				<p class="web_feature_text_large"><%= feature.shorttext %></p>     
+      			</a>
+    		</div>
+    	<% end %>
+    	</div>		
+	</div>
+	
+	<%= render :partial => "application/web_footer" %>
+	
+</div>

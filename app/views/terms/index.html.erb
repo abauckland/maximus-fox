@@ -1,27 +1,27 @@
-<div id="page_title">TERMS OF USE</div>
+<div class="web_page_body">
+	
+	<div class="web_title">Terms of Use</div>
+	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-  <a id="small_trial_link" href="<%=sign_up_path %>">  
-    <t class="small_trial_link_text">Try Specright free</t>
-  </a>
-
-<div id="line"></div>
-
-<div id="terms_box">
-<table> 
-  
-  
-  <% @cats.each_with_index do |cat, i|%>
-  <tr>    
-    <td id="term_id_title"><%= i +1 %>.</td>
-    <td id="term_text_title" colspan =2><%= cat.upcase %></td>
-    <% term_items(cat)%>
-  </tr>  
-  <% @terms.each_with_index do |term, n|%>
-  <tr>    
-    <td id="term_id"><%= i +1 %>.<%= n +1 %>.</td>
-    <td id="term_text"><%= term.text%></td>
-  </tr>
-  <% end %>
-  <% end %>
-  </table> 
+	<!-- t&cs list --> 
+	<div class="web_terms_box">
+		<table>  
+		<% @cats.each_with_index do |cat, i|%>
+		<tr>    
+			<td class="term_id_title"><%= i +1 %>.</td>
+			<td class="term_text_title" colspan =2><%= cat.upcase %></td>
+			<% term_items(cat)%>
+		</tr>  
+			<% @terms.each_with_index do |term, n|%>
+			<tr>    
+    			<td class="term_id"><%= i +1 %>.<%= n +1 %>.</td>
+    			<td class="term_text"><%= term.text%></td>
+  			</tr>
+  			<% end %>
+		<% end %>
+		</table> 
+	</div>
+		
+	<%= render :partial => "application/web_footer" %>
+	
 </div>

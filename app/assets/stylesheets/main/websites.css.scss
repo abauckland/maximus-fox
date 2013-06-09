@@ -1,0 +1,943 @@
+// Place all the styles related to the Projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+//core-ui
+@import "core";
+
+
+.web_page_header {@extend .app_page_header}
+.web_logo {@extend .app_logo}
+
+
+.web_menu {  
+  position: absolute;
+  top: 0px;
+  left: 115px;
+  width: 500px; 
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_menu {
+      left: 95px;
+      }
+  }
+
+.main_menu_item a {
+  float: left;
+  height: 21px;
+  font-family: $heading_font;
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: none;
+  padding: 15px 9px 0px 9px;
+  color: #fff;
+  &:hover {text-decoration: underline;
+    }
+  }
+  @media screen and (max-width: $medium_menu) {
+    .main_menu_item a {
+      font-size: 1.2rem;
+      padding: 12px 8px 0px 8px;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .main_menu_item a {
+        display: none;
+      }
+  }
+
+
+.current_link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.not_link {
+}
+
+.web_menu_mob{
+  display: none;
+  }
+  @media screen and (max-width: $small_menu) {
+  .web_menu_mob{
+       display: block;
+       position: absolute;
+       top: 9px; //how is this set so logo is centered on header?
+       left: 100px;
+       font-family: $heading_font;
+       @include small-button;
+       @include dark-grey-button;
+       @include shadow-all(0px 0px 5px #aeaeae);
+       border: 1px solid #000;
+    }  
+  } 
+
+
+.web_mob_menu{
+  display: none; 
+  position: absolute;
+  top: 45px;
+  left: 110px;
+  width: 110px;
+  background: #000;
+  padding:0px 5px 0px 10px;
+  z-index: 1000;
+  ul{
+    list-style-type: none; 
+    -webkit-padding-start: 0px;
+    margin: 0px; //require so displays properly in firefox, ie
+    padding: 0px; //require so displays properly in firefox, ie
+    li{
+      padding: 2px 0px 2px 0px;     
+    }
+  }
+  a{
+    text-align: left;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: #fff;
+    text-decoration: none;
+    &:hover{    
+      text-decoration: underline; 
+    }
+  }
+}
+
+
+
+.web_login_link{
+  display: none;
+  }
+  @media screen and (max-width: $medium_menu) {
+  .web_login_link{
+       display: block;
+       position: absolute;
+       top: 9px; //how is this set so logo is centered on header?
+       right: 8px;
+       font-family: $heading_font;
+       @include small-button;
+       @include green-button;
+       @include shadow-all(0px 0px 5px #aeaeae);
+       border: 1px solid #000;
+    }  
+  } 
+
+.web_password_reminder{
+  display: block;
+  position: absolute;
+  top: 12px; //how is this set so logo is centered on header?
+  right: 415px;
+  font-family: $heading_font;
+
+  @include small-button;
+  @include orange-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;     
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_password_reminder {
+       display: none;
+    }  
+  } 
+
+.web_login{
+  display: block;
+  position: absolute;
+  right: 47px;
+  padding: 0px 10px 0px 10px;
+  font: bold 12px verdana;
+  color: #fff;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_login {
+       display: none;
+    }  
+  } 
+
+
+#password {
+    color: white;
+    font: bold;
+    background: #999;
+    border: none;
+    padding: 3px 0px 2px 5px;
+  }
+#login_email {@extend #password}
+
+
+.web_login_submit input[type=submit]{
+  display: block;
+  position: absolute;
+  top: 9px; //how is this set so logo is centered on header?
+  right: 8px;
+  font-family: $heading_font;
+  @include small-button;
+  @include green-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_login_submit {
+       display: none;
+    }  
+  }
+
+
+
+
+
+#password_reset{
+  position: absolute;
+  top: 140px;
+  left: 20px;  
+}
+
+
+/* footer menu */
+.web_footer {
+  float: left;
+  width: 100%;
+  height: 16px;     
+  padding: 4px 0px 4px 0px;
+  margin: 10px 0px 20px 0px;
+  @include border-radius(0.5rem);
+  @include shadow-all(0px 0px 5px #aeaeae);
+  @include dark_grey_24_gradient;
+  min-width:270px
+  }  
+  @media screen and (max-width: $small_menu) {
+    .web_footer{
+      @include dark_grey_24_gradient;
+      height: 14px; 
+    }  
+  }
+
+
+.web_footer_menu_item a {
+  float: left;
+  font-family: $heading_font;
+  font-weight: normal;
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 0px 0px 0px 20px;
+  color: #fff;
+  &:hover {text-decoration: underline;
+    }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_footer_menu_item a {
+      font-size: 1.0rem;
+      }
+  }
+
+.web_footer_social{
+  display: block;
+  float: right;
+  padding: 0px 10px 0px 0px;  
+}
+  @media screen and (max-width: $small_menu) {
+    .web_footer_social{
+      display: none;
+      }
+  }
+
+.web_page_body{
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;  
+}
+  @media screen and (max-width: $medium_menu) {
+    .web_page_body{
+      top: 40px;
+      }
+  }
+
+.web_title {
+  float: left;
+  width: 100%;
+  height: 30px;
+  padding: 20px 0px 0px 0px;
+  margin: 0px 0px 15px 0px;
+  font-family: $heading_font;
+  font-size: 3rem;
+  color: #333333;
+  border-bottom: 2px solid #dddddd;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_title  {
+      height: 24px;
+      padding: 20px 0px 0px 0px;
+      font-size: 2.2rem;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      white-space:nowrap;
+      min-width:285px
+      }
+  }
+
+.web_title_signup_link {
+  display: block;
+  position: absolute;
+  top: 20px;
+  right: 10px;  
+  font-family: $heading_font;
+  @include small-button;
+  @include green-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 2px solid #77a809;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_title_signup_link {
+      display: block;
+      top: 16px;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_title_signup_link {
+      display: none;
+      }
+  }
+
+.web_main_content{
+  float: left;
+  width: 100%;
+  padding: 20px 0px 40px 0px;
+  border-bottom: 2px solid #dddddd;  
+}
+
+.web_main_column_1{
+  float: left;
+  padding: 0px 20px 0px 20px;
+}
+
+.web_main_column_2{@extend .web_main_column_1}
+
+
+.web_tagline_text{
+  max-width:500px;
+  padding: 15px 0px 10px 0px;
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: 3.2rem; 
+}
+  @media screen and (max-width: $medium_menu) {
+    .web_tagline_text {
+      max-width: 400px;
+      font-size: 2.3rem;
+      line-height: 2.7rem;  
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_tagline_text {      
+      max-width: 300px;
+      font-size: 1.8rem;
+      line-height: 2rem;  
+      }
+  }
+  
+.web_tagline_text_left{
+  float: left;
+  width: 100%;
+  text-align: left;  
+}
+
+.web_tagline_text_right{
+  float: right;
+  width: 100%;
+  text-align: right;  
+}  
+  
+
+.web_main_text{
+  float: left;
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 1.8rem;
+  text-align: justify;
+  padding: 15px 0px 10px 0px;  
+}
+  @media screen and (max-width: $medium_menu) {
+    .web_main_text{      
+      font-size: 1.4rem;
+      line-height: 1.6rem; 
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_main_text {      
+      font-size: 1.2rem;
+      line-height: 1.4rem; 
+      }
+  }  
+
+.web_signup_link{
+  @include medium-button;
+  @include green-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+  font-family: $heading_font;
+  border: 2px solid #77a809;
+}
+
+
+/* features menu large*/
+.web_feature_index_large{
+  float: left;
+  width: 100%;
+  padding: 0px 0px 10px 0px; 
+}
+
+.web_feature_index_large_container{
+}
+
+.web_feature_menu_item_large{
+  float: left;
+  width: 260px;
+  height: 225px;
+  margin: 5px 5px 5px 5px;
+  @include border-radius(5px);
+  border: 2px solid #fff;
+  background: #f2f2f2;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  &:hover{
+    border: 2px solid #66aa00;
+  }
+}
+
+.web_feature_large_img{
+  margin: 10px 0px 0px 20px;
+  height: 90px;
+  overflow: hidden;
+  border: 0px solid #bebebe;   
+}
+
+.web_feature_title_large{
+  margin: 15px 0px 10px 0px;
+  font-size: 2.0rem;
+  text-align: center;
+  color: #767676; 
+}
+
+.web_feature_text_large{
+  margin: 10px 10px 10px 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #000;  
+}
+
+
+/* features menu small*/
+.web_feature_index_small{
+  float: left;
+  width: 100%;
+  padding: 10px 0px 10px 0px;
+  border-bottom: 2px solid #dddddd;  
+}
+
+.web_feature_index_small_container{
+}
+
+.web_feature_menu_item_small{
+  float: left;
+  min-width: 120px;
+  margin: 5px 5px 5px 5px;
+  @include border-radius(5px);
+  border: 2px solid #fff;
+  background: #f2f2f2;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  &:hover{
+    border: 2px solid #66aa00;
+  }
+}
+
+.web_feature_small_img{
+  margin: 10px 0px 0px 15px;
+  height: 40px;
+  overflow: hidden;
+  border: 0px solid #bebebe;    
+}
+
+.web_feature_title_small{
+  margin: 0px 0px 10px 0px;
+  font-size: 1.1rem;
+  text-align: center;
+  color: #000; 
+}
+
+
+/* sub content menu*/
+.web_sub_content{
+  float: left;
+  width: 100%;
+  margin-top: 20px;
+  }
+ 
+
+.web_sub_column_3{
+  float: left;
+  width: 30%;
+  padding: 0px 20px 0px 20px;
+}
+  @media screen and (max-width: $medium_menu) {
+    .web_sub_column_3 {
+      padding: 10px 20px 10px 20px;
+      }
+  }
+
+.web_sub_column_2{
+  @extend .web_sub_column_3;
+  border-right: 2px solid #dddddd;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_sub_column_2 {
+      border-right: none;
+      }
+  }  
+  
+.web_sub_column_1{
+  @extend .web_sub_column_2;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_sub_column_1 {
+      border-right: none;
+      }
+  }  
+    
+
+.web_sub_title{
+  font-family: $heading_font;
+  float: left;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 1.8rem;
+  padding: 10px 0px 10px 0px;  
+  a{
+    color: #66aa00; 
+    &:hover{text-decoration: underline;} 
+  }
+}
+
+.web_sub_text{
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  text-align: center;
+  padding: 15px 0px 10px 0px;   
+}
+  @media screen and (max-width: $medium_menu) {
+    .web_sub_text{      
+      font-size: 1.3rem;
+      line-height: 1.4rem; 
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_sub_text {      
+      font-size: 1.2rem;
+      line-height: 1.3rem; 
+      }
+  }
+
+
+/* FAQs */
+
+.faq_extra_questions{
+  float: left;
+  padding: 0px 0px 0px 10px;
+  margin: 0px 0px 10px 0px;
+  width: 100%;  
+}
+
+.faq_extra_questions_link{
+  a{
+    color: #66aa00;
+    &:hover{text-decoration: underline;} 
+  } 
+}
+
+.web_faq_box{
+  float: left;
+  width: 100%;  
+}
+
+.faq_menu_head {
+  padding: 10px 10px 10px 10px;
+  cursor: pointer;
+  position: relative;
+  margin: 0px;
+  border: solid 1px #fff;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #66aa00;
+  background-color: rgb(246, 246, 246); 
+  &:hover{text-decoration: underline;} 
+}
+
+.faq_menu_body {
+  display:none;
+}
+
+.faq_menu_body div {
+  display:block;
+  color:#000;
+  background: #fff;
+  padding: 5px 5px 10px 10px;
+
+}
+
+
+/* terms */
+.web_terms_box{
+  float: left;
+  width: 100%; 
+  height: 465px;
+  border: 1px solid #dadada;
+  padding: 5px 0px 15px 0px;
+  overflow: auto;
+}
+
+.term_id_title {
+  vertical-align:text-top;
+  padding: 10px 0px 5px 10px;
+  font-weight: bold;
+  color: #66aa00;
+}
+
+.term_text_title {
+  padding: 10px 30px 5px 5px;
+  font-weight: bold;
+  color: #66aa00;
+}
+
+.term_id {
+  vertical-align:text-top;
+  padding: 0px 0px 5px 10px;
+  font-weight: normal;
+  color: #000;
+}
+
+.term_text {
+  padding: 0px 30px 5px 5px;
+  font-weight: normal;
+  color: #000;
+}
+
+
+/* about us */
+.web_about_box{
+  float: left;
+  width: 100%;
+}
+
+.about_text{
+  font-size: 1.2rem;
+  text-align: justify;
+  padding: 0px 10px 10px 10px;   
+}
+
+/* login error screens */
+.web_password_reset{
+  float: left;
+  width: 100%;  
+}
+
+
+/* blog */
+.web_blog_content{
+  float: left;
+  width: 100%;
+  padding: 20px 0px 40px 0px;
+}
+
+.web_blog_index{
+  float: left;
+  width: 220px;
+  padding: 0px 20px 0px 20px;  
+}
+
+.blog_index_title{
+  font-family: $heading_font;
+  font-size: 2rem;
+  padding: 0px 0px 5px 0px;
+  border-bottom: 1px solid #bebebe;
+}
+ 
+.blog_index_options{
+  width: 250px;
+  ul{
+  padding: 0px;
+  margin: 0px;
+  };
+  li {
+    list-style-type: none;
+    a{
+      color: #000;
+    }  
+  };
+}
+
+
+.web_blog_posts{
+  float: left;
+  padding: 0px 20px 0px 20px;   
+}
+
+.blog_title {
+  padding: 15px 0px 5px 0px;
+  a {
+    font-size: 2.2rem;
+    line-height: 2.4rem; 
+    font-weight: bold;
+    font-family: $heading_font;
+    color: #66aa00;
+    vertical-align:text-top;
+  }
+}
+  @media screen and (max-width: $small_menu) {
+    .blog_title {      
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+      padding: 15px 0px 0px 0px; 
+      }
+  }
+
+.blog_info {
+  padding: 0px 0px 10px 0px;
+  font-style: italic;
+  font-size: 1.2rem;
+}
+  @media screen and (max-width: $small_menu) {
+    .blog_info {      
+      font-size: 1.0rem;
+      }
+  }
+
+.blog_text {
+  padding: 5px 0px 5px 0px;
+  margin: 0px 09px 10px 0px;
+  text-align: justify;
+  border-bottom: 1px solid #bebebe;
+  font-size: 1.4rem;
+  a {
+   color: #66aa00;
+  }
+}
+  @media screen and (max-width: $small_menu) {
+    .blog_text {      
+      font-size: 1.2rem;
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+/* old css */
+
+
+#accept_terms{
+  position: absolute; 
+   top: 415px;
+  left: 4px; 
+}
+
+
+
+#comment_box_1 {
+  height: 300px;
+}
+
+#comment_box_2 {
+  position: absolute;
+  top: 490px;
+  left: 20px;
+  width: 960px;
+  height: 105px;
+}
+
+
+
+
+#post_new_title, #post_new_text {
+  vertical-align:text-top;
+  padding: 0px 0px 5px 0px;
+  font: normal 12px verdana;
+}
+
+#post_new_text {
+  vertical-align:text-top;
+  padding: 0px 0px 5px 0px;
+  font: normal 12px verdana;
+}
+
+#blog_title {
+  padding: 15px 0px 5px 5px;
+
+  a {
+  vertical-align:text-top;
+
+  font: normal 24px Verdana;
+  }
+}
+
+#blog_information{
+  position: absolute;
+  top: 117px;
+  left: 30px;
+  font: bold 13px arial;
+
+}
+
+#blog_info {
+  padding: 0px 0px 5px 5px;
+  font: bold 12px arial;
+
+}
+
+#blog_text {
+  padding: 5px 0px 25px 5px;
+  text-align: justify;
+  font: normal 14px arial;
+  a {
+   color: blue;
+     font: italic 14px arial;
+  }
+}
+
+#blog_line {
+  float: left;
+  width: 750px;
+  height: 1px;
+  border-top: 1px solid #bebebe;
+}
+
+#comments{
+  float: left;
+}
+
+#comments_title{
+  text-align: left;
+  padding: 15px 0px 0px 5px;
+  font: bold 12px verdana;
+
+}
+
+#comments_text{
+  padding: 5px 0px 0px 5px;
+  font: normal 12px verdana;
+}
+
+#comment_author{
+
+  padding: 2px 0px 10px 5px;
+  font: italic 12px verdana;
+}
+
+#comment_form{
+  float: left;
+  padding: 0px 0px 5px 0px;
+  font: normal 12px verdana;
+  width: 100%;
+  td{
+  padding: 5px 5px 5px 5px;  
+  }
+}
+
+#blog_index{
+  position: absolute;
+  top:   140px;
+  left: 820px;
+
+}
+
+#blog_index_title{
+  font: bold 14px arial;
+}
+
+#blog_index_line{
+  position: absolute;
+  top:   25px;
+  left: 0px;
+  width: 180px;  
+  height: 1px;
+  border-top: 1px solid #bebebe;
+}
+
+#blog_index_options{
+  position: absolute;
+  top:   50px;
+  left: 0px;
+  width: 250px;
+  font: normal 14px arial;
+  ul{
+  padding: 0px;
+  margin: 0px;
+  };
+    li {
+  list-style-type: none;
+
+  };
+    a {
+
+  };
+}
+
+.current_topic {
+  font: bold 14px arial;
+    &:hover{text-decoration: underline;}
+}
+
+.not_topic{
+    &:hover{text-decoration: underline;}
+}
+
+
+#sign_up_error{
+  position: absolute;
+  top: 115px;
+  left: 15px;
+  font: bold 14px sans-serif;
+  color: #ff0000;
+}
+
+#project_create_error{
+  position: absolute;
+  top: 127px;
+  left: 30px;
+  font: bold 14px sans-serif;
+  color: #ff0000;
+}
+
+#company_edit_error{
+  position: absolute;
+  top: 120px;
+  left: 30px;
+  font: bold 14px sans-serif;
+  color: #ff0000;
+}
+
+#about_box_less p{
+        margin: 5px 0px 5px 0px;
+
+}
+
+label {
+        float: left;
+        text-align: right;
+        margin-right: 15px;
+        width: 150px
+}
+
+label.comment_form_text{
+        float: left;
+        text-align: right;
+        margin-right: 10px;
+        width: 70px;
+}
+

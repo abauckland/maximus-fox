@@ -20,12 +20,10 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 //background gradient image
 @mixin dark_grey_46_gradient {background: image-url('dark_grey_46.png') repeat-x};
 @mixin dark_grey_38_gradient {background: image-url('dark_grey_38.png') repeat-x};
+@mixin dark_grey_28_gradient {background: image-url('dark_grey_28.png') repeat-x};
 @mixin dark_grey_24_gradient {background: image-url('dark_grey_24.png') repeat-x};
 
-@mixin light_grey_28_gradient {background: image-url('light_grey_28.png') repeat-x};
-
-@mixin dark_grey_28_gradient {background: image-url('dark_grey_28.png') repeat-x};
-
+@mixin light_grey_24_gradient {background: image-url('light_grey_24.png') repeat-x};
 
 @mixin green_28_gradient {background: image-url('green_28.png') repeat-x}; 
 @mixin orange_28_gradient {background: image-url('orange_28.png') repeat-x}; 
@@ -36,6 +34,8 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 @mixin inverted_orange_28_gradient {background: image-url('inverted_orange_28.png') repeat-x}; 
 @mixin inverted_red_28_gradient {background: image-url('inverted_red_28.png') repeat-x};    
 @mixin inverted_grey_28_gradient {background: image-url('inverted_grey_28.png') repeat-x};
+@mixin inverted_dark_grey_28_gradient {background: image-url('inverted_dark_grey_28.png') repeat-x};
+
 
 
 //button sass
@@ -54,10 +54,10 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
   text-shadow:1px 1px 0px #528009;
   cursor:pointer;
 }
-
+ 
 @mixin medium-button {
-  font-size:1.2rem;
-  padding:0.2rem 0.4rem;
+  font-size: 1.4rem;
+  padding: 0.4rem 1.2rem;
   border:1px solid; 
   @include common-button-params; 
   @include border-radius(0.5rem);       
@@ -77,8 +77,8 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
                       &:hover {@include inverted_orange_28_gradient; }}
 @mixin red-button {border-color: #db817b; @include red_28_gradient; @include button-box-shadow(#fed897);
                       &:hover {@include inverted_red_28_gradient; }}
-                      
-                      
+@mixin dark-grey-button {border-color: #db817b; @include dark_grey_28_gradient; @include button-box-shadow(#fed897);
+                      &:hover {@include inverted_dark_grey_28_gradient; }}                      
 .small_green_button{
   font-family: $heading_font;
   @include small-button;
@@ -137,7 +137,7 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 html {
   font-size: 62.5%; 
   font-family: $heading_font;
-  background: #fbfbfb;
+  //background-color: #fbfbfb;
   } 
 
 p{
@@ -164,11 +164,14 @@ figure {
   min-width:270px
   }  
   @media screen and (max-width: $medium_menu) {
-    .app_page_header {
+    .app_page_header{
       @include dark_grey_38_gradient;
       height: 18px; 
     }  
   }
+
+
+
 
 .app_logo{
   position: absolute;
@@ -181,7 +184,7 @@ figure {
   background-size:100px 30px;
   }
   @media screen and (max-width: $medium_menu) {
-    .app_logo {
+    .app_logo{
       height: 24px;
       width: 80px;
       background: image-url('specright_logo.png') no-repeat;
@@ -190,14 +193,15 @@ figure {
   }
 
 
-.app_menu{  
+
+.app_menu {  
   position: absolute;
   top: 0px;
   left: 115px;
   width: 500px; 
   }
   @media screen and (max-width: $medium_menu) {
-    .app_menu {
+    .app_menu{
       position: absolute;
       height: 24px;
       width: 100%; 
@@ -210,11 +214,10 @@ figure {
     }
   }
   @media screen and (max-width: $small_menu) {
-    .app_menu {
+    .app_menu{
       display: none;
     }  
   }
-
 
   @media screen and (max-width: $medium_menu) {
     .menu_item_container {
@@ -230,7 +233,7 @@ figure {
   }
 
 
-.app_menu_item a{
+.app_menu_item a {
   float: left;
   height: 21px;
   font-family: $heading_font;
@@ -261,8 +264,28 @@ figure {
       }
   }
 
+
+
 @media screen and (max-width: $mob) {
   .s_tab{display:none;}
+  }
+
+
+.app_mob_menu{
+  position: absolute;
+  top: 11px;
+  left: 115px;
+  font-family: $heading_font;
+  @include small-button;
+  @include dark-grey-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .app_mob_menu {
+      top: 7px;
+      left: 95px;
+    }  
   }
 
 .mob_spec_menu{

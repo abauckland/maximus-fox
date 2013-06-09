@@ -1,79 +1,50 @@
-<div id="page_title"><%= @feature.title.upcase %></div>
-  
-  <a id="small_trial_link" href="<%=sign_up_path %>">  
-    <t class="small_trial_link_text">Try Specright free</t>
-  </a>
+<div class="web_page_body">
+	<div class="web_title"><%= @feature.title %></div>
+	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-<div id="line"></div>
+	<div class="web_main_content">
+    	<div class="web_main_column_1">
 
-<div id="usp">
-  
-<% if  !@feature.text_1.blank? %>  
-  <div id="feature_text_1">
-    <%= @feature.text_1.html_safe %>  
-  </div>
-<% end %>
+      		<div class="web_home_image"><%= image_tag "#{@feature.feature_show_img}.png", :class=>"web_home_img" %></div>
 
-<% if  !@feature.text_2.blank? %>  
-  <div id="feature_text_2">
-    <%= @feature.text_2.html_safe %>  
-  </div>
-<% end %>
+    	</div>        
+    	<div class="web_main_column_2">
+  				
+  			<div class="web_main_text"><%= @feature.text_1.html_safe %></div>
 
-<% if  !@feature.text_3.blank? %>  
-  <div id="feature_text_3">
-    <%= @feature.text_3.html_safe %>  
-  </div>
-<% end %>
-
-
-<% if  !@feature.text_4.blank? %>  
-  <div id="feature_text_4">
-    <%= @feature.text_4.html_safe %>  
-  </div>
-<% end %>
-  
-<% if !@feature.feature_show_img.blank? %>   
-  <div id="show_image_web">
-    <%= image_tag "#{@feature.feature_show_img}.png", :width=>475, :height=>325, :border=>0 %>
-  </div>
-<% end %>  
-   
-</div>
-
-
-
-
-
-
-
-
-
-<div id="line_feature_band"></div>
-
-
+    	</div>     
+	</div>
 
 <% if  [7,8,9].include?(@feature.id) %>
-  <div id="feature_band">
-  <% @features.each do |feature|%>
-    <div id="feature_small">
-      <a href="<%=feature_path(feature) %>">
-       <%= image_tag "#{feature.title}.png", :border=>0, :alt => 'foo', :class=>"feature_small_img" %>
-       <p class="feature_title_small"><%= feature.title %></p>     
-      </a>
-    </div>
-  <% end %>
-  </div>
+	<!-- features index --> 
+	<div class="web_feature_index_small">
+		<div class="web_feature_index_small_container">
+		<% @features.each do |feature|%>
+		    <div class="web_feature_menu_item_small">
+      			<a href="<%=feature_path(feature) %>">
+       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_small_img" %>
+       				<p class="web_feature_title_small"><%= feature.title %></p>     
+      			</a>
+    		</div>
+    	<% end %>
+    	</div>		
+	</div>
 <% else %>
-  <div id="feature_band"> 
-  <% @features_2.each do |feature|%>
-    <div id="feature_small_2">
-      <a href="<%=feature_path(feature) %>">
-       <%= image_tag "#{feature.title}.png", :border=>0, :alt => 'foo', :class=>"feature_small_img_2" %>
-       <p class="feature_title_small"><%= feature.title %></p>     
-      </a>
-    </div>
-  <% end %>
-  </div>
+	<!-- features index --> 
+	<div class="web_feature_index_small">
+		<div class="web_feature_index_small_container">
+		<% @features_2.each do |feature|%>
+		    <div class="web_feature_menu_item_small">
+      			<a href="<%=feature_path(feature) %>">
+       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_small_img" %>
+       				<p class="web_feature_title_small"><%= feature.title %></p>     
+      			</a>
+    		</div>
+    	<% end %>
+    	</div>		
+	</div>
 <% end %>    
 
+	<%= render :partial => "application/web_footer" %>
+
+</div>

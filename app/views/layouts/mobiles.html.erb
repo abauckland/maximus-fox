@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="google-site-verification" content="cop_cwN1MoCJd6HTFIZ18oRjhp4JmxbCt3_JQ2StDN0" />
+  <title>Specright</title>    
+    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag  'application-main' %>   
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+	<%= csrf_meta_tags %>
+</head>
+
+<body>
+	
+<div class="app_page_container">
+	
+	<!-- menu header-->
+	<header class="web_page_header">
+
+		<figure class="web_logo"></figure>
+
+		<nav class="mob_back_link"><%= link_to "back", root_path %></nav>
+
+	</header>
+		
+	<%= yield %>
+
+
+</div>
+
+</body>
+
+</html>
+
+

@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
 
+layout "mobiles"
+
   def new
   
       respond_to do |format|  

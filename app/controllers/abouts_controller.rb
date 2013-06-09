@@ -1,10 +1,9 @@
 class AboutsController < ActionController::Base
 
-layout "application"
+layout "websites"
 
-def index
-   @abouts = About.all
-end
-
+  def index
+    @abouts = About.all
+  end
     
 end

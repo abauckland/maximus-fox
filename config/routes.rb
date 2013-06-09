@@ -85,20 +85,8 @@ SpecrightDev::Application.routes.draw do
     delete :delete_specline, :on => :member
     post :edit_clauses, :on => :member
     get :guidance, :on => :member
-       
-    get :mob_specline_templates, :on => :member
-    get :mob_edit_specline, :on => :member
-    get :mob_change_linetype, :on => :member
-    get :mob_update, :on => :member
-    get :mob_show_clauses, :on => :member
-    get :mob_add_clause, :on => :member
-    get :mob_show_clauses_del, :on => :member
-    delete :mob_delete_clause, :on => :member
-    delete :mob_delete, :on => :member
-    get :mob_new_specline, :on => :member
-      
+             
     member do
-    put :mob_line_update
     put :move_specline
     put :update_specline_3
     put :update_specline_4

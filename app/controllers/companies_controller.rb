@@ -3,7 +3,7 @@ class CompaniesController < ApplicationController
 
 before_filter :require_user, :except => [:new, :create]
 
-layout "application", :except => [:edit]
+layout "websites", :except => [:edit]
 
 
   # GET /companies/1/edit

@@ -12,12 +12,12 @@
 
 <body>
 
-<div class="app_page_container">
+<div class="web_page_container">
 	
 	<!-- menu header-->
-	<header class="app_page_header">
+	<header class="web_page_header">
    
-		<figure class="app_logo"></figure>
+		<figure class="web_logo"></figure>
 
 		<nav class="app_menu">
 			<div class="menu_item_container">  			    			
@@ -31,7 +31,7 @@
     		</div>
   		</nav>
 		
-		<nav class="mob_menu"></nav>	
+		<nav class="app_mob_menu"><%= link_to "menu", nil %></nav>	
 		<!-- drop general menu for mobile-->
 		<%= render :partial => "spec_menu", :current_project => @current_project %>
 

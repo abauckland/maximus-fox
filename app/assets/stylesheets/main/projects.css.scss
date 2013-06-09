@@ -268,7 +268,7 @@ top: 4px;
 left: 4px;
 right: 4px;
 height: 28px;
-@include dark_grey_28;
+@include dark_grey_28_gradient;
 @include border-radius(0.4rem);
 border: 1px solid #888;    
 }

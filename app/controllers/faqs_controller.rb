@@ -1,6 +1,6 @@
 class FaqsController < ActionController::Base
 
-layout "application"
+layout "websites"
 
 def index
    @faqs = Faq.all

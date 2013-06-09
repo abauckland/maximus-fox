@@ -1,33 +1,29 @@
-<div id="page_title">OUR BLOG</div>
-  <a id="small_trial_link" href="<%=sign_up_path %>">  
-    <t class="small_trial_link_text">Try Specright free</t>
-  </a>
+<div class="web_page_body">
+	<div class="web_title">The Specright Blog</div>
+	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-<div id="line"></div>
+	<div class="web_blog_content">
+    	<div class="web_blog_index">
+    		<div class="blog_index_title">Browse topics</div>
+ 			<div class="blog_index_options">
+  				<ul>
+      				<li><%= link_to "All", {:controller => "posts", :action => "index"}, :class => check_current_topic('all') %></li>
+    				<% @topics.each do |topic| %>
+      					<li><%= link_to topic, {:controller => "posts", :action => "index", :topic => topic}, :class => check_current_topic(topic) %></li>
+    				<% end %>
+    			</ul>
+  			</div>	
+		</div>
+		
+		<div class="web_blog_posts">
+  			<% @posts.each do |post| %>
+    			<div class="blog_title"><%= link_to post.title, post_path(post) %></div>
+    			<div class="blog_info"><%= post.comments.count %> Comments. Published <%= post.created_at.strftime("%A %e %B %Y") %></div>
+    			<div class="blog_text"><%= truncate(post.text, :length => 500).html_safe %><%= link_to "read more", post_path(post) %></div>
+  			<% end %>
+		</div>
 
-<div id="about_box_small">
 
-  <% @posts.each do |post| %>
+	<%= render :partial => "application/web_footer" %>
 
-    <div id="blog_title"><%= link_to post.title, post_path(post) %></div >
-
-    <div id="blog_info"><%= post.comments.count %> Comments. Published <%= post.created_at.strftime("%A %e %B %Y") %></div >
-
-    <div id="blog_text"><%= truncate(post.text, :length => 500).html_safe %><%= link_to "read more", post_path(post) %></div >
-    <div id="blog_line"></div>
-  <% end %>
 </div>
-
-<div id="blog_index">
-  <div id="blog_index_title">Browse topics</div>
-  <div id="blog_index_line"></div>
-  <div id="blog_index_options">
-  <ul>
-      <li><%= link_to "All", {:controller => "posts", :action => "index"}, :class => check_current_topic('all') %></li>
-    <% @topics.each do |topic| %>
-      <li><%= link_to topic, {:controller => "posts", :action => "index", :topic => topic}, :class => check_current_topic(topic) %></li>
-    <% end %>
-    </ul>
-  </div>
-</div>
-

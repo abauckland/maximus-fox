@@ -1,0 +1,16 @@
+	<% if params[:controller] != 'posts' %>
+	<!-- menu footer -->
+		<footer class="web_footer">
+			<nav>
+				<div>
+			    	<div class="web_footer_menu_item"><%= link_to "About Us", about_us_path, :class => check_current('abouts', 'abouts')%></div>
+    				<div class="web_footer_menu_item"><%= link_to "Terms & Conditions", terms_path, :class => check_current('terms', 'terms')%></div>
+    				<div class="web_footer_menu_item"><%= mail_to "info@specright.co.uk", "Contact Us", :subject => "Web Enquiry" %></div>
+				</div> 
+			</nav>	
+			<div class="web_footer_social">
+				<%= link_to image_tag("twitter.png", :width=> 18, :height=>18, :border=> 0), "https://twitter.com/#!/specright"%>
+			</div>
+		</footer>		
+	<% end %>
+

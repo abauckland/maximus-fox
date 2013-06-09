@@ -1,6 +1,6 @@
 class FeaturesController < ActionController::Base
 
-layout "application"
+layout "websites"
 
 def index
    @features = Feature.where(:id => 1..6)
