@@ -95,6 +95,27 @@ function web_feature_menu_large(){
 	$('div.web_feature_index_large_container').css({'margin-left': menu_div_margin +'px', 'margin-right': menu_div_margin +'px'});
 }
 
+function web_posts_index(s_tab, mob, limit){
+	var s_tab = s_tab;
+	var mob = mob;
+	var limit = limit;
+
+	var window_width = $(window).width();
+	var posts_width = $('.web_blog_content').width();
+
+	if(window_width >= mob) {		
+		var blog_index_width = $('.web_blog_index').width();
+		var posts_width_total = (posts_width - blog_index_width - 80);	
+		$('.web_blog_posts').width(posts_width_total);
+		$('.comment_content').width(posts_width_total-30);
+		$('.web_blog_index, .blog_index_options').width(220);
+	}else{
+		$('.web_blog_posts').width(posts_width-40);
+		$('.comment_content').width(posts_width-60);
+		$('.web_blog_index, .blog_index_options').width(posts_width-40);	
+	}
+}
+
 
 $(document).ready(function(){
 
@@ -114,6 +135,7 @@ var limit = '310';
 	web_feature_menu_large();
 	web_signup_link();
 	web_tagline();
+	web_posts_index(s_tab, mob, limit);
 	$(window).resize(function(){
 		web_sub_column_width(s_tab, mob, limit);//set column width depending on size of window
 		web_main_column_width(s_tab, mob, limit);//set column width depending on size of window
@@ -122,6 +144,7 @@ var limit = '310';
 		web_feature_menu_large();
 		web_signup_link();
 		web_tagline();
+		web_posts_index(s_tab, mob, limit);
 	});
 
 

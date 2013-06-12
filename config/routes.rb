@@ -9,15 +9,15 @@ SpecrightDev::Application.routes.draw do
   match 'productimports/:id/product_error_print' => 'productimports#product_error_print', :defaults => { :format => 'pdf' } 
  
   get "home" => "homes#index", :as => "home"
-  #get "mob_home" => "sessions#new", :as => "mob_home"    
+    
   get "log_out" => "sessions#destroy", :as => "log_out"      
   get "sign_up" => "companies#new", :as => "sign_up"  
-  get "prices" => "prices#index", :as => "prices"
   get "terms" => "terms#index", :as => "terms"
   get "about_us" => "abouts#index", :as => "about_us"
   get "faqs" => "faqs#index", :as => "faqs"
-
-
+  get "combined" => "homes#combined_home", :as => "combined"
+  get "supplier" => "homes#supplier_home", :as => "supplier"
+  
   resources :helps do
     get :tutorial, :on => :member
   end
@@ -98,9 +98,9 @@ SpecrightDev::Application.routes.draw do
   resources :revisions do
     get :clause_change_info, :on => :member
     get :line_change_info, :on => :member
-  member do
-  put :print_setting
-  end
+    member do
+      put :print_setting
+    end
   end
   
   resources :prints do

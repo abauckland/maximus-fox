@@ -5,7 +5,6 @@
 //core-ui
 @import "core";
 
-
 .web_page_header {@extend .app_page_header}
 .web_logo {@extend .app_logo}
 
@@ -275,6 +274,7 @@
       min-width:285px
       }
   }
+
 
 .web_title_signup_link {
   display: block;
@@ -645,24 +645,27 @@
 .web_blog_content{
   float: left;
   width: 100%;
-  padding: 20px 0px 40px 0px;
+  padding: 0px 0px 40px 0px;
 }
 
 .web_blog_index{
   float: left;
-  width: 220px;
-  padding: 0px 20px 0px 20px;  
+  padding: 20px 20px 0px 20px;  
 }
 
 .blog_index_title{
   font-family: $heading_font;
   font-size: 2rem;
   padding: 0px 0px 5px 0px;
+  color: #66aa00;
   border-bottom: 1px solid #bebebe;
 }
  
 .blog_index_options{
   width: 250px;
+  padding: 10px 0px 10px 0px;
+  line-height: 1.4rem;
+  border-bottom: 1px solid #bebebe;
   ul{
   padding: 0px;
   margin: 0px;
@@ -675,19 +678,30 @@
   };
 }
 
+.current_topic {
+  font: bold 14px arial;
+    &:hover{text-decoration: underline;}
+}
+
+.not_topic{
+    &:hover{text-decoration: underline;}
+}
+
 
 .web_blog_posts{
   float: left;
   padding: 0px 20px 0px 20px;   
 }
 
+
 .blog_title {
-  padding: 15px 0px 5px 0px;
+  padding: 20px 0px 5px 0px;
+  font-size: 2.2rem;
+  line-height: 2.4rem; 
+  font-weight: bold;
+  font-family: $heading_font;
+  color: #66aa00;
   a {
-    font-size: 2.2rem;
-    line-height: 2.4rem; 
-    font-weight: bold;
-    font-family: $heading_font;
     color: #66aa00;
     vertical-align:text-top;
   }
@@ -728,216 +742,108 @@
   }
 
 
-
-
-
-
-
-
-
-
-
-
-/* old css */
-
-
-#accept_terms{
-  position: absolute; 
-   top: 415px;
-  left: 4px; 
+.comments_title{
+  font-size: 1.8rem;
+  line-height: 2rem; 
+  font-weight: bold;
+  font-family: $heading_font;
+  color: #66aa00;
+  margin: 0px 0px 15px 0px;
 }
 
-
-
-#comment_box_1 {
-  height: 300px;
-}
-
-#comment_box_2 {
-  position: absolute;
-  top: 490px;
-  left: 20px;
-  width: 960px;
-  height: 105px;
-}
-
-
-
-
-#post_new_title, #post_new_text {
-  vertical-align:text-top;
+.comments_text{
+  font-size: 1.4rem;
   padding: 0px 0px 5px 0px;
-  font: normal 12px verdana;
-}
-
-#post_new_text {
-  vertical-align:text-top;
-  padding: 0px 0px 5px 0px;
-  font: normal 12px verdana;
-}
-
-#blog_title {
-  padding: 15px 0px 5px 5px;
-
-  a {
-  vertical-align:text-top;
-
-  font: normal 24px Verdana;
   }
-}
-
-#blog_information{
-  position: absolute;
-  top: 117px;
-  left: 30px;
-  font: bold 13px arial;
-
-}
-
-#blog_info {
-  padding: 0px 0px 5px 5px;
-  font: bold 12px arial;
-
-}
-
-#blog_text {
-  padding: 5px 0px 25px 5px;
-  text-align: justify;
-  font: normal 14px arial;
-  a {
-   color: blue;
-     font: italic 14px arial;
+  @media screen and (max-width: $small_menu) {
+    .comments_text {      
+      font-size: 1.2rem;
+      }
   }
-}
 
-#blog_line {
-  float: left;
-  width: 750px;
-  height: 1px;
-  border-top: 1px solid #bebebe;
-}
-
-#comments{
-  float: left;
-}
-
-#comments_title{
-  text-align: left;
-  padding: 15px 0px 0px 5px;
-  font: bold 12px verdana;
-
-}
-
-#comments_text{
-  padding: 5px 0px 0px 5px;
-  font: normal 12px verdana;
-}
-
-#comment_author{
-
-  padding: 2px 0px 10px 5px;
-  font: italic 12px verdana;
-}
-
-#comment_form{
-  float: left;
-  padding: 0px 0px 5px 0px;
-  font: normal 12px verdana;
-  width: 100%;
-  td{
-  padding: 5px 5px 5px 5px;  
+.comment_author{
+  font-size: 1.2rem;
+  font-style: italic;
+  padding: 0px 0px 20px 0px;
+  color: #aaa;
   }
+  @media screen and (max-width: $small_menu) {
+    .comment_author {      
+      font-size: 1rem;
+      }
+  }
+
+
+.comment_content{
+  float: left;
+  border: 2px solid #dddddd;
+  padding: 10px 10px 10px 10px;
+  margin-top:15px;
+  @include border-radius(4px);
 }
 
-#blog_index{
+.comment_title {
+  height: 20px;
+  color:#66aa00;
+  font-family: $heading_font;
+  font-size:2.4rem;
+  line-height: 2.4rem;
+  padding: 10px 5px 10px 5px;
+  border-bottom: 2px solid #dddddd;
+}
+
+.comment_footer {
+  padding: 10px 5px 0px 5px;
+  border-top: 2px solid #dddddd;
+}
+
+.comment_form_label{
+  width: 70px;
+  text-align: left;   
+}
+
+/* create account form */
+
+.account_title {
   position: absolute;
-  top:   140px;
-  left: 820px;
+  top: 50px;
+  left: 10px;
+  right: 10px;
+  height: 30px;
+  padding: 20px 0px 0px 0px;
+  margin: 0px 0px 15px 0px;
+  font-family: $heading_font;
+  font-size: 3rem;
+  color: #333333;
+  border-bottom: 2px solid #dddddd;
+  }
+  @media screen and (max-width: $small_menu) {
+    .account_title  {
+  top: 38px;
+      height: 24px;
+      padding: 20px 0px 0px 0px;
+      font-size: 2rem;
+      text-overflow:ellipsis;
+      overflow: hidden;
+      white-space:nowrap;
+      min-width:285px
+      }
+  }
 
-}
-
-#blog_index_title{
-  font: bold 14px arial;
-}
-
-#blog_index_line{
+.account_content {
   position: absolute;
-  top:   25px;
-  left: 0px;
-  width: 180px;  
-  height: 1px;
-  border-top: 1px solid #bebebe;
-}
-
-#blog_index_options{
-  position: absolute;
-  top:   50px;
-  left: 0px;
-  width: 250px;
-  font: normal 14px arial;
-  ul{
-  padding: 0px;
-  margin: 0px;
-  };
-    li {
-  list-style-type: none;
-
-  };
-    a {
-
-  };
-}
-
-.current_topic {
-  font: bold 14px arial;
-    &:hover{text-decoration: underline;}
-}
-
-.not_topic{
-    &:hover{text-decoration: underline;}
-}
-
-
-#sign_up_error{
-  position: absolute;
-  top: 115px;
-  left: 15px;
-  font: bold 14px sans-serif;
-  color: #ff0000;
-}
-
-#project_create_error{
-  position: absolute;
-  top: 127px;
-  left: 30px;
-  font: bold 14px sans-serif;
-  color: #ff0000;
-}
-
-#company_edit_error{
-  position: absolute;
-  top: 120px;
-  left: 30px;
-  font: bold 14px sans-serif;
-  color: #ff0000;
-}
-
-#about_box_less p{
-        margin: 5px 0px 5px 0px;
-
-}
-
-label {
-        float: left;
-        text-align: right;
-        margin-right: 15px;
-        width: 150px
-}
-
-label.comment_form_text{
-        float: left;
-        text-align: right;
-        margin-right: 10px;
-        width: 70px;
-}
-
+  top:110px;
+  left:10px;
+  right:10px;
+  padding: 0px 0px 0px 0px;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .content {
+      top:125px;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .content {
+      top: 80px;
+      }
+  }

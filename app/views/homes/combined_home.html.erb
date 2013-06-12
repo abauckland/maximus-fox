@@ -1,0 +1,39 @@
+<!-- main content --> 
+<div class="web_page_body">
+	
+	<div class="web_main_content">
+    	<div class="web_main_column_1">
+
+  			<div class="web_tagline_text">
+  				<div class="web_tagline_text_left">Great designs deserve</div>
+  				<div class="web_tagline_text_right">great specifications</div>
+  			</div>
+  				
+  			<div class="web_main_text"><%= @home.strapline%></div>
+
+			<nav class="web_signup_link"><%= link_to "create a free account today", sign_up_path %></nav>
+
+  			<div class="web_main_text"><%= @home.intro_text%></div>
+
+    	</div>        
+    	<div class="web_main_column_2">
+
+  			<div class="web_tagline_text">
+  				<div class="web_tagline_text_left">Great designs deserve</div>
+  				<div class="web_tagline_text_right">great specifications</div>
+  			</div>
+  				
+  			<div class="web_main_text"><%= @home.strapline%></div>
+
+			<nav class="web_signup_link"><%= link_to "create a free account today", sign_up_path %></nav>
+
+  			<div class="web_main_text"><%= @home.intro_text%></div>
+ 
+    	</div>     
+	</div>
+
+			
+	<%= render :partial => "application/web_footer" %>
+	
+</div>
+

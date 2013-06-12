@@ -1,0 +1,45 @@
+<!-- main content --> 
+<div class="web_page_body">
+	
+	<div class="web_main_content">
+    	<div class="web_main_column_1">
+
+      		<div class="web_home_image"><%= image_tag "#{@home.image}.png", :class=>"web_home_img" %></div>
+
+    	</div>        
+    	<div class="web_main_column_2">
+
+  			<div class="web_tagline_text">
+  				<div class="web_tagline_text_left">Great designs deserve</div>
+  				<div class="web_tagline_text_right">great specifications</div>
+  			</div>
+  				
+  			<div class="web_main_text"><%= @home.strapline%></div>
+
+			<nav class="web_signup_link"><%= link_to "create a free account today", sign_up_path %></nav>
+
+  			<div class="web_main_text"><%= @home.intro_text%></div>
+ 
+    	</div>     
+	</div>
+
+	<!-- sub feature items --> 
+	<div class="web_sub_content">
+		<div class="web_sub_column_1">
+			<div class="web_sub_title"><%= link_to "Office Specifications", feature_path(7) %></div>
+			<div class="web_sub_text"><%= @home.option_1_text%></div>
+		</div>
+		<div class="web_sub_column_2">
+			<div class="web_sub_title"><%= link_to "Project Specifications", feature_path(8) %></div>
+			<div class="web_sub_text"><%= @home.option_2_text%></div>
+		</div>
+		<div class="web_sub_column_3">
+			<div class="web_sub_title"><%= link_to "Additional Services", feature_path(9) %></div>
+			<div class="web_sub_text"><%= @home.option_3_text%></div>
+		</div>
+	</div>
+			
+	<%= render :partial => "application/web_footer" %>
+	
+</div>
+

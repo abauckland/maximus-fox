@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta name="google-site-verification" content="cop_cwN1MoCJd6HTFIZ18oRjhp4JmxbCt3_JQ2StDN0" />
+  <title>Specright</title>    
+    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag  'application-main' %>   
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+	<%= csrf_meta_tags %>
+    
+	<!-- google analytics script -->    
+    <script type="text/javascript">
+  		var _gaq = _gaq || [];
+  		_gaq.push(['_setAccount', 'UA-35690692-1']);
+  		_gaq.push(['_trackPageview']);
+
+  		(function() {
+    		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  		})();
+	</script>
+	<!-- google analytics script end -->    
+</head>
+
+<body>
+	
+<div class="web_page_container">
+	
+	<!-- menu header-->
+	<header class="web_page_header">
+
+		<figure class="web_logo"></figure>
+
+		<nav class="web_menu">
+			    <div class="main_menu_item"><%= link_to "FEATURES", features_path, :class => check_current('features', 'features')%></div>
+    			<div class="main_menu_item"><%= link_to "FAQ", faqs_path, :class => check_current('faqs', 'faqs')%></div>
+    			<div class="main_menu_item"><%= link_to "BLOG", posts_path, :class => check_current('posts', 'posts')%></div>
+		</nav>
+
+		<nav class="web_menu_mob">menu</nav>
+
+		<nav class="web_login_link"><%= link_to "log in", new_session_path %></nav>
+
+
+  		<% if flash[:notice] %>
+  			<div class="web_password_reminder">  
+    			<%= link_to 'Forgotten?', new_password_reset_path %>  
+  			</div>
+  		<% end %>
+		
+		<div class="web_login">   
+    	<%= form_tag sessions_path do %>
+    		<div class="web_login_username">       
+          		<%= text_field_tag :email, params[:email], :id=>"login_email", :placeholder => "Email address" %>  
+          		<%= password_field_tag :password, params[:password], :id=>"password", :placeholder => "Password" %>  
+     		</div>
+     	</div>		               
+     	<div class="web_login_submit">
+        	<%= submit_tag "log in" %> 
+     	</div> 
+    	<% end %> 
+		
+	</header>
+		
+	<!-- drop general menu for mobile-->
+	<%= render :partial => "application/web_mob_menu" %>	
+
+	<!-- page content inserted here -->
+	<%= yield %>
+	
+
+
+</div>
+
+</body>
+
+</html>
+
+

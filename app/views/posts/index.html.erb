@@ -3,18 +3,9 @@
 	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
 	<div class="web_blog_content">
-    	<div class="web_blog_index">
-    		<div class="blog_index_title">Browse topics</div>
- 			<div class="blog_index_options">
-  				<ul>
-      				<li><%= link_to "All", {:controller => "posts", :action => "index"}, :class => check_current_topic('all') %></li>
-    				<% @topics.each do |topic| %>
-      					<li><%= link_to topic, {:controller => "posts", :action => "index", :topic => topic}, :class => check_current_topic(topic) %></li>
-    				<% end %>
-    			</ul>
-  			</div>	
-		</div>
-		
+
+		<%= render :partial => "blog_index" %>
+
 		<div class="web_blog_posts">
   			<% @posts.each do |post| %>
     			<div class="blog_title"><%= link_to post.title, post_path(post) %></div>
@@ -23,7 +14,8 @@
   			<% end %>
 		</div>
 
-
+	</div>
+		
 	<%= render :partial => "application/web_footer" %>
 
 </div>

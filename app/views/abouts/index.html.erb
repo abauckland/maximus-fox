@@ -3,15 +3,15 @@
 	<div class="web_title">About Specright</div>
 	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-<div id="web_about_box">
-	<table> 
+	<div id="web_about_box">
+		<table> 
   		<% @abouts.each do |about|%>
   			<tr>    
     			<td class="about_text"><%= about.text.html_safe%></td>
   			</tr>
   		<% end %>
-  	</table> 
-</div>
+  		</table> 
+	</div>
 
 	<%= render :partial => "application/web_footer" %>
 	

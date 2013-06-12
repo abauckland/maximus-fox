@@ -1,9 +1,9 @@
-<div class="page_title">Create Account</div>
+<div class="account_title">Create Account</div>
 
 <div class="content">
 	<div class="column_1">
 		<div class="column_content">
-			<div class="column_title">Company details</div>   
+			<div class="column_title">Account details</div>   
       
       		<% if @company.errors.any? %>  
       		<div class="column_error">
@@ -14,8 +14,8 @@
     		<div class="column_sub_content">
 
 				<div class="column_guide">
- 					<p>The following information will be printed on the final document.</p>
- 					<p>The uploaded project image will be scaled proportionally to maximum 90mm high x 120mm wide</p>     			
+ 					<p>Complete this form to create a free single user account. If you would like more informatiion or have any questions regarding the application, account creation or anything else for that matter please contact us.</p>    			
+      				<p>Please note passwords must be a miniumum of 8 characters long and all fields must be complete.</p>
       			</div>
 
 				<div class="column_form">
@@ -44,7 +44,7 @@
 						</td></tr>						
 						<tr><td>
 							<div class="project_form_label form_input_label">Password:*</div>
-							<div class="form_input"><%= builder.password_field :password, :size => 20  %>  (min 8 characters long)
+							<div class="form_input"><%= builder.password_field :password, :size => 20  %>
 								<div class="form_error_note"> <%= error_check(@company, :'users.password')%> </div>
 							</div>				
 						</td></tr>
@@ -62,35 +62,11 @@
 							</div>				
 						</td></tr>
 						<tr><td>
-							<div class="project_form_label form_input_label">Registered Name:</div>
-							<div class="form_input"><%= f.text_field :reg_name, :size => 40 %> </div>			
-						</td></tr>
-						<tr><td>
-							<div class="project_form_label form_input_label">Company Number:</div>
-							<div class="form_input"><%= f.text_field :reg_number, :size => 20 %> </div>			
-						</td></tr>
-						<tr><td>
-							<div class="project_form_label form_input_label">Registered Address:</div>
-							<div class="form_input"><%= f.text_field :reg_address, :size => 40 %> </div>			
-						</td></tr>
-						<tr><td>
-							<div class="project_form_label form_input_label">Registered Location:</div>
-							<div class="form_input"><%= f.text_field :reg_location, :size => 40 %> </div>			
-						</td></tr>
-						<tr><td>
 							<div class="project_form_label form_input_label">Telephone No:*</div>
 							<div class="form_input"><%= f.text_field :tel, :size => 20 %>
 								<div class="form_error_note"> <%= error_check(@company, :tel)%> </div>
 							</div>				
 						</td></tr>	
-						<tr><td>
-							<div class="project_form_label form_input_label">Website Address:</div>
-							<div class="form_input"><%= f.text_field :www, :size => 40 %></div>			
-						</td></tr>
-						<tr><td>
-							<div class="project_form_label form_input_label"><%= f.label :photo, "Company Logo:" %></br>(1Mb max):</div>
-							<div class="form_input"><%= f.file_field :photo %>  (the image will be scaled proportionally to maximum 9mm high x 90mm wide)</div>			
-						</td></tr>
 						<tr><td>
 							<div class="project_form_label form_input_label">Accept Terms of Use:*</div>
 							<div class="form_input"><%= f.check_box :read_term %>
@@ -113,6 +89,8 @@
 	<div class="column_2 column_blank"></div>	
 		 
     <div class="column_3 column_blank"></div>
+
+	<%= render :partial => "application/web_footer" %>
   
 </div>
 

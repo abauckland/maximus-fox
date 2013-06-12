@@ -1,19 +1,27 @@
 class HomesController < ActionController::Base
 
-layout "websites"
-
   def index
     @home = Home.first
-    @reference = Reference.first
-    @features = Feature.all
     
     respond_to do |format|  
-      format.html 
+      format.html   { render :layout => 'websites'} 
     end
   end
   
-  def new
-    @home = Home.new
-  end
+  def combined_home
+    @home = Home.where(:id => 1).first
     
+    respond_to do |format|  
+      format.html   { render :layout => 'combines'}
+    end     
+  end
+
+  def supplier_home
+    @home = Home.where(:id => 1).first
+    
+    respond_to do |format|  
+      format.html   { render :layout => 'suppliers'} 
+    end    
+  end
+       
 end
