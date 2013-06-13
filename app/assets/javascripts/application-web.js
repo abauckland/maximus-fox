@@ -7,10 +7,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require jquery.jeditable.js
-//= require autogrow.js
-//= require jquery.idTabs.min.js
-//= require jquery.tipsy.js
-//= require jquery.selectBox.js
-//= require specright
-//= require_tree ./main
+//= require_tree ./web

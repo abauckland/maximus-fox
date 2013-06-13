@@ -6,5 +6,5 @@
 
 *= require_self
 *= require _core
-*= require_tree ./main
+*= require_tree ./web
 */

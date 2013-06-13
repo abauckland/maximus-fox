@@ -272,6 +272,7 @@ figure {
 
 
 .app_mob_menu{
+  display: none;
   position: absolute;
   top: 11px;
   left: 115px;
@@ -281,8 +282,9 @@ figure {
   @include shadow-all(0px 0px 5px #aeaeae);
   border: 1px solid #000;
   }
-  @media screen and (max-width: $medium_menu) {
+  @media screen and (max-width: $small_menu) {
     .app_mob_menu {
+      display: block;
       top: 7px;
       left: 95px;
     }  
@@ -319,7 +321,6 @@ figure {
   }
   @media screen and (max-width: $small_menu) {
     .mob_spec_menu {
-    display: block;
     top: 38px;
     }  
   }

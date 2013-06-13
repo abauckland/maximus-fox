@@ -103,23 +103,7 @@
 }
 
 
-
-.web_login_link{
-  display: none;
-  }
-  @media screen and (max-width: $medium_menu) {
-  .web_login_link{
-       display: block;
-       position: absolute;
-       top: 9px; //how is this set so logo is centered on header?
-       right: 8px;
-       font-family: $heading_font;
-       @include small-button;
-       @include green-button;
-       @include shadow-all(0px 0px 5px #aeaeae);
-       border: 1px solid #000;
-    }  
-  } 
+ 
 
 .web_password_reminder{
   display: block;
@@ -155,6 +139,7 @@
 
 
 #password {
+    @include border-radius(0.5rem);
     color: white;
     font: bold;
     background: #999;
@@ -182,8 +167,27 @@
   }
 
 
-
-
+.web_login_link{
+  display: none;
+  }
+  @media screen and (max-width: $medium_menu) {
+  .web_login_link{
+       display: block;
+       position: absolute;
+       top: 9px; //how is this set so logo is centered on header?
+       right: 8px;
+       font-family: $heading_font;
+       @include small-button;
+       @include green-button;
+       @include shadow-all(0px 0px 5px #aeaeae);
+       border: 1px solid #000;
+      a{
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+      }    
+    }  
+  }
 
 #password_reset{
   position: absolute;
@@ -256,7 +260,7 @@
   float: left;
   width: 100%;
   height: 30px;
-  padding: 20px 0px 0px 0px;
+  padding: 10px 0px 10px 0px;
   margin: 0px 0px 15px 0px;
   font-family: $heading_font;
   font-size: 3rem;
@@ -266,7 +270,7 @@
   @media screen and (max-width: $medium_menu) {
     .web_title  {
       height: 24px;
-      padding: 20px 0px 0px 0px;
+      padding: 14px 0px 6px 0px;
       font-size: 2.2rem;
       text-overflow:ellipsis;
       overflow: hidden;
@@ -279,18 +283,23 @@
 .web_title_signup_link {
   display: block;
   position: absolute;
-  top: 20px;
+  top: 16px;
   right: 10px;  
   font-family: $heading_font;
   @include small-button;
   @include green-button;
   @include shadow-all(0px 0px 5px #aeaeae);
   border: 2px solid #77a809;
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
   }
   @media screen and (max-width: $medium_menu) {
     .web_title_signup_link {
       display: block;
-      top: 16px;
+      top: 12px;
       }
   }
   @media screen and (max-width: $small_menu) {
@@ -399,6 +408,9 @@
   border: 2px solid #fff;
   background: #f2f2f2;
   @include shadow-all(0px 0px 5px #aeaeae);
+  a{
+    text-decoration: none;  
+  }
   &:hover{
     border: 2px solid #66aa00;
   }
@@ -415,14 +427,14 @@
   margin: 15px 0px 10px 0px;
   font-size: 2.0rem;
   text-align: center;
-  color: #767676; 
+  color: #767676;
 }
 
 .web_feature_text_large{
   margin: 10px 10px 10px 10px;
   font-size: 1.2rem;
   text-align: center;
-  color: #000;  
+  color: #000;   
 }
 
 
@@ -544,8 +556,19 @@
   float: left;
   padding: 0px 0px 0px 10px;
   margin: 0px 0px 10px 0px;
-  width: 100%;  
+  width: 100%;
+  font-size: 1.4rem;  
 }
+  @media screen and (max-width: $small_menu) {
+    .faq_extra_questions {      
+      font-size: 1.3rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .faq_extra_questions {      
+      font-size: 1.2rem; 
+      }
+  }
 
 .faq_extra_questions_link{
   a{
@@ -571,6 +594,16 @@
   background-color: rgb(246, 246, 246); 
   &:hover{text-decoration: underline;} 
 }
+  @media screen and (max-width: $small_menu) {
+    .faq_menu_head {      
+      font-size: 1.3rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .faq_menu_head {      
+      font-size: 1.2rem; 
+      }
+  }
 
 .faq_menu_body {
   display:none;
@@ -581,9 +614,18 @@
   color:#000;
   background: #fff;
   padding: 5px 5px 10px 10px;
-
+  font-size: 1.4rem;
 }
-
+  @media screen and (max-width: $small_menu) {
+    .faq_menu_body div {      
+      font-size: 1.3rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .faq_menu_body div {      
+      font-size: 1.2rem; 
+      }
+  }
 
 /* terms */
 .web_terms_box{
@@ -593,7 +635,18 @@
   border: 1px solid #dadada;
   padding: 5px 0px 15px 0px;
   overflow: auto;
+  font-size: 1.4rem;
 }
+  @media screen and (max-width: $small_menu) {
+    .web_terms_box {      
+      font-size: 1.3rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .web_terms_box {      
+      font-size: 1.2rem; 
+      }
+  }
 
 .term_id_title {
   vertical-align:text-top;
@@ -632,7 +685,18 @@
   font-size: 1.2rem;
   text-align: justify;
   padding: 0px 10px 10px 10px;   
+  font-size: 1.4rem;
 }
+  @media screen and (max-width: $small_menu) {
+    .about_text {      
+      font-size: 1.3rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .about_text {      
+      font-size: 1.2rem; 
+      }
+  }
 
 /* login error screens */
 .web_password_reset{
@@ -664,7 +728,8 @@
 .blog_index_options{
   width: 250px;
   padding: 10px 0px 10px 0px;
-  line-height: 1.4rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
   border-bottom: 1px solid #bebebe;
   ul{
   padding: 0px;
@@ -674,12 +739,15 @@
     list-style-type: none;
     a{
       color: #000;
+      text-decoration: none;
+      cursor: pointer;
     }  
   };
 }
 
 .current_topic {
-  font: bold 14px arial;
+  font-weight: bold;
+  font-size: 1.4rem;
     &:hover{text-decoration: underline;}
 }
 

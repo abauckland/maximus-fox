@@ -121,13 +121,7 @@ var limit = limit;
 };
 
 
-
-
-
-
-
 $(document).ready(function(){
-
 
 
 //variables for setting column widths - where 3 coloumns
@@ -145,14 +139,11 @@ var limit = '310';
 		column_width(s_tab, mob, limit);//set column width depending on size of window
 	});
 
-
-
 //show/hide user settings menu
 	$('nav.app_user_name').click(function (){
 		$('nav.app_user_menu').toggle();
 	});
   
-
 	$('nav.app_user_menu').mouseleave(function (){
 		$(this).hide();
 	});
