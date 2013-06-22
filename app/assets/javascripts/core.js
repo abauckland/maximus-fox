@@ -64,9 +64,9 @@ var limit = limit;
 
 	//set column height where all columns stacked
 	if($(window).width() <= mob) {
-		var array_columns = ['.column_1', '.column_2', '.column_3'];
+		var array_columns = ['.column_1', '.column_2', '.column_1_2', '.column_3'];
 		$.each(array_columns, function(i, column_name) {
-			if ($(column_name).find('.column_title').length){
+			if ($(column_name).find('.column_title').length || $(column_name).find('table.users').length){
 			single_column_height(column_name);
 			}else{
 			$(column_name).css('display', 'none');
@@ -120,6 +120,50 @@ var limit = limit;
 	}	
 };
 
+function tab_format(){
+	if ($('ul').hasClass('tabs_2')) {
+       var listWidth = 40;
+		$('.tabs_2 li').each(function(){
+    		listWidth += ($(this).outerWidth()+4);
+		});
+		if($(window).width() >= listWidth) {
+			$('ul.tabs_2').removeClass('tabs_2').addClass('tabs');			
+			var tab_content_top = 36 + $('.tabs').position().top - 4;
+			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "none");
+		}
+		else{
+			var tab_content_top = $('.tabs_2').height() + $('.tabs_2').position().top +10;
+			$('.tab_content').css('top', tab_content_top+"px");
+		}				
+	}
+	if ($('ul').hasClass('tabs')) {
+		var listWidth = 40;
+		$('.tabs li').each(function(){
+    		listWidth += ($(this).outerWidth()+4);
+		});
+		if($(window).width() <= listWidth) {
+			$('ul.tabs').removeClass('tabs').addClass('tabs_2');			 
+			var tab_content_top = $('.tabs_2').height() + $('.tabs_2').position().top + 10;
+			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "2px solid #dddddd");	
+		}
+		else{
+			var tab_content_top = 36 + $('.tabs').position().top - 4;
+			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "none");
+		}		
+	}
+}
+
+function tab_2_label_width(){
+//limit label size in document end tabs
+	if ($(window).width()<400){
+		$('.document_tabs ul').find('a').each(function(){
+			var text=$(this).text()
+			if (text.length>14)
+				$(this).val(text).text(text.substr(0,11)+'..')
+		});
+	}	
+}
+
 
 $(document).ready(function(){
 
@@ -130,10 +174,14 @@ var mob = '720';
 var limit = '310';
 
 //Set size and location of elements depending on screen size	
+	tab_format();
+	tab_2_label_width();
 	column_width(s_tab, mob, limit);//set column width depending on size of window
 	column_height(s_tab, mob, limit);//set column height depending on size of window	
 	column_width(s_tab, mob, limit);//set column width depending on size of window
 	$(window).resize(function(){
+		tab_format();
+		tab_2_label_width();
 		column_width(s_tab, mob, limit);//set column width depending on size of window
 		column_height(s_tab, mob, limit);//set column height depending on size of window
 		column_width(s_tab, mob, limit);//set column width depending on size of window

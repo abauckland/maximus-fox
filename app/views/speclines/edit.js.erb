@@ -1,13 +1,26 @@
-var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.specline_link');
-var position = p.offset();
+
+
+
+var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.suffixed_line_menu');
+var position_a = p.offset();
+
+var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.suffixed_line_menu_mob');
+var position_b = p.offset();
+
+if ($('.suffixed_line_menu_mob').css('display') == 'none'){
+	var position = position_a;
+}else{
+	var position = position_b;
+};
+
 
 var p_top = position.top
 
 $('body').after('<%= escape_javascript(render :partial => 'edit', :locals => {:specline => @specline, :linetypes => @linetypes}) %>');
 
-$('#linetype_menu').css({top: p_top});
+$('.linetype_menu').css({top: p_top});
 
-$('div#linetype_menu').hover(function (){
+$('div.linetype_menu').hover(function (){
   $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').css('background-color', '#efefef');
     },
   function (){
@@ -16,11 +29,11 @@ $('div#linetype_menu').hover(function (){
 
 $('span.button').click(function (){
   $(this).parents('form:first').submit();
-  $('div#linetype_menu').remove();
+  $('div.linetype_menu').remove();
   $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').css('background-color', '#fff');
      return false;
 });
 
 $('tr.specline_row').mouseenter(function (){
-  $('div#linetype_menu').remove();
+  $('div.linetype_menu').remove();
 });

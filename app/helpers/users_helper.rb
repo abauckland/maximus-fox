@@ -54,13 +54,5 @@ module UsersHelper
   def remove_unlock(licence)
     link_to 'un-lock', {:controller=> "users", :action => "unlock_user", :id => licence.user_id}, :class => "get"
   end
-
-  def add_user(licences_used, no_licences, company_id)
-    spare_licences = no_licences - licences_used
-    if spare_licences > 0 
-       render :partial => "new_user", :locals => { :user => @user, :company_id => company_id, :display => 'block' }
-    end
-    
-  end
   
 end

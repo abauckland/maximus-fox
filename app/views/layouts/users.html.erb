@@ -28,6 +28,10 @@
     		</div>
   		</nav>
 
+		<nav class="app_mob_menu">menu</nav>	
+		<!-- drop general menu for mobile-->
+		<%= render :partial => "mob_user_menu", :current_project => @current_project %>
+		
   		<!-- show icon only in mob version -->
   		<nav class="app_user_name"><%= current_user.first_name.capitalize %> <%= current_user.surname.capitalize %></nav>  
 		<nav class="app_logout"><%= link_to "logout", log_out_path %></nav> 

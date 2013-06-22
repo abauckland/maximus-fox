@@ -666,12 +666,61 @@ td.text_text{padding-top: 5px;
 
 ////////////////////////////////////////
 //subsection manage css  
+
+
+
+
+
+
+
+////////////////////////////////////////
+//line formatt popup
+.linetype_menu{
+  font-family: $standard_font;
+  font-size: 1.2rem;
+  position: absolute;
+  right: 120px;
+  background: #000;
+  color: #fff;
+  padding:4px 5px 10px 10px;
+  @include shadow-all(0px 0px 5px #aeaeae);
+}
+  @media screen and (max-width: $small_menu) {
+    .linetype_menu{right: 100px;}  
+  }
+
+.linetype_menu_header{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  color: #fff;
+  padding: 9px 10px 9px 5px;
+  border-bottom: 1pt solid #fff;
+  font-weight: bold;
+}
+
+.linetype_menu_linetype_id{
+  padding: 35px 0px 0px 0px;
+}
+
+.linetype_menu_button {
+  height: 15px;
+  padding: 5px 0px 5px 0px;
+  font-weight: normal;
+}
+
+.linetype_menu_button_label{
+  padding: 2px 0px 3px 5px;
+  cursor: pointer;
+}
+
   
 //////////////////////////////////////
 //clause guide
 
 
-#guide {
+.guide {
   position: absolute;
   right: 120px;
   width: 600px;
@@ -681,6 +730,7 @@ td.text_text{padding-top: 5px;
   @include border-radius(0.4rem);
   @include shadow-all(0px 0px 5px #aeaeae);
 }
+
 
 .inline_guide_header{
   position: absolute;
@@ -694,12 +744,28 @@ td.text_text{padding-top: 5px;
 }
 
 .guide_title {
+  display: block;
   position: absolute;
   top: 5px;
   left: 7px;
   font-size: 1.4rem;
   color: #fff;
 }
+  @media screen and (max-width: $medium_menu) {
+    .guide_title {display: none;}  
+  }
+
+.guide_title_mob {
+  display: none;
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  font-size: 1.4rem;
+  color: #fff;
+}
+  @media screen and (max-width: $medium_menu) {
+    .guide_title_mob {display: block;}  
+  }
 
 
 .guide_close{
@@ -766,4 +832,6 @@ td.text_text{padding-top: 5px;
   margin-right: auto;
   text-align: center;
   border: none;
-}  
+} 
+
+ 

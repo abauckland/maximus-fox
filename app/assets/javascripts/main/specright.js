@@ -170,22 +170,6 @@ $.editable.addInputType('autogrow', {
 });
 
 
-$('.editable_text3').mouseover(function(){
-var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
-}); 
-$('.editable_text4').mouseover(function(){
-var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
-}); 
-$('.editable_text5').mouseover(function(){
-var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
-});    
-$('.editable_text6').mouseover(function(){
-var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
-});    
 
 
 

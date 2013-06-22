@@ -1,35 +1,5 @@
-function tab_format(){
-	if ($('ul').hasClass('tabs_2')) {
-       var listWidth = 40;
-		$('.tabs_2 li').each(function(){
-    		listWidth += ($(this).outerWidth()+4);
-		});
-		if($(window).width() >= listWidth) {
-			$('ul.tabs_2').removeClass('tabs_2').addClass('tabs');			
-			var tab_content_top = 36 + $('.tabs').position().top - 4;
-			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "none");
-		}
-		else{
-			var tab_content_top = $('.tabs_2').height() + $('.tabs_2').position().top +10;
-			$('.tab_content').css('top', tab_content_top+"px");
-		}				
-	}
-	if ($('ul').hasClass('tabs')) {
-		var listWidth = 40;
-		$('.tabs li').each(function(){
-    		listWidth += ($(this).outerWidth()+4);
-		});
-		if($(window).width() <= listWidth) {
-			$('ul.tabs').removeClass('tabs').addClass('tabs_2');			 
-			var tab_content_top = $('.tabs_2').height() + $('.tabs_2').position().top + 10;
-			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "2px solid #dddddd");	
-		}
-		else{
-			var tab_content_top = 36 + $('.tabs').position().top - 4;
-			$('.tab_content').css('top', tab_content_top+"px").css('border-top', "none");
-		}		
-	}
-}
+	
+
 
 
 function form_input() {
@@ -83,16 +53,6 @@ function section_select_input_1_2_width(){
 	}
 }
 
-function tab_2_label_width(){
-//limit label size in document end tabs
-	if ($(window).width()<400){
-		$('.document_tabs ul').find('a').each(function(){
-			var text=$(this).text()
-			if (text.length>14)
-				$(this).val(text).text(text.substr(0,11)+'..')
-		});
-	}	
-}	
 
 $(document).ready(function(){
 
@@ -106,16 +66,12 @@ $(document).ready(function(){
 
 
 //table input width for new user
-	tab_format();
-	form_input();
-	tab_2_label_width();
+	form_input();	
 	section_select_location();
 	section_select_input_1_width()
 	section_select_input_1_2_width()
 	$(window).resize(function(){
-		tab_format();
 		form_input();
-		tab_2_label_width();
 		section_select_location();
 		section_select_input_1_width()
 		section_select_input_1_2_width()
@@ -132,7 +88,7 @@ $(document).ready(function(){
 
 
 //query for tabulated views	
-$('ul.tabs').each(function(){
+$('ul.tabs, ul.tabs_2').each(function(){
     // For each set of tabs, we want to keep track of
     // which tab is active and it's associated content
     var $active, $content, $links = $(this).find('a');
@@ -242,6 +198,24 @@ $('.editable_text4, .editable_text5').click(function(){
 
 
 $('a.get, a.delete, a[title]').tipsy();
+
+$('.editable_text3').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text4').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text5').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+$('.editable_text6').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+
 
 //end
 });

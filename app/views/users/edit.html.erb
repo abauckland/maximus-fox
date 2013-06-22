@@ -12,7 +12,7 @@
 					<th class="s_tab">Log-ins</th>
 					<th class="s_tab">Last Log-in</th>
 					<th width="60px"></th>
-					<th width="52px"></th>
+					<th width="60px"></th>
 				</tr>
 				<% @licences.each do |licence|%>
 				<tr>
@@ -38,6 +38,7 @@
     				<div class="column_guide">
 						<p><%= licence_status(@active_licences.count, @account.no_licence) %></p>
       				</div>
+					
 					<% if @user.errors.any? %> 
 					<div class="column_error">      		    
         				<div class="column_error_heading">
@@ -51,8 +52,44 @@
         				</div>
 					</div>
 					<% end %>
-					<%= add_user(@active_licences.count, @account.no_licence, current_user.company_id) %>
-				</div>       		      		
+					
+					<% if @account.no_licence > @active_licences.count %>
+					<div class="column_form">
+						<%= form_for @user do |f| %>   
+    						<%= f.hidden_field(:role, {:value => 'user'})%>
+  							<%= f.hidden_field(:company_id, {:value => current_user.company_id})%> 			
+						<table>
+						<tr><td>
+							<div class="user_form_label form_input_label"><%= label_error_check(@user, 'first_name', 'First Name')%></div>
+							<div class="new_user_form form_input"><%= f.text_field :first_name %></div>					
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label"><%= label_error_check(@user, 'surname', 'Surname')%></div>
+							<div class="new_user_form form_input"><%= f.text_field :surname %></div>				
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label"><%= label_error_check(@user, 'email', 'Email')%></div>
+							<div class="new_user_form form_input"><%= f.text_field :email %></div>					
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label"><%= label_error_check(@user, 'password', 'Password')%></div>
+							<div class="new_user_form form_input"><%= f.password_field :password %></div>				
+						</td></tr>
+						</td></tr>
+						<tr><td>
+							<div class="user_form_label form_input_label"><%= label_error_check(@user, 'password', 'Confirm Password')%></div>
+							<div class="new_user_form form_input"><%= f.password_field :password_confirmation %></div>				
+						</td></tr>												
+						</table>    			
+    				</div>
+				</div>    		      				
+      			<div class="column_footer">
+        			<div>
+        				<div class="column_submit"><%= f.submit "add new user"%></div>              
+        			</div>
+        			<% end %>   
+      			</div>
+        		<% end %>       		      		
       		</div> 
 		</div> 
 	</div>	
