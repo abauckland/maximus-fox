@@ -1,7 +1,7 @@
 class GuidepdfsController < ApplicationController
 
 #before_filter :require_user, :except => [:index]
-layout "application", :except => [:download]
+layout "websites", :except => [:download]
 
  def index
   @guidepdfs = Guidepdf.includes(:subsections => :section).all#.order('sections.id, subsections.id') 

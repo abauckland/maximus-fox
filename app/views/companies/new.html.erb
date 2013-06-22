@@ -25,50 +25,50 @@
 						<%= builder.hidden_field(:role, {:value => 'admin'})%>
 						<table>
 						<tr><td>
-							<div class="project_form_label form_input_label">First Name:*</div>
+							<div class="company_form_label form_input_label">First Name:*</div>
 							<div class="form_input"><%= builder.text_field :first_name, :size => 20  %>
 								<div class="form_error_note"><%= error_check(@company, :'users.first_name')%> </div>
 							</div>						
 						</td></tr>
 						<tr><td>
-							<div class="project_form_label form_input_label">Surname:*</div>
+							<div class="company_form_label form_input_label">Surname:*</div>
 							<div class="form_input"><%= builder.text_field :surname, :size => 20  %>
 								<div class="form_error_note"> <%= error_check(@company, :'users.surname')%> </div>
 							</div>				
 						</td></tr>
 						<tr><td>
-							<div class="project_form_label form_input_label">Email Address:*</div>
-							<div class="form_input"><%= builder.text_field :email, :size => 40 %>
+							<div class="company_form_label form_input_label">Email Address:*</div>
+							<div class="form_input"><%= builder.text_field :email, :size => 20  %>
 								<div class="form_error_note"> <%= error_check(@company, :'users.email')%> </div>
 							</div>				
 						</td></tr>						
 						<tr><td>
-							<div class="project_form_label form_input_label">Password:*</div>
+							<div class="company_form_label form_input_label">Password:*</div>
 							<div class="form_input"><%= builder.password_field :password, :size => 20  %>
 								<div class="form_error_note"> <%= error_check(@company, :'users.password')%> </div>
 							</div>				
 						</td></tr>
 						<tr><td>
-							<div class="project_form_label form_input_label">Confirm Password:*</div>
+							<div class="company_form_label form_input_label">Confirm Password:*</div>
 							<div class="form_input"><%= builder.password_field :password_confirmation, :size => 20  %>
 								<div class="form_error_note"> <%= error_check(@company, :'users.password')%> </div>
 							</div>				
 						</td></tr>
 						<% end %>
 						<tr><td>
-							<div class="project_form_label form_input_label">Company Name:*</div>
-							<div class="form_input"><%= f.text_field :company_name, :size => 40 %>
+							<div class="company_form_label form_input_label">Company Name:*</div>
+							<div class="form_input"><%= f.text_field :company_name, :size => 20 %>
 								<div class="form_error_note"> <%= error_check(@company, :company_name)%>  </div>
 							</div>				
 						</td></tr>
 						<tr><td>
-							<div class="project_form_label form_input_label">Telephone No:*</div>
+							<div class="company_form_label form_input_label">Telephone No:*</div>
 							<div class="form_input"><%= f.text_field :tel, :size => 20 %>
 								<div class="form_error_note"> <%= error_check(@company, :tel)%> </div>
 							</div>				
 						</td></tr>	
 						<tr><td>
-							<div class="project_form_label form_input_label">Accept Terms of Use:*</div>
+							<div class="company_form_label form_input_label">Accept Terms of Use:*</div>
 							<div class="form_input"><%= f.check_box :read_term %>
 								<div class="form_error_note"> <%= error_check(@company, :read_term)%></div>
 							</div>				

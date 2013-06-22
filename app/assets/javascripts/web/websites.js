@@ -154,7 +154,6 @@ var limit = '310';
 		$('nav.web_mob_menu').toggle();
 	});
   
-
 	$('nav.web_mob_menu').mouseleave(function (){
 		$(this).hide();
 	});

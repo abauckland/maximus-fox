@@ -5,24 +5,160 @@
 //core-ui
 @import "core";
 
+html {
+  font-size: 62.5%; 
+  font-family: $standard_font;
+  //background-color: #fbfbfb;
+  }
 
+
+
+//header menu
+.app_mob_menu{
+  position: absolute;
+  top: 11px;
+  left: 115px;
+  font-family: $heading_font;
+  @include small-button;
+  @include dark-grey-button;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+  display: none; //item here to override mixin settings
+  }
+  @media screen and (max-width: $small_menu) {
+    .app_mob_menu {
+      display: block;
+      top: 7px;
+      left: 95px;
+    }  
+  }
+
+.mob_spec_menu{
+  display: none; 
+  position: absolute;
+  top: 38px;
+  left: 95px;
+  width: 110px;
+  background: #000;
+  padding:0px 5px 0px 10px;
+  z-index: 1000;
+  ul{
+    list-style-type: none; 
+    -webkit-padding-start: 0px;
+    margin: 0px; //require so displays properly in firefox, ie
+    padding: 0px; //require so displays properly in firefox, ie
+    li{
+      padding: 2px 0px 2px 0px;     
+    }
+  }
+  a{
+    text-align: left;
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+    color: #fff;
+    text-decoration: none;
+    &:hover{    
+      text-decoration: underline; 
+    }
+  }
+  }
 
 .tutorial_link a{
   color: blue;
 }
 
-//project select in option band
-.project_label_select{  
-  padding: 5px 5px 0px 0px;
+
+/*project index page - information css*/  
+.project_info {
+  position: absolute;
+  width:100%;
+  top:60px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #777777;
+  padding: 4px 0px 0px 0px;
+  min-width:310px
+  }
+  @media screen and (max-width: $medium_menu) {
+    .project_info {
+      top:78px;
+      font-size: 1.2rem;
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .project_info {
+      display:none;
+      }
+  }
+
+
+.project_title{
+  position: absolute;
+  left: 10px;
 }
 
+.project_code{
+  float: left;
+}
+
+.project_code_title{
+  float: left;
+  padding: 0px 0px 0px 3px;
+  max-width: 350px;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap;
+}
+  @media screen and (max-width: $medium_menu) {
+    .project_code_title{
+      max-width: 200px;
+      overflow:hidden;}  
+  }
+  @media screen and (max-width: $small_menu) {
+    .project_code_title{display: none;}  
+  }
+
+.project_name{
+  float: left;
+  padding: 0px 0px 0px 10px;
+  overflow:hidden;
+  height: 20px;
+  max-width: 550px;
+  }
+  @media screen and (max-width: $s_tab) {
+    .project_name {
+      display: none;
+      }
+  }
+
+.project_status{
+position: absolute;
+right: 100px;
+}
+  @media screen and (max-width: $medium_menu) {
+    .project_status {
+      display: none;
+      }
+  }
+
+.project_rev{
+position: absolute;
+right: 30px;
+}
+
+
+//project select in option band
 .project_select{
   position: absolute;
   top: 1px;
   left: 2px;
   padding: 0px 0px 0px 5px;
   }
-  
+
+.project_label_select{  
+  padding: 5px 5px 0px 0px;
+}
+ 
 .project_option_select{  
   position: absolute;
   top: 1px;
@@ -37,7 +173,7 @@
 //button to righthand side of single option band  
 .project_create_button{
   position: absolute;
-  top: 3px;
+  top: 2px;
   right: 7px;
   @include small-button;
   @include green-button;
@@ -45,6 +181,22 @@
   }
 ///////////////////////////////////////////////////////
 //document show page
+
+.section_select_desktop{display: none}  
+  @media screen and (min-width: $medium_menu) {
+    .section_select_desktop{display: block}
+  }
+
+.section_select_tablet{display: none}
+  @media screen and (min-width: $small_menu) and (max-width: $medium_menu){  
+    .section_select_tablet{display: block}
+  }
+
+.section_select_mobile{display: none}
+  @media screen and (max-width: $small_menu) {
+    .section_select_mobile{display: block}
+  }
+
 .select_1 {
   position: absolute;
   top: 0px;
@@ -65,7 +217,7 @@
 
 .option_select_1{  
   position: absolute;
-  top: 1px;
+  top: 2px;
   left: 60px;
 }
   @media screen and (max-width: $medium_menu) {
@@ -76,14 +228,14 @@
 
 .option_select_2{  
   position: absolute;
-  top: 1px;
+  top: 2px;
   left: 75px;
   }
   
 
 .subsection_button{
   position: absolute;
-  top: 3px;
+  top: 2px;
   right: 7px;
   @include small-button;
   @include green-button;
@@ -122,9 +274,9 @@
   
 .guide_download_button{
   float: right;
-  margin: 0px 0px 0px 10px;
-  @include medium-button;
-  @include red-button;
+  margin: 0px 5px 0px 5px;
+  @include small-button;
+  @include orange-button;
   border: 2px solid #f6b33d;
   }
   @media screen and (max-width: $large_menu) {
@@ -133,8 +285,19 @@
     }  
   }
 
-
 .character_menu{
+display: block;
+visibility: hidden;   
+float: right;
+}
+  @media screen and (max-width: $large_menu) {
+    .character_menu{
+      display: none;
+    }  
+  }
+
+
+.character_menu_content{
     float: right;
     padding: 1px 2px 1px 2px;
     border: 1px solid #dddddd;
@@ -187,13 +350,144 @@
   z-index: 0;
 } 
 
+////////////////////////////////////////////////////////////
+//document show
+.specline_table{
+  border-spacing: 0px;
+}
 
+.specline_row{
+  font-size: 1.2rem;
+  font-family: $standard_font;
+
+}
+
+.edit_clause_code {
+  width: 75px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 10px 0px 5px 7px;
+}
+
+.edit_clause_title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 10px 0px 5px 0px;
+  text-align: left;
+}
+
+td.prefix{
+  width: 10px;
+  padding-top: 5px;
+  vertical-align: top;
+}
+
+td.text_prefix{
+  width: 15px;
+  padding-top: 5px;
+  vertical-align: top;
+}
+
+td.text_text{padding-top: 5px;
+  padding-bottom: 5px;
+  vertical-align: top;
+}
+
+
+.prefixed_line_menu{
+  display: table-cell;
+  visibility:hidden;
+  width: 75px;
+  padding: 5px 0px 0px 5px;  
+}
+  @media screen and (max-width: $medium_menu) {
+    .prefixed_line_menu{
+      display: none;
+      visibility:hidden; 
+    } 
+  }
+
+.prefixed_line_space{
+  display: none;    
+  }
+@media screen and (max-width: $medium_menu) {
+  .prefixed_line_space{
+  display: table-cell;
+  width: 70px;
+  padding: 5px 0px 0px 5px;    
+  } 
+}
+@media screen and (max-width: $small_menu) {
+  .prefixed_line_space{
+  display: table-cell;
+  width: 10px;
+  padding: 5px 0px 0px 5px;    
+  } 
+}
+
+
+.suffixed_line_menu{
+  display: table-cell;
+  visibility:hidden;
+  text-align: right;
+  width:120px;
+  padding: 5px 5px 0px 0px;
+  a{
+   padding: 0px 5px 0px 0px; 
+  }
+} 
+  @media screen and (max-width: $medium_menu) {
+    .suffixed_line_menu{
+      display: none;
+      visibility:hidden; 
+    } 
+  }    
+     
+//menues for specline when smaller than mob
+.suffixed_line_menu_mob{
+  display: table-cell;
+  visibility:hidden;  
+  text-align: right;
+  width:25px;
+  padding: 5px 5px 0px 0px;
+  img{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+  @media screen and (min-width: $medium_menu) {     
+    .suffixed_line_menu_mob{
+      display: none;
+      visibility:hidden;
+    }
+  }
+
+.specline_mob_menu_popup{
+  display: none;
+  width: 100%;
+  border-spacing: 0px;  
+}
+
+.mob_line_menu{
+  a {
+    float:right;
+    margin-left: 10px
+    }
+  }
 
 //////////////////////////////////////////////////////////
 //css for revision page
 .revision_selectBox{
-  top: 0px;  
-  left: -5px;  
+  top: 1px;  
+  left: 60px;  
+}
+
+.revision_select_draft{
+  position: absolute;
+  top: 5px;  
+  left: 62px;
+  width: 1500px;  
 }
 
 .revision_tabs{
@@ -213,9 +507,135 @@
     }  
   }
 
+//type of revision that has been undertaken to subsequent list of subsections
+.rev_title{
+  font-family: $standard_font;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 15px 0px 0px 10px;
+}
+
+//code and title of subsections that have been changed
+.changed_subsection_code{
+  font-family: $standard_font;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 10px 0px 0px 20px;
+}
+
+//type of revision that has been undertaken to subsequent list of clauses
+.rev_title_2{
+  font-family: $standard_font;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 15px 0px 0px 10px;  
+}
+
+.rev_subsection_action{
+  font-family: $standard_font;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 15px 0px 0px 25px;
+}
+
+//clause code for those clauses that have been fully added or deleted
+.rev_clause_code{
+  font-family: $standard_font;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px 0px 0px 35px;
+  width: 65px;
+  height: 26px;
+}
+//clause code for those clauses where a change to their content has been made
+.changed_clause_code{@extend .rev_clause_code}
+
+
+//clause title for those clauses that have been fully added or deleted
+.rev_clause_title{
+  font-family: $standard_font;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 5px 0px 0px 0px;
+  height: 26px;
+}
+//clause title for those clauses where a change to their content has been made
+.changed_clause_title{@extend .rev_clause_title}
+
+
+.rev_row_padding{
+  padding-left: 120px;
+}
+  @media screen and (max-width: $small_menu) {
+    .rev_row_padding{
+      padding-left: 35px;
+    }  
+  }
+
+//text denoting the type of change made to clause, i.e. text deleted, added or changed
+.rev_subtitle, .rev_subtitle_strike{
+  font-family: $standard_font;
+  font-size: 1.1rem;
+  padding: 5px 0px 5px 100px;
+  text-decoration: underline;
+}
+  @media screen and (max-width: $small_menu) {
+    .rev_subtitle, .rev_subtitle_strike{
+      padding-left: 35px;
+    }  
+  }
+
+//row container for changed text where text has been changed within a clause
+.rev_row{
+  font-family: $standard_font;
+  font-size: 1.2rem; 
+}
+.rev_row_strike{@extend .rev_row; color: #b7b7b7}
+
+//where text has been changed indicated if it has been changed from or to the text
+.change_title{
+  font-family: $standard_font;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+//.change_title_strike{@extend .rev_row; color: #b7b7b7}
+
+//text that has been changed, i.e. added, deleted or changed
+.change_line{
+  font-family: $standard_font;
+  font-size: 1.2rem;  
+}
+//.change_line_strike{@extend .rev_row; color: #b7b7b7}
+
+
+.rev_line_menu{
+  display: none;
+  width: 80px;
+  vertical-align: middle;
+  border-left: 1px solid white;
+  a {
+  padding: 0px 5px 0px 5px;
+  };
+  img {
+  margin: 0px 0px 0px 0px;
+  };  
+}
+
+//popup change information
+.change_info{
+  position: absolute;
+  right: 100px;
+  color: #fff;
+  font: normal 12px verdana;
+  padding: 4px 10px 4px 10px;
+  @include orange_28_gradient;
+  @include border-radius(0.5rem);
+  @include shadow-all(0px 0px 5px #aeaeae);
+  border: 1px solid #000;
+}
+
 //////////////////////////////////////////////////////////
 //css for publish page
-
 .publish_selectBox{
   top: 0px;  
   left: 5px;  
@@ -263,14 +683,14 @@
 }
 
 .inline_guide_header{
-position: absolute;
-top: 4px;
-left: 4px;
-right: 4px;
-height: 28px;
-@include dark_grey_28_gradient;
-@include border-radius(0.4rem);
-border: 1px solid #888;    
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  height: 28px;
+  @include dark_grey_28_gradient;
+  @include border-radius(0.4rem);
+  border: 1px solid #888;    
 }
 
 .guide_title {

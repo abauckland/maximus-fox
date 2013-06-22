@@ -31,8 +31,8 @@ layout "projects"
         @selected_revision = Revision.find(params[:revision])
       end
     
-   revision_subsection_id_array = Clauseref.joins(:clauses => [:changes]).where('changes.project_id' => @current_project.id, 'changes.revision_id' => @selected_revision.id).collect{|i| i.subsection_id}.sort.uniq
-    
+    revision_subsections = Clauseref.joins(:clauses => [:changes]).where('changes.project_id' => @current_project.id, 'changes.revision_id' => @selected_revision.id)
+    revision_subsection_id_array = revision_subsections.collect{|i| i.subsection_id}.sort.uniq
        
     @revision_prelim_subsections = Subsection.where(:id => revision_subsection_id_array, :section_id => 1)
     revision_prelim_subsection_id_array = @revision_prelim_subsections.collect{|item| item.id}.sort
@@ -49,8 +49,8 @@ layout "projects"
         
     revision_prelim_subsection_id_array.each_with_index do |changed_subsection_id, i|
      
-      array_of_subsection_clause_ids = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection_id).collect{|item| item.id}.sort
-
+      array_of_subsections = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection_id)
+      array_of_subsection_clause_ids = array_of_subsections.collect{|item| item.id}.sort
       
       new_subsections = Change.where(:event => 'new', :clause_add_delete => 3, :project_id => @current_project.id, :clause_id => array_of_subsection_clause_ids, :revision_id => @selected_revision.id)#.first 
       if new_subsections.blank?
@@ -80,8 +80,8 @@ layout "projects"
     @hash_of_new_prelim_clauses[changed_subsection.id] = []
     @hash_of_changed_prelim_clauses[changed_subsection.id] = []
     
-    array_prelim_subsection_clause_ids = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection.id).collect{|item| item.id}.sort
- 
+    array_prelim_subsections = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection.id)
+    array_prelim_subsection_clause_ids = array_prelim_subsections.collect{|item| item.id}.sort
     
       changed_clauses = Change.select('DISTINCT clause_id').where(:project_id => @current_project.id, :clause_id => array_prelim_subsection_clause_ids, :revision_id => @selected_revision.id)			    
       changed_clauses.each_with_index do |changed_clause, i|
@@ -108,7 +108,8 @@ layout "projects"
         
     revision_subsection_id_array.each_with_index do |changed_subsection_id, i|
       
-    array_of_subsection_clause_ids = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection_id).collect{|item| item.id}.sort
+    array_of_subsections = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection_id)
+    array_of_subsection_clause_ids = array_of_subsections.collect{|item| item.id}.sort
        
       new_subsections = Change.where(:event => 'new', :clause_add_delete => 3, :project_id => @current_project.id, :clause_id => array_of_subsection_clause_ids, :revision_id => @selected_revision.id)#.first 
       if new_subsections.blank?
@@ -138,7 +139,8 @@ layout "projects"
     @hash_of_new_clauses[changed_subsection.id] = []
     @hash_of_changed_clauses[changed_subsection.id] = []
     
-    array_subsection_clause_ids = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection.id).collect{|item| item.id}.sort
+    array_subsection_clauses = Clause.joins(:clauseref).where('clauserefs.subsection_id' => changed_subsection.id)
+    array_subsection_clause_ids = array_subsection_clauses.collect{|item| item.id}.sort
     
       changed_clauses = Change.select('DISTINCT clause_id').where(:project_id => @current_project.id, :clause_id => array_subsection_clause_ids, :revision_id => @selected_revision.id)			    
       changed_clauses.each_with_index do |changed_clause, i|

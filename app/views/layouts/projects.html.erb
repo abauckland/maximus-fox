@@ -21,17 +21,17 @@
 
 		<nav class="app_menu">
 			<div class="menu_item_container">  			    			
-    			<div class="app_menu_item"><%= link_to "PROJECT", edit_project_path(@current_project.id), :class => check_current('projects', 'project')%></div>
-    			<div class="app_menu_item"><%= link_to "DOCUMENT", project_path(@current_project.id), :class => check_current('projects', 'document')%></div>
-    			<div class="app_menu_item"><%= link_to "REVISIONS", revision_path(@current_project.id), :class => check_current('revisions', 'revision')%></div>
-    			<div class="app_menu_item"><%= link_to "PUBLISH", print_path(@current_project.id), :class => check_current('prints', 'publish')%></div>
+    			<div class="app_menu_item"><%= link_to "PROJECT", edit_project_path(@current_project.id), :class => check_current('project')%></div>
+    			<div class="app_menu_item"><%= link_to "DOCUMENT", project_path(@current_project.id), :class => check_current('document')%></div>
+    			<div class="app_menu_item"><%= link_to "REVISIONS", revision_path(@current_project.id), :class => check_current('revision')%></div>
+    			<div class="app_menu_item"><%= link_to "PUBLISH", print_path(@current_project.id), :class => check_current('publish')%></div>
     			<% if current_user.company.type == 'manufacturer'%>    
     				<div class="app_menu_item"><%= link_to "DASHBOARD", nil %></div>
     			<% end %>
     		</div>
   		</nav>
 		
-		<nav class="app_mob_menu"><%= link_to "menu", nil %></nav>	
+		<nav class="app_mob_menu">menu</nav>	
 		<!-- drop general menu for mobile-->
 		<%= render :partial => "spec_menu", :current_project => @current_project %>
 

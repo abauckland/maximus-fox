@@ -1,7 +1,7 @@
 <div class="project_info">
 	<div class="project_title">
 		<div class="project_code">   
-    		<%= @current_project.code%>
+    		Project: <%= @current_project.code%>
 		</div>
 		<div class="project_code_title">   
     		<%= @current_project.title %>
@@ -77,14 +77,13 @@
 <% else %>
 
 <div class="document_tabs">
-	<div class="tab_sub_menu">
+	<div class="tab_sub_menu">		
 		<%= guidance_link(@current_project.id, @selected_key_subsection.id) %>
 		<div class="character_menu">
-			<ul>
-
-			</ul>
+			<div class="character_menu_content"><ul></ul></div>
+			<div class="character_menu_label">insert symbol:</div>
 		</div>
-		<div class="character_menu_label">insert symbol:</div>
+		
 	</div>	
 	
 	<ul class='tabs'>

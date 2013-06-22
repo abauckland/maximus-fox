@@ -193,56 +193,11 @@ $(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type:
 //loads ajax functionality to links with specified class
 ajaxLinks();
 
-//sortable test
-$('.1, .2, .3, .4, .5, .6, #prelim_show').sortable({
- axis: 'y',
- cancel: '.clause_title, span',
- cursor: 'pointer',
- handle: 'td.pad img',
- stop: function(event, ui){
-  var sortorder=$(this).sortable('toArray');
-  var moved = $(ui.item).attr('id');	
-   
-   $.ajax({
-   	type: 'put',
-   	url: '/speclines/'+moved+'/move_specline',
-   	dataType: 'script',
-   	data: 'table_id_array='+sortorder +'',
-   	complete: function(){
-    }
-   	});   
-   }	 		
-}) ;
-
-
 
 //show/hide functions for spec and clause lines
-$('tr.specline_row').hover(function (){
-  $(this).children('td.specline_link').show();
-    $(this).children('td.pad').children('img').show();
-  $(this).children('td.padding').hide();
-  $(this).css('background-color', '#efefef');
-  },
-  function (){
-  $(this).children('td.specline_link').hide();
-      $(this).children('td.pad').children('img').hide();
-  $(this).children('td.padding').show();
-  $(this).css('background-color', '#ffffff');
-  }
-);
 
-//show/hide functions for rev lines
-$('tr.rev_row, tr.rev_row_strike, tr.clause_title_2').hover(function (){
-  $(this).children('td.specline_link').toggle();
-  $(this).children('td.padding').toggle();
-  $(this).css('background-color', '#efefef');
-  },
-  function (){
-  $(this).children('td.specline_link').toggle();
-  $(this).children('td.padding').toggle();
-  $(this).css('background-color', '#ffffff');
-  }
-);
+
+
 
 
 $('#section_select').change(function () {

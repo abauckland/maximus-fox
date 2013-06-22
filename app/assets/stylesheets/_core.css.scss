@@ -16,6 +16,7 @@ $guide_text_color: #006699;
 $bold_text_color: #404040;
 $error_text_color: #ff3300;  
 $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
+$standard_font: Arial,Helvetica,sans-serif;
 
 //background gradient image
 @mixin dark_grey_46_gradient {background: image-url('dark_grey_46.png') repeat-x};
@@ -24,6 +25,7 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 @mixin dark_grey_24_gradient {background: image-url('dark_grey_24.png') repeat-x};
 
 @mixin light_grey_24_gradient {background: image-url('light_grey_24.png') repeat-x};
+@mixin light_grey_32_gradient {background: image-url('light_grey_32.png') repeat-x};
 
 @mixin green_28_gradient {background: image-url('green_28.png') repeat-x}; 
 @mixin orange_28_gradient {background: image-url('orange_28.png') repeat-x}; 
@@ -61,6 +63,11 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
   border:1px solid; 
   @include common-button-params; 
   @include border-radius(0.5rem);       
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  } 
 }
 
 @mixin small-button {
@@ -68,7 +75,12 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
   padding:0.2rem 0.4rem;
   border:1px solid; 
   @include common-button-params; 
-  @include border-radius(0.5rem);       
+  @include border-radius(0.5rem);
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }        
 }
 
 @mixin green-button {border-color: #b0db64; @include green_28_gradient; @include button-box-shadow(#a4e271);
@@ -111,9 +123,11 @@ $heading_font: "Trebuchet MS", Trebuchet, "Liberation Sans", sans-serif;
 @mixin icon-video {background: image-url('icons.png') no-repeat; background-position:  0px -308px;}
 @mixin icon-video-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -375px;}
 
-@mixin icon-cancel {background: image-url('icons.png') no-repeat; background-position:  0px -308px;}
-@mixin icon-cancel-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -375px;}
+@mixin icon-cancel {background: image-url('icons.png') no-repeat; background-position:  0px -480px;}
+@mixin icon-cancel-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -520px;}
 
+@mixin icon-add {background: image-url('icons.png') no-repeat; background-position:  0px -343px;}
+@mixin icon-add-rollover {background: image-url('icons.png') no-repeat; background-position:  0px -406px;}
 
 //links with icon and text
 @mixin icon-text-link($image, $hover-image) {
@@ -148,6 +162,11 @@ p{
 figure {
   margin: 0px 0px 0px 0px;
 }
+
+::-webkit-input-placeholder { /* WebKit browsers */ color: #bebebe;}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */ color: #bebebe;}
+::-moz-placeholder { /* Mozilla Firefox 19+ */ color: #bebebe;}
+:-ms-input-placeholder { /* Internet Explorer 10+ */ color: #bebebe;}
 
 
 //header
@@ -239,7 +258,6 @@ figure {
   font-family: $heading_font;
   font-weight: bold;
   font-size: 1.4rem;
-  text-decoration: none;
   padding: 15px 9px 0px 9px;
   color: #fff;
   &:hover {text-decoration: underline;
@@ -264,65 +282,19 @@ figure {
       }
   }
 
+.current_link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.not_link {
+    text-decoration: none;
+}
+
 
 
 @media screen and (max-width: $mob) {
   .s_tab{display:none;}
-  }
-
-
-.app_mob_menu{
-  display: none;
-  position: absolute;
-  top: 11px;
-  left: 115px;
-  font-family: $heading_font;
-  @include small-button;
-  @include dark-grey-button;
-  @include shadow-all(0px 0px 5px #aeaeae);
-  border: 1px solid #000;
-  }
-  @media screen and (max-width: $small_menu) {
-    .app_mob_menu {
-      display: block;
-      top: 7px;
-      left: 95px;
-    }  
-  }
-
-.mob_spec_menu{
-  display: none; 
-  position: absolute;
-  top: 38px;
-  left: 95px;
-  width: 110px;
-  background: #000;
-  padding:0px 5px 0px 10px;
-  z-index: 1000;
-  ul{
-    list-style-type: none; 
-    -webkit-padding-start: 0px;
-    margin: 0px; //require so displays properly in firefox, ie
-    padding: 0px; //require so displays properly in firefox, ie
-    li{
-      padding: 2px 0px 2px 0px;     
-    }
-  }
-  a{
-    text-align: left;
-    font-size: 1.4rem;
-    line-height: 2.4rem;
-    color: #fff;
-    text-decoration: none;
-    &:hover{    
-      text-decoration: underline; 
-    }
-  }
-  }
-  @media screen and (max-width: $small_menu) {
-    .mob_spec_menu {
-    top: 38px;
-    }  
   }
 
 
@@ -399,7 +371,7 @@ figure {
   right: 8px;
   font-family: $heading_font;
   @include small-button;
-  @include orange-button;
+  @include red-button;
   @include shadow-all(0px 0px 5px #aeaeae);
   border: 1px solid #000;
   }
@@ -409,85 +381,6 @@ figure {
     }  
   }
   
-
-/*project index page - information css*/  
-.project_info {
-  position: absolute;
-  width:100%;
-  top:60px;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: #777777;
-  padding: 4px 0px 0px 0px;
-  min-width:310px
-  }
-  @media screen and (max-width: $medium_menu) {
-    .project_info {
-      top:78px;
-      font-size: 1.2rem;
-      }
-  }
-  @media screen and (max-width: $small_menu) {
-    .project_info {
-      display:none;
-      }
-  }
-
-
-.project_title{
-  position: absolute;
-  left: 10px;
-}
-
-.project_code{
-  float: left;
-}
-
-.project_code_title{
-  float: left;
-  padding: 0px 0px 0px 3px;
-  max-width: 350px;
-  text-overflow:ellipsis;
-  overflow: hidden;
-  white-space:nowrap;
-}
-  @media screen and (max-width: $medium_menu) {
-    .project_code_title{
-      max-width: 200px;
-      overflow:hidden;}  
-  }
-  @media screen and (max-width: $small_menu) {
-    .project_code_title{display: none;}  
-  }
-
-.project_name{
-  float: left;
-  padding: 0px 0px 0px 10px;
-  overflow:hidden;
-  height: 20px;
-  max-width: 550px;
-  }
-  @media screen and (max-width: $s_tab) {
-    .project_name {
-      display: none;
-      }
-  }
-
-.project_status{
-position: absolute;
-right: 100px;
-}
-  @media screen and (max-width: $medium_menu) {
-    .project_status {
-      display: none;
-      }
-  }
-
-.project_rev{
-position: absolute;
-right: 30px;
-}
-
 
 /*project index page - options css*/  
 .option_band_single {
@@ -520,31 +413,14 @@ right: 30px;
   }
 
 
-.section_select_desktop{display: none}  
-  @media screen and (min-width: $medium_menu) {
-    .section_select_desktop{display: block}
-  }
-
-.section_select_tablet{display: none}
-  @media screen and (min-width: $small_menu) and (max-width: $medium_menu){  
-    .section_select_tablet{display: block}
-  }
-
-.section_select_mobile{display: none}
-  @media screen and (max-width: $small_menu) {
-    .section_select_mobile{display: block}
-  }
- 
- 
-
 /*project index page - title css*/ 
 .page_title {
   position: absolute;
-  top: 70px;
+  top: 60px;
   left: 10px;
   right: 10px;
   height: 30px;
-  padding: 10px 0px 0px 7px;
+  padding: 10px 0px 8px 7px;
   font-family: $heading_font;
   font-size: 3rem;
   color: #333333;
@@ -552,14 +428,21 @@ right: 30px;
   }
   @media screen and (max-width: $medium_menu) {
     .page_title  {
-      top: 75px;
+      top: 69px;
       height: 30px;
-      padding: 20px 0px 0px 7px;
+      padding: 20px 0px 6px 7px;
       font-size: 2.8rem;
       text-overflow:ellipsis;
       overflow: hidden;
       white-space:nowrap;
       min-width:285px
+      }
+  }
+  @media screen and (max-width: $small_menu) {
+    .page_title {
+      top: 31px;
+      font-size: 2.5rem;
+      padding: 20px 0px 4px 7px;
       }
   }
 
@@ -581,7 +464,7 @@ ul.tabs, ul.tabs_2{
       color: #fff;
       text-decoration: none;
       @include border-radius(0.4rem);
-      @include light_grey_24_gradient;
+      @include light_grey_32_gradient;
       cursor:pointer;
       padding: 6px 6px 6px 6px;
       &:hover{
@@ -636,7 +519,7 @@ ul.tabs_2 {
   @media screen and (max-width: $small_menu) {
     ul.tabs_2 {
       padding: 0px 1px 1px 1px;
-        line-height:28px;
+      line-height:30px;
       min-width:277px;      
       li {
         padding: 0px 1px 0px 1px;
@@ -653,24 +536,20 @@ ul.tabs_2 {
 //stype for tab content div
 .tab_content {
   position: absolute;
-  top: 482px;
   left: 10px;
   right: 10px;
-
   min-width:280px;
   overflow: auto;
   background: #fff;
   border: 2px solid #dddddd;
-  border-top: none;
   padding: 5px 0px 20px 0px; 
   z-index: 0;
 }
   @media screen and (min-width: $small_menu) {
     .tab_content {
-  bottom: 10px;      
+      bottom: 10px;      
       }
   }
-
 
 
 .tab_sub_menu{
@@ -678,8 +557,6 @@ ul.tabs_2 {
   right: 10px;
   z-index: 1000;  
 }
-
-
 
 
 /*css for 3 column layout*/  
@@ -717,6 +594,7 @@ ul.tabs_2 {
 
 .column_content{
   position: relative;
+  font-family: $standard_font;
 }
 
 .column_sub_content{
@@ -736,8 +614,15 @@ ul.tabs_2 {
   padding: 10px 5px 10px 5px;
   border-bottom: 2px solid #dddddd;
 }
+  @media screen and (max-width: $small_menu) {
+    .column_title {
+      font-size:2.2rem;
+      line-height: 2.2rem;
+      }
+  }
 
 .column_footer {
+  font-family: $heading_font;
   position: absolute;
   bottom: 0px;
   left: 0px;
@@ -781,6 +666,7 @@ ul.tabs_2 {
 }
 
 .column_form {
+  font-size:1.2rem;
   padding: 10px 5px 10px 5px
 }
 
@@ -867,6 +753,7 @@ ul.tabs_2 {
 }
 
 .form_input_label{
+  font-size: 1.2rem;
   font-weight: bold;
   float:left;  
   padding: 10px 5px 0px 0px;
@@ -874,7 +761,7 @@ ul.tabs_2 {
 }
 
 .form_label_note{
-  font-size:1rem;
+  font-size: 1rem;
   font-style: italic;
   color: $guide_text_color;   
 }
@@ -897,6 +784,7 @@ ul.tabs_2 {
 }
 
 .form_default{
+  font-size:1.2rem;
   font-weight: normal;
   float:left;  
   padding: 10px 5px 0px 0px;
@@ -962,16 +850,36 @@ ul.tabs_2 {
   font-size:1.4rem;
   font-weight:bold;
   font-family: $heading_font;
-  padding: 0px 0px 0px 30px;
-    @include icon-download;
+  padding: 2px 0px 0px 28px;
+    @include icon-cancel;
   &:hover{
     text-decoration:underline;
-    @include icon-download-rollover;
+    @include icon-cancel-rollover;
     border: none;
-    padding: 0px 0px 0px 30px;
+    padding: 2px 0px 0px 28px;
     cursor: pointer;
   }
-} 
+}
+
+.column_add a{
+  display: block;
+  border: none;
+  height:22px;
+  text-decoration:none;
+  color:#66aa00;
+  font-size:1.4rem;
+  font-weight:bold;
+  font-family: $heading_font;
+  padding: 2px 0px 0px 28px;
+    @include icon-add;
+  &:hover{
+    text-decoration:underline;
+    @include icon-add-rollover;
+    border: none;
+    padding: 2px 0px 0px 28px;
+    cursor: pointer;
+  }
+}  
 
 .column_download input[type=submit]{
   display: block;
@@ -999,8 +907,9 @@ ul.tabs_2 {
   display: block;
   line-height: 20px;
   text-decoration:none;
-  font-size:1.4rem;
-  font-weight:bold;
+  font-family: $heading_font;
+  font-size: 1.4rem;
+  font-weight: bold;
   padding: 3px 0px 10px 30px;
   &:hover{
     text-decoration:underline;

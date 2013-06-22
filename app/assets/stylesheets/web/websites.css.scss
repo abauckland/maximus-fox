@@ -6,7 +6,25 @@
 @import "core";
 
 .web_page_header {@extend .app_page_header}
-.web_logo {@extend .app_logo}
+
+.web_logo{
+  position: absolute;
+  top: 6px;
+  left: 7px;
+  height: 30px;
+  width: 100px;
+  border: inset 1px #555;
+  background: image-url('specright_logo.png') no-repeat;
+  background-size:100px 30px;
+  }
+  @media screen and (max-width: $medium_menu) {
+    .web_logo{
+      height: 24px;
+      width: 80px;
+      background: image-url('specright_logo.png') no-repeat;
+      background-size:80px 24px; 
+    }  
+  }
 
 
 .web_menu {  
@@ -27,7 +45,6 @@
   font-family: $heading_font;
   font-weight: bold;
   font-size: 1.4rem;
-  text-decoration: none;
   padding: 15px 9px 0px 9px;
   color: #fff;
   &:hover {text-decoration: underline;
@@ -44,15 +61,6 @@
         display: none;
       }
   }
-
-
-.current_link {
-  color: #fff;
-  text-decoration: underline;
-}
-
-.not_link {
-}
 
 .web_menu_mob{
   display: none;
@@ -364,7 +372,12 @@
   font-size: 1.6rem;
   line-height: 1.8rem;
   text-align: justify;
-  padding: 15px 0px 10px 0px;  
+  padding: 15px 0px 10px 0px;
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;    
+  }  
 }
   @media screen and (max-width: $medium_menu) {
     .web_main_text{      
@@ -386,6 +399,11 @@
   border: 1px solid #000;
   font-family: $heading_font;
   border: 2px solid #77a809;
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;    
+  }
 }
 
 
@@ -424,14 +442,14 @@
 }
 
 .web_feature_title_large{
-  margin: 15px 0px 10px 0px;
+  margin: 10px 0px 5px 0px;
   font-size: 2.0rem;
   text-align: center;
   color: #767676;
 }
 
 .web_feature_text_large{
-  margin: 10px 10px 10px 10px;
+  margin: 0px 10px 0px 10px;
   font-size: 1.2rem;
   text-align: center;
   color: #000;   
@@ -457,6 +475,11 @@
   border: 2px solid #fff;
   background: #f2f2f2;
   @include shadow-all(0px 0px 5px #aeaeae);
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;    
+  }
   &:hover{
     border: 2px solid #66aa00;
   }
@@ -645,6 +668,8 @@
   @media screen and (max-width: $small_menu) {
     .web_terms_box {      
       font-size: 1.2rem; 
+      overflow: visible;
+      height: auto;
       }
   }
 
@@ -716,6 +741,11 @@
   float: left;
   padding: 20px 20px 0px 20px;  
 }
+  @media screen and (max-width: $medium_menu) {
+    .web_blog_index {      
+        padding: 10px 20px 0px 20px;
+      }
+  }
 
 .blog_index_title{
   font-family: $heading_font;
@@ -724,6 +754,12 @@
   color: #66aa00;
   border-bottom: 1px solid #bebebe;
 }
+  @media screen and (max-width: $small_menu) {
+    .blog_index_title {      
+      font-size: 1.6rem;
+      }
+  }
+
  
 .blog_index_options{
   width: 250px;
@@ -744,6 +780,12 @@
     }  
   };
 }
+  @media screen and (max-width: $small_menu) {
+    .blog_index_options{      
+      font-size: 1.2rem;
+      }
+  }
+
 
 .current_topic {
   font-weight: bold;
@@ -866,8 +908,12 @@
 }
 
 .comment_form_label{
+  float:left;
   width: 70px;
-  text-align: left;   
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: $bold_text_color;   
 }
 
 /* create account form */
@@ -915,3 +961,12 @@
       top: 80px;
       }
   }
+  
+.company_form_label{
+  float:left;
+  width: 120px;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: $bold_text_color;   
+}

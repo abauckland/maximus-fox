@@ -1,33 +1,56 @@
 module ApplicationHelper
 
-  def check_current(controller, item)
+  def check_current_web(controller)
     if request.path_parameters[:controller] == controller
-      if item == 'project'       
-        if request.path_parameters[:action] == 'show'
-          return 'not_link'           
-        elsif request.path_parameters[:action] == 'empty_project'
-            return 'not_link' 
-        else
-            return 'current_link'       
-        end
-      end
-
-      if item == 'document'
-        if request.path_parameters[:action] == 'show'
-          return 'current_link'            
-        elsif request.path_parameters[:action] == 'empty_project'
-            return 'current_link'  
-        else
-            return 'not_link'       
-        end
-      end
-            
-      if item != 'project' || 'document'
-          return 'current_link'
-      end
+      return 'current_link'
     else
-        return 'not_link'        
+      return 'not_link'        
     end
+  end
+
+
+  def check_current(item)
+
+    if item == 'project'
+      if request.path_parameters[:controller] == 'projects'
+        if request.path_parameters[:action] === 'manage_subsections'
+          return 'not_link'
+        else
+          return 'current_link'          
+        end       
+      else
+        return 'not_link'                              
+      end
+    end
+
+    if item == 'document'
+      if request.path_parameters[:controller] == 'projects'
+        if request.path_parameters[:action] === 'manage_subsections'
+          return 'current_link'
+        else
+          return 'not_link'          
+        end 
+      else
+        return 'not_link'                              
+      end
+    end
+
+    if item == 'revision'
+      if request.path_parameters[:controller] == 'revisions'
+        return 'current_link'
+      else
+        return 'not_link'                
+      end
+    end
+    
+    if item == 'publish'
+      if request.path_parameters[:controller] == 'prints'
+        return 'current_link'
+      else
+        return 'not_link'                
+      end
+    end
+
   end
 
   
