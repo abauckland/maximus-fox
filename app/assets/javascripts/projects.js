@@ -78,7 +78,23 @@ $(document).ready(function(){
 		section_select_input_1_2_width();
 	});	
 
+//show/hide user settings menu
+	$('nav.app_user_name').click(function (){
+		$('nav.app_user_menu').toggle();
+	});
+  
+	$('nav.app_user_menu').mouseleave(function (){
+		$(this).hide();
+	});
 
+//show or hide website mobile menu settings menu
+	$('nav.app_mob_menu').click(function (){
+		$('nav.mob_spec_menu').toggle();
+	});
+  
+	$('nav.mob_spec_menu').mouseleave(function (){
+		$(this).hide();
+	});
 
 //query for tabulated views	
 $('ul.tabs, ul.tabs_2').each(function(){
