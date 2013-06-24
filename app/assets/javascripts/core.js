@@ -196,6 +196,14 @@ var limit = '310';
 		$(this).hide();
 	});
 
+//show or hide website mobile menu settings menu
+	$('nav.app_mob_menu').click(function (){
+		$('nav.mob_spec_menu').toggle();
+	});
+  
+	$('nav.mob_spec_menu').mouseleave(function (){
+		$(this).hide();
+	});
 
 
 });
