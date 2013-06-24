@@ -8,4 +8,9 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require core
-//= require_tree .
+//= require project
+//= require specright
+//= require jquery.jeditable
+//= require jquery.selectBox
+//= require autogrow
+//= require jquery.tipsy
