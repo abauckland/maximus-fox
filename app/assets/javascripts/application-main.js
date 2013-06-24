@@ -8,7 +8,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require core
-//= require project
+//= require projects
 //= require specright
 //= require jquery.jeditable
 //= require jquery.selectBox
