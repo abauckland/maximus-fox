@@ -149,7 +149,7 @@ var limit = '310';
 
 
 
-//show/hide website mobile menu settings menu
+//show or hide website mobile menu settings menu
 	$('nav.web_menu_mob').click(function (){
 		$('nav.web_mob_menu').toggle();
 	});

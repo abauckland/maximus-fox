@@ -180,10 +180,6 @@ ajaxLinks();
 
 //show/hide functions for spec and clause lines
 
-
-
-
-
 $('#section_select').change(function () {
   $('td.dg_title_subsection').hide()
   $('select:#subsection').hide()
@@ -214,9 +210,6 @@ $('input#project_submit').click(function () {
 $('a.get, a.delete, a[title]').tipsy();
 
 
-
-
-
 $('tr#clause_row').click(function (){
 if($(this).children('td').children('input[type=checkbox]').attr('checked') != false)
 {
@@ -238,6 +231,17 @@ $('select#selected_template_id').selectBox();
 
 $('select#template_sections').selectBox();
 $('select#project_sections').selectBox();
+
+
+
+
+
+
+
+
+
+
+
 
 
 
