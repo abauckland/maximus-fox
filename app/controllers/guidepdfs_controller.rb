@@ -1,16 +1,5 @@
 class GuidepdfsController < ApplicationController
 
-#before_filter :require_user, :except => [:index]
-layout "websites", :except => [:download]
-
- def index
-  @guidepdfs = Guidepdf.includes(:subsections => :section).all#.order('sections.id, subsections.id') 
-       respond_to do |format|  
-        format.html 
-      end   
- end
-
-
  def download
    #subsection = Subsection.where(:id => params[:id]).first
    

@@ -46,15 +46,18 @@ function section_select_input_1_2_width(){
 	var subsection_button_width = $('.subsection_button').outerWidth();
 	var select_width = ((window_width - section_label_width - subsection_label_width - subsection_button_width - 60)/2);	
 	
-	$('.selectBox-dropdown').css({'max-width': select_width +"px"});
+	$('.selectBox-dropdown').css({'max-width': select_width +"200px"});
 	
-	var location = (section_label_width + select_width +40);
+	var location = (section_label_width + select_width + 40);
 	$('.select_2').css({'left': location +"px"});
 	}
 }
 
 
 $(document).ready(function(){
+
+
+
 
 
 //	$('select#section option').each(function(){
@@ -160,6 +163,10 @@ $('ul.tabs, ul.tabs_2').each(function(){
 		}	 		
 	});
 
+//show/hide character menu
+	$('.editable_text4, .editable_text5').click(function(){
+  		$('.character_menu').css('visibility','visible');
+	});
 
 
 //show/hide functions for spec and clause lines menus
@@ -175,25 +182,7 @@ $('ul.tabs, ul.tabs_2').each(function(){
 		$(this).find('td.suffixed_line_menu').css('visibility', 'hidden');
 		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
   	});
-
-//show/hide functions for rev lines
-	$('tr.rev_row, tr.rev_row_strike, tr.clause_title_2').hover(function (){
-  		$(this).children('td.rev_line_menu').toggle();
-  		$(this).children('td.padding').toggle();
-  		$(this).css('background-color', '#efefef');
-  	},
-  	function (){
-  		$(this).children('td.rev_line_menu').toggle();
-  		$(this).children('td.padding').toggle();
-  		$(this).css('background-color', '#ffffff');
-  	});
-
-
-//show/hide character menu
-	$('.editable_text4, .editable_text5').click(function(){
-  		$('.character_menu').css('visibility','visible');
-	});
-
+  	
 //show/hide specline mob menu
 	$('.suffixed_line_menu_mob').click(function (){
 		$(this).closest('table').find('.specline_mob_menu_popup').toggle();
@@ -202,9 +191,72 @@ $('ul.tabs, ul.tabs_2').each(function(){
 	$('tr.specline_mob_menu_popup').mouseleave(function (){
 		$(this).hide();
 	});
+	  	
+
+//show/hide functions for rev lines
+	$('.rev_table').hover(function (){
+		$(this).css('background-color', '#efefef');
+		$(this).find('td.rev_line_menu').css('visibility', 'visible');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'visible');
+  	},
+  	function (){
+		$(this).css('background-color', '#fff');
+		$(this).find('td.rev_line_menu').css('visibility', 'hidden');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'hidden');
+  	});
+
+//show/hide rev mob menu
+	$('.rev_line_menu_mob').click(function (){
+		$(this).closest('table').find('.rev_mob_menu_popup').toggle();
+	});
+ 
+	$('tr.rev_mob_menu_popup').mouseleave(function (){
+		$(this).hide();
+	});
 
 
 $('a.get, a.delete, a[title]').tipsy();
+
+
+//jeditbale functions
+$.editable.addInputType('autogrow', {
+                element : function(settings, original) {
+                    var textarea = $('<textarea />');
+                    if (settings.rows) {
+                        textarea.attr('rows', settings.rows);
+                    } else if (settings.height != "none") {
+                        textarea.height(settings.height);
+                    }
+                   // if (settings.width != 1000) {
+                    //	var test_1 = settings.id;
+                    		
+					//	if ($(window).width()<800 && $(window).width()>400){
+                    //    	var test_diff = 193;
+                    //    	textarea.width(($(window).width()) - test_diff);
+					//	}
+                     //  	else if ($(window).width()<400){
+                     //   	var test_diff = 103;
+                     //   	textarea.width(($(window).width()) - test_diff);                       		
+                     //  	}
+                     //  	else {
+                     //   	var test_1 = settings.id;
+                     //   	var test_diff = $('span#' + test_1).parent('td.text_text').width(); 
+                        	//273
+                    //   		textarea.width(($(window).width()) - test_diff);                        		
+                    //   	}
+                    //}else{
+                    	textarea.width(settings.width);	                       	                       	
+                  //  }
+                    textarea.css("font", "normal 12px arial");
+                    $(this).append(textarea);
+                    return(textarea);
+                },
+//!!the following code prevented jeditable from working in jquery 1.7 but ok in 1.3 - no idea why!
+//                plugin : function(settings, original) {
+//        $('textarea', this).autogrow(settings.autogrow);
+//    }
+});
+
 
 $('.editable_text3').mouseover(function(){
 var spec_id = $(this).attr('id');
@@ -212,7 +264,8 @@ $(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, type:
 }); 
 $('.editable_text4').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+var text_width = $(this).width();
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: text_width, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text5').mouseover(function(){
 var spec_id = $(this).attr('id');
@@ -223,6 +276,12 @@ var spec_id = $(this).attr('id');
 $(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });    
 
+
+//specline linetype edit
+$(document).on('click','.submittable2', function() {
+ $(this).parents('form:first').submit();
+   return false;
+});
 
 //end
 });

@@ -1,12 +1,12 @@
-var p = $('tr#<%= @clause_id %>').find('img');
+var p = $('tr#<%= @clause_id %>').children('td.rev_line_menu').find('img');
 var position = p.offset();
 
 var p_top = position.top
+var info_box ="<div class='change_info'>Revision made by: <%= @clause_change_info.user.email %> on <%= @clause_change_info.created_at.strftime('%d/%m/%y') %></div>"
 
-$('body').after("<div class='change_info'>Revision made by: <%= @clause_change_info.user.email %> on <%= @clause_change_info.created_at.strftime('%d/%m/%y') %></div>");
+$('body').after(info_box);
 
 $('.change_info').css({top: p_top});
-
 
 $('div.change_info').mouseleave(function (){
   $('div.change_info').remove();

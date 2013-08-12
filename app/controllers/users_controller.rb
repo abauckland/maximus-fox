@@ -1,29 +1,28 @@
 class UsersController < ApplicationController
 
-before_filter :require_user#, :except => [:new]
-before_filter :check_project_ownership, :except => [:show, :edit, :create, :unlock_user, :update_licence_status]
+before_filter :require_user
 
 layout "users"
 
 #! new action not used?
 # layout "projects", :except => [:new]
 
-
-  #! action not used?
-#  def new  
-#    @user = User.new
-#  end
+  #user details edit
+  def show
+    #check project ownership private method    
+    @user = User.where(:id => params[:id]).first
+  end
     
   #create new user
   #form only shown where at least one free licence
   #full page re-render upon cmopletion of action  
   def create 
 
-    @current_project = Project.where('id = ? AND company_id =?', params[:user][:id], current_user.company_id).first
+   # @current_project = Project.where('id = ? AND company_id =?', params[:user][:id], current_user.company_id).first
     
-    if @current_project.blank?
-      redirect_to log_out_path
-    end
+  #  if @current_project.blank?
+   #   redirect_to log_out_path
+  #  end
     
     @company = Company.where('id =?', current_user.company_id).first    
     @array_user_ids = User.where(:company_id => current_user.company_id).collect{|i| i.id}.sort
@@ -42,11 +41,11 @@ layout "users"
         licence.user_id = @user.id
         licence.save
         
-        redirect_to(:controller => "users", :action => "edit", :id => @current_project.id)
+        redirect_to(:controller => "users", :action => "edit", :id => current_user.id)
       else
       #! not sure this is ever accessed
       respond_to do |format| 
-        format.html { render :action => "edit" }
+        format.html { render :action => "edit", :id => current_user.id}
         format.xml  { render :xml => @user.errors, :status => :unprocessable_entity }
       end 
     end  
@@ -64,20 +63,19 @@ layout "users"
     @available_licences = @account.no_licence - @active_licences.count
     @licence = params[:licence]
     
-    #create new User object for from
+    #create new User object for form
     @user = User.new  
   end
   
-  #user details edit
-  def show
-    #check project ownership private method
-    
-    @user = User.where(:id => params[:id]).first
-  end
-
   
   def update
      
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
+    
+    if @current_project.blank?
+      redirect_to log_out_path
+    end
+    
     user = User.where('id = ?', current_user.id).first
     if User.authenticate(current_user.email, params[:user][:password]) == user
 
@@ -102,33 +100,29 @@ layout "users"
       @licence.locked_at = 0
     end
 
-    array_user_ids = User.where(:company_id => current_user.company_id).collect{|i| i.id}.sort
-    @active_licences = Licence.where(:user_id => array_user_ids, :active_licence => 1)
+    @company = Company.where('id =?', current_user.company_id).first       
+    @licences = Licence.joins(:user).where('users.company_id' => current_user.company_id)    
+    @active_licences = Licence.joins(:user).where('users.company_id' => current_user.company_id, :active_licence => 1)
     @account = Account.where(:company_id => current_user.company_id).first
+    
     @available_licences = @account.no_licence - @active_licences.count
      
     if @licence.active_licence == 1
-        @licence.active_licence = 0
-                     
-        respond_to do |format|
-            @licence.save
-            @new_available_licences = @available_licences + 1
-            format.js   { render :update_licence_status, :layout => false }
-        end 
+      @licence.active_licence = 0                     
+      @available_licences = @account.no_licence - @active_licences.count + 1 
     else      
-        if @available_licences > 0        
-          @licence.active_licence = 1
-                    
-          respond_to do |format|
-            @licence.save
-            @new_available_licences = @available_licences - 1 
-            format.js   { render :update_licence_status, :layout => false }
-          end
+      if @available_licences >= 0        
+        @licence.active_licence = 1         
+        @available_licences = @account.no_licence - @active_licences.count - 1          
       end
     end
-    #create new User object for from
-    #! might not be needed
-#    @user = User.new  
+    @licence.save
+
+    #create new User object for form
+    @user = User.new 
+            
+    redirect_to(:controller => "users", :action => "edit", :id => current_user.id)
+
   end
 
   
@@ -143,13 +137,5 @@ layout "users"
     end  
   
   end  
-
-protected
-def check_project_ownership
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
-    
-    if @current_project.blank?
-      redirect_to log_out_path
-    end
-end    
+   
 end

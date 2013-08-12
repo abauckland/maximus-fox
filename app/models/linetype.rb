@@ -2,6 +2,7 @@ class Linetype < ActiveRecord::Base
 #associations
 has_many :speclines
 has_many :changes
+has_many :lineclausetypes
 
 #validation
 validates_uniqueness_of :ref

@@ -550,8 +550,9 @@ end
   
   # GET /speclines/1/edit
   def edit     
-    
-    @linetypes = Linetype.where("id > ?", 2)        
+    #before filter establishes @specline
+    @linetypes = Linetype.joins(:lineclausetypes).where('lineclausetypes.clausetype_id'=> @specline.clause.clauseref.clausetype_id).order('id')
+            
   end
   
   
@@ -786,11 +787,7 @@ end
         
             
         respond_to do |format|        
-          if !mobile_device? 
-            format.js   { render :delete_spec, :layout => false }
-          else
-            format.js   { render :mob_delete_spec, :layout => false }
-          end       
+            format.js   { render :delete_spec, :layout => false }      
         end    
   end
 

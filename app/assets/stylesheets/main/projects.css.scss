@@ -286,9 +286,9 @@ right: 30px;
   }
 
 .character_menu{
-display: block;
-visibility: hidden;   
-float: right;
+  display: block;
+  visibility: hidden;   
+  float: right;
 }
   @media screen and (max-width: $large_menu) {
     .character_menu{
@@ -359,8 +359,9 @@ float: right;
 .specline_row{
   font-size: 1.2rem;
   font-family: $standard_font;
-
 }
+.new_specline_row{@extend .specline_row}
+
 
 .edit_clause_code {
   width: 75px;
@@ -487,7 +488,7 @@ td.text_text{padding-top: 5px;
   position: absolute;
   top: 5px;  
   left: 62px;
-  width: 1500px;  
+  width: 175px;  
 }
 
 .revision_tabs{
@@ -563,6 +564,10 @@ td.text_text{padding-top: 5px;
 .changed_clause_title{@extend .rev_clause_title}
 
 
+.rev_table{
+  border-collapse: collapse;
+}
+
 .rev_row_padding{
   padding-left: 120px;
 }
@@ -575,7 +580,7 @@ td.text_text{padding-top: 5px;
 //text denoting the type of change made to clause, i.e. text deleted, added or changed
 .rev_subtitle, .rev_subtitle_strike{
   font-family: $standard_font;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   padding: 5px 0px 5px 100px;
   text-decoration: underline;
 }
@@ -584,6 +589,7 @@ td.text_text{padding-top: 5px;
       padding-left: 35px;
     }  
   }
+.rev_subtitle_strike{color: #b7b7b7}
 
 //row container for changed text where text has been changed within a clause
 .rev_row{
@@ -598,28 +604,72 @@ td.text_text{padding-top: 5px;
   font-size: 1.1rem;
   font-style: italic;
 }
-//.change_title_strike{@extend .rev_row; color: #b7b7b7}
+.change_title_strike{@extend .change_title; color: #b7b7b7}
 
 //text that has been changed, i.e. added, deleted or changed
 .change_line{
   font-family: $standard_font;
   font-size: 1.2rem;  
 }
-//.change_line_strike{@extend .rev_row; color: #b7b7b7}
+.change_line_strike{@extend .change_line; color: #b7b7b7}
 
 
 .rev_line_menu{
-  display: none;
+  display: table-cell;
+  visibility: hidden;
+  text-align: right;
   width: 80px;
   vertical-align: middle;
-  border-left: 1px solid white;
+  padding: 5px 5px 0px 0px;
   a {
-  padding: 0px 5px 0px 5px;
+  padding: 0px 5px 0px 0px;
   };
   img {
   margin: 0px 0px 0px 0px;
   };  
 }
+  @media screen and (max-width: $medium_menu) {
+    .rev_line_menu{
+      display: none;
+      visibility:hidden; 
+    } 
+  }
+  
+//menues for specline when smaller than mob
+.rev_line_menu_mob{
+  display: table-cell;
+  visibility:hidden;  
+  text-align: right;
+  width:25px;
+  padding: 5px 5px 0px 0px;
+  img{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+  @media screen and (min-width: $medium_menu) {     
+    .rev_line_menu_mob{
+      display: none;
+      visibility:hidden;
+    }
+  }
+
+.rev_mob_menu_popup{
+  display: none;
+  width: 100%;
+  border-spacing: 0px;  
+}
+
+.mob_rev_menu{
+  padding-right: 50px;
+  a {
+    float:right;
+    margin-left: 10px
+    }
+  }  
+      
+    
 
 //popup change information
 .change_info{
@@ -633,6 +683,7 @@ td.text_text{padding-top: 5px;
   @include shadow-all(0px 0px 5px #aeaeae);
   border: 1px solid #000;
 }
+
 
 //////////////////////////////////////////////////////////
 //css for publish page
@@ -664,6 +715,19 @@ td.text_text{padding-top: 5px;
   text-align: left;   
 }
 
+#clone_clause_id{
+  width: 300px;
+}
+  @media screen and (min-width: $medium_menu) {
+    #clone_clause_id{width: 200px;} 
+  }
+  
+  @media screen and (max-width: $small_menu) {
+    #clone_clause_id{width: 100px;}
+  }
+  
+#clone_template_id{@extend #clone_clause_id}
+
 ////////////////////////////////////////
 //subsection manage css  
 
@@ -680,9 +744,10 @@ td.text_text{padding-top: 5px;
   font-size: 1.2rem;
   position: absolute;
   right: 120px;
+  width: 210px;
   background: #000;
   color: #fff;
-  padding:4px 5px 10px 10px;
+  padding: 4px 5px 10px 10px;
   @include shadow-all(0px 0px 5px #aeaeae);
 }
   @media screen and (max-width: $small_menu) {
@@ -693,7 +758,7 @@ td.text_text{padding-top: 5px;
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100%;
+  width: 210px;
   color: #fff;
   padding: 9px 10px 9px 5px;
   border-bottom: 1pt solid #fff;

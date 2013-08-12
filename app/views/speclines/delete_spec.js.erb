@@ -1,8 +1,8 @@
 
 $('table#<%=@spec_line_div%>').hide();
 
-<% if !@subsequent_prefixes.blank? %>
+<% if @subsequent_prefixes %>
 	<% @subsequent_prefixes.each do |sub_prefix|%>
-		$('table#<%=sub_prefix[0]%> tr td.prefix').html('<%=sub_prefix[1]%>');
+		$('table#<%=sub_prefix[0]%> tr td.text_prefix').html('<%=sub_prefix[1]%>');
 	<% end %>
 <% end %>

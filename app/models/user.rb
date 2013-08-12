@@ -6,22 +6,22 @@ has_many :productimport
 
 
 
-  attr_accessible :first_name, :surname, :email, :company_id, :role, :password, :password_confirmation, :company 
+  attr_accessible :first_name, :surname, :email, :company_id, :role, :company 
   attr_accessor :password  
   before_save :encrypt_password  
   after_create :add_user_to_mailchimp
   
     
   validates_confirmation_of :first_name
-  validates_confirmation_of :surname 
-  validates_confirmation_of :password  
-  #validates_presence_of :password, :on => :create  
- 
-  validates_presence_of :password, :on => :create, :length => {:minimum => 8}
+  validates_confirmation_of :surname  
+
+  validates :password,   
+            :presence => {:message => "can't be black"},   
+            :length => {:minimum => 8, :message => "must be minimum 8 characters long"} 
     
   validates :email,   
             :presence => true,   
-            :uniqueness => true,
+            :uniqueness => {:message => "A user with this email address already exists"},
             :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }  
       
   def encrypt_password  

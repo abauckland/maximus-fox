@@ -139,35 +139,7 @@ $("#firstpane p.menu_head").mouseout(function()
 //end of web site jquery
 
 
-//jeditbale functions
-$.editable.addInputType('autogrow', {
-                element : function(settings, original) {
-                    var textarea = $('<textarea />');
-                    if (settings.rows) {
-                        textarea.attr('rows', settings.rows);
-                    } else if (settings.height != "none") {
-                        textarea.height(settings.height);
-                    }
-                    if (settings.cols) {
-                        textarea.attr('cols', settings.cols + 10);
-                    } else if (settings.width != "none") {
-                    	if (settings.width > (textarea.width(($(window).width())-330))){
-                        textarea.width(settings.width + 10);
-                       }
-                       else{
-                       	var test_1 = settings.id;
-                       	textarea.width(($(window).width()) - ($('table#' + test_1 + ' span.editable_text3').width()) - ($('table#' + test_1 + ' span.new_editable_text3').width())- 328);
-                       }
-                    }
-                    textarea.css("font", "normal 13px arial");
-                    $(this).append(textarea);
-                    return(textarea);
-                },
-//!!the following code prevented jeditable from working in jquery 1.7 but ok in 1.3 - no idea why!
-//                plugin : function(settings, original) {
-//        $('textarea', this).autogrow(settings.autogrow);
-//    }
-});
+
 
 
 

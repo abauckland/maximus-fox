@@ -1,54 +1,47 @@
-var line_prefix = "<table id='<%=@new_specline.id.to_s%>' width='100%'><tr class='new_specline_row'><td class = 'pad' width = '90'><%= escape_javascript(image_tag("move.png", :mouseover =>"move_rollover.png", :border=>0))%></td>";
-var line_suffix = "<td class='padding'></td><td class='specline_link'><%= escape_javascript(link_to image_tag("insrow.png", :mouseover =>"insrow-rollover.png", :border=>0), {:controller => "speclines", :action => "new_specline", :id => @new_specline.id}, :class => "get")%><%= escape_javascript(link_to image_tag("edit.png", :mouseover =>"edit_rollover.png", :border=>0), {:controller => "speclines", :action => "edit", :id => @new_specline.id}, :class => "get")%><%= escape_javascript(link_to image_tag("delete.png", :mouseover =>"delete-rollover.png", :border=>0), {:controller => "speclines", :action => "delete_specline", :id => @new_specline.id}, :class => "delete")%></td></tr></table>";
-                                                                      
-var linetype_3 = "<td width='10px'></td><td class='prefix' width='18'><%= @new_specline.txt1.text%>.</td><td><span class='new_editable_text4'><%= @new_specline.txt4.text%></span>: <span class='new_editable_text5' style='color: #0000ff'><%= @new_specline.txt5.text.to_s%>.</span></td>";
-var linetype_4 = "<td width='10px'></td><td class='prefix' width='18'><%= @new_specline.txt1.text%>.</td><td><span id='<%= @new_specline.id.to_s%>' class='new_editable_text4'><%= @new_specline.txt4.text.to_s%>.</span></td>";
-var linetype_5 = "<td class='prefix' width='10px'>-</td><td><table><tr><td><span class='new_editable_text3'><%=@new_specline.txt3.text.to_s%></span><td>:</td><td width = '5'></td><td><span class='new_editable_text6' style='color: #0000ff'><%=@new_specline.txt6.text.to_s%>.</span></td></tr></table></td>";
-var linetype_6 = "<td class='prefix' width='10px'>-</td><td><table><tr><td><span class='new_editable_text3'><%=@new_specline.txt3.text.to_s%></span><td>:</td><td width = '5'></td><td><span class='new_editable_text5' style='color: #0000ff'><%=@new_specline.txt5.text.to_s%>.</span></td></tr></table></td>";
-var linetype_7 = "<td class='prefix' width='10px'>-</td><td><span class='new_editable_text4'><%= @new_specline.txt4.text.to_s%></span>.</td>";
-var linetype_8 = "<td class='prefix' width='10px'>-</td><td><span class='new_editable_text4'><%=@new_specline.txt4.text.to_s%></span>: <span class='new_editable_text5' style='color: #0000ff'><%=@new_specline.txt5.text.to_s%>.</span></td>";
-var linetype_9 = "<td class='specline_guide' ><span class='new_editable_text4'><%=@new_specline.txt4.text.to_s%></span></td>";
+$('table#<%=@specline.id%>').after('<%= escape_javascript(render :partial => 'specline_new', :locals => {:new_specline => @new_specline}) %>');
 
 
-switch(<%=@new_specline.linetype_id%>){
-case 3: $('table#<%=@specline.id%>').after(line_prefix + linetype_3 + line_suffix); break;
-case 4: $('table#<%=@specline.id%>').after(line_prefix + linetype_4 + line_suffix); break;
-case 5: $('table#<%=@specline.id%>').after(line_prefix + linetype_5 + line_suffix); break;
-case 6: $('table#<%=@specline.id%>').after(line_prefix + linetype_6 + line_suffix); break;
-case 7: $('table#<%=@specline.id%>').after(line_prefix + linetype_7 + line_suffix); break;
-case 8: $('table#<%=@specline.id%>').after(line_prefix + linetype_8 + line_suffix); break;
-case 9: $('table#<%=@specline.id%>').after(line_prefix + linetype_9 + line_suffix); break;
-}
+	$('.specline_table').hover(function(){
+		$(this).css('background-color', '#efefef');
+		$(this).find('td.prefixed_line_menu').css('visibility', 'visible');
+		$(this).find('td.suffixed_line_menu').css('visibility', 'visible');
+		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'visible');
+	},
+	function (){
+  		$(this).css('background-color', '#fff');
+		$(this).find('td.prefixed_line_menu').css('visibility', 'hidden');
+		$(this).find('td.suffixed_line_menu').css('visibility', 'hidden');
+		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
+  	});
 
 
-$('tr.new_specline_row').mouseenter(function (){
-  $(this).children('td.specline_link').show();
-      $(this).children('td.pad').children('img').show();
-  $(this).children('td.padding').hide();
-  $(this).css('background-color', '#efefef');
-  });
-  
-
-$('table#<%=@new_specline.id%> span.new_editable_text3').mouseover(function(){
-$(this).editable('/speclines/<%=@new_specline.id%>/update_specline_3', {id: <%=@new_specline.id%>, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%=@new_specline.id%>', authenticity_token: AUTH_TOKEN}});    
-});
-$('table#<%=@new_specline.id%> span.new_editable_text4').mouseover(function(){
-$(this).editable('/speclines/<%=@new_specline.id%>/update_specline_4', {id: <%=@new_specline.id%>, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%=@new_specline.id%>', authenticity_token: AUTH_TOKEN}});    
-}); 
-$('table#<%=@new_specline.id%> span.new_editable_text5').mouseover(function(){
-$(this).editable('/speclines/<%=@new_specline.id%>/update_specline_5', {id: <%=@new_specline.id%>, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%=@new_specline.id%>', authenticity_token: AUTH_TOKEN}});    
-}); 
-$('table#<%=@new_specline.id%> span.new_editable_text6').mouseover(function(){
-$(this).editable('/speclines/<%=@new_specline.id%>/update_specline_6', {id: <%=@new_specline.id%>, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%=@new_specline.id%>', authenticity_token: AUTH_TOKEN}});    
-});     
+	$('.suffixed_line_menu_mob').click(function (){
+		$(this).closest('table').find('.specline_mob_menu_popup').show();
+	});
  
-  
-$('tr.new_specline_row').mouseleave(function (){
-  $(this).children('td.specline_link').hide();
-      $(this).children('td.pad').children('img').hide();
-  $(this).children('td.padding').show();
-  $(this).css('background-color', '#ffffff');
-  });
+	$('tr.specline_mob_menu_popup').mouseleave(function (){
+		$(this).hide();
+	});
+
+
+$('.editable_text3').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text4').mouseover(function(){
+var spec_id = $(this).attr('id');
+var text_width = $(this).width();
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: text_width, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text5').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+$('.editable_text6').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+ 
 
 $('table#<%=@new_specline.id%> a.delete').deleteWithAjax();
 $('table#<%=@new_specline.id%> a.put').putWithAjax();
@@ -56,12 +49,11 @@ $('table#<%=@new_specline.id%> a.get').getWithAjax();
 $('table#<%=@new_specline.id%> a.post').postWithAjax();
 
 
-<% if !@subsequent_prefixes.blank? %>
+<% if @subsequent_prefixes %>
 	<% @subsequent_prefixes.each_with_index do |sub_prefix, i|	%>
-		$('table#<%=sub_prefix[0]%> tr td.prefix').html('<%=sub_prefix[1]%>');
+		$('table#<%=sub_prefix[0]%> tr td.text_prefix').html('<%=sub_prefix[1]%>');
 	<% end %>
 <% end %>
-
 
 
 

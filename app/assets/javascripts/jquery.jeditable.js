@@ -198,6 +198,8 @@
                     }
                 }
 
+form.css('display', 'inline'); 
+
                 /* add main input element to form and store it in input */
                 var input = element.apply(form, [settings, self]);
 
@@ -536,7 +538,7 @@
         name       : 'value',
         id         : 'id',
         type       : 'text',
-        width      : 'auto',
+        width      : 'width',
         height     : 'auto',
         event      : 'click.editable',
         onblur     : 'cancel',

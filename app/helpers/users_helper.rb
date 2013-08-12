@@ -18,13 +18,13 @@ module UsersHelper
   def  check_active(licence)
   
   check_user_role = User.where('id =?', licence.user_id).first
-    if check_user_role.role == 'admin'
+    if check_user_role.role != 'admin'
       if licence.active_licence == 0 
-        "<div class='small_green_button'>#{activate(licence)}</div> <div class='small_red_button' style='display: none;'>#{deactivate(licence)}</div>".html_safe
+        "<div class='small_red_button'>#{activate(licence)}</div>".html_safe
       else
-        "<div class='small_red_button'>#{deactivate(licence)}</div> <div class='small_green_button' style='display: none;'>#{activate(licence)}</div>".html_safe
-      end
-    end
+        "<div class='small_green_button'>#{deactivate(licence)}</div>".html_safe
+      end   
+    end    
   end
   
   
@@ -37,22 +37,21 @@ module UsersHelper
   end
   
   def  locked_at(licence)
-
-    #if licence.locked_at == 1
-      "<div class='small_green_button'>#{remove_unlock(licence)}</div>".html_safe   
-    #end
+    if licence.locked_at == 1
+      "<div class='small_red_button'>#{remove_unlock(licence)}</div>".html_safe   
+    end
   end
 
   def deactivate(licence)
-    link_to 'active', {:controller=> "users", :action => "update_licence_status", :id => licence.user_id}, :class => "get"
+    link_to 'active', {:controller=> "users", :action => "update_licence_status", :id => licence.user_id}
   end
 
   def activate(licence)
-    link_to 'inactive', {:controller=> "users", :action => "update_licence_status", :id => licence.user_id}, :class => "get"
+    link_to 'inactive', {:controller=> "users", :action => "update_licence_status", :id => licence.user_id}
   end
   
   def remove_unlock(licence)
-    link_to 'un-lock', {:controller=> "users", :action => "unlock_user", :id => licence.user_id}, :class => "get"
+    link_to 'locked', {:controller=> "users", :action => "unlock_user", :id => licence.user_id}, :class => "get"
   end
   
 end

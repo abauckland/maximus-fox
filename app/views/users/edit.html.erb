@@ -11,7 +11,7 @@
 					<th class="mob_cell">Created</th>
 					<th class="s_tab">Log-ins</th>
 					<th class="s_tab">Last Log-in</th>
-					<th width="60px"></th>
+					<th width="60px">Status</th>
 					<th width="60px"></th>
 				</tr>
 				<% @licences.each do |licence|%>
@@ -21,8 +21,8 @@
 					<td class="mob_cell"><%= created(licence) %></td>
 					<td class="s_tab"><%= licence.number_times_logged_in %></td>
 					<td class="s_tab"><%= last_seen(licence) %></td>
-					<td><%= check_active(licence) %></td> 
-					<td><%= locked_at(licence) %></td>    
+					<td class="active_licence"><%= check_active(licence) %></td> 
+					<td id="<%=licence.user_id%>-unlock"><%= locked_at(licence) %></td>    
 				</tr>
 				<%end%>  
 			</table>           
@@ -42,12 +42,13 @@
 					<% if @user.errors.any? %> 
 					<div class="column_error">      		    
         				<div class="column_error_heading">
-        					<p>A number of errors prohibited this user from being created, please complete highlighted items:</p>
+        					<p>A number of errors prohibited this user from being created:</p>
         				</div>
         				<div class="column_error_content">
         					<ul>
-								<li>Error</li>
-								<li>Error</li>
+        						<%@user.errors.each do |attribute, message|%>
+								<li><%= "#{attribute}: #{message}" %></li>
+								<%end%>
         					</ul>
         				</div>
 					</div>

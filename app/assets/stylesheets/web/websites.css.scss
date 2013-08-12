@@ -272,7 +272,7 @@
   margin: 0px 0px 15px 0px;
   font-family: $heading_font;
   font-size: 3rem;
-  color: #333333;
+  color: #555;
   border-bottom: 2px solid #dddddd;
   }
   @media screen and (max-width: $medium_menu) {
@@ -336,18 +336,19 @@
   padding: 15px 0px 10px 0px;
   font-size: 2.8rem;
   font-weight: bold;
+  color: #555;
   line-height: 3.2rem; 
 }
   @media screen and (max-width: $medium_menu) {
     .web_tagline_text {
-      max-width: 400px;
+      max-width: 350px;
       font-size: 2.3rem;
       line-height: 2.7rem;  
       }
   }
   @media screen and (max-width: $small_menu) {
     .web_tagline_text {      
-      max-width: 300px;
+      max-width: 250px;
       font-size: 1.8rem;
       line-height: 2rem;  
       }
@@ -548,7 +549,8 @@
   line-height: 1.8rem;
   padding: 10px 0px 10px 0px;  
   a{
-    color: #66aa00; 
+    color: #66aa00;
+    text-decoration: none; 
     &:hover{text-decoration: underline;} 
   }
 }
@@ -970,3 +972,5 @@
   font-size: 1.2rem;
   color: $bold_text_color;   
 }
+
+

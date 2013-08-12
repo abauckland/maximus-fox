@@ -105,7 +105,12 @@ $standard_font: Arial,Helvetica,sans-serif;
   border: 1px solid #ce0100;
   }
                         
-                      
+.small_orange_button{
+  font-family: $heading_font;
+  @include small-button;
+  @include orange-button;
+  border: 1px solid #ce0100;
+  }                      
                       
 //icons
 @mixin icon-save {background: image-url('icons.png') no-repeat; background-position:  0px -120px;}

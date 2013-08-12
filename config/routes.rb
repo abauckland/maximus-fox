@@ -7,6 +7,7 @@ SpecrightDev::Application.routes.draw do
   root :to => "homes#index"  
   match 'prints/:id/print_project' => 'prints#print_project', :defaults => { :format => 'pdf' }
   match 'productimports/:id/product_error_print' => 'productimports#product_error_print', :defaults => { :format => 'pdf' } 
+
  
   get "home" => "homes#index", :as => "home"
     
@@ -17,6 +18,7 @@ SpecrightDev::Application.routes.draw do
   get "faqs" => "faqs#index", :as => "faqs"
   get "combined" => "homes#combined_home", :as => "combined"
   get "supplier" => "homes#supplier_home", :as => "supplier"
+  get 'guidepdfs', to: redirect('/features/9')
   
   resources :helps do
     get :tutorial, :on => :member
@@ -27,7 +29,6 @@ SpecrightDev::Application.routes.draw do
   resources :features
   resources :guidenotes
   resources :sponsors
-
   resources :guidedownloads
   resources :sessions
   resources :posts do
@@ -123,5 +124,11 @@ SpecrightDev::Application.routes.draw do
     get :product_error_print, :on => :member
   end
   resources :productreports
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :downloadguides
+    end
+  end
   
 end
