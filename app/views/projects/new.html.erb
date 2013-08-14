@@ -51,6 +51,8 @@
       		<div class="column_footer">
         		<div>
         			<div class="column_submit"><%= f.submit "save"%></div>              
+
+        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "projects", :action => "index"} %></div>              
         		<% end %>       		             
         		</div>   
       		</div>

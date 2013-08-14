@@ -80,7 +80,17 @@
 	<div class="tab_sub_menu">		
 		<%= guidance_link(@current_project.id, @selected_key_subsection.id) %>
 		<div class="character_menu">
-			<div class="character_menu_content"><ul></ul></div>
+			<div class="character_menu_content">
+				<ul>
+					<li onclick="insertText('º')">º</li>
+					<li onclick="insertText('¹')">¹</li>
+					<li onclick="insertText('²')">²</li>
+					<li onclick="insertText('³')">³</li>
+					<li onclick="insertText('±')">±</li>
+					<li onclick="insertText('≤')">≤</li>
+					<li onclick="insertText('≥')">≥</li>
+				</ul>
+			</div>
 			<div class="character_menu_label">insert symbol:</div>
 		</div>
 		

@@ -1,7 +1,10 @@
-var p = $('tr#<%= @line_id %>').children('td.rev_line_menu').find('img');
-var position = p.offset();
 
-var p_top = position.top
+var p = $('tr#<%= @line_id %>').children('td.rev_row_padding');
+
+var offset = p.offset();
+var height = p.height();
+
+var p_top = (offset.top + (height/2));
 
 $('body').after("<div class='change_info'>Revision made by: <%= @line_change_info.user.email %> on <%= @line_change_info.created_at.strftime('%d/%m/%y') %></div>");
 

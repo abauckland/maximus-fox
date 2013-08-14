@@ -5,7 +5,7 @@
 	</div>
 <div class="guide_text"><%= @guidenote.text.html_safe %></div>
 
-<% if @guide_sponsors %>
+<% if !@guide_sponsors.blank? %>
 <div class="guide_sponsor">
 	<div class="guide_logo_text">Guidance notes sponsored by:</div>
 	<div class="guide_logos">

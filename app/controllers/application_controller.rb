@@ -31,11 +31,11 @@ protected
     
     #allow main account view projects within admin account (company_id = 2)
     if company_id != 1
-      master_templates = Project.where("company_id =?", 1)
-      @project_templates =  project_templates + master_templates
+      master_templates = Project.where("company_id =?", 1).order('id')
+      @project_templates = master_templates + project_templates
     else
-      admin_templates = Project.where("company_id =?", 2)
-      @project_templates =  project_templates + admin_templates
+      admin_templates = Project.where("company_id =?", 2).order('id')
+      @project_templates =  admin_templates + project_templates
     end
     
     #get curent template for project

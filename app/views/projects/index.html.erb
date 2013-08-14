@@ -10,7 +10,7 @@
 	<div class="project_select">
 		<div class="project_label_select">Project:</div>
 		<div class="small_hide project_option_select">
-      		<%= select_tag "project", options_from_collection_for_select(@projects, :id, :project_code_and_title, @current_project.id), {:class => 'project_selectBox', :onchange => "window.location='/projects/'+this.value;"} %> 		
+      		<%= select_tag "project", options_from_collection_for_select(@projects, :id, :project_code_and_title, @current_project.id), { :class => 'project_selectBox', :onchange => "window.location='/projects/'+this.value;"} %> 		
 		</div>
 		<div class="small_show project_option_select">
       		<%= select_tag "project", options_from_collection_for_select(@projects, :id, :project_code, @current_project.id), {:class => 'project_selectBox', :onchange => "window.location='/projects/'+this.value;"} %> 		

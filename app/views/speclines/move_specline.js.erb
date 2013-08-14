@@ -22,7 +22,7 @@ $('table#<%=@updated_specline.id%> a.post').postWithAjax();
 		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
   	});
 
-
+	$('.suffixed_line_menu_mob').off('click');
 	$('.suffixed_line_menu_mob').click(function (){
 		$(this).closest('table').find('.specline_mob_menu_popup').show();
 	});

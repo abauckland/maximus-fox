@@ -500,13 +500,15 @@ td.text_text{padding-top: 5px;
 }  
   @media screen and (max-width: $medium_menu) {
     .revision_tabs{
-      position: absolute;
       top: 145px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px; 
     }  
   }
+  @media screen and (max-width: $small_menu) {
+    .revision_tabs{
+      top: 95px;
+    }  
+  }
+
 
 //type of revision that has been undertaken to subsequent list of subsections
 .rev_title{
@@ -678,11 +680,21 @@ td.text_text{padding-top: 5px;
   color: #fff;
   font: normal 12px verdana;
   padding: 4px 10px 4px 10px;
-  @include orange_28_gradient;
   @include border-radius(0.5rem);
   @include shadow-all(0px 0px 5px #aeaeae);
   border: 1px solid #000;
 }
+  @media screen and (min-width: $medium_menu) {
+    .change_info{
+      @include orange_28_gradient;
+    } 
+  } 
+  @media screen and (max-width: $medium_menu) {
+    .change_info{
+      left: 20px;
+      background-color: #E5A323; 
+    } 
+  } 
 
 
 //////////////////////////////////////////////////////////

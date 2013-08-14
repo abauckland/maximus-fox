@@ -9,6 +9,7 @@ $('table#<%=@specline_update.id%> a.get').getWithAjax();
 $('table#<%=@specline_update.id%> a.post').postWithAjax();
 
 
+	$('.suffixed_line_menu_mob').off('hover');
 	$('.specline_table').hover(function(){
 		$(this).css('background-color', '#efefef');
 		$(this).find('td.prefixed_line_menu').css('visibility', 'visible');
@@ -23,6 +24,7 @@ $('table#<%=@specline_update.id%> a.post').postWithAjax();
   	});
 
 
+	$('.suffixed_line_menu_mob').off('click');
 	$('.suffixed_line_menu_mob').click(function (){
 		$(this).closest('table').find('.specline_mob_menu_popup').show();
 	});

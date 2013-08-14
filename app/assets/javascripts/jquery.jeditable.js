@@ -198,9 +198,16 @@
                     }
                 }
 
-form.css('display', 'inline'); 
+form.css('display', 'inline');
 
-                /* add main input element to form and store it in input */
+if ('text' == settings.type){
+$('.character_menu').css('visibility','visible');  
+}
+if ('autogrow' == settings.type){
+$('.character_menu').css('visibility','visible');  
+}
+
+               /* add main input element to form and store it in input */
                 var input = element.apply(form, [settings, self]);
 
                 /* set input content via POST, GET, given data or existing value */
@@ -285,9 +292,10 @@ form.css('display', 'inline');
                             form.submit();
                         }, 200);
                     });
+	                                        
                 } else if ($.isFunction(settings.onblur)) {
                     input.blur(function(e) {
-                        settings.onblur.apply(self, [input.val(), settings]);
+                        settings.onblur.apply(self, [input.val(), settings]);                        
                     });
                 } else {
                     input.blur(function(e) {
@@ -369,7 +377,7 @@ form.css('display', 'inline');
                             }
                         }
                     }
-                    
+$('.character_menu').css('visibility','hidden'); 
                     /* show tooltip again */
                     $(self).attr('title', settings.tooltip);
                     
@@ -464,7 +472,6 @@ form.css('display', 'inline');
                     //input[0].setAttribute('autocomplete','off');
                     input.attr('autocomplete','off');
                     $(this).append(input);
-                    ('.character_menu').css('visibility', 'visible'); 
                     return(input);
                 }
             },

@@ -5,13 +5,15 @@
 		<div class="column_content">
 			<div class="column_title">Account details</div>   
       
-      		<% if @company.errors.any? %>  
-      		<div class="column_error">
-        		<p><%= pluralize(@company.errors.count, "error") %> prohibited this account from being created</p>
-      		</div>
-	  		<% end %> 
-
-    		<div class="column_sub_content">
+			<div class="column_sub_content">
+			
+				<% if @company.errors.any? %>  
+					<div class="column_error">      		    
+        				<div class="column_error_text">
+        					<p><%= pluralize(@company.errors.count, "error") %> prohibited this account from being created, please refer to items highlighted below.</p>
+        				</div>
+					</div>
+				<% end %>      		
 
 				<div class="column_guide">
  					<p>Complete this form to create a free single user account. If you would like more informatiion or have any questions regarding the application, account creation or anything else for that matter please contact us.</p>    			

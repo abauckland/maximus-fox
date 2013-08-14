@@ -1,30 +1,55 @@
-<div class="web_page_body">
-	<div class="web_title">Password Reset</div>
+<div class="account_title">Password Reset</div>
 
-
-	<div class="web_password_reset">
-		<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-  			<% if @user.errors.any? %>
-    			<div class="error_messages">
-      				<h2>Form is invalid</h2>
-      				<ul>
-        				<% for message in @user.errors.full_messages %>
-          					<li><%= message %></li>
-        				<% end %>
-      				</ul>
-    			</div>
-  			<% end %>
-  			<div class="field">
-    			<%= f.label :password %>
-    			<%= f.password_field :password %>
-  			</div>
-  			<div class="field">
-    			<%= f.label :password_confirmation %>
-    			<%= f.password_field :password_confirmation %>
-  			</div>
-  			<div class="actions"><%= f.submit "Update Password" %></div>
-		<% end %>
+<div class="content">
+	<div class="column_1">
+		<div class="column_content">
+			<div class="column_title">Confirm Details</div>   
+      
+			<div class="column_sub_content">
+			
+				<% if @user.errors.any? %>  
+					<div class="column_error">      		            				
+        				<div class="column_error_heading">
+      						<p>Form is invalid</p>
+      					</div>
+      					<div class="column_error_content">
+      						<ul>
+        						<% for message in @user.errors.full_messages %>
+          							<li><%= message %></li>
+        						<% end %>
+      						</ul>
+    					</div>
+					</div>
+				<% end %>
+				
+				<div class="column_form">
+				<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>	
+				<table>
+						<tr><td>
+							<div class="company_form_label form_input_label"><%= f.label :password %></div>
+							<div class="form_input"><%= f.password_field :password %></div>						
+						</td></tr>
+						<tr><td>
+							<div class="company_form_label form_input_label"><%= f.label :password_confirmation %></div>
+							<div class="form_input"><%= f.password_field :password_confirmation %></div>						
+						</td></tr>
+				</table>			
+				</div>	
+			</div>
+				
+			<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= f.submit "Update Password" %></div>              
+        		<% end %>       		             
+        		</div>   
+      		</div>			    	
+      	</div>   
 	</div>
+
+
+	<div class="column_2 column_blank"></div>	
+		 
+    <div class="column_3 column_blank"></div>				
 
 	<%= render :partial => "application/web_footer" %>
 

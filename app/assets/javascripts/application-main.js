@@ -11,6 +11,7 @@
 //= require projects
 //= require specright
 //= require jquery.jeditable
+//= require jquery.keypad
 //= require jquery.selectBox
 //= require autogrow
 //= require jquery.tipsy

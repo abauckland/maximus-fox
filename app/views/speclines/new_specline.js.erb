@@ -14,9 +14,9 @@ $('table#<%=@specline.id%>').after('<%= escape_javascript(render :partial => 'sp
 		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
   	});
 
-
+	$('.suffixed_line_menu_mob').off('click');
 	$('.suffixed_line_menu_mob').click(function (){
-		$(this).closest('table').find('.specline_mob_menu_popup').show();
+		$(this).closest('table').find('.specline_mob_menu_popup').toggle();
 	});
  
 	$('tr.specline_mob_menu_popup').mouseleave(function (){

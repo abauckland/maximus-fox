@@ -252,15 +252,15 @@ module RevisionsHelper
         if current_revision_check.date != nil
           if selected_revision.rev == '-'
             if current_revision_check.rev == '-'
-              "<p>No changes have been made to the original document.</p>".html_safe
+              "<p>No changes have been made to this document.</p>".html_safe
             else
-              "<p>This is the original verision of the document before any changes were made.</p>".html_safe  
+              "<p>This is the first version of the document.</p>".html_safe  
             end
           else
             if current_revision_check.rev == '-'
               "<p>No changes have been made to the document since it was last published.</p>".html_safe
             else
-              "<p>This is the original verision of the document before any changes were made.</p>".html_safe
+              "<p>This is the first version of the document.</p>".html_safe
             end
           end
         else

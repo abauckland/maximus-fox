@@ -30,7 +30,8 @@ SpecrightDev::Application.routes.draw do
   resources :guidenotes
   resources :sponsors
   resources :guidedownloads
-  resources :sessions
+
+  
   resources :posts do
     resources :comments
   end
@@ -129,6 +130,12 @@ SpecrightDev::Application.routes.draw do
     namespace :v1 do
       resources :downloadguides
     end
+  end
+
+  resources :sessions do
+    collection do
+      post :create_session
+    end    
   end
   
 end

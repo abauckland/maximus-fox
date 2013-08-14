@@ -136,11 +136,6 @@ $('ul.tabs, ul.tabs_2').each(function(){
 });
 
 
-//special character menue
-	var characters = ['º', '¹','²', '³', '¼', '¾','±', '≠', '≤', '≥']
-	$.each(characters, function(val, text){
-  		$('.character_menu_content').children('ul').append($('<li class="character"></li>').val(val).html(text));
-	});
 
 
 //sortable specline
@@ -164,9 +159,11 @@ $('ul.tabs, ul.tabs_2').each(function(){
 	});
 
 //show/hide character menu
-	$('.editable_text4, .editable_text5').click(function(){
-  		$('.character_menu').css('visibility','visible');
-	});
+//	$('.editable_text4, .editable_text5').click(function(){
+//  		$('.character_menu').css('visibility','visible');
+//	});
+
+
 
 
 //show/hide functions for spec and clause lines menus
@@ -191,7 +188,8 @@ $('ul.tabs, ul.tabs_2').each(function(){
 	$('tr.specline_mob_menu_popup').mouseleave(function (){
 		$(this).hide();
 	});
-	  	
+	
+
 
 //show/hide functions for rev lines
 	$('.rev_table').hover(function (){
@@ -256,6 +254,7 @@ $.editable.addInputType('autogrow', {
 //        $('textarea', this).autogrow(settings.autogrow);
 //    }
 });
+
 
 
 $('.editable_text3').mouseover(function(){

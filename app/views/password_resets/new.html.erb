@@ -1,22 +1,40 @@
-<div class="web_page_body">
-	<div class="web_title">Password Reset</div>
+<div class="account_title">Password Reset</div>
 
+<div class="content">
+	<div class="column_1">
+		<div class="column_content">
+			<div class="column_title">Confirm Details</div>   
+      
+			<div class="column_sub_content">
+			
+				<div class="column_guide">
+      				<p>Please confirm your email address below. An e-mail will be sent to you with password reset instructions.</p>
+      			</div>
 
-	<div class="web_password_reset">
-		<%= form_tag password_resets_path, :method => :post do %>
-  			<div class="field">
-    			Please enter your e-mail address:</br></br>
-    			<%= text_field_tag :email, params[:email], :size => 50 %> 
-  			</div>
-  			<div class="actions">
-  			</br>
-  				<%= submit_tag "Reset Password" %>
-  				</br>
-  				</br>
-  				An e-mail will be sent to you with password reset instructions.
-  			</div>
-		<% end %>
+				<div class="column_form">
+				<%= form_tag password_resets_path, :method => :post do %>	
+				<table>
+						<tr><td>
+							<div class="company_form_label form_input_label">Email Address:</div>
+							<div class="form_input"><%= text_field_tag :email, params[:email] %></div>						
+						</td></tr>
+				</table>			
+				</div>	
+			</div>
+				
+			<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= submit_tag "Reset Password" %></div>              
+        		<% end %>       		             
+        		</div>   
+      		</div>			    	
+      	</div>   
 	</div>
+
+
+	<div class="column_2 column_blank"></div>	
+		 
+    <div class="column_3 column_blank"></div>				
 
 	<%= render :partial => "application/web_footer" %>
 

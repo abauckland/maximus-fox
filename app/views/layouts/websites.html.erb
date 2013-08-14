@@ -53,7 +53,7 @@
   		<% end %>
 		
 		<div class="web_login">   
-    	<%= form_tag sessions_path do %>
+    	<%= form_tag create_session_sessions_path do %>
     		<div class="web_login_username">       
           		<%= text_field_tag :email, params[:email], :id=>"login_email", :placeholder => "Email address" %>  
           		<%= password_field_tag :password, params[:password], :id=>"password", :placeholder => "Password" %>  
