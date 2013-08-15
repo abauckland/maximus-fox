@@ -168,6 +168,7 @@ function tab_2_label_width(){
 $(document).ready(function(){
 
 
+
 //variables for setting column widths - where 3 coloumns
 var s_tab = '1240';
 var mob = '720';

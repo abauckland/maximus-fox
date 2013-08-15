@@ -325,10 +325,22 @@
 
 .web_main_column_1{
   float: left;
+  width: 100px;
   padding: 0px 20px 0px 20px;
+  background-color: green;
+
 }
 
-.web_main_column_2{@extend .web_main_column_1}
+.web_main_column_2{
+  float: left;
+  padding: 0px 20px 0px 20px;
+  background-color: blue;
+}
+
+.web_home_image_test{
+}
+
+
 
 
 .web_tagline_text{

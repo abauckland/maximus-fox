@@ -183,17 +183,17 @@ right: 30px;
 //document show page
 
 .section_select_desktop{display: none}  
-  @media screen and (min-width: $medium_menu) {
+  @media screen and (min-width: 1050px) {
     .section_select_desktop{display: block}
   }
 
 .section_select_tablet{display: none}
-  @media screen and (min-width: $small_menu) and (max-width: $medium_menu){  
+  @media screen and (min-width: 520px) and (max-width: 1050px){  
     .section_select_tablet{display: block}
   }
 
 .section_select_mobile{display: none}
-  @media screen and (max-width: $small_menu) {
+  @media screen and (max-width: 520px) {
     .section_select_mobile{display: block}
   }
 
@@ -287,7 +287,7 @@ right: 30px;
 
 .character_menu{
   display: block;
-  visibility: hidden;   
+  visibility: visible;   
   float: right;
 }
   @media screen and (max-width: $large_menu) {
@@ -307,6 +307,9 @@ right: 30px;
       list-style-type: none;
       margin: 3px 0px 3px 0px;
       -webkit-padding-start: 0px;
+      li{
+        font-size: 1.6rem;
+      }
     }
 }
 

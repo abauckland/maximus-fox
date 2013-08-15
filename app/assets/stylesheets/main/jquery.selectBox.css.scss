@@ -54,6 +54,7 @@ position: absolute;
   top: 110px;
   z-index: 99999;
   max-height: 200px;
+    min-width: 60px;
   border: solid 1px #BBB; /* should be the same border width as .selectBox-dropdown */
   background: #FFF;
   overflow: auto;

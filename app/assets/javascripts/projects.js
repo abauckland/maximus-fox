@@ -1,57 +1,29 @@
-	
-
-
-
 function form_input() {
 	var label_width = $('.form_input_label').width();
 	var table_width = $('.column_1, .column_2, .column_3').find('table').width();
 	var min_table_wdith = 270;
 
 	if((min_table_wdith + label_width) > table_width) {
-		$('select#project_parent_id').width(table_width);
+		$('.form_input').children('select').width(table_width-10);
 	}
 	else {
-		$('select#project_parent_id').width((table_width-label_width));
+		$('.form_input').children('select').width((table_width-label_width-10));
 	}
 }
 	
-
 function section_select_location(){
-	if ($(window).width() > 800){ //refer to meduium menu size set in core.css
-	var label_width = $('.select_1').outerWidth();
-	var select_width = $('.document_selectBox_1').outerWidth();
-	var location = (label_width + select_width +10);
-	
+	var label_width = $('div.section_select_desktop').find('.select_1').outerWidth();
+	var select_width = $('div.section_select_desktop').find('select').width();
+	var location = (label_width + select_width + 20);
+
+	//if ($(window).width() > 800){ //refer to meduium menu size set in core.css
 		$('.select_2').css({'left': location +"px"});
-	}else{
-		$('.select_2').css({'left': "0px"});	
-	}
+	//}else{
+	//	$('.select_2').css({'left': "0px"});	
+	//}
 }
 
-//controls width of section and subsection select when select menu is stacked
-function section_select_input_1_width(){
-	if ($(window).width()<800){ //refer to meduium menu size set in core.css
-		var select_width = ($(window).width() - 240);		
-		$('.selectBox-dropdown').css({'max-width': select_width +"px"});
-	}
-}
 
-//controls width of section and subsection select when select menus are inline
-function section_select_input_1_2_width(){
-	if ($(window).width()>800){ //refer to meduium menu size set in core.css
-	
-	var window_width = $(window).width();
-	var section_label_width = $('.select_1').outerWidth();
-	var subsection_label_width = $('.select_2').outerWidth();
-	var subsection_button_width = $('.subsection_button').outerWidth();
-	var select_width = ((window_width - section_label_width - subsection_label_width - subsection_button_width - 60)/2);	
-	
-	$('.selectBox-dropdown').css({'max-width': select_width +"200px"});
-	
-	var location = (section_label_width + select_width + 40);
-	$('.select_2').css({'left': location +"px"});
-	}
-}
 
 
 $(document).ready(function(){
@@ -59,27 +31,20 @@ $(document).ready(function(){
 
 
 
-
-//	$('select#section option').each(function(){
-//		var text=$(this).text();
-//		if (text.length>14){
-//			$(this).val(text).text(text.substr(0,13)+'…');
-//		}
-//	});
-
-
-
 //table input width for new user
 	form_input();	
 	section_select_location();
-	section_select_input_1_width();
-	section_select_input_1_2_width();
 	$(window).resize(function(){
 		form_input();
 		section_select_location();
-		section_select_input_1_width();
-		section_select_input_1_2_width();
 	});	
+
+
+	$('.project_option_select').children('select').selectBox({autoWidth: false});
+	$('select#section, select#subsection').selectBox({autoWidth: false});
+	$('select#revision').selectBox().selectBox({autoWidth: false});
+
+	
 
 //show/hide user settings menu
 	$('nav.app_user_name').click(function (){
@@ -225,54 +190,37 @@ $.editable.addInputType('autogrow', {
                     } else if (settings.height != "none") {
                         textarea.height(settings.height);
                     }
-                   // if (settings.width != 1000) {
-                    //	var test_1 = settings.id;
-                    		
-					//	if ($(window).width()<800 && $(window).width()>400){
-                    //    	var test_diff = 193;
-                    //    	textarea.width(($(window).width()) - test_diff);
-					//	}
-                     //  	else if ($(window).width()<400){
-                     //   	var test_diff = 103;
-                     //   	textarea.width(($(window).width()) - test_diff);                       		
-                     //  	}
-                     //  	else {
-                     //   	var test_1 = settings.id;
-                     //   	var test_diff = $('span#' + test_1).parent('td.text_text').width(); 
-                        	//273
-                    //   		textarea.width(($(window).width()) - test_diff);                        		
-                    //   	}
-                    //}else{
-                    	textarea.width(settings.width);	                       	                       	
-                  //  }
+
+                   	textarea.width(settings.width);	                       	                       	
+
                     textarea.css("font", "normal 12px arial");
                     $(this).append(textarea);
                     return(textarea);
                 },
-//!!the following code prevented jeditable from working in jquery 1.7 but ok in 1.3 - no idea why!
-//                plugin : function(settings, original) {
-//        $('textarea', this).autogrow(settings.autogrow);
-//    }
+    			plugin : function(settings, original) {
+        			$('textarea', this).symbols();
+        			$('textarea', this).autogrow();
+    			},
 });
 
 
 
 $('.editable_text3').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() + 10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text4').mouseover(function(){
 var spec_id = $(this).attr('id');
 var text_width = $(this).width();
-$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: text_width, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: $(this).width()+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text5').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, width: $(this).width()+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });    
 $('.editable_text6').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: $(this).width()+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });    
 
 

@@ -200,12 +200,12 @@
 
 form.css('display', 'inline');
 
-if ('text' == settings.type){
-$('.character_menu').css('visibility','visible');  
-}
-if ('autogrow' == settings.type){
-$('.character_menu').css('visibility','visible');  
-}
+//if ('text' == settings.type){
+//$('.character_menu').css('visibility','visible');  
+//}
+//if ('autogrow' == settings.type){
+//$('.character_menu').css('visibility','visible');  
+//}
 
                /* add main input element to form and store it in input */
                 var input = element.apply(form, [settings, self]);
@@ -377,7 +377,7 @@ $('.character_menu').css('visibility','visible');
                             }
                         }
                     }
-$('.character_menu').css('visibility','hidden'); 
+//$('.character_menu').css('visibility','hidden'); 
                     /* show tooltip again */
                     $(self).attr('title', settings.tooltip);
                     

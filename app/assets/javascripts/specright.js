@@ -90,6 +90,10 @@ $('a.post').postWithAjax();
 //following jquery loads after DOM is ready
 $(document).ready(function(){
 
+
+
+
+
 $('.login').focus(function(){
     if (this.value == this.defaultValue) {
         this.value = '';
@@ -137,12 +141,6 @@ $("#firstpane p.menu_head").mouseout(function()
     $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
 });
 //end of web site jquery
-
-
-
-
-
-
 
 
 
@@ -195,74 +193,6 @@ $(this).children('td').children('input[type=checkbox]').attr('checked', true);
 }
 });
 
-$('select#project').selectBox();
-$('select#project_id').selectBox();
-$('select#section, select#subsection').selectBox();
-$('select#revision').selectBox();
-$('select#selected_template_id').selectBox();
-
-$('select#template_sections').selectBox();
-$('select#project_sections').selectBox();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//manage subsections
-$('#add_some').click(function() {
-$('select#template_subsections > option:selected').appendTo('select#project_subsections');
-});
-
-$('#add_all').click(function() {
-$('select#template_subsections > option').appendTo('select#project_subsections');
-});
-
-$('#remove_some').click(function() {
-$('select#project_subsections > option:selected').appendTo('select#template_subsections');
-});
-
-$('#remove_all').click(function() {
-$('select#project_subsections > option').appendTo('select#template_subsections');
-});
-
-
-$('input.edit_submit').click(function() {
-	$('select#project_subsections').each(function(){
-	$('select#project_subsections option').attr('selected','true'); });
-}) ; 
-
-//manage clauses
-$('#add_some').click(function() {
-$('select#template_clauses > option:selected').appendTo('select#project_clauses');
-});
-
-$('#add_all').click(function() {
-$('select#template_clauses > option').appendTo('select#project_clauses');
-});
-
-$('#remove_some').click(function() {
-$('select#project_clauses > option:selected').appendTo('select#template_clauses');
-});
-
-$('#remove_all').click(function() {
-$('select#project_clauses > option').appendTo('select#template_clauses');
-});
-
-
-$('input.edit_submit').click(function() {
-	$('select#project_clauses').each(function(){
-	$('select#project_clauses option').attr('selected','true'); });
-}) ;
-
 
 //new clause title template select
 $('input#clause_content_clone_content').click(function (){
@@ -290,10 +220,6 @@ $("#firstpane p.menu_head").click(function()
     $(this).siblings().css({backgroundImage:"url(feature.png) repeat-x"});
 });
 
-
-
-Cufon.replace('.home_strapline, .mob_strapline, .menu_item, .home_intro_text, .feature_title, #option_title, .extra_questions_link, .large_trial_link_text_1, .small_trial_link_text, .feature_title_small', { fontFamily: 'TitilliumText25L_800'});
-Cufon.replace('.home_intro_text, #home_intro_text_2, .login_submit', { fontFamily: 'TitilliumText25L_300'});
 
 //end
 });                                                              

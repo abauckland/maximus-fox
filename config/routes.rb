@@ -131,6 +131,7 @@ SpecrightDev::Application.routes.draw do
       resources :downloadguides
     end
   end
+resources :downloadguides
 
   resources :sessions do
     collection do

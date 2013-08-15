@@ -14,4 +14,6 @@
 //= require jquery.keypad
 //= require jquery.selectBox
 //= require autogrow
+//= require rangy
+//= require symbols
 //= require jquery.tipsy
