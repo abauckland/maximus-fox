@@ -16,7 +16,6 @@
 				<!-- value set to '1' for all new clauses, if different does not work with revision tracking and clause management -->
 						<%= f.hidden_field(:project_id, {:value => 1})%>
 						<%= hidden_field_tag(:project_id, @current_project.id)%>    
-						<%= hidden_field_tag(:specline_id, @selected_specline_id)%> 
 					
 						<table>
 						<tr><td>
@@ -80,7 +79,7 @@
         		<div>
         			<div class="column_submit"><%= f.submit "Create Clause"%></div>
 
-        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :project_id => @current_project.id, :subsection => @current_subsection.id} %></div>              
+        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :subsection_id => @current_subsection.id} %></div>              
         		</div>   
       		</div>
         		<% end %>       		

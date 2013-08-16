@@ -9,7 +9,7 @@ layout "projects"
 #need to set up route and carry over variables
   def new
     
-    @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
     
     if @current_project.blank?
       redirect_to log_out_path
@@ -20,7 +20,6 @@ layout "projects"
     clauseref = @clause.build_clauseref
     
     @current_subsection = Subsection.where(:id => params[:subsection]).first
-    @selected_specline_id = params[:id]
     @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code") 
 
     
@@ -38,7 +37,6 @@ layout "projects"
     end 
     
     @current_subsection = Subsection.where(:id => params[:clause][:clauseref_attributes][:subsection_id]).first
-    @selected_specline_id = params[:specline_id]
     array_current_project_clauses = Specline.where('project_id =? AND clause_line = ?', @current_project.id, 0).collect{|item| item.clause_id}.uniq   
     @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code") 
     @current_project_clauses = Clause.includes(:clauseref).where(:id => array_current_project_clauses).order('clauserefs.subsection_id, clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
@@ -116,7 +114,7 @@ layout "projects"
               end            
             end
          
-            redirect_to(:controller => "speclines", :action => "manage_clauses", :id => @selected_specline_id, :subsection_id => @current_subsection.id, :clausetype_id => 1)
+            redirect_to(:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :subsection_id => @current_subsection.id)
             #render to manage clauses page 
             #format.html { render :action => "new"}
           else

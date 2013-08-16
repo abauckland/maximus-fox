@@ -28,4 +28,15 @@ def clausetype_filter(specline, clausetype, selected)
   end
 end
 
+#def guidance_link(current_project_id, subsection_id)
+# check_guide = Subsection.where(:id => subsection_id).first
+#  if !check_guide.guidepdf_id.nil?
+#    "<div class='guide_download_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'download', :id => check_guide.guidepdf_id}}</div>".html_safe
+#  end
+#end
+
+def clause_link(current_project_id, subsection_id)
+    "<div class='guide_download_button'>#{link_to 'add/delete clauses', {:controller => "speclines", :action => "manage_clauses", :id =>current_project_id, :subsection_id => subsection_id}}</div>".html_safe
+end
+
 end

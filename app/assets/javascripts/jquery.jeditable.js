@@ -288,6 +288,7 @@ form.css('display', 'inline');
                 } else if ('submit' == settings.onblur) {
                     input.blur(function(e) {
                         /* prevent double submit if submit was clicked */
+                         
                         t = setTimeout(function() {
                             form.submit();
                         }, 200);

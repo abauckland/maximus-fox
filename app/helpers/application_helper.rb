@@ -11,46 +11,38 @@ module ApplicationHelper
 
   def check_current(item)
 
-    if item == 'project'
-      if request.path_parameters[:controller] == 'projects'
-        if request.path_parameters[:action] === 'manage_subsections'
-          return 'not_link'
-        else
-          return 'current_link'          
-        end       
+    controller = request.path_parameters[:controller]
+    action = request.path_parameters[:action]
+
+    if controller == 'projects'
+      if ['index', 'new', 'edit'].include?(action)
+        check = 'project'
       else
-        return 'not_link'                              
+        check = 'document'
       end
     end
 
-    if item == 'document'
-      if request.path_parameters[:controller] == 'projects'
-        if request.path_parameters[:action] === 'manage_subsections'
-          return 'current_link'
-        else
-          return 'not_link'          
-        end 
-      else
-        return 'not_link'                              
-      end
-    end
-
-    if item == 'revision'
-      if request.path_parameters[:controller] == 'revisions'
-        return 'current_link'
-      else
-        return 'not_link'                
-      end
+    if controller == 'speclines'
+        check = 'document'
     end
     
-    if item == 'publish'
-      if request.path_parameters[:controller] == 'prints'
-        return 'current_link'
-      else
-        return 'not_link'                
-      end
+    if controller == 'clauses'
+        check = 'document'
+    end
+    
+    if controller == 'revisions'
+        check = 'revision'
+    end    
+
+    if controller == 'prints'
+        check = 'publish'
     end
 
+    if check == item
+      return 'current_link'
+    else
+      return 'not_link'          
+    end       
   end
 
   
@@ -145,7 +137,7 @@ def clause_ref_text(specline)
 end
 
 def clause_new_link(specline)
-  link_to image_tag("new_clause.png", :mouseover =>"new_clause_rollover.png", :border=>0), {:controller => "speclines", :action => "manage_clauses", :id => specline.id, :subsection_id => specline.clause.clauseref.subsection_id, :clausetype_id => specline.clause.clauseref.clausetype_id}, :title => "add/delete clauses"
+  link_to image_tag("new_clause.png", :mouseover =>"new_clause_rollover.png", :border=>0), {:controller => "speclines", :action => "manage_clauses", :id => specline.project_id, :subsection_id => specline.clause.clauseref.subsection_id}, :title => "add/delete clauses"
 end
   
 def clause_delete_link(specline)
@@ -177,12 +169,7 @@ def clause_help_link(specline)
 end
 
 
-def guidance_link(current_project_id, subsection_id)
- check_guide = Subsection.where(:id => subsection_id).first
-  if !check_guide.guidepdf_id.nil?
-    "<div class='guide_download_button'>#{link_to 'guidance notes', {:controller => 'guidepdfs', :action => 'download', :id => check_guide.guidepdf_id}}</div>".html_safe
-  end
-end
+
 
 def clause_manufact_link(specline)
 end

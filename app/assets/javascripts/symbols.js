@@ -2,41 +2,64 @@
 	
     $.extend($.fn, {
         symbols: function(){
-            // your plugin logic
             
-            var textarea = $(this);
+			var textarea = $(this);
+			                        
+            textarea.focus(function(){
+       			t = setTimeout(function() {
+       			$('.character_menu').css('visibility', 'visible');
+       			}, 200);
+ 			});
+            
+            
+            $('.character_menu_content').children('ul').children('li#symbol_0').click(function(event){
+        		textarea.selection('replace', {text: 'º'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
+			
+			$('.character_menu_content').children('ul').children('li#symbol_1').click(function(event){
+        		textarea.selection('replace', {text: '²'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
+			
+			$('.character_menu_content').children('ul').children('li#symbol_2').click(function(event){
+        		textarea.selection('replace', {text: '³'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
 
-            textarea.focusout(function(){
-       			 textarea.data("lastSelection", textarea.getSelection());
-    		});
+			$('.character_menu_content').children('ul').children('li#symbol_3').click(function(event){
+        		textarea.selection('replace', {text: '±'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
+									
+			$('.character_menu_content').children('ul').children('li#symbol_4').click(function(event){
+        		textarea.selection('replace', {text: '≤'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
+			
+			$('.character_menu_content').children('ul').children('li#symbol_5').click(function(event){
+        		textarea.selection('replace', {text: '≥'});        					            
+				t = setTimeout(function() {
+					$('.character_menu').css('visibility', 'hidden'); 
+				}, 200);
+			});
+			
+			textarea.blur(function(){
+          		t = setTimeout(function() {
+            		$('.character_menu').css('visibility', 'hidden');
+            	}, 100);
+			});
 
-            //check that character menu is not already showoiig
-
-            //create symbols div
-            var characters = [{"'º'":"º"},{"'²'":"²"},{"'³'":"³"},{"'±'":"±"},{"'≤'":"≤"},{"'≥'":"≥"}];
-            $.each(characters, function(i, obj){
-            	$.each(obj, function(key, value) {
-            	//create list item
-            	$('.character_menu_content').children('ul').append('<li id="symbol_'+i+'">'+value+'</li>');
-
-       	
-            	//attach clich event to each element
-            	$('.character_menu_content').children('ul').children('li#symbol_'+i).click(function(event){
- 					var $target = $(event.target); // the element that fired the original click event
-
-        			var selection = textarea.data("lastSelection");
-    				textarea.focus();
-    				textarea.setSelection(selection.start, selection.end);
-    				textarea.replaceSelectedText(value);
-           			t = setTimeout(function() {
-                    	$('.character_menu_content').children('ul').children('li').remove();
-                	}, 200);            		           	
-            	});
-            });
-
-         });    
-        }
+          } 
     });
-
-
 })(jQuery);

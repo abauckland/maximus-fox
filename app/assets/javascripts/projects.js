@@ -104,7 +104,7 @@ $('ul.tabs, ul.tabs_2').each(function(){
 
 
 //sortable specline
-	$('.1, .2, .3, .4, .5, .6, #prelim_show').sortable({
+	$('.1, .2, .3, .4, .5, .6, .prelim_show').sortable({
 		axis: 'y',
 		cancel: '.clause_title, span',
 		cursor: 'pointer',
@@ -193,7 +193,7 @@ $.editable.addInputType('autogrow', {
 
                    	textarea.width(settings.width);	                       	                       	
 
-                    textarea.css("font", "normal 12px arial");
+                    textarea.css("font", "normal 12px arial").css("padding-top", "0px");
                     $(this).append(textarea);
                     return(textarea);
                 },
@@ -207,7 +207,7 @@ $.editable.addInputType('autogrow', {
 
 $('.editable_text3').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() + 10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() +5)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text4').mouseover(function(){
 var spec_id = $(this).attr('id');

@@ -1,8 +1,8 @@
 class SpeclinesController < ApplicationController
 
 before_filter :require_user
-before_filter :check_specline_ownership, :except => [:add_clause, :edit_clauses, :guidance]
-before_filter :check_project_ownership, :except => [:add_clause, :manage_clauses, :manage_clauses_2, :edit_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
+before_filter :check_specline_ownership, :except => [:add_clause, :manage_clauses, :edit_clauses, :guidance]
+before_filter :check_project_ownership, :except => [:add_clause, :manage_clauses_2, :edit_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
 
 layout "projects"
 
@@ -10,8 +10,7 @@ def manage_clauses
       
     @projects = Project.where('company_id =?', current_user.company_id).order("code") 
     
-    @specline = Specline.find(params[:id])
-    @current_subsection = Subsection.joins(:clauserefs => :clauses).where('clauses.id' => @specline.clause_id).first
+    @current_subsection = Subsection.where(:id => params[:subsection_id]).first
  
     #call to protected method that establishes text to be shown for project revision status
     current_revision_render(@current_project)

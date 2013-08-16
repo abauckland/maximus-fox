@@ -13,7 +13,7 @@
 //= require jquery.jeditable
 //= require jquery.keypad
 //= require jquery.selectBox
+//= require jquery.selection
 //= require autogrow
-//= require rangy
 //= require symbols
 //= require jquery.tipsy

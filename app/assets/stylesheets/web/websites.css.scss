@@ -116,8 +116,8 @@
 .web_password_reminder{
   display: block;
   position: absolute;
-  top: 12px; //how is this set so logo is centered on header?
-  right: 415px;
+  top: 11px; //how is this set so logo is centered on header?
+  right: 3px;
   font-family: $heading_font;
 
   @include small-button;
@@ -153,8 +153,17 @@
     background: #999;
     border: none;
     padding: 3px 0px 2px 5px;
+    width: 100px;
   }
-#login_email {@extend #password}
+#login_email {
+    @include border-radius(0.5rem);
+    color: white;
+    font: bold;
+    background: #999;
+    border: none;
+    padding: 3px 0px 2px 5px;
+    width: 150px;
+    }
 
 
 .web_login_submit input[type=submit]{
@@ -264,7 +273,7 @@
       }
   }
 
-.web_title {
+.web_title_band {
   float: left;
   width: 100%;
   height: 30px;
@@ -287,6 +296,10 @@
       }
   }
 
+.web_title{
+  float: left;
+  padding: 0px 0px 0px 10px;  
+}
 
 .web_title_signup_link {
   display: block;
