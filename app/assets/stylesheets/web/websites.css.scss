@@ -285,7 +285,7 @@
   border-bottom: 2px solid #dddddd;
   }
   @media screen and (max-width: $medium_menu) {
-    .web_title  {
+    .web_title_band  {
       height: 24px;
       padding: 14px 0px 6px 0px;
       font-size: 2.2rem;
@@ -332,25 +332,26 @@
 .web_main_content{
   float: left;
   width: 100%;
-  padding: 20px 0px 40px 0px;
+  padding: 5px 0px 40px 0px;
   border-bottom: 2px solid #dddddd;  
 }
 
 .web_main_column_1{
   float: left;
   width: 100px;
+  min-height: 280px;
   padding: 0px 20px 0px 20px;
-  background-color: green;
-
+  img{
+    padding: 0px 0px 20px 0px;
+  }
 }
 
 .web_main_column_2{
   float: left;
   padding: 0px 20px 0px 20px;
-  background-color: blue;
 }
 
-.web_home_image_test{
+.web_home_image_prtrt{
 }
 
 
@@ -395,7 +396,7 @@
 .web_main_text{
   float: left;
   width: 100%;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   line-height: 1.8rem;
   text-align: justify;
   padding: 15px 0px 10px 0px;
@@ -407,7 +408,7 @@
 }
   @media screen and (max-width: $medium_menu) {
     .web_main_text{      
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       line-height: 1.6rem; 
       }
   }

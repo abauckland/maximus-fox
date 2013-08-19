@@ -1,4 +1,37 @@
 //function for setting column width depending on size of window	
+function feature_image(){
+	var image_div_width = (($(window).width()-20)/2);
+	
+	if (image_div_width < 260){
+		$('.web_home_image_lndscp').hide();
+		$('.web_home_image_prtrt').show();
+	var img_margin = (($(window).width() - 265)/2)-30;		
+		$('.web_home_image_prtrt').css('margin-left', img_margin+'px');	
+		$('.web_main_column_1').css('min-height', "350px");	
+		
+	}else if (image_div_width < 360){
+		$('.web_home_image_prtrt').hide();
+		$('.web_home_image_lndscp').show();
+		
+	var image_div_width = ($(window).width()-20);
+
+		
+		$('.web_main_column_1').css('min-height', "280px");	
+			
+	}else if (image_div_width < 600){
+		$('.web_home_image_lndscp').hide();
+		$('.web_home_image_prtrt').show();
+	var img_margin = ((($(window).width()/2)-265)/2)-10;		
+		$('.web_home_image_prtrt').css('margin-left', img_margin+'px');
+		$('.web_main_column_1').css('min-height', "350px");			
+	}else{
+		$('.web_home_image_prtrt').hide();
+		$('.web_home_image_lndscp').show();
+		$('.web_main_column_1').css('height', '1000px');			
+	}
+}
+
+
 function web_sub_column_width(s_tab, mob, limit) {
 
 	var s_tab = s_tab;
@@ -127,6 +160,7 @@ var mob = '720';
 var limit = '310';
 
 //Set size and location of elements depending on screen size	
+feature_image();
 	web_sub_column_width(s_tab, mob, limit);//set column width depending on size of window
 	web_main_column_width(s_tab, mob, limit);//set column width depending on size of window
 	web_sub_column_width(s_tab, mob, limit);//repeat required to get sizes right on initial load - not sure why
@@ -136,7 +170,9 @@ var limit = '310';
 	web_signup_link();
 	web_tagline();
 	web_posts_index(s_tab, mob, limit);
+
 	$(window).resize(function(){
+feature_image();
 		web_sub_column_width(s_tab, mob, limit);//set column width depending on size of window
 		web_main_column_width(s_tab, mob, limit);//set column width depending on size of window
 		web_sub_column_width(s_tab, mob, limit);//repeat required to get sizes right on initial load - not sure why
@@ -145,6 +181,7 @@ var limit = '310';
 		web_signup_link();
 		web_tagline();
 		web_posts_index(s_tab, mob, limit);
+
 	});
 
 

@@ -23,6 +23,14 @@ $('.guide').css({top: p_top});
 
 $('.guide').draggable();
 
+
+if ($(window).width() < 640 ){
+	var new_guide_width = $(window).width() -40;
+	$('.guide').width(new_guide_width);
+	$('.guide').css('right', '10px');	
+}
+
+
 $('div.guide_close').click(function() {
   $('.guide').remove();
   $('tr.specline_row').children('td.specline_link').hide();
