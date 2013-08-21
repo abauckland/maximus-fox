@@ -1,12 +1,14 @@
 class SpeclinesController < ApplicationController
 
 before_filter :require_user
-before_filter :check_specline_ownership, :except => [:add_clause, :manage_clauses, :edit_clauses, :guidance]
-before_filter :check_project_ownership, :except => [:add_clause, :manage_clauses_2, :edit_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
+before_filter :check_specline_ownership, :except => [:add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
+#before_filter :check_project_ownership, :except => [:add_clause, :add_clauses, :delete_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
 
 layout "projects"
 
 def manage_clauses
+  
+    check_project_ownership(params[:project_id])
       
     @projects = Project.where('company_id =?', current_user.company_id).order("code") 
     
@@ -53,153 +55,52 @@ def manage_clauses
 end
 #########################################################
 
-#this method is currently not in use
-def manage_clauses_2
-      
-    @projects = Project.where('company_id =?', current_user.company_id).order("code") 
+def add_clauses
     
-    @specline = Specline.find(params[:id])
-    @current_subsection = Subsection.joins(:clauserefs => :clauses).where('clauses.id' => @specline.clause_id).first
- 
-    #call to protected method that establishes text to be shown for project revision status
-    current_revision_render(@current_project)
-    
-    #####this does not work
-      if params[:selected_template_id].blank? == true    
-      @current_project_template = Project.find(@current_project.parent_id)
-      else
-      @current_project_template = Project.find(params[:selected_template_id])
-      end#####this does not work
-         
-    #new variable that contains only those projects that have the selected subsection    
-    project_templates = Project.where("id != ? AND company_id =?", @current_project.id, current_user.company_id).order("code")
-    master_templates = Project.where("company_id =?", 1)
-    @project_templates =  project_templates + master_templates
-    project_id_array = @project_templates.collect{|item1| item1.id}.sort
- 
-    relevant_clauses_array = Clause.joins(:clauseref).select('DISTINCT(clauses.id)').where('clauserefs.subsection_id' => @current_subsection.id).collect{|item1| item1.id}.sort
-    relevant_templates_array = Specline.select('DISTINCT project_id').where(:project_id => project_id_array, :clause_id => relevant_clauses_array).collect{|item1| item1.project_id}.sort
-    @selectable_templates = Project.where(:id => relevant_templates_array)  
-    
-      
-    specline_line_array = Specline.select('DISTINCT clause_id').where("project_id = ?", @current_project.id).collect{|item1| item1.clause_id}.sort     
-    clauseref_id_array = Clauseref.joins(:clauses).select('DISTINCT(clauserefs.id)').where('clauses.id' => specline_line_array, :subsection_id => @current_subsection.id).collect{|item2| item2.id}.sort
-
-    template_specline_line_array = Specline.select('DISTINCT clause_id').where("project_id = ?", @current_project_template.id).collect{|item1| item1.clause_id}.sort    
-    template_clauseref_id_array = Clauseref.joins(:clauses).select('DISTINCT(clauserefs.id)').where('clauses.id' => specline_line_array, :subsection_id => @current_subsection.id).collect{|item2| item2.id}.sort
-
-    @list_of_clauses_in_use = Array.new
-    
-  #array of clause references not in the project but that are in the template 
-  clauserefs_not_in_current_project = template_clauseref_id_array - clauseref_id_array
+  #check use is owner of the project   
+  #@current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
   
-  possible_clauserefs_in_both_projects = template_clauseref_id_array + clauseref_id_array 
-  clauserefs_in_both_projects = possible_clauserefs_in_both_projects.inject({}) {|h,v| h[v]=h[v].to_i+1; h}.reject{|k,v| v==1}.keys
-    
-    
-   clauserefs_in_both_projects.each_with_index do |clauseref, i|
-    
-  #check if clause title is a match
-    #gets copy of clause for current project where clausref matches
-    current_clauseref_clause = Clause.where(:id => specline_line_array, :clauseref_id => clauseref).first
-    #gets copy of clause for template project where clausref matches
-    template_clauseref_clause = Clause.where(:id => template_specline_line_array, :clauseref_id => clauseref).first
-    
-        
-    if template_clauseref_clause.clausetitle_id == current_clauseref_clause.clausetitle_id
-    #title match
-      #check content 
-      check_current_speclines = Specline.where(:clause_id => current_clauseref_clause.id, :project_id => @current_project.id)
-      check_template_speclines = Specline.where(:clause_id => template_clauseref_clause.id, :project_id => @current_project_template.id)
-    
-      if check_current_speclines.length == check_template_speclines.length
-      #if same number of lines
-        #check_current_speclines.delete("id")
-        #check_template_speclines.delete("id")
-    
-        #check_if_different = check_current_speclines.diff(check_template_speclines)
-            
-      check_current_speclines.each do |specline|
+  #if @current_project.blank?
+  #  redirect_to log_out_path
+  #else
+  check_project_ownership(params[:project_id])
 
+    #get all clauses that are in include list
+    clauses_to_add = Clause.where(:id => params[:template_clauses]).collect{|i| i.id}
 
-      
-      
-        if !(check_current_speclines.to_a - check_template_speclines.to_a).empty? #=> true
-          #content matches
-          next
-        else
-          #content does not match
-          full_title = template_clauseref_clause.clause_full_title + ' - *(content differs)'    
-        end
-        end
-      else
-        #content does not match
-        full_title = template_clauseref_clause.clause_full_title + ' - *(content differs)'         
-      end   
-    else
-    #title not match
-      #check content 
-      check_current_speclines = Speclines.where(:clause_id => current_clauseref_clause.id, :project_id => @current_project.id)
-      check_template_speclines = Speclines.where(:clause_id => template_clauseref_clause.id, :project_id => @current_project_template.id)
-    
-      #check_current_speclines.delete("id")
-      #check_template_speclines.delete("id")
-    
-      #check_if_different = check_current_speclines.diff(check_template_speclines)
+    speclines_to_add = Specline.where(:project_id => params[:template_id], :clause_id => clauses_to_add) 
+    speclines_to_add.each do |line_to_add|
+      @new_specline = Specline.new(line_to_add.attributes.merge(:project_id => params[:project_id]))
+      @new_specline.save
+      @clause_change_record = 2
+      record_new
+    end                   
 
-      
-      if (check_current_speclines.to_a - check_template_speclines.to_a).empty? #=> true
-        #content matches
-        full_title = template_clauseref_clause.clause_full_title + ' - *(title differs, current title is ' + current_clauseref_clause.clausetitle.text + ')' 
-      else
-        #content does not match
-        full_title = template_clauseref_clause.clause_full_title + ' - *(title and content differ, current title is ' + current_clauseref_clause.clausetitle.text + ')'    
-      end     
-    end
-     
-    @list_of_clauses_in_use[i] = [full_title, template_clauseref_clause.id]
-     
-   end
-    
-    @both_project_clauses = @list_of_clauses_in_use.compact
-    
-    @template_project_clauses = Clause.joins(:clauseref).where(:id => template_specline_line_array, :clauseref_id => clauserefs_not_in_current_project).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
-   
-    @current_project_clauses = Clause.joins(:clauseref).where(:id => specline_line_array, :clauseref_id => clauseref_id_array).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
+    #find if any clauses are in current subsection after changes
+    subsection_clauses_array = Clause.joins(:clauseref).where('clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.id}.uniq
+    get_valid_spline_ref = Specline.where(:project_id => params[:project_id], :clause_id => subsection_clauses_array).last
   
-    
+    redirect_to(:controller => "speclines", :action => "manage_clauses", :id => get_valid_spline_ref.id, :project_id => params[:project_id], :selected_template_id => params[:template_id], :subsection_id => params[:subsection_id])
+ 
+  #end
 end
-#############################################################
 
-def edit_clauses
+
+
+def delete_clauses
     
-    #check use is owner of the project   
-    @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
+  #check use is owner of the project   
+  #@current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
   
-    if @current_project.blank?
-      redirect_to log_out_path
-    else
+  #if @current_project.blank?
+  #  redirect_to log_out_path
+  #else
+  check_project_ownership(params[:project_id])
 
-  #get all clauses that are in include list
-	clauses_array = Clause.where(:id => params[:project_clauses]).collect{|i| i.id}
-  #get all clauses that are already in project
-	clauses_array_existing = Specline.joins(:clause => :clauseref).where(:project_id => params[:project_id], 'clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.clause_id}.uniq
 
-  #create list of clauses to be added
-	clauses_to_add = clauses_array - clauses_array_existing
-	if !clauses_to_add.blank?
-		speclines_to_add = Specline.where(:project_id => params[:template_id], :clause_id => clauses_to_add) 
-		speclines_to_add.each do |line_to_add|
-			@new_specline = Specline.new(line_to_add.attributes.merge(:project_id => params[:project_id]))
-			@new_specline.save
-			@clause_change_record = 2
-			record_new
-		end                   
-	end
-
-  #create list of clauses to be deleted
-	clauses_to_delete = clauses_array_existing - clauses_array
-	if !clauses_to_delete.blank?       
+    #get all clauses that are in include list
+    clauses_to_delete = Clause.where(:id => params[:project_clauses]).collect{|i| i.id}
+    
     specline_lines_to_deleted = Specline.where(:project_id => params[:project_id], :clause_id => clauses_to_delete)      
     specline_lines_to_deleted.each do |existing_specline_line|
       @specline = existing_specline_line
@@ -210,7 +111,6 @@ def edit_clauses
       
     @current_revision = Revision.where('project_id = ?', @current_project.id).last
 
-
     previous_changes_to_clause = Change.where(:project_id => @current_project.id, :clause_id => clauses_to_delete, :revision_id => @current_revision.id)
     if !previous_changes_to_clause.blank?
       previous_changes_to_clause.each do |previous_change|
@@ -218,31 +118,32 @@ def edit_clauses
         previous_change.save
       end    
     end
-	end 
 
-  #find if any clauses are in current subsection after changes
-  subsection_clauses_array = Clause.joins(:clauseref).where('clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.id}.uniq
-  get_valid_spline_ref = Specline.where(:project_id => params[:project_id], :clause_id => subsection_clauses_array).last
 
-  #if no clauses in subsection redirect to subsection manager
-  if get_valid_spline_ref.blank?
-    redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:project_id], :selected_template_id => params[:template_id])
-  else
-    redirect_to(:controller => "speclines", :action => "manage_clauses", :id => get_valid_spline_ref.id, :project_id => params[:project_id], :selected_template_id => params[:template_id], :subsection_id => params[:subsection_id])
-  end
-  
-  end
+    #find if any clauses are in current subsection after changes
+    subsection_clauses_array = Clause.joins(:clauseref).where('clauserefs.subsection_id' => params[:subsection_id]).collect{|i| i.id}.uniq
+    get_valid_spline_ref = Specline.where(:project_id => params[:project_id], :clause_id => subsection_clauses_array).last
+
+    #if no clauses in subsection redirect to subsection manager
+    if get_valid_spline_ref.blank?
+      redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:project_id], :selected_template_id => params[:template_id])
+    else
+      redirect_to(:controller => "speclines", :action => "manage_clauses", :id => get_valid_spline_ref.id, :project_id => params[:project_id], :selected_template_id => params[:template_id], :subsection_id => params[:subsection_id])
+    end 
+  #end
 end
 ######################################
 
 def add_clause
     
-    #check user is owner of the project     
-    @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
-       
-    if @current_project.blank?
-      redirect_to log_out_path
-    end  
+  #check use is owner of the project   
+  #@current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
+  
+  #if @current_project.blank?
+  #  redirect_to log_out_path
+  #else
+  check_project_ownership(params[:project_id])
+ 
    
     @existing_clause = Clause.where('id = ?', params[:existing_clause]).first 
    
@@ -266,6 +167,7 @@ def add_clause
     end
                        
     redirect_to(:controller => "speclines", :action => "manage_clauses", :id => params[:id], :project_id => params[:project_id])
+ #end
  end  
 ################################
 
@@ -819,8 +721,8 @@ def check_specline_ownership
     end
 end
 
-def check_project_ownership
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first    
+def check_project_ownership(id)
+    @current_project = Project.where('id = ? AND company_id =?', id, current_user.company_id).first    
     if @current_project.blank?
       redirect_to log_out_path
     end

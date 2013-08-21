@@ -28,12 +28,14 @@
       			</div>
 				
 				<div class="column_form">				
-						<%= form_tag(:controller => "projects", :action => "edit_subsections") do %>
+						<%= form_tag(:controller => "projects", :action => "add_subsections") do %>
+						<%= hidden_field_tag "id", @current_project.id%>
+          				<%= hidden_field_tag "template_id", @current_project_template.id%>
 						<table>
 						<tr><td>
 							<div class="section_form_label form_input_label">Work Sections in Template:</div>
 							<div class="form_input">
-              					<%= select_tag "template_sections", options_from_collection_for_select(@template_project_subsections, :id, :subsection_full_code_and_title)%>
+              					<%= select_tag "template_sections", options_from_collection_for_select(@template_project_subsections, :id, :subsection_full_code_and_title), multiple: true%>
 							</div>				
 						</td></tr>										
 						</table>				
@@ -69,14 +71,14 @@
       			</div>
 				
 				<div class="column_form">				
-						<%= form_tag(:controller => "projects", :action => "edit_subsections") do %>
-						<%= hidden_field_tag "project_id", @current_project.id%>
+						<%= form_tag(:controller => "projects", :action => "delete_subsections") do %>
+						<%= hidden_field_tag "id", @current_project.id%>
           				<%= hidden_field_tag "template_id", @current_project_template.id%>
 						<table>
 						<tr><td>
 							<div class="section_form_label form_input_label">Work Sections in Project:</div>
 							<div class="form_input">          
-          						<%= select_tag "project_sections", options_from_collection_for_select(@current_project_subsections, :id, :subsection_full_code_and_title)%>    
+          						<%= select_tag "project_sections", options_from_collection_for_select(@current_project_subsections, :id, :subsection_full_code_and_title), multiple: true%>    
 							</div>				
 						</td></tr>										
 						</table>				

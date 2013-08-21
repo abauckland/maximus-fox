@@ -36,7 +36,7 @@ end
 #end
 
 def clause_link(current_project_id, subsection_id)
-    "<div class='guide_download_button'>#{link_to 'add/delete clauses', {:controller => "speclines", :action => "manage_clauses", :id =>current_project_id, :subsection_id => subsection_id}}</div>".html_safe
+    "<div class='guide_download_button'>#{link_to 'add/delete clauses', {:controller => "speclines", :action => "manage_clauses", :id =>current_project_id, :project_id =>current_project_id, :subsection_id => subsection_id}}</div>".html_safe
 end
 
 end

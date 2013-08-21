@@ -230,5 +230,14 @@ $(document).on('click','.submittable2', function() {
    return false;
 });
 
+
+$('#clone_template_id').change(function(){
+	var text = $('select#clone_clause_id option:selected').text();
+	$('select#clone_clause_id option:selected').text('updating...');
+})
+
+
+
+
 //end
 });

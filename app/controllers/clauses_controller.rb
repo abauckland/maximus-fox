@@ -114,7 +114,7 @@ layout "projects"
               end            
             end
          
-            redirect_to(:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :subsection_id => @current_subsection.id)
+            redirect_to(:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :project_id => @current_project.id, :subsection_id => @current_subsection.id)
             #render to manage clauses page 
             #format.html { render :action => "new"}
           else
@@ -131,6 +131,7 @@ layout "projects"
   
     clone_clause_ids = Specline.where(:project_id => params[:id]).collect{|i| i.clause_id}.uniq
     @clone_clauses = Clause.joins(:clauseref, :clausetitle).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
+
     @current_clone_clause = @clone_clauses.first
 
   end

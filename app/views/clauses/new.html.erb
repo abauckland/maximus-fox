@@ -79,7 +79,7 @@
         		<div>
         			<div class="column_submit"><%= f.submit "Create Clause"%></div>
 
-        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :subsection_id => @current_subsection.id} %></div>              
+        			<div class="column_cancel"><%= link_to "Cancel", {:controller => "speclines", :action => "manage_clauses", :id => @current_project.id, :project_id => @current_project.id, :subsection_id => @current_subsection.id} %></div>              
         		</div>   
       		</div>
         		<% end %>       		

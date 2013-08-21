@@ -43,8 +43,8 @@ layout "projects"
 
     #if no contents redirect to manage_subsection page
     if @project_subsections.blank?
-      redirect_to(:controller => "projects", :action => "empty_project", :id => @current_project.id)
-    end
+      redirect_to empty_project_project_path(@current_project.id)
+    else
 
     array_project_subsection_ids = @project_subsections.collect{|i| i.id}
     array_project_section_ids = @project_subsections.collect{|i| i.section_id}.uniq.sort      
@@ -73,6 +73,7 @@ layout "projects"
    # @current_project_clause_ids = Specline.select('DISTINCT clause_id').where('project_id = ?', @current_project.id).collect{|item1| item1.clause_id}.uniq.sort   
    
     #get all speclines for selected subsection
+
     selected_clauses = Clause.joins(:clauseref, :speclines).select('DISTINCT(clauses.id)').where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id)
     array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
 
@@ -95,6 +96,10 @@ layout "projects"
         format.html # show.html.erb
         format.xml  { render :xml => @project }
       end 
+      
+   end   
+      
+      
   end
 
 
@@ -124,78 +129,84 @@ layout "projects"
         @current_project_template = Project.find(params[:selected_template_id])     
       end
 
-    clause_line_array = Clauseref.joins(:clauses => :speclines).where('speclines.project_id' => @current_project.id).collect{|item2| item2.subsection_id}.sort.uniq 
-    template_clause_line_array = Clauseref.joins(:clauses => :speclines).where('speclines.project_id' => @current_project_template.id).collect{|item2| item2.subsection_id}.sort 
+   # clause_line_array = Clauseref.joins(:clauses => :speclines).where('speclines.project_id' => @current_project.id).collect{|item2| item2.subsection_id}.sort.uniq 
+    clause_line_array = Subsection.joins(:clauserefs => [:clauses => :speclines]).where('speclines.project_id' => @current_project.id).collect{|item2| item2.id}.sort
+   # template_clause_line_array = Clauseref.joins(:clauses => :speclines).where('speclines.project_id' => @current_project_template.id).collect{|item2| item2.subsection_id}.sort 
+    template_clause_line_array = Subsection.joins(:clauserefs => [:clauses => :speclines]).where('speclines.project_id' => @current_project_template.id).collect{|item2| item2.id}.sort
      
     #clause_line_array = current_project_clauses.collect{|item2| item2.subsection_id}.sort       
     @current_project_subsections = Subsection.where(:id => clause_line_array)
   
     unused_clause_line_array = template_clause_line_array - clause_line_array
     @template_project_subsections = Subsection.where(:id => unused_clause_line_array)
+    
+    #if clause_line_array.blank?
+   #   redirect_to empty_project_project_path(@current_project.id)
+    #end
+    
   end
   
   
   ##POST
-  def edit_subsections
+  def add_subsections
 
-      @current_project = Project.where('id = ? AND company_id =?', params[:project_id], current_user.company_id).first
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
     if @current_project.blank?
       redirect_to log_out_path
-    else
+    end
     
-subsection_list = Subsection.where(:id => params[:project_subsections]).collect{|i| i.id}
-#clauses_array = Specline.where(:project_id => params[:project_id]).collect{|i| i.clause_id}
-#subsection_array = Clause.where(:id=> clauses_array).collect{|i| i.subsection_id} 
+    #subsection_list = Subsection.where(:id => params[:template_sections]).collect{|i| i.id}.uniq 
+    #subsection_array = Clause.joins(:speclines, :clauseref).where('speclines.project_id' => params[:id]).collect{|i| i.clauseref.subsection_id}.uniq 
+    #subsections_to_add = subsection_list- subsection_array
 
-subsection_array = Clause.joins(:speclines, :clauseref).where('speclines.project_id' => params[:project_id]).collect{|i| i.clauseref.subsection_id} 
+    speclines_to_add = Specline.joins(:clause => :clauseref).where(:project_id => params[:template_id], 'clauserefs.subsection_id' => params[:template_sections])
+
+    speclines_to_add.each do |line_to_add|
+		  @new_specline = Specline.new(line_to_add.attributes.merge(:project_id => params[:id]))
+		  @new_specline.save
+		  @clause_change_record = 3
+		  record_new
+    end                   
+
+     redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:id], :selected_template_id => params[:template_id])     
+  end
 
 
-subsections_to_add = subsection_list- subsection_array
-if !subsections_to_add.blank?
-	#clauses_to_add = Clause.where(:subsection_id => subsections_to_add).collect{|i| i.id}
-	#speclines_to_add = Specline.where(:project_id => params[:template_id], :clause_id => clauses_to_add) 
+  ##POST
+  def delete_subsections
 
-speclines_to_add = Specline.joins(:clause => :clauseref).where(:project_id => params[:template_id], 'clauserefs.subsection_id' => subsections_to_add)
+    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
+    if @current_project.blank?
+      redirect_to log_out_path
+    end
+    
+    #subsection_list = Subsection.where(:id => params[:template_sections]).collect{|i| i.id}.uniq
+    #subsection_array = Clause.joins(:speclines, :clauseref).where('speclines.project_id' => params[:id]).collect{|i| i.clauseref.subsection_id}.uniq 
+    #subsections_to_delete = subsection_array - subsection_list
 
-	speclines_to_add.each do |line_to_add|
-		@new_specline = Specline.new(line_to_add.attributes.merge(:project_id => params[:project_id]))
-		@new_specline.save
-		@clause_change_record = 3
-		record_new
-	end                   
+    speclines_to_delete = Specline.joins(:clause => :clauseref).where(:project_id => params[:id], 'clauserefs.subsection_id' => params[:project_sections])
+    clauses_to_delete = speclines_to_delete.collect{|i| i.clause_id}.uniq.sort
+
+    speclines_to_delete.each do |line_to_delete|        
+      if line_to_delete.clause_line != 0       
+        @specline = line_to_delete
+        @clause_change_record = 3
+        record_delete              
+      end
+    line_to_delete.destroy
+    end
+
+    @current_revision = Revision.where('project_id = ?', @current_project.id).last
+    previous_changes_to_clause = Change.where(:project_id => params[:id], :clause_id => clauses_to_delete, :revision_id => @current_revision.id)
+    if !previous_changes_to_clause.blank?
+      previous_changes_to_clause.each do |previous_change|
+      previous_change.clause_add_delete = 3
+      previous_change.save
+      end    
+    end
+
+     redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:id], :selected_template_id => params[:template_id])     
 end
-
-subsections_to_delete = subsection_array - subsection_list
-if !subsections_to_delete.blank?
-
-	#clauses_to_delete = Clause.where(:subsection_id => subsections_to_delete).collect{|i| i.id}
-	#speclines_to_delete = Specline.where(:project_id => params[:project_id], :clause_id => clauses_to_delete)
-
-  speclines_to_delete = Specline.joins(:clause => :clauseref).where(:project_id => params[:project_id], 'clauserefs.subsection_id' => subsections_to_delete)
-  clauses_to_delete = speclines_to_delete.collect{|i| i.clause_id}.uniq.sort
-
-	speclines_to_delete.each do |line_to_delete|        
-		if line_to_delete.clause_line != 0       
-   			@specline = line_to_delete
-   			@clause_change_record = 3
-   			record_delete              
-		end
-		line_to_delete.destroy
-	end
-
-  @current_revision = Revision.where('project_id = ?', @current_project.id).last
-	previous_changes_to_clause = Change.where(:project_id => params[:project_id], :clause_id => clauses_to_delete, :revision_id => @current_revision.id)
-	if !previous_changes_to_clause.blank?
-		previous_changes_to_clause.each do |previous_change|
-		previous_change.clause_add_delete = 3
-		previous_change.save
-		end    
-	end
-end
-     redirect_to(:controller => "projects", :action => "manage_subsections", :id => params[:project_id], :selected_template_id => params[:template_id])
-end     
-end
-
 
   # GET /projects/new
   # GET /projects/new.xml

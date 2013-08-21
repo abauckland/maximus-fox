@@ -69,7 +69,8 @@ SpecrightDev::Application.routes.draw do
     
   resources :projects do  
     get :manage_subsections, :on => :member
-    post :edit_subsections, :on => :member
+    post :add_subsections, :on => :member
+    post :delete_subsections, :on => :member
     get :empty_project, :on => :member
     get :project_sections, :on => :member
     get :project_subsections, :on => :member    
@@ -85,7 +86,8 @@ SpecrightDev::Application.routes.draw do
     post :add_clause, :on => :member
     get :new_specline, :on => :member
     delete :delete_specline, :on => :member
-    post :edit_clauses, :on => :member
+    post :add_clauses, :on => :member
+    post :delete_clauses, :on => :member
     get :guidance, :on => :member
              
     member do

@@ -137,7 +137,7 @@ def clause_ref_text(specline)
 end
 
 def clause_new_link(specline)
-  link_to image_tag("new_clause.png", :mouseover =>"new_clause_rollover.png", :border=>0), {:controller => "speclines", :action => "manage_clauses", :id => specline.project_id, :subsection_id => specline.clause.clauseref.subsection_id}, :title => "add/delete clauses"
+  link_to image_tag("new_clause.png", :mouseover =>"new_clause_rollover.png", :border=>0), {:controller => "speclines", :action => "manage_clauses", :id => specline.project_id, :project_id => specline.project_id, :subsection_id => specline.clause.clauseref.subsection_id}, :title => "add/delete clauses"
 end
   
 def clause_delete_link(specline)
