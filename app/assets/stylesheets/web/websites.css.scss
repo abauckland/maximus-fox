@@ -406,18 +406,7 @@
     cursor: pointer;    
   }  
 }
-  @media screen and (max-width: $medium_menu) {
-    .web_main_text{      
-      font-size: 1.2rem;
-      line-height: 1.6rem; 
-      }
-  }
-  @media screen and (max-width: $small_menu) {
-    .web_main_text {      
-      font-size: 1.2rem;
-      line-height: 1.4rem; 
-      }
-  }  
+ 
 
 .web_signup_link{
   @include medium-button;

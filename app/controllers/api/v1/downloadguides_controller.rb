@@ -20,13 +20,12 @@ module Api
       end
       
       private
-      def restrict_access
-        authenticate_or_request_with_http_token do |token, options|
-          apiKey = User.where(api_key: token).first
-          head :unauthorized unless api_key
-        end
+      def restrict_access        
+         api_key = User.where(:api_key => params[:access_token]).first
+         if api_key .blank?
+            redirect_to log_out_path     
+         end
       end
-
-    end
+     end
   end   
 end
