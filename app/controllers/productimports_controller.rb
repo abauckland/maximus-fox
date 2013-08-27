@@ -45,7 +45,7 @@ def create
     if @productimport.empty?
     
       #check if clause references are valid for each line
-      if clause.blank?      
+      #if clause.blank?      
         @csv_no_headers.each_with_index do |line, i| 
           #private method
           clause_check(line[0], line[1])                 
@@ -53,7 +53,7 @@ def create
             @product_import_errors << ('Clause reference' << line[0].to_s << 'does not exist.') 
           end
         end
-      end
+      #end
 
       @csv.each_with_index do |line, i|    
         line.each_with_index do |cell, n|

@@ -178,7 +178,7 @@ $('ul.tabs, ul.tabs_2').each(function(){
 	});
 
 
-$('a.get, a.delete, a[title]').tipsy();
+$('a.get, a.delete, a[original-title]').tipsy();
 
 
 //jeditbale functions
@@ -233,7 +233,7 @@ $(document).on('click','.submittable2', function() {
 
 $('#clone_template_id').change(function(){
 	var text = $('select#clone_clause_id option:selected').text();
-	$('select#clone_clause_id option:selected').text('updating...');
+	$('select#clone_clause_id option:selected').text('updating...').css("color", "#006699");
 })
 
 

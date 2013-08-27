@@ -201,12 +201,33 @@ def find_current_performance_pairs(current_specline)
   end
 end
 
+#get tx3 options for given performance value pair
+def txt3_text_array(txt3_id, txt6_id) 
+  txt3_array = Txt3.joins(:txt3units => :performance).where(:id => txt3_id, 'perforamnces.txt6_id' => txt6_id).collect{|i| i.text}.uniq.sort
+end
 
-def txt3_text_array(txt3_id, txt6_id)
-  performance = Performances.includes(:txt3).where(txt3_id => txt3_id, txt6_id => txt6_id).first
-  performance_id_array[i] = performance.id        
-  txt3_array[i] = performance.txt3.text
-  txt3_array.compact  
+
+#for given txt3 return txt6 options
+def txt6_options(txt3_id)
+  txt6_array = Txt6.joins(:performance => [:txt3unit => :txt3]).where('txt3.id' => txt3_id).collect{|i| i.text}.uniq.sort  
+end
+
+#for given txt3 return txt6 options with units as an array
+def txt6_units_options(txt3_id)
+  txt6_units_array = Txt6.joins(:performance => [:txt3unit => :unit]).where('txt3units.txt3_id' => txt3_id).collect{|i| [i.text, i.performance.txt3units.units.text]}.uniq.sort 
+#display each line as txt6_units_array[i][0] << ' ' << txt6_units_array[i][1] 
+end
+
+#for given txt3 return txt6 options with BS reference as an array
+def txt6_units_options(txt3_id)
+  txt6_bs_array = Txt6.joins(:performance => [:standardperformance => :standard]).where('txt3units.txt3_id' => txt3_id).collect{|i| [i.text, i.standardperformance.standard.ref, i.standardperformance.standard.part]}.uniq.sort 
+#display each line as txt6_bs_array[i][0] << ' to ' << txt6_bs_array[i][1] << '-' << txt6_bs_array[i][2]  
+end
+
+#for given txt3 return txt6 with combined bs and units
+def txt6_units_options(txt3_id)
+  txt6_bs_array = Txt6.joins(:performance => [:standardperformance => :standard, :txt3unit => :unit]).where('txt3units.txt3_id' => txt3_id).collect{|i| [i.text, i.performance.txt3units.units.text, i.standardperformance.standard.ref, i.standardperformance.standard.part]}.uniq.sort 
+#display each line as txt6_bs_array[i][0] << ' ' << txt6_units_array[i][1] << 'to ' << txt6_bs_array[i][2] << '-' << txt6_bs_array[i][3]  
 end
 
 

@@ -55,6 +55,10 @@
 					<% end %>
 					
 					<% if @account.no_licence > @active_licences.count %>
+					<div class="column_guide">   			
+      					<p>Please note passwords must be a miniumum of 8 characters long and all fields must be complete.</p>
+      				</div>					
+										
 					<div class="column_form">
 						<%= form_for @user do |f| %>   
     						<%= f.hidden_field(:role, {:value => 'user'})%>

@@ -8,4 +8,4 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require core
-//= require_tree ./web
+//= require websites

@@ -739,6 +739,11 @@ span.editable_text5{@extend span.editable_text4}
   text-align: left;   
 }
 
+.form_error_note{
+  font-weight: bold;
+  color: #ff3300;
+}
+
 #clone_clause_id{
   width: 300px;
 }

@@ -2,6 +2,7 @@ class Subsection < ActiveRecord::Base
 #associations
 has_many :clauserefs
 has_many :sponsors
+has_many :standardsubsections
 belongs_to :section
 belongs_to :guidepdf
 

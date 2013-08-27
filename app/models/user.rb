@@ -6,7 +6,7 @@ has_many :productimport
 
 
 
-  attr_accessible :first_name, :surname, :email, :company_id, :role, :company 
+  attr_accessible :first_name, :surname, :email, :company_id, :role, :company, :password, :password_confirmation 
   attr_accessor :password  
   before_save :encrypt_password  
   after_create :add_user_to_mailchimp

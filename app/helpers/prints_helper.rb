@@ -317,7 +317,7 @@ end
 
 def clausetitle_repeat(line, row_y_b, pdf)
      pdf.text_box line.clause.clauseref.subsection.section.ref + sprintf("%02d", line.clause.clauseref.subsection.ref).to_s + '.' + line.clause.clauseref.clausetype_id.to_s + sprintf("%02d", line.clause.clauseref.clause).to_s + line.clause.clauseref.subclause.to_s, :size => 10, :style => :bold_italic, :at =>[0.mm,row_y_b], :width => 20.mm, :height => 5.mm
-     pdf.spec_box line.clause.clausetitle.text + '(continued)', :size => 10, :style => :bold_italic, :at =>[20.mm,row_y_b], :width => 155.mm, :height => 5.mm, :overflow => :expand
+     pdf.spec_box line.clause.clausetitle.text + ' (continued)', :size => 10, :style => :bold_italic, :at =>[20.mm,row_y_b], :width => 155.mm, :height => 5.mm, :overflow => :expand
 end
 
 

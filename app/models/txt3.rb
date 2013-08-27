@@ -2,7 +2,7 @@ class Txt3 < ActiveRecord::Base
 #associations
 has_many :speclines
 has_many :changes
-has_many :performances
+has_many :txt3unit
 
 #validation                                                 
 #validates_uniqueness_of :id
