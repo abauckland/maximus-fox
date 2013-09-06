@@ -39,6 +39,21 @@ has_many :productimport
       nil  
     end  
   end 
+
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
+  end 
+
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+
+
   
   def add_user_to_mailchimp  
     mailchimp = Hominid::API.new('4d0b1be76e0e5a65e23b00efa3fe8ef3-us5')

@@ -9,9 +9,7 @@
 //= require jquery-ui
 //= require core
 //= require projects
-//= require specright
 //= require jquery.jeditable
-//= require jquery.keypad
 //= require jquery.selectBox
 //= require jquery.selection
 //= require autogrow

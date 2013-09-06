@@ -320,13 +320,30 @@ def clausetitle_repeat(line, row_y_b, pdf)
      pdf.spec_box line.clause.clausetitle.text + ' (continued)', :size => 10, :style => :bold_italic, :at =>[20.mm,row_y_b], :width => 155.mm, :height => 5.mm, :overflow => :expand
 end
 
-
-  def watermark_helper(action, pdf)
-    pdf.repeat :all do
+def watermark_helper(watermark, superseded, pdf)
+  if watermark[0].to_i == 1
       pdf.transparent(0.15) do
-        pdf.text_box action, :width => 250.mm, :size => 108, :style => :bold, :at => [20.mm,55.mm], :rotate => 60
+        pdf.text_box "not for issue", :width => 250.mm, :size => 108, :style => :bold, :at => [20.mm,55.mm], :rotate => 60
       end
-    end
   end
+  if superseded[0].to_i == 1
+      pdf.transparent(0.15) do
+        pdf.text_box "superseded", :width => 250.mm, :size => 108, :style => :bold, :at => [20.mm,55.mm], :rotate => 60
+      end
+  end  
+end
+
+#if @superseded[0].to_i == 1;
+#  watermark_helper("superseded", pdf)
+#end;
+
+
+#  def watermark_helper(action, pdf)
+#    pdf.repeat :all do
+#      pdf.transparent(0.15) do
+#        pdf.text_box action, :width => 250.mm, :size => 108, :style => :bold, :at => [20.mm,55.mm], :rotate => 60
+#      end
+#    end
+#  end
    
 end

@@ -1,90 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-jQuery.ajaxSetup({
-  beforeSend: function(xhr) {
-    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-  }
-});
-//checks if is a function - required for some browsers (IE)
-function _ajax_request(url, data, callback, type, method){
-  if(jQuery.isFunction(data)){
-    callback = data;
-    data = {};
-  }
-  return jQuery.ajax({
-  type: method,
-  url: url,
-  data: data,
-  success: callback,
-  dataType: type
-  });  
-}
-
-
-//extends above
-jQuery.extend({
-  put: function(url, data, callback, type){
-    return _ajax_request(url, data, callback, type, 'PUT');
-  },
-  delete_: function(url, data, callback, type){
-    return _ajax_request(url, data, callback, type, 'DELETE');
-  }
-});
-
-
-//Post ajax function
-jQuery.fn.postWithAjax = function() {
-  this.unbind('click', false);
-  this.click(function() {
-    $.post($(this).attr("href"), $(this).serialize(), null, "script");
-    return false;
-  })
-  return this;
-};
-
-//put ajax function
-jQuery.fn.putWithAjax = function(){
-  this.unbind('click',false);
-  this.click(function(){
-    $.put($(this).attr("href"), $(this).serialize(), null, "script");
-    return false;
-    })
-  return this;
-};
-
-
-
-//delete ajax function
-jQuery.fn.deleteWithAjax = function(){
-  this.removeAttr('onclick');
-  this.unbind('click',false);
-  this.click(function(){
-    $.delete_($(this).attr("href"), $(this).serialize(), null, "script");
-    return false;
-    })
-  return this;
-};
-
-//get ajax function
-jQuery.fn.getWithAjax = function() {
-  this.unbind('click', false);
-  this.click(function() {
-    $.get($(this).attr("href"), $(this).serialize(), null, "script");
-    return false;
-  })
-  return this;
-};
-
-
-//this will ajaxify the link_to items
-function ajaxLinks(){
-$('a.delete').deleteWithAjax();
-$('a.put').putWithAjax();
-$('a.get').getWithAjax();
-$('a.post').postWithAjax();
-}
-
 
 
 //following jquery loads after DOM is ready
@@ -144,10 +60,6 @@ $("#firstpane p.menu_head").mouseout(function()
 
 
 
-//loads ajax functionality to links with specified class
-ajaxLinks();
-
-
 //show/hide functions for spec and clause lines
 
 $('#section_select').change(function () {
@@ -177,7 +89,7 @@ $('input#project_submit').click(function () {
      $('#loadingdiv').show()
   });
 
-$('a.get, a.delete, a[title]').tipsy();
+
 
 
 $('tr#clause_row').click(function (){
@@ -194,24 +106,6 @@ $(this).children('td').children('input[type=checkbox]').attr('checked', true);
 });
 
 
-//new clause title template select
-$('input#clause_content_clone_content').click(function (){
-  $('select#clone_template_id').removeAttr('disabled');
-  $('select#clone_clause_id').removeAttr('disabled');
-    $('#clone_select td').css('color', '#000');
-});
-
-$('input#clause_content_no_content, input#clause_content_blank_content').click(function (){
-  $('select#clone_template_id').attr('disabled', 'disabled');
-  $('select#clone_clause_id').attr('disabled', 'disabled');
-  $('#clone_select td').css('color', '#7b7b7b');
-});
-
-
-$("#clone_template_id").change(function() {
-    var template = $('select#clone_template_id :selected').val();
-    jQuery.get('/clauses/'+ template + '/update_clause_select');
-});
 
 
 $("#firstpane p.menu_head").click(function()

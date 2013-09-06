@@ -1,3 +1,90 @@
+
+jQuery.ajaxSetup({
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+  }
+});
+//checks if is a function - required for some browsers (IE)
+function _ajax_request(url, data, callback, type, method){
+  if(jQuery.isFunction(data)){
+    callback = data;
+    data = {};
+  }
+  return jQuery.ajax({
+  type: method,
+  url: url,
+  data: data,
+  success: callback,
+  dataType: type
+  });  
+}
+
+
+//extends above
+jQuery.extend({
+  put: function(url, data, callback, type){
+    return _ajax_request(url, data, callback, type, 'PUT');
+  },
+  delete_: function(url, data, callback, type){
+    return _ajax_request(url, data, callback, type, 'DELETE');
+  }
+});
+
+
+//Post ajax function
+jQuery.fn.postWithAjax = function() {
+  this.unbind('click', false);
+  this.click(function() {
+    $.post($(this).attr("href"), $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};
+
+//put ajax function
+jQuery.fn.putWithAjax = function(){
+  this.unbind('click',false);
+  this.click(function(){
+    $.put($(this).attr("href"), $(this).serialize(), null, "script");
+    return false;
+    })
+  return this;
+};
+
+
+
+//delete ajax function
+jQuery.fn.deleteWithAjax = function(){
+  this.removeAttr('onclick');
+  this.unbind('click',false);
+  this.click(function(){
+    $.delete_($(this).attr("href"), $(this).serialize(), null, "script");
+    return false;
+    })
+  return this;
+};
+
+//get ajax function
+jQuery.fn.getWithAjax = function() {
+  this.unbind('click', false);
+  this.click(function() {
+    $.get($(this).attr("href"), $(this).serialize(), null, "script");
+    return false;
+  })
+  return this;
+};
+
+
+//this will ajaxify the link_to items
+function ajaxLinks(){
+$('a.delete').deleteWithAjax();
+$('a.put').putWithAjax();
+$('a.get').getWithAjax();
+$('a.post').postWithAjax();
+}
+
+
+
 function form_input() {
 	var label_width = $('.form_input_label').width();
 	var table_width = $('.column_1, .column_2, .column_3').find('table').width();
@@ -64,7 +151,8 @@ $('ul.tabs, ul.tabs_2').each(function(){
     });
 });
 
-
+//loads ajax functionality to links with specified class
+ajaxLinks();
 
 //table input width for new user
 	form_input();	
@@ -123,13 +211,6 @@ $('ul.tabs, ul.tabs_2').each(function(){
 		}	 		
 	});
 
-//show/hide character menu
-//	$('.editable_text4, .editable_text5').click(function(){
-//  		$('.character_menu').css('visibility','visible');
-//	});
-
-
-
 
 //show/hide functions for spec and clause lines menus
 	$('.specline_table').hover(function(){
@@ -177,8 +258,6 @@ $('ul.tabs, ul.tabs_2').each(function(){
 		$(this).hide();
 	});
 
-
-$('a.get, a.delete, a[original-title]').tipsy();
 
 
 //jeditbale functions
@@ -230,14 +309,34 @@ $(document).on('click','.submittable2', function() {
    return false;
 });
 
-
+//new clause title template select
 $('#clone_template_id').change(function(){
 	var text = $('select#clone_clause_id option:selected').text();
 	$('select#clone_clause_id option:selected').text('updating...').css("color", "#006699");
 })
 
 
+$('input#clause_content_clone_content').click(function (){
+  $('select#clone_template_id').removeAttr('disabled');
+  $('select#clone_clause_id').removeAttr('disabled');
+    $('#clone_select td').css('color', '#000');
+});
 
+$('input#clause_content_no_content, input#clause_content_blank_content').click(function (){
+  $('select#clone_template_id').attr('disabled', 'disabled');
+  $('select#clone_clause_id').attr('disabled', 'disabled');
+  $('#clone_select td').css('color', '#7b7b7b');
+});
+
+
+$("#clone_template_id").change(function() {
+    var template = $('select#clone_template_id :selected').val();
+    jQuery.get('/clauses/'+ template + '/update_clause_select');
+});
+
+
+$('td.suffixed_line_menu').children('a').tipsy();
+$('td.prefixed_line_menu').children('img').tipsy();
 
 //end
 });

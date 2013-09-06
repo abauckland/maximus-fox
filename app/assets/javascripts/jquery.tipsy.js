@@ -155,10 +155,12 @@ setTimeout(function() { if (tipsy.hoverState == 'out') tipsy.hide(); }, options.
 if (!options.live) this.each(function() { get(this); });
 
 if (options.trigger != 'manual') {
-var binder = options.live ? 'live' : 'bind',
-eventIn = options.trigger == 'hover' ? 'mouseenter' : 'focus',
-eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
-this[binder](eventIn, enter)[binder](eventOut, leave);
+    var eventIn = options.trigger == 'hover' ? 'mouseenter' : 'focus',
+        eventOut = options.trigger == 'hover' ? 'mouseleave' : 'blur';
+    if (options.live)
+        $(document).on(eventIn, this.selector, enter).on(eventOut, this.selector, leave);
+    else
+        this.bind(eventIn, enter).bind(eventOut, leave);
 }
 
 return this;
@@ -172,7 +174,7 @@ fade: false,
 fallback: '',
 gravity: 'n',
 html: false,
-live: false,
+live: true,
 offset: 0,
 opacity: 1,
 title: 'title',

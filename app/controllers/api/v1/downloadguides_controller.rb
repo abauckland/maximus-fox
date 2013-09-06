@@ -22,7 +22,7 @@ module Api
       private
       def restrict_access        
          api_key = User.where(:api_key => params[:access_token]).first
-         if api_key .blank?
+         if api_key.blank?
             redirect_to log_out_path     
          end
       end

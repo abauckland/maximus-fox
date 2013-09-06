@@ -108,7 +108,7 @@ def html_prefix(specline)
 end
 
 def specline_move
-  image_tag("move.png", :mouseover =>"move_rollover.png", :border=>0)
+  image_tag("move.png", :mouseover =>"move_rollover.png", :border=>0, :title => 'drag & drop')
 end
 
 def specline_mob_spec_menu(specline)
