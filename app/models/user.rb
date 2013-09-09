@@ -6,11 +6,13 @@ has_many :productimport
 
 
 
-  attr_accessible :first_name, :surname, :email, :company_id, :role, :company, :password, :password_confirmation 
-  attr_accessor :password  
+  attr_accessible :first_name, :surname, :email, :company_id, :role, :company, :password, :check_field
+  attr_accessor :password, :check_field  
   before_save :encrypt_password  
   after_create :add_user_to_mailchimp
   
+  before_validation :custom_validation_check_field
+
     
   validates_confirmation_of :first_name
   validates_confirmation_of :surname  
@@ -24,6 +26,13 @@ has_many :productimport
             :uniqueness => {:message => "A user with this email address already exists"},
             :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }  
       
+
+  def custom_validation_check_field
+    if @check_field !=''
+#      errors.add(:field_check, "Clause title cannot be blank")
+    end     
+  end  
+  
   def encrypt_password  
     if password.present?  
       self.password_salt = BCrypt::Engine.generate_salt  

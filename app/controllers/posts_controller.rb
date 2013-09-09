@@ -24,7 +24,8 @@ layout "websites"
   # GET /posts/1.xml
   def show
     @post = Post.find(params[:id])
-    @comment = Comment.new(params[:post])
+    @post_comments = Comment.where(:post_id => params[:id], :checked => 1)
+    @comment = Comment.new
     @topics = Post.all.collect{|i| i.topic}.uniq.sort
 
     respond_to do |format|
