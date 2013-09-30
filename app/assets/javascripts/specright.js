@@ -25,25 +25,6 @@ $('.login').blur(function(){
 });
 
 
-//new clause reference field
-var $enter_clause_ref = $('#enter_clause_ref');
-        $enter_clause_ref.hide(); //hide input with type=password
-
-        $("#enter_clause_ref_default").click(function() {
-                $( this ).hide();
-                $('#enter_clause_ref').show();
-                $('#enter_clause_ref').focus();
-        });
-
-$('#enter_clause_ref').focusout(function() {
-    if ($(this).val().length === 0) { //if password field is empty            
-        $(this).hide();
-        $('#enter_clause_ref_default').show();
-        $('#enter_clause_ref_default').default_value('????'); //will clear on click
-    }
-});
-
-
 
 
 $("#firstpane p.menu_head").mouseover(function()

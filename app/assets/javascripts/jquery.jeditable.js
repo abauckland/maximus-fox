@@ -485,10 +485,10 @@ form.css('display', 'inline');
                         textarea.height(settings.height);
                     }
                     if (settings.cols) {
-                        textarea.attr('cols', settings.cols + 10);
+                        textarea.attr('cols', settings.cols + 15);
                     } else if (settings.width != "none") {
                     	if (settings.width > (textarea.width(($(window).width())-330))){
-                        textarea.width(settings.width + 10);
+                        textarea.width(settings.width + 15);
                        }
                        else{
                        	var test_1 = settings.id;

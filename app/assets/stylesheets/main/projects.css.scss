@@ -724,7 +724,7 @@ span.editable_text5{@extend span.editable_text4}
   text-align: left;   
 }
 
-  @media screen and (min-width: $large_menu) {
+  @media screen and (min-width: $medium_menu) {
     .small_show{display:none;} 
   }
   

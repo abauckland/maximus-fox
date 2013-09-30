@@ -195,8 +195,8 @@ var mob = '720';
 var limit = '310';
 
 //Set size and location of elements depending on screen size	
-feature_image_display();
-home_text();
+	feature_image_display();
+	home_text();
 	web_sub_column_width(s_tab, mob, limit);//set column width depending on size of window
 	web_main_column_width(s_tab, mob, limit);//set column width depending on size of window
 	web_sub_column_width(s_tab, mob, limit);//repeat required to get sizes right on initial load - not sure why
@@ -206,10 +206,10 @@ home_text();
 	web_signup_link();
 	web_tagline();
 	web_posts_index(s_tab, mob, limit);
-feature_image_location();
+	feature_image_location();
 	$(window).resize(function(){
-feature_image_display();
-home_text();
+	feature_image_display();
+		home_text();
 		web_sub_column_width(s_tab, mob, limit);//set column width depending on size of window
 		web_main_column_width(s_tab, mob, limit);//set column width depending on size of window
 		web_sub_column_width(s_tab, mob, limit);//repeat required to get sizes right on initial load - not sure why
@@ -218,7 +218,7 @@ home_text();
 		web_signup_link();
 		web_tagline();
 		web_posts_index(s_tab, mob, limit);
-feature_image_location();
+		feature_image_location();
 	});
 
 

@@ -117,7 +117,7 @@
   display: block;
   position: absolute;
   top: 11px; //how is this set so logo is centered on header?
-  right: 3px;
+  right: 325px;
   font-family: $heading_font;
 
   @include small-button;
@@ -395,7 +395,6 @@
 
 .web_main_text{
   float: left;
-  width: 100%;
   font-size: 1.4rem;
   line-height: 1.8rem;
   text-align: justify;
@@ -854,7 +853,7 @@
 
 .blog_text {
   padding: 5px 0px 5px 0px;
-  margin: 0px 09px 10px 0px;
+  margin: 0px 9px 10px 0px;
   text-align: justify;
   border-bottom: 1px solid #bebebe;
   font-size: 1.4rem;

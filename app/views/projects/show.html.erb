@@ -100,7 +100,7 @@
       <li><a <%= class_and_href_ref(clausetype.id, @current_clausetype.id)%>><%= clausetype.text %></a></li>
     <%end%>
   </ul>
-	<% @clausetypes.each do |clausetype|%>
+ 	<% @clausetypes.each do |clausetype|%>
 	<div id="<%= clausetype.id %>edit_view" class="tab_content <%= clausetype.id %>">    
 		<% @selected_specline_lines.each do |spec_line| %>   
 			<%= clausetype_filter(spec_line, spec_line.clause.clauseref.clausetype_id, clausetype.id) %>    
@@ -108,8 +108,18 @@
 		<table><tr class='specline_row'><td></td></tr></table>
 	</div>    
 	<%end%>
+	
+
 </div>
 
 <% end %>
 
-
+<!--
+<script>
+	for each clausetype - except first
+		click on tab
+		get data
+		fill div
+	end
+</script>
+-->

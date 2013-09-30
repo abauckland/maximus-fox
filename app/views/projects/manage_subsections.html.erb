@@ -37,9 +37,15 @@
 						<table>
 						<tr><td>
 							<div class="section_form_label form_input_label">Work Sections in Template:</div>
-							<div class="form_input">
-              					<%= select_tag "template_sections", options_from_collection_for_select(@template_project_subsections, :id, :subsection_full_code_and_title), multiple: true%>
-							</div>				
+							<% if @template_project_subsections %>
+								<div class="form_input">
+              						<%= select_tag "template_sections", options_from_collection_for_select(@template_project_subsections, :id, :subsection_full_code_and_title), multiple: true%>
+								</div>
+							<% else %>
+								<div class="form_input_blank_note">
+              						All clauses in the template already exist in the current projectdd
+								</div>
+							<% end %>				
 						</td></tr>										
 						</table>				
       		    </div>    		    	

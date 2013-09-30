@@ -286,7 +286,7 @@ $.editable.addInputType('autogrow', {
 
 $('.editable_text3').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() +5)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() +10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text4').mouseover(function(){
 var spec_id = $(this).attr('id');
@@ -332,6 +332,25 @@ $('input#clause_content_no_content, input#clause_content_blank_content').click(f
 $("#clone_template_id").change(function() {
     var template = $('select#clone_template_id :selected').val();
     jQuery.get('/clauses/'+ template + '/update_clause_select');
+});
+
+
+//new clause reference field
+var $enter_clause_ref = $('#enter_clause_ref');
+        $enter_clause_ref.hide(); //hide input with type=password
+
+        $("#enter_clause_ref_default").click(function() {
+                $( this ).hide();
+                $('#enter_clause_ref').show();
+                $('#enter_clause_ref').focus();
+        });
+
+$('#enter_clause_ref').focusout(function() {
+    if ($(this).val().length === 0) { //if password field is empty            
+        $(this).hide();
+        $('#enter_clause_ref_default').show();
+        $('#enter_clause_ref_default').default_value('????'); //will clear on click
+    }
 });
 
 

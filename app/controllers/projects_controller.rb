@@ -74,17 +74,24 @@ layout "projects"
    
     #get all speclines for selected subsection
 
-    selected_clauses = Clause.joins(:clauseref, :speclines).select('DISTINCT(clauses.id)').where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id)
-    array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
+    @clausetypes = Clausetype.joins(:clauserefs => [:clauses => :speclines]).where('speclines.project_id' => @current_project, 'clauserefs.subsection_id' => @selected_key_subsection.id).uniq.sort 
 
-    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, :clause_id => array_of_selected_clauses).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+
+    #selected_clauses = Clause.joins(:clauseref, :speclines).select('DISTINCT(clauses.id)').where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id)
+    #array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
+
+    
+#    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id, 'clauserefs.clausetype_id' => @clausetypes.first).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
 
     
     #establish list of clausetypes to build tabulated view in show    
-    selected_clause_ids = selected_clauses.collect{|item| item.id}.uniq.sort        
-    clausetype_ids = Clausetype.joins(:clauserefs => :clauses).where('clauses.id' => selected_clause_ids).collect{|item1| item1.id}.uniq.sort 
-    @clausetypes = Clausetype.where(:id => clausetype_ids)
-    
+    #selected_clause_ids = selected_clauses.collect{|item| item.id}.uniq.sort        
+    #clausetype_ids = Clausetype.joins(:clauserefs => :clauses).where('clauses.id' => selected_clause_ids).collect{|item1| item1.id}.uniq.sort 
+    #@clausetypes = Clausetype.where(:id => clausetype_ids)
+    #clauseypes less first
+    #clausetype_ids.shift
+    #@clausetypes = Clausetype.where(:id => clausetype_ids)
     
     if params[:clausetype].blank?
      @current_clausetype = @clausetypes.first 
@@ -95,12 +102,20 @@ layout "projects"
       respond_to do |format|
         format.html # show.html.erb
         format.xml  { render :xml => @project }
-      end 
-      
-   end   
-      
-      
+      end      
+   end         
   end
+
+
+
+def show_tab_content
+  current_project = params[:id]
+  current_subsection = params[:subsection_id]
+  clausetype = params[:clausetype]
+  @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => current_subsection, 'clauserefs.clausetype' => clausetype).order('clauserefs.clause, clauserefs.subclause, clause_line')                           
+ 
+  #layout => false
+end
 
 
   def empty_project

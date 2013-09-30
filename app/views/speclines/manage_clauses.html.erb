@@ -24,9 +24,7 @@
       		    </div>		
 
 				<div class="column_sub_guide">
-						<p>Select Clauses that you would like to add to your project.</p>
-						<p>Only clauses that are not currently included within your current project are listed.</p>
-						<p>This does not mean that the contents of the clauses within the current project are similar to those in the template project.</p>
+						<p>Select clauses to add to the project (Note: only clauses without the same reference and title as those already within the project are listed).</p>
       			</div>
 				
 				<div class="column_form">				
@@ -37,9 +35,15 @@
 						<table>
 						<tr><td>
 							<div class="section_form_label form_input_label">Clauses in Template:</div>
-							<div class="form_input">
-              					<%= select_tag "template_clauses", options_from_collection_for_select(@template_project_clauses, :id, :clause_full_title), multiple: true %>
-							</div>				
+							<% if @template_project_clauses %>
+								<div class="form_input">
+              						<%= select_tag "template_clauses", options_from_collection_for_select(@template_project_clauses, :id, :clause_full_title), multiple: true, size: 8  %>
+								</div>
+							<% else %>
+								<div class="form_input_blank_note">
+              						All clauses in the template already exist in the current projectdd
+								</div>							
+							<% end %>				
 						</td></tr>										
 						</table>				
       		    </div>     			      		    	
@@ -63,8 +67,7 @@
 
 				<div class="column_guide">
 					<p>Select Clauses that you would like to remove from your project.</p>
-					<p>Only clauses that are currently included within your current project subsection are listed.</p>
-					<p>This does not mean that the contents of these clause within the current project are similar to those in the template project.</p>
+					<p>Only clauses that are currently included within your current project subsection are listed (Note: this does not indicate that the contents of these clause are similar to those in the template).</p>
       			</div>
 				
 				<div class="column_form">				
@@ -76,7 +79,7 @@
 						<tr><td>
 							<div class="section_form_label form_input_label">Clauses in Project:</div>
 							<div class="form_input">          
-          						<%= select_tag "project_clauses", options_from_collection_for_select(@current_project_clauses, :id, :clause_full_title), multiple: true %>    
+          						<%= select_tag "project_clauses", options_from_collection_for_select(@current_project_clauses, :id, :clause_full_title), multiple: true, size: 13  %>    
 							</div>				
 						</td></tr>										
 						</table>				
