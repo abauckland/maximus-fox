@@ -64,7 +64,9 @@ SpecrightDev::Application.routes.draw do
   resources :clauses do
     post :clause_ref_select, :on => :member
     get :subclause_select, :on => :member
-    get :update_clause_select, :on => :member
+    get :new_clone_project_list, :on => :member
+    get :new_clone_subsection_list, :on => :member
+    get :new_clone_clause_list, :on => :member    
   end
     
   resources :projects do  

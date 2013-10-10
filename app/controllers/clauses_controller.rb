@@ -20,11 +20,11 @@ layout "projects"
     clauseref = @clause.build_clauseref
     
     @current_subsection = Subsection.where(:id => params[:subsection]).first
-    @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code") 
+#    @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code") 
 
     
-    @clone_clauses = Clause.includes(:speclines, :clausetitle, :clauseref => [:subsection => [:section]]).where('speclines.project_id' => @current_project.id).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
-    @current_clone_clause = @clone_clauses.first
+  #  @clone_clauses = Clause.includes(:speclines, :clausetitle, :clauseref => [:subsection => [:section]]).where('speclines.project_id' => @current_project.id).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
+  #  @current_clone_clause = @clone_clauses.first
   
   end
 
@@ -127,14 +127,21 @@ layout "projects"
     end
   end
 
-  def update_clause_select
-  
-    clone_clause_ids = Specline.where(:project_id => params[:id]).collect{|i| i.clause_id}.uniq
-    @clone_clauses = Clause.joins(:clauseref, :clausetitle).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')
-
-    @current_clone_clause = @clone_clauses.first
-
+  def new_clone_project_list
+    @projects = Project.where(:company_id => [1, current_user.company_id]).order("company_id, code")   
   end
+  
+  def new_clone_subsection_list
+    clone_subsection_ids = Subsection.joins(:clauserefs => [:clauses => :speclines]).where('speclines.project_id' => params[:id]).collect{|i| i.id}.uniq
+    @clone_subsections = Subsection.includes(:section).where(:id => clone_subsection_ids)
+  end
+  
+  def new_clone_clause_list
+    clone_clause_ids = Clause.joins(:clauseref, :speclines).where('speclines.project_id' => params[:id], 'clauserefs.subsection_id' => params[:subsection]).collect{|i| i.id}.uniq
+    @clone_clauses = Clause.includes(:clausetitle, :clauseref => [:subsection => :section]).where(:id => clone_clause_ids).order('clauserefs.subsection_id', 'clauserefs.clausetype_id', 'clauserefs.clause', 'clauserefs.subclause')    
+  end
+    
+  
 
 #end of class
 end

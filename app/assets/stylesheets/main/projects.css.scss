@@ -735,7 +735,12 @@ span.editable_text5{@extend span.editable_text4}
 ////////////////////////////////////////
 //new clause css
 .clause_form_label{
+  font-size: 1.2rem;
+  font-weight: bold;
+  float:left;  
+  color: $bold_text_color;    
   width: 80px;
+  padding: 10px 5px 0px 0px;
   text-align: left;   
 }
 
@@ -743,6 +748,10 @@ span.editable_text5{@extend span.editable_text4}
   font-weight: bold;
   color: #ff3300;
 }
+
+.clone_template{color: #7b7b7b}
+.clone_section{color: #7b7b7b}
+.clone_clause{color: #7b7b7b}
 
 #clone_clause_id{
   width: 300px;
@@ -756,6 +765,7 @@ span.editable_text5{@extend span.editable_text4}
   }
   
 #clone_template_id{@extend #clone_clause_id}
+#clone_section_id{@extend #clone_clause_id}
 
 ////////////////////////////////////////
 //subsection manage css  

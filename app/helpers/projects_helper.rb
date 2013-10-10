@@ -6,6 +6,7 @@ def class_and_href_ref(clausetype_id, current_clausetype_id)
   
   if clausetype_id == current_clausetype_id
   "class='selected' href='##{clausetype_id}edit_view'".html_safe
+  #"class='selected' #{link_to '', {:controller => "projects", :action => "show_tab_content", :id =>current_project_id, :subsection_id => subsection_id, :clausetype => clausetype_id}, :remote => true}".html_safe
   else
   "href='##{clausetype_id}edit_view'".html_safe
   end

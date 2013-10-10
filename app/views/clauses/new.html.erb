@@ -21,7 +21,7 @@
 						<tr><td>
 							<%= f.fields_for :clauseref do |ref| %>
 							<%= ref.hidden_field(:subsection_id, {:value => @current_subsection.id})%> 	
-							<div class="clause_form_label form_input_label">Reference:</div>
+							<div class="clause_form_label">Reference:</div>
 							<div class="form_input">
 								<%=@current_subsection.subsection_code%>.
 								<%= ref.text_field :full_clause_ref, :id=>"enter_clause_ref_default", :value=>"????", :size => 2 %>
@@ -30,7 +30,7 @@
 							<% end %> 					
 						</td></tr>
 						<tr><td>
-							<div class="clause_form_label form_input_label">Title:</div>
+							<div class="clause_form_label">Title:</div>
 							<div class="form_input"><%= f.text_field :title_text, :size => 75, :blank => true %>
 								<% if flash.any? %>
 									<div class="form_error_note"><%= flash[:error] %></div>
@@ -52,19 +52,25 @@
       		<tr><td><%= radio_button_tag :clause_content, 'blank_content', :checked => true %> Blank content suitable for editing.</td></tr>
       		<tr><td><%= radio_button_tag :clause_content, 'clone_content' %>  Clone content from:</td></tr>					
       		<tr><td>
-      			<div id ="clone_select">
+      			<div class ="clone_select">
       				<table>
-      					<tr><td>
-      						Project/Template:
+      					<tr><td class="clone_template">
+      						Project:
       						</td>
       						<td>
-      							<%= select_tag "clone_template_id", options_from_collection_for_select(@projects, :id, :project_code_and_title, @current_project.id), {:disabled => true} %>
+      							<%= select_tag "clone_template_id", nil, {:prompt => 'Select Project', :disabled => true} %>
 						</td></tr>
-						<tr><td>
-      						Project Clause:
+						<tr><td class="clone_section">
+      						Section:
       						</td>
       						<td>
-      						<%= select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title, @current_clone_clause.id), {:disabled => true} %>
+      						<%= select_tag "clone_section_id", nil, {:prompt => 'Select Section', :disabled => true} %>
+ 						</td></tr>
+						<tr><td class="clone_clause">
+      						Clause:
+      						</td>
+      						<td>
+      						<%= select_tag "clone_clause_id", nil, {:prompt => 'Select Clause',:disabled => true} %>
  						</td></tr>
  					</table>												
 

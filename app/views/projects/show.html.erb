@@ -115,11 +115,13 @@
 <% end %>
 
 <!--
-<script>
-	for each clausetype - except first
-		click on tab
-		get data
-		fill div
-	end
-</script>
+<% @clausetypes.each_with_index do |clausetype, i|%>
+	<% if i >= 1 %>
+		<script>
+			$('a').click(function (){
+				jQuery.get('/projects/'+ current_project + '/show_tab_content?subsection=subsection&clausetype_id=clausetype_id');
+			});
+		</script>
+	<%end%>
+<%end%>
 -->

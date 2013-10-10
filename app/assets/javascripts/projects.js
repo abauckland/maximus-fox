@@ -310,29 +310,43 @@ $(document).on('click','.submittable2', function() {
 });
 
 //new clause title template select
-$('#clone_template_id').change(function(){
-	var text = $('select#clone_clause_id option:selected').text();
-	$('select#clone_clause_id option:selected').text('updating...').css("color", "#006699");
-})
+//$('#clone_template_id').change(function(){
+//	var text = $('select#clone_clause_id option:selected').text();
+//	$('select#clone_clause_id option:selected').text('updating...').css("color", "#006699");
+//})
 
 
 $('input#clause_content_clone_content').click(function (){
   $('select#clone_template_id').removeAttr('disabled');
-  $('select#clone_clause_id').removeAttr('disabled');
-    $('#clone_select td').css('color', '#000');
+	$('.column_submit').css('visibility', 'hidden');
+    $('.clone_template').css('color', '#000');
+    var template = $('input#clause_project_id').val();
+    jQuery.get('/clauses/'+ template + '/new_clone_project_list');
 });
 
-$('input#clause_content_no_content, input#clause_content_blank_content').click(function (){
+$('select#clone_template_id').change(function (){
+	$('.column_submit').css('visibility', 'hidden');
+  	$('select#clone_section_id').attr('disabled', 'disabled');
+  	$('select#clone_clause_id').attr('disabled', 'disabled');
+
+});
+
+
+
+$('input#clause_content_blank_content').click(function (){
   $('select#clone_template_id').attr('disabled', 'disabled');
+  $('select#clone_section_id').attr('disabled', 'disabled');
   $('select#clone_clause_id').attr('disabled', 'disabled');
-  $('#clone_select td').css('color', '#7b7b7b');
+  $('.clone_template, .clone_section, .clone_clause').css('color', '#7b7b7b');
+  $('.column_submit').css('visibility', 'visible');
+  
+	var select = $('select#clone_template_id');
+	var length = select.options.length;
+	for (i = 1; i < length; i++) {select.options[i] = null;}
+	select.options[0] = 'Select Project';
 });
 
 
-$("#clone_template_id").change(function() {
-    var template = $('select#clone_template_id :selected').val();
-    jQuery.get('/clauses/'+ template + '/update_clause_select');
-});
 
 
 //new clause reference field

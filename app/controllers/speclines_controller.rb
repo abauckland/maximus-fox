@@ -42,14 +42,14 @@ def manage_clauses
     
       
     #specline_line_array = Specline.where("project_id = ?", @current_project.id).collect{|item1| item1.clause_id}.sort     
-    clause_line_array = Clause.joins(:clauseref, :speclines).where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @current_subsection.id).collect{|item2| item2.id}.sort
+    clause_line_array = Clause.joins(:clauseref, :speclines).where('speclines.project_id' => @current_project.id, 'clauserefs.subsection_id' => @current_subsection.id).collect{|item2| item2.id}.sort.uniq
 
     #template_specline_line_array = Specline.where("project_id = ?", @current_project_template.id).collect{|item1| item1.clause_id}.sort    
-    template_clause_line_array = Clause.joins(:clauseref, :speclines).where('speclines.project_id' => @current_project_template.id, 'clauserefs.subsection_id' => @current_subsection.id).collect{|item2| item2.id}.sort
+    template_clause_line_array = Clause.joins(:clauseref, :speclines).where('speclines.project_id' => @current_project_template.id, 'clauserefs.subsection_id' => @current_subsection.id).collect{|item2| item2.id}.sort.uniq
 
    unused_clause_line_array = template_clause_line_array - clause_line_array
-    @template_project_clauses = Clause.includes(:clauseref).where(:id => unused_clause_line_array).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
-    @current_project_clauses = Clause.includes(:clauseref).where(:id => clause_line_array).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
+    @template_project_clauses = Clause.includes(:clausetitle, :clauseref => :clausetype).where(:id => unused_clause_line_array).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
+    @current_project_clauses = Clause.includes(:clausetitle, :clauseref => :clausetype).where(:id => clause_line_array).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause')
  
      
 end

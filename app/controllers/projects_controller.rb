@@ -109,12 +109,12 @@ layout "projects"
 
 
 def show_tab_content
-  current_project = params[:id]
-  current_subsection = params[:subsection_id]
-  clausetype = params[:clausetype]
-  @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => current_subsection, 'clauserefs.clausetype' => clausetype).order('clauserefs.clause, clauserefs.subclause, clause_line')                           
- 
-  #layout => false
+    current_project = params[:id]
+    current_subsection = params[:subsection_id]
+    clausetype = params[:clausetype]
+    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => current_subsection, 'clauserefs.clausetype' => clausetype).order('clauserefs.clause, clauserefs.subclause, clause_line')                           
+  
+    #layout => false
 end
 
 

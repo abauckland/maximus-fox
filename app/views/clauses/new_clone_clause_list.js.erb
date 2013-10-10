@@ -1,0 +1,16 @@
+
+var updated_clone_clause_select = "<%= escape_javascript(select_tag "clone_clause_id", options_from_collection_for_select(@clone_clauses, :id, :clause_section_full_title), {:prompt => 'Select Clause'} )%>";
+
+$('.clone_clause').css('color', '#000');
+$('select#clone_clause_id').replaceWith(updated_clone_clause_select);
+
+$("#clone_clause_id").change(function() {
+	$('.column_submit').css('visibility', 'visible');
+});
+
+$('input#clause_content_blank_content').click(function (){  
+	var section_select = $('select#clone_section_id');
+	var section_length = section_select.options.length;
+	for (i = 1; i < section_length; i++) {section_select.options[i] = null;}
+	section_select.options[0] = "Select Section";
+});

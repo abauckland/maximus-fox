@@ -1,0 +1,17 @@
+
+var updated_clone_section_select = "<%= escape_javascript(select_tag "clone_section_id", options_from_collection_for_select(@clone_subsections, :id, :subsection_full_code_and_title), {:prompt => 'Select Section'} )%>";
+var updated_clone_clause_select = "<%= escape_javascript(select_tag "clone_clause_id", nil, {:prompt => 'Select Section',:disabled => true} )%>";
+
+$('.clone_section').css('color', '#000');
+$('select#clone_section_id').replaceWith(updated_clone_section_select);
+$('select#clone_clause_id').replaceWith(updated_clone_clause_select);
+
+$("#clone_section_id").change(function() {
+    $('.column_submit').css('visibility', 'hidden');
+    
+    var template = $('select#clone_template_id :selected').val();
+    var section = $('select#clone_section_id :selected').val();
+    jQuery.get('/clauses/'+ template + '/new_clone_clause_list?id='+ template + '&subsection='+ section);
+});
+
+
