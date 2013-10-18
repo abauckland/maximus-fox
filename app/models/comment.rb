@@ -8,7 +8,7 @@ belongs_to :post
 
   def custom_validation_check_field
     if @check_field !=''
-#      errors.add(:field_check, "Clause title cannot be blank")
+      errors.add(:field_check, "Cannot be blank")
     end     
   end  
 

@@ -1,0 +1,60 @@
+    <% if !@array_of_deleted_prelim_subsections_compacted.empty? %>
+      <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Deleted Subsections:</td></tr></table>
+        <% @array_of_deleted_prelim_subsections_compacted.each do |revision_prelim_subsection|%>
+        <%= changed_prelim_subsection_text(revision_prelim_subsection) %>
+        <% end%>
+    <% end%>
+    
+    <% if !@array_of_new_prelim_subsections_compacted.empty? %>
+      <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Added Subsections:</td></tr></table>
+        <% @array_of_new_prelim_subsections_compacted.each do |revision_prelim_subsection|%>
+        <%= changed_prelim_subsection_text(revision_prelim_subsection) %>
+        <% end%>
+    <% end%>
+    
+    <% if !@array_of_changed_prelim_subsections_compacted.empty? %>
+      <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Changed Subsections:</td></tr></table>
+        
+        <% @array_of_changed_prelim_subsections_compacted.each do |changed_subsection|%>
+
+		  <%= changed_prelim_subsection_text(changed_subsection) %>
+          <%= deleted_prelim_clauses_text(changed_subsection) %>
+         
+          <%= deleted_prelim_clauses_text(changed_subsection) %> 
+          <% @hash_of_deleted_clauses_compacted = @hash_of_deleted_prelim_clauses[changed_subsection.id].compact %>
+          <% @hash_of_deleted_clauses_compacted.each do |changed_clause| %>          
+            <%= changed_clause_titles(changed_clause, 'deleted') %>
+          <% end %>         
+         
+          <%= new_prelim_clauses_text(changed_subsection) %> 
+          <% @hash_of_new_clauses_compacted = @hash_of_new_prelim_clauses[changed_subsection.id].compact %>
+          <% @hash_of_new_clauses_compacted.each do |changed_clause| %>          
+            <%= changed_clause_titles(changed_clause, 'added') %>
+          <% end %>
+
+          
+          <%= changed_prelim_clauses_text(changed_subsection) %>
+ 
+          <% @hash_of_changed_clauses_compacted = @hash_of_changed_prelim_clauses[changed_subsection.id].compact %>
+          <% @hash_of_changed_clauses_compacted.each do |changed_clause| %>
+            
+        	<%= changed_clause_titles(changed_clause, 'changed') %>
+          
+      		<%= clause_line_text_altered(changed_clause, 'new') %>
+        	<% @altered_lines.each do |added_line| %>
+          		<%= original_line_text(added_line) %>
+        	<% end %>
+    
+      		<%= clause_line_text_altered(changed_clause, 'deleted') %>
+        	<% @altered_lines.each do |deleted_line| %>
+          		<%= original_line_text(deleted_line) %>
+        	<% end %>
+    
+      		<%= clause_line_text_altered(changed_clause, 'changed') %>
+            <% @altered_lines.each do |changed_line| %>
+              <%=changed_line_text(changed_line, @selected_revision, @current_project)%>
+            <% end %> 
+                    
+          <% end%>
+        <% end%>
+    <% end%>

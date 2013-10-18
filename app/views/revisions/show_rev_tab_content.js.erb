@@ -1,0 +1,2 @@
+$('div#<%= @revision_subsection.id %>').empty();
+$('div#<%= @revision_subsection.id %>').html('<%= escape_javascript(render "tab_revision_content", locals: {revision_subsection: @revision_subsection, array_of_new_subsections: @array_of_new_subsections, array_of_deleted_subsections: @array_of_deleted_subsections, array_of_deleted_clauses: @array_of_deleted_clauses, array_of_new_clauses: @array_of_new_clauses, array_of_changed_clauses: @array_of_changed_clauses, selected_revision: @selected_revision, current_project: @current_project}) %>');

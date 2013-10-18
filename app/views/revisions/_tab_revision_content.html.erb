@@ -1,0 +1,40 @@
+    <% if !@array_of_new_subsections.empty? %>
+    	<%= new_subsection_text(@revision_subsection) %>
+	<% end %>
+	    
+    <% if !@array_of_new_subsections.empty? %>
+    	<%= deleted_subsection_text(@revision_subsection) %>
+	<% end %>
+	
+    <%= deleted_clauses_text(@revision_subsection) %>
+      <% @array_of_deleted_clauses.each do |deleted_clause| %>
+        <%= altered_clause_text(deleted_clause, @selected_revision, @current_project) %>
+      <% end %>
+
+    <%= new_clauses_text(@revision_subsection) %> >
+      <% @array_of_new_clauses.each do |new_clause| %>
+        <%= altered_clause_text(new_clause, @selected_revision, @current_project) %>
+      <% end %>
+    
+    <%= changed_clauses_text(@revision_subsection) %>
+ 
+    <% @array_of_changed_clauses.each do |changed_clause| %>
+
+      <%= changed_clause_titles(changed_clause, 'changed') %>
+
+      <%= clause_line_text_altered(changed_clause, 'new') %>
+        <% @altered_lines.each do |added_line| %>
+          <%= original_line_text(added_line) %>
+        <% end %>
+    
+      <%= clause_line_text_altered(changed_clause, 'deleted') %>
+        <% @altered_lines.each do |deleted_line| %>
+          <%= original_line_text(deleted_line) %>
+        <% end %>
+    
+      <%= clause_line_text_altered(changed_clause, 'changed') %>
+        <% @altered_lines.each do |changed_line| %>
+          <%=changed_line_text(changed_line, @selected_revision, @current_project)%>
+        <% end %>      
+
+    <%end%>

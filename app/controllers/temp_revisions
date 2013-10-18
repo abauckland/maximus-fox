@@ -1,0 +1,94 @@
+project_id = params[:project_id]
+revision_id = params[:revision_id]
+subsection_id = params[:subsection_id]
+
+
+
+#if subsection is preliminary
+if subsection_id == 1
+  #get list of prelim subsections in project where changes have been made
+  prelim_subsections = Subsection.where(:clauseref => [:clause => :changes]).where(:section_id => 1, 'clauserefs.project_id' => project_id, 'clauserefs.revision_id' => revision_id)
+  if prelim_subsections
+    
+    @array_of_deleted_prelim_subsections = []
+    @array_of_new_prelim_subsections = []
+    @array_of_changed_prelim_subsections = []
+
+    #check if prelim subsection is new, added or changed
+    prelim_subsections.each do |subsection|
+       
+      new_subsections = Change.joins(:clause => :clauseref).where('clauserefs.subection_id' => subsection.id, :event => 'new', :clause_add_delete => 3, :project_id => project_id, :clause_id => array_of_subsection_clause_ids, :revision_id => revision_id)#.first 
+      if new_subsections.blank?
+          deleted_subsections = Change.joins(:clause => :clauseref).where('clauserefs.subection_id' => subsection.id, :event => 'deleted', :clause_add_delete => 3, :project_id => project_id, :clause_id => array_of_subsection_clause_ids, :revision_id => revision_id)#.first 
+          if deleted_subsections.blank?
+            @array_of_changed_prelim_subsections[i] = subsection
+          else
+            @array_of_deleted_prelim_subsections[i] = subsection
+          end              
+      else
+        @array_of_new_prelim_subsections[i] = subsection
+      end
+    @array_of_new_prelim_subsections_compacted = @array_of_new_prelim_subsections.compact
+    @array_of_deleted_prelim_subsections_compacted = @array_of_deleted_prelim_subsections.compact
+    @array_of_changed_prelim_subsections_compacted = @array_of_changed_prelim_subsections.compact
+   
+    ##establish list of changed clauses for each changed prelim subsection
+    @hash_of_deleted_prelim_clauses ={}
+    @hash_of_new_prelim_clauses = {}
+    @hash_of_changed_prelim_clauses = {}
+            
+    @array_of_changed_prelim_subsections_compacted.each do |changed_subsection|  
+    
+      changed_clauses = Clause.joins(:clauseref, :changes).where('clauserefs.subsection_id' => changed_subsection.id, 'changes.project_id' => project_id, 'changes.revision_id' => revision_id, 'changes.event' => 'deleted')
+      
+      changed_clauses.each_with_index do |changed_clause, i|
+      
+        add_check = Change.where(:event => 'new', :clause_add_delete => 2, :project_id => @current_project.id, :clause_id => changed_clause.clause_id, :revision_id => @selected_revision.id).first 
+          if add_check.blank?
+            deleted_check = Change.where(:event => 'deleted', :clause_add_delete => 2, :project_id => @current_project.id, :clause_id => changed_clause.clause_id, :revision_id => @selected_revision.id).first 
+                if deleted_check.blank?
+                  @hash_of_changed_prelim_clauses[changed_subsection.id][i] = changed_clause             
+                else
+                  @hash_of_deleted_prelim_clauses[changed_subsection.id][i] = changed_clause
+                end
+          else
+            @hash_of_new_prelim_clauses[changed_subsection.id][i] = changed_clause
+          end
+        end
+      end
+    end      
+  end
+#if not prelim subsection  
+else
+
+#establish if subsection is new or has been deleted      
+  subsection_change = Change.joins(:clause => :clauseref).where(:clause_add_delete => 3, :project_id => project_id, 'clauserefs.subsection_id' => subsection_id, :revision_id => revision_id).first 
+
+  if subsection_change
+    if subsection_change.event == 'new'
+      @new_subsections = Subsection.find(subsection_id)
+    end
+    if subsection_change.event == 'deleted'
+      @adeleted_subsections = Subsection.find(subsection_id)
+    end
+  else
+
+#check status of clause within changed subsection   
+    changed_clauses = Clause.joins(:clauseref, :changes).where('clauserefs.subsection_id' => subsection_id, 'changes.project_id' => project_id, 'changes.revision_id' => revision_id, 'changes.event' => 'deleted')
+      
+    changed_clauses.each_with_index do |changed_clause, i|
+           
+      add_check = Change.where(:event => 'new', :clause_add_delete => 2, :project_id => @current_project.id, :clause_id => changed_clause.id, :revision_id => @selected_revision.id).first 
+      if add_check.blank?
+        deleted_check = Change.where(:event => 'deleted', :clause_add_delete => 2, :project_id => @current_project.id, :clause_id => changed_clause.id, :revision_id => @selected_revision.id).first 
+          if deleted_check.blank?
+            @array_of_changed_clauses[i] = changed_clause              
+          else
+            @array_of_deleted_clauses[i] = changed_clause
+          end
+      else
+        @array_of_new_clauses[i] = changed_clause
+      end
+    end
+  end
+end

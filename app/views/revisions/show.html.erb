@@ -18,7 +18,7 @@
 <div class="option_band_single">	
 	<div class="project_select">
 		<div class="project_label_select">Revision:</div>
-      	<%= revision_select(@project_revisions, @selected_revision, @current_project, @revision_clause_id_array) %>
+      	<%= revision_select(@project_revisions, @selected_revision, @current_project, @revision_subsections) %>
 	</div>
 </div>
 
@@ -48,44 +48,42 @@
 
 <div class="revision_tabs">
 	<ul class='tabs'>
-  <% if !@revision_prelim_subsections.blank? %>
-    <li><a <%= get_class_and_href_ref(@first_prelim_susbsection.id, @current_revision)%>><%= @first_prelim_susbsection.section.ref%>--</a></li>
+  <% if @revision_prelim_subsections %>
+    <li id="prelim"><a href='#prelim_rev_view'><%= @first_prelim_susbsection.section.ref%>--</a></li>
   <% end%>
   
   <% @revision_none_prelim_subsections.each do |revision_subsection|%>
-    <li><a <%= get_class_and_href_ref(revision_subsection.id, @current_revision)%>><%= revision_subsection.section.ref%><%= revision_subsection.ref%></a></li>
+    <li id="<%= revision_subsection.id %>"><a href='#<%= revision_subsection.id%>rev_view'><%= revision_subsection.section.ref%><%= revision_subsection.ref%></a></li>
   <% end %>
 </ul>
 
 
-  <% if !@revision_prelim_subsections.blank? %>
+  <% if @revision_prelim_subsections %>
 
-  <div id="<%= @first_prelim_susbsection.id%>rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
+  <div id="prelim_rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
 
-    <% if !@array_of_deleted_prelim_subsections_compacted.blank? %>
+    <% if !@array_of_deleted_prelim_subsections_compacted.empty? %>
       <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Deleted Subsections:</td></tr></table>
         <% @array_of_deleted_prelim_subsections_compacted.each do |revision_prelim_subsection|%>
         <%= changed_prelim_subsection_text(revision_prelim_subsection) %>
         <% end%>
     <% end%>
     
-    <% if !@array_of_new_prelim_subsections_compacted.blank? %>
+    <% if !@array_of_new_prelim_subsections_compacted.empty? %>
       <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Added Subsections:</td></tr></table>
         <% @array_of_new_prelim_subsections_compacted.each do |revision_prelim_subsection|%>
         <%= changed_prelim_subsection_text(revision_prelim_subsection) %>
         <% end%>
     <% end%>
     
-    <% if !@array_of_changed_prelim_subsections_compacted.blank? %>
+    <% if !@array_of_changed_prelim_subsections_compacted.empty? %>
       <table class='rev_deleted_subsection_title' width ='100%'><tr><td class='rev_title'>Changed Subsections:</td></tr></table>
         
         <% @array_of_changed_prelim_subsections_compacted.each do |changed_subsection|%>
 
-        <%= changed_prelim_subsection_text(changed_subsection) %>
-
+		  <%= changed_prelim_subsection_text(changed_subsection) %>
           <%= deleted_prelim_clauses_text(changed_subsection) %>
          
-
           <%= deleted_prelim_clauses_text(changed_subsection) %> 
           <% @hash_of_deleted_clauses_compacted = @hash_of_deleted_prelim_clauses[changed_subsection.id].compact %>
           <% @hash_of_deleted_clauses_compacted.each do |changed_clause| %>          
@@ -104,19 +102,19 @@
           <% @hash_of_changed_clauses_compacted = @hash_of_changed_prelim_clauses[changed_subsection.id].compact %>
           <% @hash_of_changed_clauses_compacted.each do |changed_clause| %>
             
-            <%= changed_clause_titles(changed_clause, 'changed') %>
+        	<%= changed_clause_titles(changed_clause, 'changed') %>
           
-      <%= clause_line_text_altered(changed_clause, 'new') %>
-        <% @altered_lines.each do |added_line| %>
-          <%= original_line_text(added_line) %>
-        <% end %>
+      		<%= clause_line_text_altered(changed_clause, 'new') %>
+        	<% @altered_lines.each do |added_line| %>
+          		<%= original_line_text(added_line) %>
+        	<% end %>
     
-      <%= clause_line_text_altered(changed_clause, 'deleted') %>
-        <% @altered_lines.each do |deleted_line| %>
-          <%= original_line_text(deleted_line) %>
-        <% end %>
+      		<%= clause_line_text_altered(changed_clause, 'deleted') %>
+        	<% @altered_lines.each do |deleted_line| %>
+          		<%= original_line_text(deleted_line) %>
+        	<% end %>
     
-      <%= clause_line_text_altered(changed_clause, 'changed') %>
+      		<%= clause_line_text_altered(changed_clause, 'changed') %>
             <% @altered_lines.each do |changed_line| %>
               <%=changed_line_text(changed_line, @selected_revision, @current_project)%>
             <% end %> 
@@ -125,9 +123,9 @@
         <% end%>
     <% end%>
     </div>
-  <% end%>
 
-  <% if !@revision_none_prelim_subsections.blank? %>
+
+  <% else %>
   <% @revision_none_prelim_subsections.each do |revision_subsection|%>
     <div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
 
@@ -176,3 +174,12 @@
 </div>
 
 <% end %>
+
+
+<!-- jquery to load tab content -->
+	<script>
+		$('ul.tabs').children('li').click(function(){
+			var subsection_id = $(this).attr('id');
+			jQuery.get('/revisions/<%= @current_project.id%>/show_rev_tab_content?revision_id=<%= @selected_revision.id %>&subsection_id=' + subsection_id);
+		});
+	</script>

@@ -188,12 +188,12 @@ right: 30px;
   }
 
 .section_select_tablet{display: none}
-  @media screen and (min-width: 520px) and (max-width: 1050px){  
+  @media screen and (min-width: 600px) and (max-width: 1050px){  
     .section_select_tablet{display: block}
   }
 
 .section_select_mobile{display: none}
-  @media screen and (max-width: 520px) {
+  @media screen and (max-width: 600px) {
     .section_select_mobile{display: block}
   }
 
@@ -233,7 +233,8 @@ right: 30px;
   }
   
 
-.subsection_button{
+.subsection_button_small{
+  display:none;
   position: absolute;
   top: 2px;
   right: 7px;
@@ -241,6 +242,35 @@ right: 30px;
   @include green-button;
   border: 1px solid #878787;
   }
+  @media screen and (max-width: 600px) {
+    .subsection_button_small{display: block}
+  }  
+  
+.subsection_button_medium{
+  display:none;
+  position: absolute;
+  top: 2px;
+  right: 7px;
+  @include small-button;
+  @include green-button;
+  border: 1px solid #878787;
+  }
+  @media screen and (min-width: 600px) and (max-width: 1050px){
+    .subsection_button_medium{display: block}
+  }   
+
+.subsection_button_large{
+  display:none;
+  position: absolute;
+  top: 2px;
+  right: 7px;
+  @include small-button;
+  @include green-button;
+  border: 1px solid #878787;
+  }
+  @media screen and (min-width: 1050px) {
+    .subsection_button_large{display: block}
+  } 
 
 
 .document_selectBox_1{

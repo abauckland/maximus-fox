@@ -117,7 +117,7 @@
   display: block;
   position: absolute;
   top: 11px; //how is this set so logo is centered on header?
-  right: 325px;
+  right: 327px;
   font-family: $heading_font;
 
   @include small-button;
@@ -134,7 +134,7 @@
 .web_login{
   display: block;
   position: absolute;
-  right: 47px;
+  right: 49px;
   padding: 0px 10px 0px 10px;
   font: bold 12px verdana;
   color: #fff;

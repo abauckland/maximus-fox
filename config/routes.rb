@@ -75,7 +75,9 @@ SpecrightDev::Application.routes.draw do
     post :delete_subsections, :on => :member
     get :empty_project, :on => :member
     get :project_sections, :on => :member
-    get :project_subsections, :on => :member    
+    get :project_subsections, :on => :member 
+    get :project_subsections, :on => :member 
+    get :show_tab_content, :on => :member   
     member do   
     put :update_project, :as => 'change'    
     end  
@@ -102,6 +104,7 @@ SpecrightDev::Application.routes.draw do
   end
   
   resources :revisions do
+    get :show_rev_tab_content, :on => :member
     get :clause_change_info, :on => :member
     get :line_change_info, :on => :member
     member do

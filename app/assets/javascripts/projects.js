@@ -115,6 +115,7 @@ function section_select_location(){
 
 $(document).ready(function(){
 
+
 //query for tabulated views	
 $('ul.tabs, ul.tabs_2').each(function(){
     // For each set of tabs, we want to keep track of
@@ -151,6 +152,8 @@ $('ul.tabs, ul.tabs_2').each(function(){
     });
 });
 
+
+
 //loads ajax functionality to links with specified class
 ajaxLinks();
 
@@ -164,7 +167,8 @@ ajaxLinks();
 
 
 	$('.project_option_select').children('select').selectBox({autoWidth: false});
-	$('select#section, select#subsection').selectBox({autoWidth: false});
+	$('.option_select_1').children('select').selectBox({autoWidth: false});
+	$('select#subsection').selectBox({autoWidth: false});
 	$('select#revision').selectBox().selectBox({autoWidth: false});
 
 	
@@ -213,18 +217,23 @@ ajaxLinks();
 
 
 //show/hide functions for spec and clause lines menus
-	$('.specline_table').hover(function(){
+
+ $('table.specline_table').on({
+    mouseenter:function(){ 
 		$(this).css('background-color', '#efefef');
 		$(this).find('td.prefixed_line_menu').css('visibility', 'visible');
 		$(this).find('td.suffixed_line_menu').css('visibility', 'visible');
 		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'visible');
-	},
-	function (){
+    },
+    mouseleave:function(){ 
   		$(this).css('background-color', '#fff');
 		$(this).find('td.prefixed_line_menu').css('visibility', 'hidden');
 		$(this).find('td.suffixed_line_menu').css('visibility', 'hidden');
 		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
-  	});
+    }
+  });
+
+
   	
 //show/hide specline mob menu
 	$('.suffixed_line_menu_mob').click(function (){
@@ -291,15 +300,15 @@ $(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width
 $('.editable_text4').mouseover(function(){
 var spec_id = $(this).attr('id');
 var text_width = $(this).width();
-$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: $(this).width()+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: ($(this).width() +10)+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 }); 
 $('.editable_text5').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, width: $(this).width()+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, width: ($(this).width() +10)+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });    
 $('.editable_text6').mouseover(function(){
 var spec_id = $(this).attr('id');
-$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: $(this).width()+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: ($(this).width() +10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });    
 
 

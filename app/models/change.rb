@@ -4,6 +4,7 @@ belongs_to :revision
 belongs_to :project
 belongs_to :specline
 belongs_to :linetype
+belongs_to :clause
 
 belongs_to :txt1
 belongs_to :txt2

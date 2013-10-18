@@ -1,12 +1,12 @@
 module RevisionsHelper
 #revision select menu
-  def revision_select(project_revisions, selected_revision, current_project, revision_clause_id_array)
+  def revision_select(project_revisions, selected_revision, current_project, revision_subsections)
 
     if current_project.project_status == 'Draft'
       "<div class='revision_select_draft'>n/a (project status is 'Draft')</div>".html_safe
     else
-      if revision_clause_id_array.blank?
-        "<div class='revision_select'>#{revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe
+      if revision_subsections.blank?
+        "<div class='revision_select_draft'>n/a (no changes have been made)</div>".html_saf
       else
         "<div class='revision_select'>#{revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe
       end
@@ -19,14 +19,14 @@ module RevisionsHelper
   end
 
 
-  def get_class_and_href_ref(subsection_id, current_subsection_id)
+#  def get_class_and_href_ref(subsection_id, current_subsection_id)
   
-    if subsection_id == current_subsection_id
-      "class='selected' href='##{subsection_id}rev_view'".html_safe
-    else
-      "href='##{subsection_id}rev_view'".html_safe
-    end
-  end
+ #   if subsection_id == current_subsection_id
+#      "class='selected' href='##{subsection_id}rev_view'".html_safe
+ #   else
+#      "href='##{subsection_id}rev_view'".html_safe
+#    end
+#  end
   
 #prelim
 #subsections titles of subsections added or deleted   
@@ -61,20 +61,20 @@ module RevisionsHelper
 #prelim  
 #clause titles for added or deleted clauses   
   def changed_clause_titles(changed_clause, action)
-    if !changed_clause.blank?
-        rev_clause_title = Clause.find(changed_clause)
+    if changed_clause
+        rev_clause_title = changed_clause#Clause.find(changed_clause)
 
         #check print status
       if action != 'changed'
           "<table width='100%' class='rev_table'><tr  id='#{rev_clause_title.id.to_s}' class='clause_title_2'><td class='rev_clause_code'>#{rev_clause_title.clauseref.subsection.section.ref.to_s}#{rev_clause_title.clauseref.subsection.ref.to_s}.#{rev_clause_title.clauseref.clausetype_id.to_s}#{rev_clause_title.clauseref.clause.to_s}#{rev_clause_title.clauseref.subclause.to_s}</td><td class ='rev_clause_title'>#{rev_clause_title.clausetitle.text.to_s}</td><td class='rev_line_menu_mob'>#{rev_mob_menu(rev_clause_title)}</td><td class='rev_line_menu'>#{reinstate_original_clause(rev_clause_title)}#{change_info_clause(rev_clause_title)}</td></tr><tr class='rev_mob_menu_popup'><td class='mob_rev_menu' colspan=3 >#{reinstate_original_clause(rev_clause_title)}#{change_info_clause(rev_clause_title)}</td></tr></table>".html_safe    
       else
 
-      check_clause_print_status = Change.find(:all, :conditions => {:project_id => @current_project, :clause_id => changed_clause, :revision_id => @selected_revision.id}).collect{|item| item.print_change}.uniq            
-      if check_clause_print_status.include?(true)
-        "<table><tr class='clause_title'><td class='changed_clause_code'>#{rev_clause_title.clauseref.subsection.section.ref.to_s}#{rev_clause_title.clauseref.subsection.ref.to_s}.#{rev_clause_title.clauseref.clausetype_id.to_s}#{rev_clause_title.clauseref.clause.to_s}#{rev_clause_title.clauseref.subclause.to_s}</td><td class ='changed_clause_title'>#{rev_clause_title.clausetitle.text.to_s}</td></tr></table>".html_safe    
-      else
-        "<table><tr class='clause_title_strike'><td class='changed_clause_code'>#{rev_clause_title.clauseref.subsection.section.ref.to_s}#{rev_clause_title.clauseref.subsection.ref.to_s}.#{rev_clause_title.clauseref.clausetype_id.to_s}#{rev_clause_title.clauseref.clause.to_s}#{rev_clause_title.clauseref.subclause.to_s}</td><td class ='changed_clause_title'>#{rev_clause_title.clausetitle.text.to_s}</td></tr></table>".html_safe    
-      end
+        check_clause_print_status = Change.where(:project_id => @current_project, :clause_id => changed_clause, :revision_id => @selected_revision.id).collect{|item| item.print_change}.uniq            
+        if check_clause_print_status.include?(true)
+          "<table><tr class='clause_title'><td class='changed_clause_code'>#{rev_clause_title.clauseref.subsection.section.ref.to_s}#{rev_clause_title.clauseref.subsection.ref.to_s}.#{rev_clause_title.clauseref.clausetype_id.to_s}#{rev_clause_title.clauseref.clause.to_s}#{rev_clause_title.clauseref.subclause.to_s}</td><td class ='changed_clause_title'>#{rev_clause_title.clausetitle.text.to_s}</td></tr></table>".html_safe    
+        else
+          "<table><tr class='clause_title_strike'><td class='changed_clause_code'>#{rev_clause_title.clauseref.subsection.section.ref.to_s}#{rev_clause_title.clauseref.subsection.ref.to_s}.#{rev_clause_title.clauseref.clausetype_id.to_s}#{rev_clause_title.clauseref.clause.to_s}#{rev_clause_title.clauseref.subclause.to_s}</td><td class ='changed_clause_title'>#{rev_clause_title.clausetitle.text.to_s}</td></tr></table>".html_safe    
+        end
       end
     end
   end
@@ -100,19 +100,19 @@ module RevisionsHelper
 #non prelim
 #set up anno for changed clauses
   def new_clauses_text(changed_subsection)  
-      if !@hash_of_new_clauses[changed_subsection.id].blank?
+      if !@array_of_new_clauses[changed_subsection.id].blank?
            clauses_text_show(changed_subsection, 'added')
       end  
   end
   
   def deleted_clauses_text(changed_subsection)  
-      if !@hash_of_deleted_clauses[changed_subsection.id].blank?
+      if !@array_of_deleted_clauses[changed_subsection.id].blank?
            clauses_text_show(changed_subsection, 'deleted')
       end  
   end
   
   def changed_clauses_text(changed_subsection)  
-      if !@hash_of_changed_clauses[changed_subsection.id].blank?
+      if !@array_of_changed_clauses[changed_subsection.id].blank?
            clauses_text_show(changed_subsection, 'changed')
       end  
   end
@@ -211,6 +211,9 @@ module RevisionsHelper
     end  
   end
 
+
+
+#revision line menu links/icons
   def rev_mob_menu(line)
     image_tag("menu.png", :mouseover =>"menu_rollover.png", :border=>0)    
   end
@@ -226,8 +229,7 @@ module RevisionsHelper
     link_to image_tag("reinstate.png", :mouseover =>"reinstate_rollover.png", :border=>0), {:controller => "changes", :action => "reinstate_clause", :id => clause.id, :project_id => @current_project.id, :revision_id => @selected_revision.id}, :class => "get", :title => "reinstate"
     #end
   end
-  
-  
+    
   def toggle_print_setting(line, selected_revision, current_project)
     check_current_revision = Revision.where('project_id =?', current_project.id).last
     if  selected_revision.id == check_current_revision.id

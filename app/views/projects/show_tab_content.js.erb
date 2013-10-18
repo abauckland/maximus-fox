@@ -1,0 +1,113 @@
+$('div#<%= @clausetype_id %>000').empty();
+$('div#<%= @clausetype_id %>000').html('<%= escape_javascript(render "tab_specline_content", locals: {selected_specline_lines: @selected_specline_lines}).html_safe%>');
+
+
+
+//loads ajax functionality to links with specified class
+ajaxLinks();
+
+
+//sortable specline
+	$('.1, .2, .3, .4, .5, .6, .prelim_show').sortable({
+		axis: 'y',
+		cancel: '.clause_title, span',
+		cursor: 'pointer',
+		handle: 'td.prefixed_line_menu img',
+		stop: function(event, ui){
+			var sortorder=$(this).sortable('toArray');
+			var moved = $(ui.item).attr('id');	
+   
+			$.ajax({
+				type: 'put',
+				url: '/speclines/'+moved+'/move_specline',
+				dataType: 'script',
+				data: 'table_id_array='+sortorder +'',
+				complete: function(){}
+			});   
+		}	 		
+	});
+
+
+//show/hide functions for spec and clause lines menus
+
+ $('table.specline_table').on({
+    mouseenter:function(){ 
+		$(this).css('background-color', '#efefef');
+		$(this).find('td.prefixed_line_menu').css('visibility', 'visible');
+		$(this).find('td.suffixed_line_menu').css('visibility', 'visible');
+		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'visible');
+    },
+    mouseleave:function(){ 
+  		$(this).css('background-color', '#fff');
+		$(this).find('td.prefixed_line_menu').css('visibility', 'hidden');
+		$(this).find('td.suffixed_line_menu').css('visibility', 'hidden');
+		$(this).find('td.suffixed_line_menu_mob').css('visibility', 'hidden')
+    }
+  });
+
+
+  	
+//show/hide specline mob menu
+	$('.suffixed_line_menu_mob').click(function (){
+		$(this).closest('table').find('.specline_mob_menu_popup').toggle();
+	});
+ 
+	$('tr.specline_mob_menu_popup').mouseleave(function (){
+		$(this).hide();
+	});
+	
+
+
+
+//jeditbale functions
+$.editable.addInputType('autogrow', {
+                element : function(settings, original) {
+                    var textarea = $('<textarea />');
+                    if (settings.rows) {
+                        textarea.attr('rows', settings.rows);
+                    } else if (settings.height != "none") {
+                        textarea.height(settings.height);
+                    }
+
+                   	textarea.width(settings.width);	                       	                       	
+
+                    textarea.css("font", "normal 12px arial").css("padding-top", "0px");
+                    $(this).append(textarea);
+                    return(textarea);
+                },
+    			plugin : function(settings, original) {
+        			$('textarea', this).symbols();
+        			$('textarea', this).autogrow();
+    			},
+});
+
+
+
+$('.editable_text3').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() +10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text4').mouseover(function(){
+var spec_id = $(this).attr('id');
+var text_width = $(this).width();
+$(this).editable('/speclines/'+spec_id+'/update_specline_4', {id: spec_id, width: ($(this).width() +10)+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+}); 
+$('.editable_text5').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_5', {id: spec_id, width: ($(this).width() +10)+'px', type: 'autogrow', onblur: 'submit', method: 'PUT', indicator: 'Saving..', autogrow : {lineHeight : 16, maxHeight  : 512}, submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+$('.editable_text6').mouseover(function(){
+var spec_id = $(this).attr('id');
+$(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: ($(this).width() +10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
+});    
+
+
+//specline linetype edit
+$(document).on('click','.submittable2', function() {
+ $(this).parents('form:first').submit();
+   return false;
+});
+
+
+$('td.suffixed_line_menu').children('a').tipsy();
+$('td.prefixed_line_menu').children('img').tipsy();

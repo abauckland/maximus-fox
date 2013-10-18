@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
 
 before_filter :require_user
-before_filter :check_project_ownership, :except => [:index, :new, :create, :edit_subsections]
+before_filter :check_project_ownership, :except => [:index, :new, :create, :edit_subsections, :show_tab_content]
 
 
 layout "projects"
@@ -81,8 +81,8 @@ layout "projects"
     #array_of_selected_clauses = selected_clauses.collect{|item6| item6.id}.uniq.sort
 
     
-#    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id, 'clauserefs.clausetype_id' => @clausetypes.first).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
-    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id, 'clauserefs.clausetype_id' => @clausetypes.first.id).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
+#    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => @selected_key_subsection.id).order('clauserefs.clausetype_id, clauserefs.clause, clauserefs.subclause, clause_line')                           
 
     
     #establish list of clausetypes to build tabulated view in show    
@@ -108,14 +108,21 @@ layout "projects"
 
 
 
-def show_tab_content
-    current_project = params[:id]
-    current_subsection = params[:subsection_id]
-    clausetype = params[:clausetype]
-    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [ :clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => @current_project.id, 'clauserefs.subsection_id' => current_subsection, 'clauserefs.clausetype' => clausetype).order('clauserefs.clause, clauserefs.subclause, clause_line')                           
-  
-    #layout => false
-end
+  def show_tab_content
+    current_project_id = params[:id]
+    if params[:subsection_id]
+      current_subsection_id = params[:subsection_id]
+    else
+      first_project_subsection = Subsection.select('subsections.id, subsections.section_id, subsections.ref, subsections.text').joins(:clauserefs =>  [{:clauses => :speclines}]).where('speclines.project_id' => current_project_id).first 
+      current_subsection_id = first_project_subsection.id      
+    end
+    @clausetype_id = params[:clausetype_id]
+    @selected_specline_lines = Specline.includes(:txt1, :txt3, :txt4, :txt5, :txt6, :clause => [:clausetitle, :guidenote, :clauseref => [:subsection]]).where(:project_id => current_project_id, 'clauserefs.subsection_id' => current_subsection_id, 'clauserefs.clausetype_id' => @clausetype_id).order('clauserefs.clause, clauserefs.subclause, clause_line')                           
+
+    respond_to do |format|
+      format.js  { render :show_tab_content, :layout => false } 
+    end    
+  end
 
 
   def empty_project

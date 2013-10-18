@@ -26,7 +26,7 @@ class CommentsController < ApplicationController
           }
        # format.xml  { render :xml => @comment, :status => :created, :location => @comment }
       else
-        format.html { render :action => "new" }
+        format.html { render :controller => "posts", action => "index" }
         format.xml  { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
