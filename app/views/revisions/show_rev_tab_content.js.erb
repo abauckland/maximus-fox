@@ -1,2 +1,26 @@
-$('div#<%= @revision_subsection.id %>').empty();
-$('div#<%= @revision_subsection.id %>').html('<%= escape_javascript(render "tab_revision_content", locals: {revision_subsection: @revision_subsection, array_of_new_subsections: @array_of_new_subsections, array_of_deleted_subsections: @array_of_deleted_subsections, array_of_deleted_clauses: @array_of_deleted_clauses, array_of_new_clauses: @array_of_new_clauses, array_of_changed_clauses: @array_of_changed_clauses, selected_revision: @selected_revision, current_project: @current_project}) %>');
+$('div#<%= @revision_subsection.id %>rev_view').empty();
+$('div#<%= @revision_subsection.id %>rev_view').html('<%= escape_javascript(render "tab_revision_content", locals: {revision_subsection: @revision_subsection, array_of_new_subsections: @array_of_new_subsections, array_of_deleted_subsections: @array_of_deleted_subsections, array_of_deleted_clauses: @array_of_deleted_clauses, array_of_new_clauses: @array_of_new_clauses, array_of_changed_clauses: @array_of_changed_clauses, selected_revision: @selected_revision, current_project: @current_project}) %>');
+
+//show/hide functions for rev lines
+	$('.rev_table').hover(function (){
+		$(this).css('background-color', '#efefef');
+		$(this).find('td.rev_line_menu').css('visibility', 'visible');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'visible');
+  	},
+  	function (){
+		$(this).css('background-color', '#fff');
+		$(this).find('td.rev_line_menu').css('visibility', 'hidden');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'hidden');
+  	});
+
+//show/hide rev mob menu
+	$('.rev_line_menu_mob').click(function (){
+		$(this).closest('table').find('.rev_mob_menu_popup').toggle();
+	});
+ 
+	$('tr.rev_mob_menu_popup').mouseleave(function (){
+		$(this).hide();
+	});
+
+$('td.suffixed_line_menu').children('a').tipsy();
+$('td.prefixed_line_menu').children('img').tipsy();

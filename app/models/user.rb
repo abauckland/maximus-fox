@@ -65,10 +65,10 @@ has_many :productimport
 
   
   def add_user_to_mailchimp  
-    mailchimp = Hominid::API.new('4d0b1be76e0e5a65e23b00efa3fe8ef3-us5')
-    list_id = mailchimp.find_list_id_by_name('Specright Users')
-
-    mailchimp.list_subscribe(list_id, self.email, {'FNAME' => self.first_name, 'LNAME' => self.surname}, 'html', false, false, false, true)
+    mailchimp = Gibbon::API.new('4d0b1be76e0e5a65e23b00efa3fe8ef3-us5')
+  
+    mailchimp.lists.subscribe({:id => 'c65ee7deb5', :email => {:email => self.email}, :merge_vars => {:FNAME => self.first_name, :LNAME => self.surname}, :double_optin => false, :send_welcome => true, })
+    mailchimp.lists.subscribe({:id => '01239b3a0f', :email => {:email => self.email}, :merge_vars => {:FNAME => self.first_name, :LNAME => self.surname}, :double_optin => false, :send_welcome => true, })    
   end
 
 

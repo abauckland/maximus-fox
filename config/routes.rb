@@ -104,6 +104,7 @@ SpecrightDev::Application.routes.draw do
   end
   
   resources :revisions do
+    get :show_prelim_tab_content, :on => :member
     get :show_rev_tab_content, :on => :member
     get :clause_change_info, :on => :member
     get :line_change_info, :on => :member

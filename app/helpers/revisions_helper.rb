@@ -100,19 +100,19 @@ module RevisionsHelper
 #non prelim
 #set up anno for changed clauses
   def new_clauses_text(changed_subsection)  
-      if !@array_of_new_clauses[changed_subsection.id].blank?
+      if !@array_of_new_clauses.empty?
            clauses_text_show(changed_subsection, 'added')
       end  
   end
   
   def deleted_clauses_text(changed_subsection)  
-      if !@array_of_deleted_clauses[changed_subsection.id].blank?
+      if !@array_of_deleted_clauses.empty?
            clauses_text_show(changed_subsection, 'deleted')
       end  
   end
   
   def changed_clauses_text(changed_subsection)  
-      if !@array_of_changed_clauses[changed_subsection.id].blank?
+      if !@array_of_changed_clauses.empty?
            clauses_text_show(changed_subsection, 'changed')
       end  
   end

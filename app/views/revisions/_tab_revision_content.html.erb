@@ -1,8 +1,8 @@
-    <% if !@array_of_new_subsections.empty? %>
+    <% if @new_subsections %>
     	<%= new_subsection_text(@revision_subsection) %>
 	<% end %>
 	    
-    <% if !@array_of_new_subsections.empty? %>
+    <% if @deleted_subsections %>
     	<%= deleted_subsection_text(@revision_subsection) %>
 	<% end %>
 	
@@ -11,13 +11,12 @@
         <%= altered_clause_text(deleted_clause, @selected_revision, @current_project) %>
       <% end %>
 
-    <%= new_clauses_text(@revision_subsection) %> >
+    <%= new_clauses_text(@revision_subsection) %>
       <% @array_of_new_clauses.each do |new_clause| %>
         <%= altered_clause_text(new_clause, @selected_revision, @current_project) %>
       <% end %>
     
-    <%= changed_clauses_text(@revision_subsection) %>
- 
+    <%= changed_clauses_text(@revision_subsection) %> 
     <% @array_of_changed_clauses.each do |changed_clause| %>
 
       <%= changed_clause_titles(changed_clause, 'changed') %>

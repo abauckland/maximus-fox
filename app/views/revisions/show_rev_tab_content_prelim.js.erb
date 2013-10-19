@@ -1,2 +1,26 @@
 $('div#prelim').empty();
 $('div#prelim').html('<%= escape_javascript(render "tab_revision_content_prelim", locals: {array_of_deleted_prelim_subsections_compacted: @array_of_deleted_prelim_subsections_compacted, array_of_new_prelim_subsections_compacted: @array_of_new_prelim_subsections_compacted, array_of_changed_prelim_subsections_compacted: @array_of_changed_prelim_subsections_compacted, hash_of_deleted_prelim_clauses: @hash_of_deleted_prelim_clauses, hash_of_new_prelim_clauses: @hash_of_new_prelim_clauses, hash_of_changed_prelim_clauses: @hash_of_changed_prelim_clauses, selected_revision: @selected_revision, current_project: @current_project}) %>');
+
+//show/hide functions for rev lines
+	$('.rev_table').hover(function (){
+		$(this).css('background-color', '#efefef');
+		$(this).find('td.rev_line_menu').css('visibility', 'visible');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'visible');
+  	},
+  	function (){
+		$(this).css('background-color', '#fff');
+		$(this).find('td.rev_line_menu').css('visibility', 'hidden');
+		$(this).find('td.rev_line_menu_mob').css('visibility', 'hidden');
+  	});
+
+//show/hide rev mob menu
+	$('.rev_line_menu_mob').click(function (){
+		$(this).closest('table').find('.rev_mob_menu_popup').toggle();
+	});
+ 
+	$('tr.rev_mob_menu_popup').mouseleave(function (){
+		$(this).hide();
+	});
+
+$('td.suffixed_line_menu').children('a').tipsy();
+$('td.prefixed_line_menu').children('img').tipsy();

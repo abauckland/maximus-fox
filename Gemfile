@@ -23,7 +23,7 @@ gem 'paperclip', '~> 3.1.4'
 gem 'mail'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
-gem 'hominid', '~> 3.0.5'
+gem "gibbon", "~> 1.0.4"
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
