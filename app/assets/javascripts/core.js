@@ -181,8 +181,8 @@ var limit = '310';
 	column_height(s_tab, mob, limit);//set column height depending on size of window	
 	column_width(s_tab, mob, limit);//set column width depending on size of window
 	$(window).resize(function(){
-		//tab_format();
-		//tab_2_label_width();
+		tab_format();
+		tab_2_label_width();
 		column_width(s_tab, mob, limit);//set column width depending on size of window
 		column_height(s_tab, mob, limit);//set column height depending on size of window
 		column_width(s_tab, mob, limit);//set column width depending on size of window

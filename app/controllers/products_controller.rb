@@ -19,155 +19,77 @@ def new
   @product_import_errors =params[:product_import_errors] 
 end
 
-def create
-  
-  #not checked this works
-  csv = CSV.read(params[:file].path, headers: true)
-  
-#  product_import_error_check(csv)  
-  
-#end
 
+def show
 
-#def product_import_error_check(csv)
-
-  product_import_errors = []
-   
-  headers = csv.headers
-   
-  #check no header values are nil
-  if headers.length != headers.compact.length
-       product_import_errors[0] = 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.'   
-  else
-    #check fixed headers are correct
-  check_array = ['Clause Ref','Subtitle','Product Ref','Product Name','Item Ref', 'Item Name']
-    check_heaer_array = headers[0..5]   
-    if check_array != check_header_array
-       product_import_errors[0] = 'Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct erros and reload file.'
-    else
-      if clause.blank?
-        @csv.each_with_index do |line, i| 
-          #private method
-          clause_check(line[0], line[1])
-                 
-          if check_clause.blank?      
-            product_import_errors[i] = 'Clause reference' << line[0] << 'does not exist.' 
-          end
-        end
-      end
-    end
-   
-    if product_import_errors.empty? 
-      redirect_to :action=>'csv_product_upload'  
-    else
-      redirect_to :action=>'new', :product_import_errors => product_import_errors     
-    end
-  end
 end
 
-
-
-def csv_product_upload
-
-  #get using paperclip
-  #@csv = CSV.read("#{Rails.root}/public#{@csv.csv.url.sub!(/\?.+\Z/, '') }", {:headers => true, }) 
-
-  #validate csv to check that correct columns are included and they are completed
-
-  @csv.each do |line| 
-    
-    #line[0] = clause reference
-    #line[1] = clausetitle
-    #line[2] = clause substitle
-    #line[3] = product reference
-    #line[4] = product name
-    #line[5] = item reference
-    #line[6] = item name
-
-
-    #array of tx3)ids for headers
-    line_array_length = line.length
-      
-      header_txt3_id_array = []        
-      (7..line_array_length).each do |i|        
-
-        header_txt3_check = Txt3.find_or_create_by_text(headers[i])
-        #header_txt3_check = Txt3.where(:text => headers[i]).first_or_create
-        header_txt3_id_array[i] = header_txt3_check.id
-        #starts from 7...
-      end      
-      #erase nil records from start of array 0..6
-      header_txt3_id_array.compact
-    
-    #find or create product record
-      #get clause_id for clause reference - clauseref and clause title
-      #private method
-      clause_check(line[0], line[1])
-            
-      #check txt4 record for clause substitle - find or create     
-      subtitle_check = Txt4.find_or_create_by_text(line[2])
-      #subtitle_check = Txt4.where(:text => line[2]).first_or_create
-      
-      #find or create product record
-      
-    #if not full overwrite  
-      #if product already exists
-      
-      
-
-      performance_id_array = [] 
-       
-      (7..line_array_length).each do |i|
-                     
-        txt6_check = Txt6.find_or_create_by_text(line[i])
-        #txt6_check = Txt6.where(:text => line[i]).first_or_create        
-
-        performance = Performances.includes(:txt3).where(txt3_id => header_txt3_id_array[i], txt6_id => txt6_check.id).first
-        performance_id_array[i] = performance.id          
-      end       
-      performance_id_array.compact
-       
-      #check if variant exists
-      product_check = Product.joins(:characteristics).where(:clause_id => clause_check.id, 'characteristics.performance_id' => performance_id_array).first
-      if product_check
-        #if exists update checked date  
-      else    
-        #if does not exist - create variant - record new
-      end
-    #if full overwrite
-      #delete existing and start again? - depends on method of checking currency of products specified 
-      #copy to archive
-      #if new is same as old - delete archive    
-
-
-    #import data for each variation of the product
-    line_array_length = line.length
-  
-    (0..line_array_length).each do |i|      
-    
-      headers[i]
-      line[i]
-    
-    end  
-  end
-end
 
 def product_specline_update
-  
-  all_projects = Project.all
-  
-  all_projects.each do |project|
-    clauses_ids = Clause.joints(:speclines).where('speclines.project_id = ?  AND speclines.linetype_id = ?', project.id, 5).collect{|i| i.id}
+   
+  Project.all.each do |project|
+            
+  ##get clause in project with speclines that have data      
+    clauses_ids = Clause.joints(:speclines).where('speclines.project_id = ? AND speclines.linetype_id = ?', project.id, 5).collect{|i| i.id}
+
     
     clauses_ids.each do |clauses_id|
-      #get relevant speclines for clause
-      clause_ speclines = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 5) 
-    
-    
-    end  
-  end  
   
+  ##get relevant speclines for clause
+      clause_speclines = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 5).order('clauseline')    
+
+  ##is line before a subtitle?  
+      preceding_clauseline = clause_speclines.first.clauseline - 1
+      subtitle_check = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 7, :clauseline => preceding_clauseline).first
+      if subtitle_check
+        subtitle_id = subtitle_check.txt4_id
+      end
+
+  ##find next substitle or end of product attributes
+      used_clauselines = clause_speclines.collect{|i| i.clauseline}
+      
+      used_clauselines.each_with_index do |line_number, i|
+      
+      
+      
+      end
+      ##check linetype of intermediate lines
+      subtitle_check = Specline.where(:project_id => project.id, :clause_id => clause.id, :clauseline => preceding_clauseline).first
+      
+      
+  ##check all attributes (linetypes 5 & 6)
+  
+  
+  ##check only linietype 5 attributes
+
+      
+
+
+  ##for product speclines get performance pairs
+      find_current_performance_pairs(product_speclines)
+  
+  ##test is product exists
+      product_check = Product.joins(:characteristics, :productgroup).where(
+        'productgroups.company_id' => company_id,
+        'productgroups.clause_id' => clauses_id,
+        'productgroups.txt4_id' => subtitle_id,
+        'characteristics.performance_id' => performance_id_array
+      ).first
+      
+  ##if product does not exist
+      if product_check      
+      ##find attributes that are not correct
+    
+  
+  
+      end
+    
+    #end to each clause of project
+    end    
+  #end to each project    
+  end   
 end
+
 
 
 private
@@ -233,6 +155,68 @@ end
 
 def clause_check(clauseref, clausetitle)
   clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first  
+end
+
+
+
+def product_performance_pairs
+
+#check if substitle
+  #if no substitle then get all product data lines
+    #check if all ok together
+    #if not find nearest product match & change pairs not included
+      #product_speclines = Specline.where(:project_id => , :clause_id => , :linetype =>  )
+      #perform_array = []
+      #product_speclines.each_with_index do |specline, i|
+        #specline.txt3        
+        #specline.txt6unit - check for an array of values
+        #
+        #
+        #perform_array[i] = 
+      #end
+      
+      #get all possible products for each pair
+      
+      #product_ids = Characteristic.where(:performance_id => perform_array).collect{|i| i.product_id}
+      
+      #find product with most matches - merge array and get mode
+      
+      #performance_pairs.each do |pair|
+        #check_performance_exists = Characteristic.where(:performance_id => pair.id, :product_id => mode_product_id)
+        #if check_performance_exists.blank?
+          #change specline linetype
+        #end
+      #end
+
+#if subtitles
+  #find if any product speclines above substitles
+  #product_subtitles = Specline.where(:project_id => , :clause_id => , :linetype => 10)
+  #product_subtitle_locations = product_subtitles.collect{|i| i.clauseline}.sort
+
+  #check for product groups between subtitles
+  #if product_subtitle_locations.length == 1
+    #= Specline.where(:project_id => , :clause_id => , :linetype => 11, :clauseline > product_subtitle_locations.first)
+
+  #else
+    #array_product_pairs = []
+    
+    #check_product_speclines_above_first_subtitle
+    #= Specline.where(:project_id => , :clause_id => , :linetype => 11, :clauseline < product_subtitle_locations.first)
+
+    #product_subtitle_locations.each_with_index do |subtitle, i|
+    #if product_subtitle_locations.length > i      
+      #= Specline.where(:project_id => , :clause_id => , :linetype => 11, :clauseline > (subtitle[i]..subtitle[i+1])        
+    #if product_subtitle_locations.length > i      
+      #= Specline.where(:project_id => , :clause_id => , :linetype => 11, :clauseline > (subtitle[i]..subtitle[i+1])
+    #if product_subtitle_locations.length > i  
+      #= Specline.where(:project_id => , :clause_id => , :linetype => 11, :clauseline > subtitle)
+    #end
+  #end
+end
+
+def check_txt6unit_array
+  #always store txt6unit value as an array
+  #txt6 = array
 end
 
     

@@ -65,7 +65,11 @@ def rev_line_draft(line, row_y_a, pdf)
       when 5 ; rev_draft_linetype_5_helper(line, row_y_a, pdf) 
       when 6 ; rev_draft_linetype_6_helper(line, row_y_a, pdf) 
       when 7 ; rev_draft_linetype_7_helper(line, row_y_a, pdf) 
-      when 8 ; rev_draft_linetype_8_helper(line, row_y_a, pdf)           
+      when 8 ; rev_draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 10 ; rev_draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 11 ; rev_draft_linetype_8_helper(line, row_y_a, pdf) 
+#     when 12 ; rev_draft_linetype_8_helper(line, row_y_a, pdf) 
+#     when 13 ; rev_draft_linetype_8_helper(line, row_y_a, pdf)            
     end    
 end
 
@@ -79,7 +83,11 @@ def line_draft(line, row_y_a, pdf)
       when 5 ; draft_linetype_5_helper(line, row_y_a, pdf) 
       when 6 ; draft_linetype_6_helper(line, row_y_a, pdf) 
       when 7 ; draft_linetype_7_helper(line, row_y_a, pdf) 
-      when 8 ; draft_linetype_8_helper(line, row_y_a, pdf)           
+      when 8 ; draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 10 ; draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 11 ; draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 12 ; draft_linetype_8_helper(line, row_y_a, pdf)
+#     when 13 ; draft_linetype_8_helper(line, row_y_a, pdf)                    
     end    
 end
 
@@ -133,6 +141,34 @@ def draft_linetype_8_helper(line, row_y_a, pdf)
  
 end
 
+
+#def draft_linetype_10_helper(line, row_y_a, pdf)
+#    pdf.draft_text_box line.txt4.text + '.', :size => 10, :at =>[35.mm,row_y_a], :width => 140.mm, :height => 5.mm, :overflow => :expand
+#end
+
+#def draft_linetype_11_helper(line, row_y_a, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#    nbox_x = box_width + 22.mm
+#    nbox_width = 150.mm - box_width
+#    pdf.draft_text_box line.txt6.text + '.', :size => 10, :at =>[nbox_x,row_y_a], :width => nbox_width, :height => 5.mm, :overflow => :expand      
+#end
+
+#def draft_linetype_12_helper(line, row_y_a, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#    nbox_x = box_width + 22.mm
+#    nbox_width = 150.mm - box_width
+#    pdf.draft_text_box line.txt5.text + '.', :size => 10, :at =>[nbox_x,row_y_a], :width => nbox_width, :height => 5.mm, :overflow => :expand      
+#end
+
+#def draft_linetype_13_helper(line, row_y_a, pdf)
+#    pdf.draft_text_box line.txt4.text + ':' + line.txt5.text + '.', :size => 10, :at =>[23.mm,row_y_a], :width => 149.mm, :height => 5.mm, :overflow => :expand   
+#end
+
+
+
+
+
+
 def rev_draft_linetype_3_helper(line, row_y_a, pdf)
     pdf.draft_text_box line.txt4.text + '.', :size => 10, :at =>[40.mm,row_y_a], :width => 134.mm, :height => 5.mm, :overflow => :expand
   
@@ -172,6 +208,29 @@ def rev_draft_linetype_8_helper(line, row_y_a, pdf)
 end
 
 
+#def rev_draft_linetype_10_helper(line, row_y_a, pdf)
+#    pdf.draft_text_box line.txt4.text + '.', :size => 10, :at =>[40.mm,row_y_a], :width => 134.mm, :height => 5.mm, :overflow => :expand  
+#end
+
+#def rev_draft_linetype_11_helper(line, row_y_a, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#    nbox_x = box_width + 22.mm
+#    nbox_width = 134.mm - box_width
+#    pdf.draft_text_box line.txt6.text + '.', :size => 10, :at =>[nbox_x,row_y_a], :width => nbox_width, :height => 5.mm, :overflow => :expand      
+#end
+
+#def rev_draft_linetype_12_helper(line, row_y_a, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#    nbox_x = box_width + 22.mm
+#    nbox_width = 134.mm - box_width
+#    pdf.draft_text_box line.txt5.text + '.', :size => 10, :at =>[nbox_x,row_y_a], :width => nbox_width, :height => 5.mm, :overflow => :expand       
+#end
+
+#def rev_draft_linetype_13_helper(line, row_y_a, pdf)
+#    pdf.draft_text_box line.txt4.text + ':' + line.txt5.text + '.', :size => 10, :at =>[40.mm,row_y_a], :width => 134.mm, :height => 5.mm, :overflow => :expand    
+#end
+
+
 
 
 def prelim_subsection_print(subsection, row_y_b, pdf, i)
@@ -198,7 +257,11 @@ def rev_line_print(line, row_y_b, pdf)
       when 5 then rev_print_linetype_5_helper(line, row_y_b, pdf) 
       when 6 then rev_print_linetype_6_helper(line, row_y_b, pdf) 
       when 7 then rev_print_linetype_7_helper(line, row_y_b, pdf) 
-      when 8 then rev_print_linetype_8_helper(line, row_y_b, pdf)           
+      when 8 then rev_print_linetype_8_helper(line, row_y_b, pdf)
+#     when 10 then rev_print_linetype_8_helper(line, row_y_b, pdf)
+#     when 11 then rev_print_linetype_8_helper(line, row_y_b, pdf)
+#     when 12 then rev_print_linetype_8_helper(line, row_y_b, pdf)
+#     when 13 then rev_print_linetype_8_helper(line, row_y_b, pdf)                   
     end    
 end
 
@@ -212,7 +275,11 @@ def line_print(line, row_y_b, pdf)
       when 5 then print_linetype_5_helper(line, row_y_b, pdf) 
       when 6 then print_linetype_6_helper(line, row_y_b, pdf) 
       when 7 then print_linetype_7_helper(line, row_y_b, pdf) 
-      when 8 then print_linetype_8_helper(line, row_y_b, pdf)           
+      when 8 then print_linetype_8_helper(line, row_y_b, pdf)
+#     when 10 then print_linetype_8_helper(line, row_y_b, pdf)
+#     when 11 then print_linetype_8_helper(line, row_y_b, pdf)  
+#     when 12 then print_linetype_8_helper(line, row_y_b, pdf)  
+#     when 13 then print_linetype_8_helper(line, row_y_b, pdf)                      
     end    
 end
 
@@ -270,6 +337,37 @@ def print_linetype_8_helper(line, row_y_b, pdf)
     pdf.spec_box line.txt4.text + ': ' + line.txt5.text + '.', :size => 10, :at =>[23.mm,row_y_b], :width => 149.mm, :height => 5.mm, :overflow => :expand
 end
 
+#def print_linetype_10_helper(line, row_y_b, pdf)
+#    pdf.text_box '-', :size => 10, :at => [20.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.spec_box line.txt4.text + '.', :size => 10, :at =>[23.mm,row_y_b], :width => 149.mm, :height => 5.mm, :overflow => :expand
+#end
+
+#def print_linetype_11_helper(line, row_y_b, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#          nbox_x = box_width + 25.mm
+#           nbox_width = 150.mm - box_width
+#    pdf.text_box '-', :size => 10, :at => [20.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.text_box line.txt3.text + ':', :size => 10, :at => [23.mm,row_y_b], :width => box_width, :height => 5.mm
+#    pdf.spec_box line.txt6.text + '.', :size => 10, :at =>[nbox_x,row_y_b], :width => nbox_width, :height => 5.mm, :overflow => :expand
+#end
+
+#def print_linetype_12_helper(line, row_y_b, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#          nbox_x = box_width + 25.mm
+#           nbox_width = 150.mm - box_width
+#    pdf.text_box '-', :size => 10, :at => [20.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.text_box line.txt3.text + ':', :size => 10, :at => [23.mm,row_y_b], :width => box_width + 2.mm, :height => 5.mm
+#    pdf.spec_box line.txt5.text + '.', :size => 10, :at =>[nbox_x,row_y_b], :width => nbox_width, :height => 5.mm, :overflow => :expand
+#end
+
+#def print_linetype_13_helper(line, row_y_b, pdf)
+#    pdf.text_box '-', :size => 10, :at => [20.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.spec_box line.txt4.text + ': ' + line.txt5.text + '.', :size => 10, :at =>[23.mm,row_y_b], :width => 149.mm, :height => 5.mm, :overflow => :expand
+#end
+
+
+
+
 
 def rev_print_linetype_3_helper(line, row_y_b, pdf)
       pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
@@ -309,6 +407,36 @@ def rev_print_linetype_8_helper(line, row_y_b, pdf)
     pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
     pdf.spec_box line.txt4.text + ': ' + line.txt5.text + '.', :size => 10, :at =>[40.mm,row_y_b], :width => 134.mm, :height => 5.mm, :overflow => :expand
 end
+
+#def rev_print_linetype_10_helper(line, row_y_b, pdf)
+#    pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.spec_box line.txt4.text + '.', :size => 10, :at =>[40.mm,row_y_b], :width => 134.mm, :height => 5.mm, :overflow => :expandend
+#end
+
+#def rev_print_linetype_11_helper(line, row_y_b, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#          nbox_x = box_width + 25.mm
+#           nbox_width = 135.mm - box_width
+#    pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.text_box line.txt3.text + ':', :size => 10, :at => [40.mm,row_y_b], :width => box_width, :height => 5.mm
+#    pdf.spec_box line.txt6.text + '.', :size => 10, :at =>[nbox_x,row_y_b], :width => nbox_width, :height => 5.mm, :overflow => :expand 
+#end
+
+#def rev_print_linetype_12_helper(line, row_y_b, pdf)
+#    box_width = pdf.width_of line.txt3.text + ':', :size => 10
+#          nbox_x = box_width + 25.mm
+#           nbox_width = 135.mm - box_width
+#    pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.text_box line.txt3.text + ':', :size => 10, :at => [40.mm,row_y_b], :width => box_width + 2.mm, :height => 5.mm
+#    pdf.spec_box line.txt5.text + '.', :size => 10, :at =>[nbox_x,row_y_b], :width => nbox_width, :height => 5.mm, :overflow => :expand
+#end
+
+#def rev_print_linetype_13_helper(line, row_y_b, pdf)
+#    pdf.text_box '-', :size => 10, :at => [37.mm,row_y_b], :width => 3.mm, :height => 5.mm
+#    pdf.spec_box line.txt4.text + ': ' + line.txt5.text + '.', :size => 10, :at =>[40.mm,row_y_b], :width => 134.mm, :height => 5.mm, :overflow => :expand
+#end
+
+
 
 
 def clausetitle_continued(line, row_y_b, pdf)

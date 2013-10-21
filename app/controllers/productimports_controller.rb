@@ -28,7 +28,7 @@ def create
   #check no header values are nil
   if headers.include?(nil)
     missing_header_count = headers.length - headers.compact.length
-        @product_import_errors << (missing_header_count.to_s << ' column heading(s) are blank, please ensure that all columns have a header title')   
+    @product_import_errors << (missing_header_count.to_s << ' column heading(s) are blank, please ensure that all columns have a header title')   
   end
   
   
@@ -36,7 +36,7 @@ def create
   check_array = ['Clause Ref','Subtitle','Product Ref','Product Name','Item Ref', 'Item Name']
   check_header_array = headers[0..5]   
   if check_array != check_header_array
-       @product_import_errors << ('Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct errors and reload file.')
+    @product_import_errors << ('Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct errors and reload file.')
   end
   
   @csv_no_headers = @csv.drop(1)
@@ -45,6 +45,7 @@ def create
     if @productimport.empty?
     
       #check if clause references are valid for each line
+##??amend to take account of productclauses table
       #if clause.blank?      
         @csv_no_headers.each_with_index do |line, i| 
           #private method
@@ -66,18 +67,20 @@ def create
           if punt_list.include?(cell.last)
             @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: punctuation after text.')     
           end
+
+#units in second header row or in cell?          
+#          unit_list = Unit.all.collect{|m| m.text} #[" mm", " m ", " cm", " ft", " kg", " g ", " l ", " W ", " Pa "]
+#          if unit_list.include?(cell.last)
+#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: space between units and number.')     
+#          end
           
-          unit_list = [" mm", " m ", " cm", " ft", " kg", " g ", " l ", " W ", " Pa "]
-          if unit_list.include?(cell.last)
-            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: space between units and number.')     
-          end
-          
-          unit_list = [" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
-          if unit_list.include?(cell.last)
-            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sqm, sq ft, etc.')     
-          end
+#          unit_list = Unit.all.collect{|m| m.text} #[" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
+#          if unit_list.include?(cell.last)
+#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sqm, sq ft, etc.')     
+#          end
           
           if cell.first != cell.first.capitalize
+#what if numerical value?
             @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: first letter must be a capital letter.')     
           end
           #degrees and other sufixes          
@@ -105,6 +108,9 @@ end
 
 
 def product_error_print
+#import errors
+#re-calculate errors and print result
+  
     @productimport_errors = params[:import_errors]
     prawnto :filename => "product_upload_error_log.pdf", :prawn => {:page_size => "A4", :margin => [20.mm, 14.mm, 5.mm, 20.mm], :font => 'Times-Roman'}, :inline=>false     
 end
@@ -112,12 +118,21 @@ end
 
 
 def csv_product_upload
+
+  #get using paperclip
+  #@csv = CSV.read("#{Rails.root}/public#{@csv.csv.url.sub!(/\?.+\Z/, '') }", {:headers => true, }) 
+
+  #validate csv to check that correct columns are included and they are completed
+
+
+
     
     #line[0] = clause reference
     #line[1] = clausetitle
-    #line[2] = clause substitle
+    #line[2] = subtitle (txt4)
     #line[3] = product reference
     #line[4] = product name
+    
     #line[5] = item reference
     #line[6] = item name
     
@@ -125,74 +140,53 @@ def csv_product_upload
   
   product_imports.each do |product_import|
   
-    csv = CSV.read(product_import.csv.url, headers: true)
-    csv.each do |line| 
+    csv = CSV.read(product_import.csv.url)
+    csv_numrows = (csv.length) - 2
 
-#!!!!!!!!!!clean each line entry
-
-    
+   
+    headers = @csv[0]
+    units = @csv[1]
+    standards = @csv[1]
+    line_array_length = headers.length    
+#!!!!!!!!!!prepare line data    
   ##array of tx3_ids for headers
-    line_array_length = line.length
+    line_array_length = headers.length
       
-      header_txt3_id_array = []        
+      header_txt3_id_array = [] 
+      unit_id_array = [] 
+      standard_id_array = [] 
+             
       (7..line_array_length).each do |i|        
 
         header_txt3_check = Txt3.find_or_create_by_text(headers[i])
         #header_txt3_check = Txt3.where(:text => headers[i]).first_or_create
         header_txt3_id_array[i] = header_txt3_check.id
         #starts from 7...
+
+        unit_check = Unit.find_or_create_by_text(units[i])
+        #unit_check = Unit.where(:text => units[i]).first_or_create
+        unit_id_array[i] = unit_check.id
+        #starts from 7...
+        
+        standard_check = Standard.find_or_create_by_text(standards[i])
+        #unit_check = Unit.where(:text => units[i]).first_or_create
+        standard_id_array[i] = standard_check.id
+        #starts from 7...
+        
       end      
-      #erase nil records from start of array 0..6
-      header_txt3_id_array.compact
-    
-   
-  ##find clause_id if it exists - clauseref and clause title
-      #private method
-      clause_check(line[0], line[1])
+
+
+    csv(3..csv_numrows).each do |line|  
+
             
   ##find or create txt4 record for clause substitle    
       subtitle_check = Txt4.find_or_create_by_text(line[2])
       #subtitle_check = Txt4.where(:text => line[2]).first_or_create
-      
-  ##find or create performance records for line   
-      #array to save performance_ids in
-      performance_id_array = [] 
-       
-      (7..line_array_length).each do |i|
-                     
-        txt6_check = Txt6.find_or_create_by_text(line[i])
-        #txt6_check = Txt6.where(:text => line[i]).first_or_create        
 
-        performance = Performances.includes(:txt3).where(txt3_id => header_txt3_id_array[i], txt6_id => txt6_check.id).first
-        performance_id_array[i] = performance.id          
-      end       
-      performance_id_array.compact
-
-  ##check if product for company with same performance critria exists
-      #!! and check other attributes to ensure is the same product
-      product_check = Product.joins(:characteristics, :productgroup).where(
-        'productgroups.company_id' => current_user.company_id,
-        'productgroups.clause_id' => clause_check.id,
-        'productgroups.txt4_id' => subtitle_check,
-        'productgroups.ref' => line[3],
-        'productgroups.name' => line[4],
-        :ref => line[5],
-        :name => line[6],
-        'characteristics.performance_id' => performance_id_array
-      ).first
-      
-      
-      if product_check
-        #if exists update checked date
-        product_check.updated_at = Time.now
-        product.save  
-      else    
-        #if does not exist create new product record
-        
+  ##check if product group exists
         #find or create product group
-        check_productgroup = Productgroup.where(
+        check_productgroup = Productgroup.joins(:productclauses).where(
           :company_id => current_user.company_id,
-          :clause_id => clause_check.id,
           :txt4_id => subtitle_check,
           :ref => line[3],
           :name => line[4]
@@ -201,15 +195,14 @@ def csv_product_upload
         if check_productgroup.blank?
           check_productgroup = Productgroup.create(
             :company_id => current_user.company_id,
-            :clause_id => clause_check.id,
             :txt4_id => subtitle_check,
             :ref => line[3],
             :name => line[4]
-          ).first          
+          ).first
+          #remove any productgroups not updated - record change          
         end
-        
-        
-        #find or create product
+
+  ##check if product item exists
         check_product = Product.where(
           :productgroup_id => check_productgroup.id,
           :ref => line[5],
@@ -221,18 +214,86 @@ def csv_product_upload
             :productgroup_id => check_productgroup.id,
             :ref => line[5],
             :name => line[6]
-          ).first        
-        end        
+          ).first
+          #record change        
+        end 
 
-        #create characteristics record
-        performance_id_array.each do |perform_id|
-          add_characteristic = Characteristic.create(:product_id => check_product.id, :performance_id => perform_id)
-        end               
-      end   
- 
+
+  ##check if product assigned to clause
+
+  ##find clause_id - clauseref and clause title (checked that it exists on uploaed)
+      #private method
+      clause_check(line[0], line[1])
+
+      check_product_clause = Productclause.where(:product_id => check_productgroup, :clause_id => clause_check.id).first
+      if check_product_clause
+        check_product_clause = Productclause.create(:product_id => check_productgroup, :clause_id => clause_check.id) 
+      end
+
+
+
+#!!!!!!!!!find or create performance records for line
+        line_txt6 = line.drop(7)
+        
+        performance_pairs = []
+        line_txt6.each do |txt6_text, i|
+
+          txt6 = Txt6.find_or_create_by_text(txt6_text)
+          
+          
+          txt3_id = header_txt3_id_array[i]
+          unit_id = unit_id_array[i]
+          standard_id = standard_id_array[i]
+
+          txt6unit = Txt6unit.find_or_create(:txt6_id => txt6.id, :unit_id => unit_id, :standard_id => standard_id)
+          
+           performance_pair = Performance.find_or_create(:txt6unit_id => txt6unit.id, :txt3_id => txt3_id)
+           performance_pairs[i] = performance_pair.id
+
+        end   
+
+##check if product has values not in current product data upload
+        performance_pairs = performance_pairs.sort
+        existing_product_performance_pairs = Characteritic.where(:product_id => check_product.id).collect{|i| i.performance_id}.sort
+        
+        if existing_product_performance_pairs.blank?
+          performance_pairs.each do |pair|
+            product_charactistic_check = Characteristic.create(:product_id => check_product.id, :performance_id => pair)
+            #record change          
+          end                
+        else
+          if performance_pairs == existing_product_performance_pairs
+            #record change
+          else
+            old_pairs_no_listed = existing_product_performance_pairs.delete_if{|x| performance_pairs.includes?(x)}
+            if old_pairs_no_listed
+              #delete old records not in current upload
+              if params[:action] == 'overwrite'
+                old_pairs_no_listed.each do |pair|
+                  product_charactistic_check = Characteristic.delete(:product_id => check_product.id, :performance_id => pair).first
+                end
+              end
+              #record change
+            end
+            new_pairs_no_listed = performance_pairs.delete_if{|x| existing_product_performance_pairs.includes?(x)}
+            if new_pairs_no_listed
+              #add new reords not in existing database
+              if params[:action] == 'overwrite'
+                new_pairs_no_listed.each do |pair|
+                  product_charactistic_check = Characteristic.create(:product_id => check_product.id, :performance_id => pair)
+                end
+              end
+              #record change            
+            end  
+          end
+        end
+
+
+
   ##if overwrite existing, delete all records with time less than last completed upload for the company 
       if params[:action] == 'overwrite'
-        #find all products to be deleted
+        #find all product groups, products, characteristics for company that have not been updated
+        #delete
         
         #create relevant productgroups in archive
         #copy all products selected to archive
@@ -252,118 +313,41 @@ end
 
 
 
-
-def product_specline_update
-   
-  Project.all.each do |project|
-            
-  ##get clause in project with speclines that have data      
-    clauses_ids = Clause.joints(:speclines).where('speclines.project_id = ?  AND speclines.linetype_id = ?', project.id, 5).collect{|i| i.id}
-
-    
-    clauses_ids.each do |clauses_id|
-  
-  ##get relevant speclines for clause
-      clause_speclines = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 5).order('clauseline')    
-
-  ##is line before a subtitle?  
-      preceding_clauseline = clause_speclines.first.clauseline - 1
-      subtitle_check = Specline.where(:project_id => project.id, :clause_id => clause.id, :linetype => 7, :clauseline => preceding_clauseline).first
-      if subtitle_check
-        subtitle_id = subtitle_check.txt4_id
-      end
-
-  ##find next substitle or end of product attributes
-      used_clauselines = clause_speclines.collect{|i| i.clauseline}
-      
-      used_clauselines.each_with_index do |line_number, i|
-      
-      
-      
-      end
-      ##check linetype of intermediate lines
-      subtitle_check = Specline.where(:project_id => project.id, :clause_id => clause.id, :clauseline => preceding_clauseline).first
-      
-      
-  ##check all attributes (linetypes 5 & 6)
-  
-  
-  ##check only linietype 5 attributes
-
-      
-
-
-  ##for product speclines get performance pairs
-      find_current_performance_pairs(product_speclines)
-  
-  ##test is product exists
-      product_check = Product.joins(:characteristics, :productgroup).where(
-        'productgroups.company_id' => company_id,
-        'productgroups.clause_id' => clauses_id,
-        'productgroups.txt4_id' => subtitle_id,
-        'characteristics.performance_id' => performance_id_array
-      ).first
-      
-  ##if product does not exist
-      if product_check      
-      ##find attributes that are not correct
-    
-  
-  
-      end
-    
-    #end to each clause of project
-    end    
-  #end to each project    
-  end   
-end
-
-
-
-
 private
-
-def find_current_performance_pairs(product_speclines)
-
-  performance_id_array = []
-  txt3_array = []
-  i = 0
-  product_speclines.each do |specline|
-    i = i + 1  
-    
-    txt6_string = specline.txt6.text
-    #check for value arrays in txt6_id 
-    if txt6_string.includes?(',','and')
-      #split string into an array
-      txt6_string['and'] = ','
-      split_txt6_array = txt6_string.split(/,/)
-      
-      split_txt6_array.each do |text|
-        i = i + 1 
-        text.strip
-        find_create_txt6(text)
-        #search performance ids
-        txt3_text_array(specline.txt3_id, txt6_id, i)         
-      end      
-    else
-      #search performance ids
-      txt3_text_array(specline.txt3_id, specline.txt6_id, i)       
-    end
-  end
-end
-
-
-def txt3_text_array(txt3_id, txt6_id, i)
-  performance = Performances.includes(:txt3).where(txt3_id => txt3_id, txt6_id => txt6_id).first
-  performance_id_array[i] = performance.id        
-  txt3_array[i] = performance.txt3.text
-  txt3_array.compact  
-end
-
 
 def clause_check(clauseref, clausetitle)
   clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first  
 end
+
+
+def productgroup_delete(productgroup)
+  
+  #find all products and move
+#mark as superseded or   
+#do by date or revision number?
+  old_productgroups = Productgroup.where(:company_id => current_user.company_id, :updated => time_ago_in_words(Date.today - 2))
+  old_productgroups.each do |product_group|
+    add_old_productgroup = Changedproductgroup.create(product_group)
+    
+  end
+#find all productclauses and move
+#find all characteristics and move
+#find all unused performance pairs and move
+  
+end
+
+def product_delete(product)
+  
+end
+
+def productclause_delete(productclause)
+  
+end
+
+def characteristic_delete(characteristic)
+  
+end
+
 
     
 end

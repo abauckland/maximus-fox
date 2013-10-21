@@ -3,13 +3,13 @@ module RevisionsHelper
   def revision_select(project_revisions, selected_revision, current_project, revision_subsections)
 
     if current_project.project_status == 'Draft'
-      "<div class='revision_select_draft'>n/a (project status is 'Draft')</div>".html_safe
+      "<div class='revision_select_draft'>n/a</div>".html_safe
     else
-      if revision_subsections.blank?
-        "<div class='revision_select_draft'>n/a (no changes have been made)</div>".html_saf
-      else
+      #if revision_subsections.blank?
+      #  "<div class='revision_select_draft'>n/a (no changes have been made)</div>".html_safe
+      #else
         "<div class='revision_select'>#{revision_select_input(project_revisions, selected_revision, current_project)}</div>".html_safe
-      end
+      #end
     end
   end
 
@@ -208,6 +208,10 @@ module RevisionsHelper
         when 6 ; "<table><tr><td>#{line.txt3.text}:</td><td width = '5'></td><td>#{line.txt5.text}</td></tr></table>".html_safe
         when 7 ; "#{line.txt4.text}".html_safe
         when 8 ; "#{line.txt4.text}: #{line.txt5.text}".html_safe
+#       when 10 ; "#{line.txt4.text}".html_safe
+#       when 11 ; "#{line.txt3.text}: #{line.txt6.text}".html_safe 
+#       when 12 ; "#{line.txt3.text}: #{line.txt5.text}".html_safe 
+#       when 13 ; "#{line.txt4.text}: #{line.txt5.text}".html_safe           
     end  
   end
 
