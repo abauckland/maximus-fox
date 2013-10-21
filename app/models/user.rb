@@ -11,27 +11,24 @@ has_many :productimport
   before_save :encrypt_password  
   after_create :add_user_to_mailchimp
   
-  before_validation :custom_validation_check_field
 
     
   validates_confirmation_of :first_name
-  validates_confirmation_of :surname  
+  validates_confirmation_of :surname
 
   validates :password,   
-            :presence => {:message => "can't be black"},   
+            :presence => {:message => "can't be black"},
+            on: :create,   
             :length => {:minimum => 8, :message => "must be minimum 8 characters long"} 
     
   validates :email,   
-            :presence => true,   
+            :presence => true,
+            on: :create,   
             :uniqueness => {:message => "A user with this email address already exists"},
             :format => {:with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }  
       
 
-  def custom_validation_check_field
-    if @check_field !=''
-      errors.add(:field_check, "Cannot be blank")
-    end     
-  end  
+
   
   def encrypt_password  
     if password.present?  

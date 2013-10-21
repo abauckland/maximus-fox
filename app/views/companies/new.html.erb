@@ -24,7 +24,7 @@
 				<%= form_for @company do |f| %>
 					
 					<%= f.fields_for :users do |builder| %>
-						<div class="form_check"><%= builder.text_field :check_field%></div>
+						<div class="form_check"><%= f.text_field :check_field%></div>
 						<%= builder.hidden_field(:role, {:value => 'admin'})%>
 						<table>
 						<tr><td>

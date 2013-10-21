@@ -70,11 +70,11 @@ layout "users"
   
   def update
      
-    @current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
+    #@current_project = Project.where('id = ? AND company_id =?', params[:id], current_user.company_id).first
     
-    if @current_project.blank?
-      redirect_to log_out_path
-    end
+    #if @current_project.blank?
+    #  redirect_to log_out_path
+    #end
     
     user = User.where('id = ?', current_user.id).first
     if User.authenticate(current_user.email, params[:user][:password]) == user
@@ -85,8 +85,11 @@ layout "users"
       if params[:new_password] == params[:new_password_confirmation]  
         user.password = params[:new_password]    
       end
-      user.save
+     user.save
     end
+    #  respond_to do |format| 
+    #    format.html { render :action => "show", :id => current_user.id}
+    #  end
     #logout, as session no longer valid for new password
     redirect_to log_out_path
   end
