@@ -584,6 +584,67 @@ end
     end
     render :text=> params[:value]   
   end
+
+
+#def get_product_keys
+  
+#end
+
+#def get_product_values
+
+
+#performance_ids establish for clause, product title, existing product date and txt3
+# hash of performance_ids and txt6unit text
+#  performance_pairs = {}
+
+#  performance_ids.each do |id|
+#    performance = Performtxt6unit.includes(:txt6unit => [:txt6, :unit, :standard]).where(:performance_id => id).first
+
+#    performance_text = performance.txt6unit.txt6.text
+
+#    if value.txt6unit.unit_id
+#      performance_text << ' '<< value.txt6unit.unit.text
+#    end         
+#    if value.txt6unit.standard_id
+#      performance_text << ' to '<< value.txt6unit.standard.text
+#    end      
+#  performance_pairs[id] = performance_text
+#  end
+#  render json: @statuses
+#end
+
+#def update_product_key
+  
+#end
+
+#def update_product_values
+    #new value is an array of values - values are txt6unit_ids
+    #new_value = params[:value] 
+    #if new_value.length == 1
+      #change value to specline.txt6_id to this
+    #else
+      #find if performtxt6unit exists
+      #!!!check_preformance_array = performance.where(:txt6unit => new_value_array).first
+      #if check_preformance_array
+        #change value to specline.txt6_id to check_preformance_array.id
+      #else
+        #create performance_array
+        #performance_ref = Performance.create(:txt3_id => txt3_id)
+        #params[:value].each do |value|       
+          #performance_pair = Performtxt6unit.create(:performance_id=> performance_ref.id, :txt6unit_id => value)
+        #end
+        #change value to specline.txt6_id to check_preformance_array.id
+      #end      
+    #end
+    #record change
+        
+    #render :text=> params[:value]   
+#end
+
+
+
+
+
   
   # PUT /speclines/1
   # PUT /speclines/1.xml

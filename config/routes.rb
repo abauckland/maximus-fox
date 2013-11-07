@@ -20,6 +20,10 @@ SpecrightDev::Application.routes.draw do
   get "supplier" => "homes#supplier_home", :as => "supplier"
   get 'guidepdfs', to: redirect('/features/9')
   
+  resources :exports do
+    get :revit_keynote_export, :on => :member
+  end
+  
   resources :helps do
     get :tutorial, :on => :member
   end
@@ -93,13 +97,16 @@ SpecrightDev::Application.routes.draw do
     post :add_clauses, :on => :member
     post :delete_clauses, :on => :member
     get :guidance, :on => :member
+    #get :get_product_keys, :on => :member
+    #get :get_product_values, :on => :member
              
     member do
     put :move_specline
     put :update_specline_3
     put :update_specline_4
     put :update_specline_5
-    put :update_specline_6      
+    put :update_specline_6
+    #put :update_product_values       
     end    
   end
   

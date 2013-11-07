@@ -1,15 +1,36 @@
-<div class="app_tab_1">
-	<ul class='tabs'>
-		<li><a href='#tab1'>current</a></li>
-		<li><a href='#tab2'>discontinued</a></li>
-	</ul>
 
-	<div id="tab1" class="tab_content">    
-		<%= render :partial => "product_table", :locals => { :products => @products, :txt3_id_array => @txt3_id_array } %>
-	</div>    
+
+
+<div class="company_product_table">    
+
 	
-	<div id="tab2" class="tab_content">    
-		<%= render :partial => "product_table", :locals => { :products => @products, :txt3_id_array => @txt3_id_array } %>
-	</div>  
-</div>
+	
 
+
+
+<table id="products">
+<thead>
+  <tr>
+    <th>Product Name</th>
+    <th>Category</th>
+    <th>Product Name</th>
+    <th>Category</th>
+        <th>Product Name</th>
+    <th>Category</th>
+  </tr>
+</thead>
+<tbody>
+  <% @products.each do |product| %>
+    <tr>
+		<td><%= product.name %></td>
+		<td><%= product.ref %></td>
+				<td><%= product.name %></td>
+		<td><%= product.ref %></td>
+				<td><%= product.name %></td>
+		<td><%= product.ref %></td>
+    </tr>
+  <% end %>
+</tbody>
+</table>
+
+</div>    

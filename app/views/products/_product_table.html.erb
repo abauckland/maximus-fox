@@ -5,21 +5,9 @@
     		<th class="s_tab_cell">Clause Subtitle</th>
     		<th>Product Ref</th>
     		<th class="mob_cell">Product Name</th>  
-    		<% @txt3_id_array.each do |txt3_id| %>
+   		<% @txt3_id_array.each do |txt3_id| %>
       			<th class="mob_cell"><%= txt3_id.text %></th>
     		<% end %>
   		</tr>                     
-    
-  		<% @products.each do |product| %>
-  			<tr>       
-    			<td><%= product.productgroup.clause.clause_code %></td>
-    			<td class="mob_cell"><%= product.productgroup.clause.clausetitle.text %></td>
-    			<td class="s_tab_cell"><%= product.productgroup.txt4.text %></td>
-    			<td><%= product.ref %></td>
-    			<td class="mob_cell"><%= product.name %></td>
-    			<% @txt3_id_array.each do |txt3_id| %>    
-					<td class="mob_cell"><%= product_performance_text(product.id, txt3_id) %></td>
-    			<% end %>
-  			</tr>
-		<% end %>
+
 		</table> 

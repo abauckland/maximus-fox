@@ -988,3 +988,30 @@
 }
 
 
+//combined home page css
+.combined_home_intro{
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;   
+}
+  @media screen and (max-width: $medium_menu) {
+    .combined_home_intro{
+      top: 40px;
+      }
+  }
+
+
+.combined_home_body{
+  position: absolute;
+  top: 150px;
+  left: 10px;
+  right: 10px;  
+}
+  @media screen and (max-width: $medium_menu) {
+    .combined_home_body{
+      top: 130px;
+      }
+  }
+
+

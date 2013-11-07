@@ -637,10 +637,17 @@ ul.tabs_2 {
   border-top: 2px solid #dddddd;
 }
 
-
 .column_text {
   font-size:1.2em;
   padding: 10px 10px 10px 10px
+}
+
+
+
+.column_line {
+  height: 2px;
+  padding: 10px 10px 10px 10px;
+  border-top: 2px solid #dddddd;
 }
 
 .column_guide {
@@ -684,11 +691,11 @@ ul.tabs_2 {
   table{
     width: 100%;
     border: none;
-    tr{
-      &:hover{
-          background: #eee;
-      }
-    }
+ //   tr{
+ //     &:hover{
+ //         background: #eee;
+ //     }
+//    }
   }
 }
 

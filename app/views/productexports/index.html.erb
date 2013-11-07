@@ -9,12 +9,7 @@
     		<div class="column_sub_content">            
 					
 				<div class="column_guide">
-					<p>guide text here:</p>
-					<ul>
-						<li>first set of guidance here to see if it wraps when at end of div</li>
-						<li>first set of guidance</li>
-						<li>first set of guidance</li>
-					</ul>
+					<p>Select data/template to download. All files are downloaded as a csv file</p>
       			</div>
 
       			<div class="column_form">
@@ -23,29 +18,28 @@
 			<!-- options - download existing products -->		
 			<table>
 			<tr><td>
-				<div class="radio_button"><%= radio_button_tag :data, 'template', :checked => true %></div>
-				<div class="radio_button_label">Sample spreadsheet template</div>			
+				<div class="radio_button"><%= radio_button_tag :data, 'company_template' %></div>
+				<div class="radio_button_label">Company product data template (no data)</div>			
 			</td></tr>
 			<tr><td>
-				<div class="radio_button"><%= radio_button_tag :data, 'company_template'%></div>
-				<div class="radio_button_label">Company spreadsheet template</div>			
+				<div class="radio_button"><%= radio_button_tag :data, 'company_data', :checked => true %></div>
+				<div class="radio_button_label">Company product data</div>			
+			</td></tr>
+			<% if !@product_clauses.empty? %>
+			<tr><td>
+				<div class="radio_button"><%= radio_button_tag :data, 'company_clauses'%></div>
+				<div class="radio_button_label">Company product data by Clause Reference:</div>			
 			</td></tr>
 			<tr><td>
-				<div class="radio_button"><%= radio_button_tag :data, 'clauses'%></div>
-				<div class="radio_button_label">Retain existing product data</div>			
-			</td></tr>
-			<tr><td>
-      			<div class="column_sub_form">
+      			<div class="product_clause_select">      				
       				<table>
-						<tr><td>
-      						Clauses with associated product data:
-      					</td></tr>
-      					<tr><td>
-      						<%= select_tag "clause_ids", nil, {:disabled => true, :multiple => true, :size => 12}  %>
+      					<tr><td>      		
+      						<%= select_tag "clause_ids", options_from_collection_for_select(@product_clauses, :id, :clause_section_full_title), { :disabled => true, :multiple => true, :size => 12}  %>													
  						</td></tr>
  					</table>
  				</div>
 			</td></tr>
+			<% end %> 
 			</table>
 			<% end %>	      	
       			</div>

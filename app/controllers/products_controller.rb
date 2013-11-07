@@ -8,9 +8,9 @@ layout "products"
 def index
   current_user = User.first
   
-  @txt3_id_array = Txt3.joins(:performances => [:characteristics => [:product => [:productgroup]]]).where('productgroups.supplier_id' => 1).order('text')
-  
-  @products = Product.includes(:productgroup =>[:txt4, :supplier, :clause => [:clausetitle]]).where('productgroups.supplier_id' => 1).order('productgroups.clause_id', 'productgroup_id')
+ # @txt3_id_array = Txt3.joins(:performances => [:characteristics => [:product => [:productgroup]]]).where('productgroups.supplier_id' => 1).order('text')
+  @products = Product.all
+ # @products = Product.includes(:productgroup =>[:txt4, :supplier, :clauses => [:clausetitle]]).where('productgroups.supplier_id' => 1).order('productgroups.clause_id', 'productgroup_id')
 
 end
 

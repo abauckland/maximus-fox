@@ -1,37 +1,39 @@
 <!-- main content --> 
-<div class="web_page_body">
+
+<div class="combined_home_intro">
+	<div class="web_tagline_text">
+		<div class="web_tagline_text_left">Great designs deserve</div>
+		<div class="web_tagline_text_right">great specifications</div>
+	</div>	
+</div>
+
+
+
+<div class="combined_home_body">
 	
-	<div class="web_main_content">
-    	<div class="web_main_column_1">
+	<div class="web_feature_index_large">
+		<div class="web_feature_index_large_container">
 
-  			<div class="web_tagline_text">
-  				<div class="web_tagline_text_left">Great designs deserve</div>
-  				<div class="web_tagline_text_right">great specifications</div>
-  			</div>
-  				
-  			<div class="web_main_text"><%= @home.strapline%></div>
+		    <div class="web_feature_menu_item_large">
+      			<a href="<%= home_path %>">
+       				<%= image_tag "combined_specifier.png", :border=>0, :class=>"web_feature_large_img" %>
+       				<p class="web_feature_title_large">Specifiers</p>
+       				<p class="web_feature_text_large">We provide Architects with the tools and information need for writing efficient and effective specifications.</p>     
+      			</a>
+    		</div>
 
-			<nav class="web_signup_link"><%= link_to "create a free account today", sign_up_path %></nav>
 
-  			<div class="web_main_text"><%= @home.intro_text%></div>
+		    <div class="web_feature_menu_item_large">
+      			<a href="<%= supplier_path %>">
+       				<%= image_tag "combined_manufacturer.png", :border=>0, :class=>"web_feature_large_img" %>
+       				<p class="web_feature_title_large">Manufacturers</p>
+       				<p class="web_feature_text_large">We work with manufacturers providing market insight and faciliating the specification of their products.</p>     
+      			</a>
+    		</div>
 
-    	</div>        
-    	<div class="web_main_column_2">
 
-  			<div class="web_tagline_text">
-  				<div class="web_tagline_text_left">Great designs deserve</div>
-  				<div class="web_tagline_text_right">great specifications</div>
-  			</div>
-  				
-  			<div class="web_main_text"><%= @home.strapline%></div>
-
-			<nav class="web_signup_link"><%= link_to "create a free account today", sign_up_path %></nav>
-
-  			<div class="web_main_text"><%= @home.intro_text%></div>
- 
-    	</div>     
+    	</div>		
 	</div>
-
 			
 	<%= render :partial => "application/web_footer" %>
 	

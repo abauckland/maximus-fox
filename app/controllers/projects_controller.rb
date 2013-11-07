@@ -272,11 +272,12 @@ end
     #check_project_ownership in before filter sets up variables for current_project
     current_project_and_templates(@current_project.id, current_user.company_id)
     @project = @current_project    
-    if @current_project.project_status == 'Draft'
-      @available_status_array = [['Draft', 'Draft'],['Preliminary', 'Preliminary'], ['Tender', 'Tender'], ['Contract', 'Contract'], ['As Built', 'As Built']]
-    else
-      @available_status_array = [['Preliminary', 'Preliminary'], ['Tender', 'Tender'], ['Contract', 'Contract'], ['As Built', 'As Built']]
-    end   
+    project_status_array = [['Draft', 'Draft'],['Preliminary', 'Preliminary'], ['Tender', 'Tender'], ['Contract', 'Contract'], ['As Built', 'As Built']]
+    current_status = @current_project.project_status
+    current_status_index = project_status_array.index([current_status, current_status])
+    project_status_array_last_index = project_status_array.length
+    @available_status_array = project_status_array[current_status_index..project_status_array_last_index]
+    
     #call to protected method that restablishes text to be shown for project revision status
     current_revision_render(@current_project)  
   end  
@@ -284,25 +285,25 @@ end
 
   def update_project
     @project = Project.find(params[:id])
-            
-    
-      @project.update_attributes(params[:project]) 
-         if @project.project_status != 'Draft'
-           check_rev_exists = Revision.where('project_id = ?', @project.id).first
-            if check_rev_exists.rev.blank?
-               check_rev_exists.rev = '-'
-               check_rev_exists.save
-            end
-         end
-    respond_to do |format|     
-    if @project.save   
-         format.html { redirect_to(edit_project_path(@project)) }
-    else
-      format.html { redirect_to edit_project_path(@project)}   
-     # format.html { redirect_to edit_project_path(@project)  }
-      #format.json { render json: @project.errors, status: :unprocessable_entity }
-      format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+                
+    @project.update_attributes(params[:project]) 
+    if @project.project_status != 'Draft'
+      check_rev_exists = Revision.where('project_id = ?', @project.id).first
+      if check_rev_exists.rev.blank?
+        check_rev_exists.rev = '-'
+        check_rev_exists.save
+      end
     end
+         
+    respond_to do |format|     
+      if @project.save   
+         format.html { redirect_to(edit_project_path(@project)) }
+      else
+        format.html { redirect_to edit_project_path(@project)}   
+      # format.html { redirect_to edit_project_path(@project)  }
+        #format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

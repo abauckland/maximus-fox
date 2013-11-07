@@ -3,6 +3,6 @@ class Productgroup < ActiveRecord::Base
   belongs_to :supplier  
   belongs_to :txt4
   has_many :products
-  has_many :productclauses
+  has_many :clauses, :through => :productclauses
 
 end

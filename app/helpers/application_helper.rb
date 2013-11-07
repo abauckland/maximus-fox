@@ -85,27 +85,27 @@ def specline_table(specline)
   @line = specline
     
     case specline.linetype_id
-
+      #clause title
       when 1, 2 ; "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_row'><td class='edit_clause_code'>#{clause_ref_text(specline)}</td><td class='edit_clause_title'>#{specline.clause.clausetitle.text}</td><td class='suffixed_line_menu_mob'>#{specline_mob_clause_menu(specline)}</td><td class='suffixed_line_menu' width ='120'>#{specline_line_new_link(specline)}#{clause_new_link(specline)}#{clause_delete_link(specline)}#{clause_help_link(specline)}</td></tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=2 >#{specline_suffix_menu_mob_clause(specline)}</td></tr></table>".html_safe
-    
+      #prefixed - editable text    
       when 3 ; "#{html_prefix(specline)}  <td width='10px'></td><td class='text_prefix' width='18'>#{specline.txt1.text}.</td><td class='text_text'><span id='#{specline.id}' class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=4 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-
+      #prefixed - editable text: editable text
       when 4 ; "#{html_prefix(specline)}  <td width='10px'></td><td class='text_prefix' width='18'>#{specline.txt1.text}.</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=4 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+      #                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
       when 5 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr><td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{specline.txt3.text}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_text6'>#{specline.txt6.text}</span></td></tr></table></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-
+      #
       when 6 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr><td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{specline.txt3.text}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td></tr></table></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-
+      #editable text
       when 7 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+      #editable text: editable text                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
       when 8 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-
-#     when 10 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
-
-#     when 11 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr><td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{specline.txt3.text}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_text6'>#{specline.txt6.text}</span></td></tr></table></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-
-#     when 12 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr><td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{specline.txt3.text}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td></tr></table></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
-
+      #product clause subtitle
+#     when 10 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
+      #product data (linked to product database)
+#     when 11 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr>#{performance_pair(specline)}</tr></table></td>  <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
+      #cross reference
+#     when 12 ; "#{html_xref_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr><td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{specline.txt3.text}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td></tr></table></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
+      #product information (not linked to product database)
 #     when 13 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
 
     end
@@ -115,9 +115,41 @@ def html_prefix(specline)
     "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'>#{specline_move}</td>".html_safe
 end
 
+#def html_data_prefix(specline)
+#    "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_data_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'>#{specline_move}</td>".html_safe
+#end
+
+#def html_xref_prefix(specline)
+#    "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_xref_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'>#{specline_move}</td>".html_safe
+#end
+
 def html_suffix(specline)
   "<td class='suffixed_line_menu_mob>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
 end
+
+#def performance_pair(specline)  
+  
+#  performance_key = Txt3.includes(:preformances).where('performances.id' => specline.txt6_id).first
+#  key_text_string = performance_key.text 
+#  
+#  performance_values = Performtxt6unit.includes(:txt6units => [:txt6s, :units, :standards]).where(:performance_id => specline.txt6_id)   
+#    last_value = performance_values.pop    
+#    if !performance_values.empty?   
+#      value_text_string = performance_values.collect{|i| '#{i.txt6unit.txt6.text}'}.joins(',')    
+#      value_text_string << ' & '<< last_value.txt6unit.txt6.text
+#    else
+#      value_text_string << last_value.txt6unit.txt6.text
+#    end
+#    if value.txt6unit.unit_id
+#      value_text_string << ' '<< value.txt6unit.unit.text
+#    end         
+#    if value.txt6unit.standard_id
+#      value_text_string << ' to '<< value.txt6unit.standard.text
+#    end      
+#  end  
+#  "<td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{key_text_string}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_value'>##{value_text_string}</span></td>".html_safe
+#end
+
 
 def specline_move
   image_tag("move.png", :mouseover =>"move_rollover.png", :border=>0, :title => 'drag & drop')

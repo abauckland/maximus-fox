@@ -401,6 +401,16 @@ right: 30px;
 .new_specline_row{@extend .specline_row}
 
 
+.specline_data_row{
+  @extend .specline_row;
+  color: blue;
+}
+
+.specline_data_row{
+  @extend .specline_row;
+  color: green;  
+}
+
 .edit_clause_code {
   width: 75px;
   font-size: 1.3rem;

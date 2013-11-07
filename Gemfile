@@ -24,6 +24,8 @@ gem 'mail'
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
 gem "gibbon", "~> 1.0.4"
+
+gem 'jquery-datatables-rails'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

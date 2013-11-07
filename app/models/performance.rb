@@ -1,6 +1,6 @@
 class Performance < ActiveRecord::Base
 #associations
   has_many :characteristics
-  belongs_to :txt6unit
+  has_many :txt6units, :through => :performtxt6units
   belongs_to :txt3
 end

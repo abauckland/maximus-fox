@@ -132,6 +132,7 @@ layout "users"
   #ajax event
   def unlock_user
     @licence = Licence.where('user_id =?', params[:id]).first    
+    @licence.failed_attempts = 0
     @licence.locked_at = 0
     @licence.save
 

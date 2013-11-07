@@ -247,7 +247,11 @@ def csv_product_upload
 
           txt6unit = Txt6unit.find_or_create(:txt6_id => txt6.id, :unit_id => unit_id, :standard_id => standard_id)
           
-           performance_pair = Performance.find_or_create(:txt6unit_id => txt6unit.id, :txt3_id => txt3_id)
+           performance_pair = Performtxt6unit.includes(:performance).where(:txt6unit_id => txt6unit.id, 'performances.txt3_id' => txt3_id).first
+           if performance_pair.blank?
+             performance_ref = Performance.create(:txt3_id => txt3_id)
+             performance_pair = Performtxt6unit.create(:performance_id=> performance_ref.id, :txt6unit_id => txt6unit.id)
+           end
            performance_pairs[i] = performance_pair.id
 
         end   
@@ -316,6 +320,7 @@ end
 private
 
 def clause_check(clauseref, clausetitle)
+#!!! 'dot' in clause reference not accounted for
   clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first  
 end
 
