@@ -17,7 +17,7 @@
 						<tr><td>
 							<div class="section_form_label form_input_label">Project Template:</div>
 							<div class="form_input">
-      							<%= select_tag "selected_template_id", options_from_collection_for_select(@selectable_templates, "id", "project_code_and_title", @current_project.parent_id), {:onchange => "window.location='/speclines/#{@current_project.id}/manage_clauses?project_id=#{@current_project.id}&subsection_id=#{@current_subsection.id}&selected_template_id='+this.value;"} %>
+      							<%= select_tag "selected_template_id", options_from_collection_for_select(@selectable_templates, "id", "project_code_and_title", @current_project_template.id), {:onchange => "window.location='/speclines/#{@current_project.id}/manage_clauses?project_id=#{@current_project.id}&subsection_id=#{@current_subsection.id}&selected_template_id='+this.value;"} %>
 							</div>				
 						</td></tr>										
 						</table>				

@@ -1,7 +1,7 @@
 class HelpsController < ApplicationController
 
 before_filter :require_user
-layout "users", :except => [:tutorial]
+layout "users"
 
   def index
     @tutorials = Help.all
@@ -10,6 +10,9 @@ layout "users", :except => [:tutorial]
   def tutorial
 
     @tutorial = Help.where('id = ?', params[:id]).first
+
+
+  redirect_to @tutorial.video.to_s
 
   end
 

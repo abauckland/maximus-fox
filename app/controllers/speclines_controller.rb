@@ -19,10 +19,10 @@ def manage_clauses
 
 #####this does not work
 
-      if params[:selected_template_id].blank? == true    
-      @current_project_template = Project.find(@current_project.parent_id)
-      else
-      @current_project_template = Project.find(params[:selected_template_id])
+      if params[:selected_template_id]         
+      @current_project_template = Project.where(:id => params[:selected_template_id]).first
+     else
+      @current_project_template = Project.where(:id => @current_project.parent_id).first
       end
           
     #new variable that contains only those projects that have the selected subsection    

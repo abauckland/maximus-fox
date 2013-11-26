@@ -1,34 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title></title>
-    <%= stylesheet_link_tag 'application' %>
-
-    
-    <%= javascript_include_tag 'application' %>
-
-    
-    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
-  </head>
-
-<body>
-<div id="page"> 
-  <div id="header_web">
-    <div id="logo">
-      <%= link_to image_tag("specright_logo.png", :width => 100, :height=> 30, :border=>0), home_path%>
-    </div>
-    <div id="tutorial_title">
-      Tutorial <%= @tutorial.id%>: <%= @tutorial.title%>
-    </div>     
-  </div>
+<div class="content">
 
   <div id ="tutorial">
-          <iframe src='<%= @tutorial.video%>' frameborder='0' allowfullscreen></iframe> 
+          <iframe width="840" height="475" src='<%= @tutorial.video%>' frameborder='0' allowfullscreen></iframe> 
   </div>
 
 </div>
-</body>
-</html>
