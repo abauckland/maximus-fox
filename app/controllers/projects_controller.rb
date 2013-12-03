@@ -286,24 +286,27 @@ end
   def update_project
     @project = Project.find(params[:id])
                 
-    @project.update_attributes(params[:project]) 
+    @project.update_attributes(params[:project])
+    #after new project status set, check if status is 'draft' 
     if @project.project_status != 'Draft'
+      #if status is not draft, check if revisions status has been changed to '-'
       check_rev_exists = Revision.where('project_id = ?', @project.id).first
+      #if status has not been changed previously, change to '-' and record project status for revision
       if check_rev_exists.rev.blank?
         check_rev_exists.rev = '-'
+        check_rev_exists.project_status = @project.project_status
         check_rev_exists.save
+      #else just update with current project status in last revision record
+      else
+        current_project_rev = Revision.where('project_id = ?', @project.id).last
+        current_project_rev.project_status = @project.project_status
+        current_project_rev.save
       end
     end
          
     respond_to do |format|     
-      if @project.save   
-         format.html { redirect_to(edit_project_path(@project)) }
-      else
         format.html { redirect_to edit_project_path(@project)}   
-      # format.html { redirect_to edit_project_path(@project)  }
-        #format.json { render json: @project.errors, status: :unprocessable_entity }
         format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
-      end
     end
   end
 

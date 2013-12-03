@@ -45,6 +45,14 @@ layout "projects"
 
       @revision_subsection = @revision_subsections.first.id
       
+            previous_statuses = Revision.where(:project_id => @current_project.id).collect{|x| x.project_status}
+            @previous_revision_project_status = previous_statuses[previous_statuses.length - 2]            
+            @selected_revision_project_status = @selected_revision.project_status
+            
+
+            if @current_revision_project_status != @previous_revision_project_status
+              @revision_project_status_changed = true
+            end
       
       #establish if subsection is new or has been deleted      
       subsection_change_data(@current_project, @revision_subsection, @selected_revision)

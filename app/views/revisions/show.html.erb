@@ -48,6 +48,10 @@
 
 <div class="revision_tabs">
 	<ul class='tabs'>
+  <% if @revision_project_status_changed %>
+    <li class="prelim"><a href='#prelim_rev_view'>Status</a></li>
+  <% end%>
+
   <% if @revision_prelim_subsections %>
     <li class="prelim"><a href='#prelim_rev_view'><%= @first_prelim_susbsection.section.ref%>--</a></li>
   <% end%>
@@ -58,28 +62,56 @@
 </ul>
 
 
-  <% if @revision_prelim_subsections %>
+  <% if @revision_project_status_changed %>
+  	<div id="prelim_rev_view" class="tab_content">
+		Project Status changed from <%= @previous_revision_project_status %> to <%= @current_revision_project_status%>
+    </div>  
+    
+  	<% if @revision_prelim_subsections %>  
+  		<div id="prelim_rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
+  			<p>Loading...</p>
+   		</div>
 
-  	<div id="prelim_rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
-		<%= render "tab_revision_content_prelim", locals: {array_of_deleted_prelim_subsections_compacted: @array_of_deleted_prelim_subsections_compacted, array_of_new_prelim_subsections_compacted: @array_of_new_prelim_subsections_compacted, array_of_changed_prelim_subsections_compacted: @array_of_changed_prelim_subsections_compacted, hash_of_deleted_prelim_clauses: @hash_of_deleted_prelim_clauses, hash_of_new_prelim_clauses: @hash_of_new_prelim_clauses, hash_of_changed_prelim_clauses: @hash_of_changed_prelim_clauses, selected_revision: @selected_revision, current_project: @current_project} %>
-    </div>
-
-  	<% @revision_none_prelim_subsections.each do |revision_subsection|%>
-    	<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
-		</div>
-	<% end%>
-
+  		<% @revision_none_prelim_subsections.each do |revision_subsection|%>
+    		<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
+    			<p>Loading...</p>
+			</div>
+		<% end%> 	
+	<%else%>
+  		<% @revision_none_prelim_subsections.each do |revision_subsection|%>
+    		<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
+    			<p>Loading...</p>
+			</div>
+		<% end%> 				
+	<% end%>  
+    
   <% else %>
 
-  	<% @revision_subsections.each do |revision_subsection|%>
-    	<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
-		</div>
-	<% end%>
-  
-    <div id="<%= @revision_subsection.id%>rev_view" class="tab_content <%= @revision_subsection.id%>">
-	    <%= render "tab_revision_content", locals: {revision_subsection: @revision_subsection, array_of_new_subsections: @array_of_new_subsections, array_of_deleted_subsections: @array_of_deleted_subsections, array_of_deleted_clauses: @array_of_deleted_clauses, array_of_new_clauses: @array_of_new_clauses, array_of_changed_clauses: @array_of_changed_clauses, selected_revision: @selected_revision, current_project: @current_project} %>
-    </div>
+  	<% if @revision_prelim_subsections %>
 
+  		<div id="prelim_rev_view" class="tab_content <%= @first_prelim_susbsection.id%>">
+			<%= render "tab_revision_content_prelim", locals: {array_of_deleted_prelim_subsections_compacted: @array_of_deleted_prelim_subsections_compacted, array_of_new_prelim_subsections_compacted: @array_of_new_prelim_subsections_compacted, array_of_changed_prelim_subsections_compacted: @array_of_changed_prelim_subsections_compacted, hash_of_deleted_prelim_clauses: @hash_of_deleted_prelim_clauses, hash_of_new_prelim_clauses: @hash_of_new_prelim_clauses, hash_of_changed_prelim_clauses: @hash_of_changed_prelim_clauses, selected_revision: @selected_revision, current_project: @current_project} %>
+    	</div>
+
+  		<% @revision_none_prelim_subsections.each do |revision_subsection|%>
+    		<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
+    			<p>Loading...</p>
+			</div>
+		<% end%>
+
+  	<% else %>
+
+  		<% @revision_subsections.each do |revision_subsection|%>
+    		<div id="<%= revision_subsection.id%>rev_view" class="tab_content <%= revision_subsection.id%>">
+    			<p>Loading...</p>
+			</div>
+		<% end%>
+  
+    	<div id="<%= @revision_subsection.id%>rev_view" class="tab_content <%= @revision_subsection.id%>">
+	    	<%= render "tab_revision_content", locals: {revision_subsection: @revision_subsection, array_of_new_subsections: @array_of_new_subsections, array_of_deleted_subsections: @array_of_deleted_subsections, array_of_deleted_clauses: @array_of_deleted_clauses, array_of_new_clauses: @array_of_new_clauses, array_of_changed_clauses: @array_of_changed_clauses, selected_revision: @selected_revision, current_project: @current_project} %>
+    	</div>
+
+  	<%end%>
   <%end%>
 </div>
 </div>

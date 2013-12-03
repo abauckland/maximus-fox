@@ -141,10 +141,13 @@ layout "projects", :except => [:print_project]
     end
 
 
-    ###update revision status of project if document is issued
+    ###update revision status of project if document is not if draft status
     if @current_project.project_status != 'Draft'                
       current_revision = Revision.where(:project_id => @current_project.id).last
+      #ifthe current revision of the project has been selected to print
       if @selected_revision.rev == current_revision.rev       
+        
+        #change project revision number if there are changes to made to the project speclines since last revision
         check_revision_use = Change.where(:project_id => params[:id], :revision_id => current_revision.id).first
         if !check_revision_use.blank?  #if there are revisions
           next_revision_ref = current_revision.rev.next
@@ -156,6 +159,7 @@ layout "projects", :except => [:print_project]
           end  
           @new_rev_record.save
         else
+        #if no changes but project has not been issued before then change revision ref to 'a'  
           if @selected_revision.rev == '-'
             next_revision_ref = 'a'
             @new_rev_record = Revision.new do |n|
@@ -165,8 +169,26 @@ layout "projects", :except => [:print_project]
               n.date = Date.today
             end  
             @new_rev_record.save
+          #if project has been issued before but no changes have been made to project speclines
+          else  
+            #change project revision number if the project status has changed
+            previous_statuses = Revision.where(:project_id => @current_project.id).collect{|x| x.project_status}
+            @previous_revision_project_status = previous_statuses[previous_statuses.length - 2]
+            @current_revision_project_status = current_revision.project_status
+            if @current_revision_project_status != @previous_revision_project_status
+              next_revision_ref = current_revision.rev.next
+              @new_rev_record = Revision.new do |n|
+                n.rev = next_revision_ref
+                n.project_status = @current_revision_project_status
+                n.project_id = params[:id]
+                n.user_id =  current_user.id
+                n.date = Date.today
+              end  
+            @new_rev_record.save 
+            end             
           end  
-        end                                      
+        end
+                                              
       end
       @current_revision_rev = current_revision.rev.capitalize       
     end
@@ -304,6 +326,14 @@ layout "projects", :except => [:print_project]
       end
     end
         
+    
+    
+ 
+    if @current_revision_project_status != @previous_revision_project_status
+        @project_status_changed = true
+    end
+
+   
    
     if @selected_revision.rev.blank?
       @print_revision_rev = 'n/a'

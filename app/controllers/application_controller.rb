@@ -94,7 +94,7 @@ protected
 
   
   def record_delete
-    #do not record change if project status is set to draft    
+    #do not record change if project has not been prevsioulsy issued (not in draft)   
     rev_status_check = Revision.where(:project_id => @specline.project_id).order('created_at').last
     if rev_status_check.rev.to_s >= 'a'
 
