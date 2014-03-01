@@ -6,3 +6,5 @@
 Mime::Type.register_alias "text/html", :mobile
 
 Mime::Type.register_alias "text/plain", :txt 
+
+Mime::Type.register_alias "text/plain", :spc

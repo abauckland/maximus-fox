@@ -60,8 +60,8 @@ validate :custom_validation_1
       errors.add(:full_clause_ref, '4 digit reference required')
     end 
 
-    if ['1','2','3','4','5','6'].include?(@clauseref_clausetype_id) != true 
-      errors.add(:full_clause_ref, "First digit must be between 1 and 6")
+    if ['1','2','3','4','5','6','7','8'].include?(@clauseref_clausetype_id) != true 
+      errors.add(:full_clause_ref, "First digit must be between 1 and 8")
     end 
   
     if is_number(@clauseref_clause)

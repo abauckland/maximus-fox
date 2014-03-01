@@ -1,0 +1,83 @@
+<div class="page_title">Export Project Data</div>
+
+<div class="content">
+
+    <div class="column_1">
+		<div class="column_content">        
+			<div class="column_title">Keynote/Notes</div>   
+     
+    		<div class="column_sub_content">            
+					
+				<div class="column_guide">
+					<p>Select keynote file format to download</p>
+      			</div>
+
+      			<div class="column_form">					  
+					<form action="<%= keynote_export_print_path %>" method="get" >
+						<%= hidden_field_tag "id", @current_project.id %>	
+						<table>
+						<tr><td>
+							<div class="radio_button"><%= radio_button_tag :cad_product, 'revit', :checked => true %></div>
+							<div class="radio_button_label">Revit Keynote File (.txt)</div>			
+						</td></tr>
+						<tr><td>
+							<div class="radio_button"><%= radio_button_tag :cad_product, 'bentley'%></div>
+							<div class="radio_button_label">Bentley Microstation Keynote File (.spc)</div>			
+						</td></tr>
+						<tr><td>
+							<div class="radio_button"><%= radio_button_tag :cad_product, 'cadimage'%></div>
+							<div class="radio_button_label">Cadimage (Archicad) Notes File (.txt)</div>			
+						</td></tr>
+						</table>
+					<% end %>	      	
+      			</div>
+      		</div>
+ 
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= submit_tag "download keynote file" %></div>                  
+        		</div>   
+      		</div>
+      	</div>  
+    </div>
+
+
+	<div class="column_2"></div> 
+		<div class="column_content">        
+			<div class="column_title">Export Project Data</div>   
+     
+    		<div class="column_sub_content">            
+					
+				<div class="column_guide">
+					<p>Select keynote file format to download</p>
+      			</div>
+
+      			<div class="column_form">					  
+					<!-- drop down list of available data fields for project, text baox for title of header - map data to:--> 
+
+<table>
+	<tr>	
+		<td>Select data to export:</td>					
+		<td>Target coloumn name:</td>     	
+	</tr>
+	<tr>	
+		<td><%= select_tag :data_column, options_from_collection_for_select(@data_columns, "id", "text")%></td>					
+		<td><%= text_field_tag :export_column, nil,  placeholder: 'Enter column name...' %></td>     	
+	</tr>
+</table>
+
+      			</div>
+      		</div>
+ 
+      		<div class="column_footer">
+        		<div>
+        			<div class="column_submit"><%= submit_tag "download data file" %></div>                  
+        		</div>   
+      		</div>
+      	</div>
+    </div>
+
+
+    <div class="column_3 column_blank"></div>
+     
+</div>

@@ -21,7 +21,7 @@ SpecrightDev::Application.routes.draw do
   get 'guidepdfs', to: redirect('/features/9')
   
   resources :exports do
-    get :revit_keynote_export, :on => :member
+    get :keynote_export, :on => :member
   end
   
   resources :helps do

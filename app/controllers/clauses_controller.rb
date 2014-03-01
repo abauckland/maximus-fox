@@ -91,6 +91,8 @@ layout "projects"
                   when '4' ;  @linetype_id = 6
                   when '5' ;  @linetype_id = 7
                   when '6' ;  @linetype_id = 7
+                  when '7' ;  @linetype_id = 7
+                  when '8' ;  @linetype_id = 7
                 end
           
             if params[:clause_content] == 'blank_content'              
