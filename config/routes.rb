@@ -97,6 +97,7 @@ SpecrightDev::Application.routes.draw do
     post :add_clauses, :on => :member
     post :delete_clauses, :on => :member
     get :guidance, :on => :member
+    get :xref_data, :on => :member
     #get :get_product_keys, :on => :member
     #get :get_product_values, :on => :member
              
@@ -106,7 +107,6 @@ SpecrightDev::Application.routes.draw do
     put :update_specline_4
     put :update_specline_5
     put :update_specline_6
-    put :xref_options
     #put :update_product_values       
     end    
   end

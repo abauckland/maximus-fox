@@ -50,6 +50,10 @@ var spec_id = $(this).attr('id');
 $(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: $(this).width()+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });
 
+$('span').filter(function(){
+  return $(this).text() === 'Not specified';
+}).css('color', 'blue');
+
 <% if @previous_prefixes %>
 	<% @previous_prefixes.each do |prev_prefix|%>
 		$('table#<%=prev_prefix[0]%> tr td.text_prefix').html('<%=prev_prefix[1]%>');

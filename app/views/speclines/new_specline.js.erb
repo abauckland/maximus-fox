@@ -47,6 +47,9 @@ $('table#<%=@new_specline.id%> a.put').putWithAjax();
 $('table#<%=@new_specline.id%> a.get').getWithAjax();
 $('table#<%=@new_specline.id%> a.post').postWithAjax();
 
+$('span').filter(function(){
+  return $(this).text() === 'Not specified';
+}).css('color', 'blue');
 
 <% if @subsequent_prefixes %>
 	<% @subsequent_prefixes.each_with_index do |sub_prefix, i|	%>

@@ -37,3 +37,7 @@ $('span.button').click(function (){
 $('tr.specline_row').mouseenter(function (){
   $('div.linetype_menu').remove();
 });
+
+$('span').filter(function(){
+  return $(this).text() === 'Not specified';
+}).css('color', 'blue');

@@ -586,7 +586,7 @@ end
   end
 
   
-  def xref_options
+  def xref_data
     specline = Specline.where(:id => params[:id]).first
 
     #determin which clauses can be selected depending on clausetype of current specline    
@@ -607,6 +607,8 @@ end
    
     #create hash of options
     @reference_options = {}
+    @reference_options['Not specified'] = 'Not specified'
+    
     reference_clauses.each do |c|
       code = c.clause_code
       code_title = c.clause_code_title_in_brackets
