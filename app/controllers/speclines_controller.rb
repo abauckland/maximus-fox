@@ -1,7 +1,7 @@
 class SpeclinesController < ApplicationController
 
-before_filter :require_user, :except => :xref_options 
-before_filter :check_specline_ownership, :except => [:xref_options, :add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
+before_filter :require_user, :except => :xref_data 
+before_filter :check_specline_ownership, :except => [:xref_data, :add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
 #before_filter :check_project_ownership, :except => [:add_clause, :add_clauses, :delete_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
 
 layout "projects"
