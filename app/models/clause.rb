@@ -38,6 +38,11 @@ def clause_code
   clauseref.subsection.section.ref.to_s + sprintf("%02d", clauseref.subsection.ref).to_s + '.' + clauseref.clausetype_id.to_s + sprintf("%02d", clauseref.clause).to_s + clauseref.subclause.to_s
 end
 
+def clause_code_title_in_brackets
+#this needs to be sorted, unclear what is going on
+    clauseref.subsection.section.ref.to_s + sprintf("%02d", clauseref.subsection.ref).to_s + '.' + clauseref.clausetype_id.to_s + sprintf("%02d", clauseref.clause).to_s + clauseref.subclause.to_s + ' (' + clausetitle.text.to_s + ')'
+end
+
 
 def custom_validation_2
     if @title_text.blank?

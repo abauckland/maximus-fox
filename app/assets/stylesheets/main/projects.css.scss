@@ -403,12 +403,12 @@ right: 30px;
 
 .specline_data_row{
   @extend .specline_row;
-  color: blue;
+  color: orange;
 }
 
-.specline_data_row{
+.specline_xref_row{
   @extend .specline_row;
-  color: green;  
+  color: purple;  
 }
 
 .edit_clause_code {

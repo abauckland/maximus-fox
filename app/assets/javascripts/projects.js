@@ -318,6 +318,19 @@ var spec_id = $(this).attr('id');
 	});    
 });    
 
+$('.editable_xref').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_specline_5', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://www.specright.co.uk/speclines/'+spec_id+'/xref_options',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
+
 //$('.editable_value').mouseover(function(){
 //var spec_id = $(this).attr('id');
 //	$(this).editable('/speclines/'+spec_id+'/update_specline_6', {
@@ -404,6 +417,13 @@ $('#enter_clause_ref').focusout(function() {
 
 $('td.suffixed_line_menu').children('a').tipsy();
 $('td.prefixed_line_menu').children('img').tipsy();
+
+
+
+
+$('span').filter(function(){
+  return $(this).text() === 'Not specified';
+}).css('color', 'blue');
 
 //end
 });

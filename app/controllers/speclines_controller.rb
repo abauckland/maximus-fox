@@ -1,7 +1,7 @@
 class SpeclinesController < ApplicationController
 
-before_filter :require_user
-before_filter :check_specline_ownership, :except => [:add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
+before_filter :require_user, :except => :xref_options 
+before_filter :check_specline_ownership, :except => [:xref_options, :add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
 #before_filter :check_project_ownership, :except => [:add_clause, :add_clauses, :delete_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
 
 layout "projects"
@@ -585,6 +585,43 @@ end
     render :text=> params[:value]   
   end
 
+  
+  def xref_options
+    specline = Specline.where(:id => params[:id]).first
+
+    #determin which clauses can be selected depending on clausetype of current specline    
+    if specline.clause.clauseref.clausetype_id == 4
+      permissible_clausetypes = 5
+    elsif specline.clause.clauseref.clausetype_id == 3
+      permissible_clausetypes = [4,5]
+    else
+      permissible_clausetypes = [3,4,5]
+    end
+    
+    #get txt5 value for line
+    current_text = Txt5.where(:id => specline.txt5_id).first
+    
+    #get all relevent clauses in project subsection
+    reference_clause_ids = Clause.joins(:speclines, :clauseref).where('speclines.project_id' => specline.project_id, 'clauserefs.subsection_id' => specline.clause.clauseref.subsection_id, 'clauserefs.clausetype_id' => permissible_clausetypes).collect{|i| i.id}.uniq.sort 
+    reference_clauses = Clause.where(:id => reference_clause_ids)
+   
+    #create hash of options
+    @reference_options = {}
+    reference_clauses.each do |c|
+      code = c.clause_code
+      code_title = c.clause_code_title_in_brackets
+      @reference_options[code] = code_title
+    end
+    #identify which is currently selected option - txt5 value
+    @reference_options['selected'] = current_text.text
+
+    #render as json for jeditable
+    render :json => @reference_options
+    
+  end  
+
+
+
 
 #def get_product_keys
   
@@ -698,6 +735,17 @@ end
     
     clause_lines = Specline.where(:project_id => @specline.project_id, :clause_id => @specline.clause_id).order('clause_line')    
       clause_lines.each_with_index do |clause_line, i|
+
+#TO DO: ENHANCEMENT
+#get clause reference for clause to be delete
+#check if speclines in same project and subsection have txt5 value equal to clause reference
+#check_cross_reference = Specline.joins(:txt5, :clause => :clauseref).where(:project_id => @specline.project_id, 'clauserefs.subsection_id' => @specline.clause.clauseref.subsection_id, 'txt5s.text' => @specline.clause.clause_code).first
+#if yes
+#if check_cross_reference
+ #get specline reference and run change on it
+# update_txt5_delete_cross_refence(specline_id)
+#end
+#END OF TO DO
     
         @array_of_lines_deleted[i] = clause_line.id 
         @specline = clause_line
@@ -790,6 +838,16 @@ def check_project_ownership(id)
 end
 
 
+def update_txt5_delete_cross_refence(specline_id)
+     
+    @specline = Specline.where(specline_id).first       
+    @specline_update = @specline
+    @specline_update.txt5_id = 1
+    #create change record
+    record_change         
+    @specline_update.save
+
+  end
 
 #end of class  
 end

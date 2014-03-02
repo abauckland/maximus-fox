@@ -106,6 +106,7 @@ SpecrightDev::Application.routes.draw do
     put :update_specline_4
     put :update_specline_5
     put :update_specline_6
+    put :xref_options
     #put :update_product_values       
     end    
   end
