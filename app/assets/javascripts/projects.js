@@ -331,20 +331,31 @@ var spec_id = $(this).attr('id');
 	});    
 });
 
-//$('.editable_value').mouseover(function(){
-//var spec_id = $(this).attr('id');
-//	$(this).editable('/speclines/'+spec_id+'/update_specline_6', {
-//		id: spec_id, width: ($(this).width() +10)+'px',
-//		loadurl : '/speclines/'+spec_id+'/get_product_values',
-//		type: 'selectmulti',
-//		onblur: 'submit',
-//		method: 'PUT',
-//		indicator: 'Saving..',
-//		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
-//	});    
-//});
+$('.editable_product_key').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_specline_3', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://www.specright.co.uk/products/'+spec_id+'/product_key',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
 
-
+$('.editable_product_value').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_specline_6', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://www.specright.co.uk/products/'+spec_id+'/product_value',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
 
 
 

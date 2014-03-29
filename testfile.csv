@@ -1,0 +1,676 @@
+A	Preliminaries/General conditions
+A10	Project particulars	A
+A11	Documentation	A
+A12	The site/Existing buildings	A
+A13	Description of the work	A
+A20	The Contract/Sub-contract	A
+A31	Provision, content and use of documents	A
+A32	Management of the Works	A
+A33	Quality standards/control	A
+A34	Security/Safety/Protection	A
+A35	Specific limitations on method/sequence/timing/use of site	A
+A54	Provisional work	A
+C	Existing site/buildings/services
+C10	Site survey	C
+C13	Building fabric survey	C
+F	Masonry
+F10	Brick/Block walling	F
+F10.2110	Single Leaf Brickwork	F10
+F10.2111	Single Leaf Blockwork	F10
+F10.2120	Brick Cavity Walling	F10
+F10.2121	Block Cavity Walling	F10
+F10.4110	Facing Clay Brick	F10
+F10.4120	Facing Concrete Block	F10
+F10.4130	Facing Calcium Silicate Brick	F10
+F10.4210	Common Clay Brick	F10
+F10.4220	Common Concrete Blockwork	F10
+F10.4230	Autoclaved Aerated Concrete Blockwork	F10
+F10.4710	Unfired Clay Brickwork	F10
+F10.4900	Mortar	F10
+F11	Glass block walling	F
+F11.2100	External Glass Block Walling	F11
+F11.2200	Internal Glass Block Walling	F11
+F11.4100	Glass Block	F11
+F11.4210	Perimeter Channels	F11
+F11.4220	Reinforcement	F11
+F11.4230	Spacers	F11
+F11.4240	Mortar	F11
+F11.4250	Grout	F11
+F11.4260	Sealant	F11
+F20	Natural stone rubble walling	F
+F20.2310	Single Leaf Natural Rubble Stone Walling	F20
+F20.2320	Natural Rubble Stone Cavity Walling	F20
+F20.4310	Natural Rubble Stonework	F20
+F21	Natural stone ashlar walling/dressings	F
+F21.2410	Single Leaf Natural Stone Ashlar Walling	F21
+F21.2420	Natural Stone Ashlar Cavity Walling	F21
+F21.4410	Natural Ashlar Stonework	F21
+F22	Cast stone walling/dressings	F
+F22.2510	Single Leaf Cast Stone Walling	F22
+F22.2520	 Cast Stone Cavity Walling	F22
+F22.4510	Cast Stonework	F22
+F22.4520	Cast Stone Dressings	F22
+F30	Accessories/Sundry items for brick/block/stone walling	F
+F30.4100	Vapour Barrier	F30
+F30.4110	Damp Proof Course	F30
+F30.4120	Site Formed Cavity Trays	F30
+F30.4130	Damp Proof Membrane	F30
+F30.4140	Gas Membrane	F30
+F30.4150	Preformed Cavity Trays	F30
+F30.4151	Stepped Cavity Trays	F30
+F30.4152	Horizontal Cavity Trays	F30
+F30.4153	Sill Forming Cavity Trays	F30
+F30.4154	Window Cavity Trays	F30
+F30.4155	Parapet Cavity Trays	F30
+F30.4156	Lintel Stop Ends	F30
+F30.4157	Purpose Made Cavity Trays	F30
+F30.4200	Cavity Wall Ties	F30
+F30.4210	Wall Starter Systems	F30
+F30.4220	Starter Ties	F30
+F30.4230	Movement Ties	F30
+F30.4240	Frame Cramps	F30
+F30.4250	Cast in Slots & Channels	F30
+F30.4260	Steelwork Tie	F30
+F30.4270	Head Restraint	F30
+F30.4280	Sliding Anchors	F30
+F30.4290	Stone Cladding Ties	F30
+F30.4300	Remedial Ties	F30
+F30.4350	Joint Reinforcement	F30
+F30.4360	Brick Support Systems	F30
+F30.4370	Angle Supports	F30
+F30.4380	Steel Lintels	F30
+F30.4400	Full Fill Cavity Insulation	F30
+F30.4410	Partial Fill Cavity Insulation	F30
+F30.4420	Bubble Foil Insulation	F30
+F30.4450	Cavity Closers	F30
+F30.4460	Vertical Cavity Stops	F30
+F30.4470	Horizontal Cavity Stops	F30
+F30.4510	Weep Holes	F30
+F30.4520	Cavity Vents	F30
+F30.4550	Air Bricks	F30
+F30.4560	Wall Vent Grills	F30
+F30.4600	Movement Joints	F30
+F30.4700	Pre-Cast Lintel Units	F30
+F30.4710	Pre-Cast Sill Units	F30
+F30.4720	Pre-cast Coping Units	F30
+F30.4800	Flue Pipe	F30
+F30.4810	Flue Liner System	F30
+F30.4820	Chimney Pots	F30
+F30.4830	Cowls	F30
+G	Structural/Carcassing metal/timber
+G20	Carpentry/Timber framing/First fixing	G
+G20.4100	Graded Hardwood	G20
+H	Cladding/Covering
+H20	Rigid sheet cladding	H
+H20.2100	Rigid Sheet Cladding	H20
+H20.4100	Rigid Sheet Cladding (Timber Frame)	H20
+H21	Timber weatherboarding	H
+H21.2100	Timber Weatherboarding	H21
+H21.4110	Timber Boarding	H21
+H21.4900	Battens & Counter Battens	H21
+H21.4910	Membrane	H21
+H60	Plain roof tiling	H
+H60.2100	Plain Tile Roofing	H60
+H60.2200	Plain Tile Cladding	H60
+H60.4100	Clay Roof Tiling	H60
+H60.4200	Concrete Roof Tiling	H60
+H60.4923	Vapour Permeable Membrane	H60
+H60.4930	Insulation	H60
+H60.4941	Battens & Counter Battens	H60
+H60.4951	Mortar	H60
+H61	Fibre cement slating	H
+H61.4100	Fibre Cement Slate Roofing	H61
+H62	Natural slating	H
+H62.4100	Natural Roof Slating	H62
+H62.4110	Vertical Natural Slating	H62
+H65	Single lap roof tiling	H
+H65.4100	Interlocking Clay Roof Tiling	H65
+H65.4200	Interlocking Cement Roof Tiling	H65
+H71	Lead sheet coverings/flashings	H
+H72	Aluminium sheet coverings/flashings	H
+H72.2100	Aluminium Batten Roll Roofing	H72
+H72.2140	Aluminium Standing Seam Roofing	H72
+H72.2210	Aluminium Standing Seam Vertical Cladding	H72
+H72.2310	Aluminium Flashing & Weathering Sytems	H72
+H72.4100	Aluminium Batten Roll Roofing	H72
+H72.4200	Aluminium Standing Seam Roof	H72
+H72.4210	Aluminium Standing Seam Vertical Cladding	H72
+H72.4400	Aluminium Internal Gutter	H72
+H72.4500	Aluminium Soaker	H72
+H72.4600	Aluminium Flashings	H72
+H72.4800	Aluminium Trims	H72
+H72.4900	Aluminium Coping	H72
+H72.4922	Vapour Barrier	H72
+H72.4923	Vapour Permeable Membrane	H72
+H72.4926	Separating Membrane	H72
+H72.4930	Insulation	H72
+H72.4950	Preformed Aluminium Collar	H72
+H73	Copper strip/sheet coverings/flashings	H
+H74	Zinc strip/sheet coverings/flashings	H
+H74.4100	Zinc Batten Roll Roofing	H74
+H74.4150	Zinc Hollow Roll Roofing	H74
+H74.4200	Zinc Standing Seam Roof	H74
+H74.4210	zinc Standing Seam Vertical Cladding	H74
+H74.4300	Interlocking Zinc Cladding	H74
+H74.4400	Zinc Internal Gutter	H74
+H74.4500	Zinc Soaker	H74
+H74.4600	Zinc Flashings	H74
+H74.4800	Zinc Trims	H74
+H74.4900	Zinc Coping	H74
+H74.4950	Preformed Zinc Collar	H74
+H75	Stainless steel strip/sheet coverings/flashings	H
+J	Waterproofing
+J20	Mastic asphalt tanking/damp proofing	J
+J20.2110	Mastic Asphalt Tanking	J20
+J20.2120	Mastic Asphalt Damp Proofing	J20
+J20.4100	Mastic Asphalt Tanking	J20
+J20.4991	Protective Boards	J20
+J21	Mastic asphalt roofing/insulation/finishes	J
+J21.2110	Mastic Asphalt Roofing (Cold Roof)	J21
+J21.2120	Mastic Asphalt Roofing (Warm Roof)	J21
+J21.2130	Mastic Asphalt Roofing (Inverted Roof)	J21
+J21.4200	Mastic Asphalt Roofing (Warm Roof)	J21
+J21.4921	Vapour Barrier	J21
+J21.4923	Separating Membrane	J21
+J21.4928	Filter Membrane	J21
+J21.4930	Insulation	J21
+J21.4993	Solar Reflective Paint	J21
+J21.4996	Timber Decking	J21
+J21.4997	Paving Slabs	J21
+J30	Liquid applied tanking/damp proofing	J
+J30.2210	Cold Applied Liquid Tanking	J30
+J30.2220	Cold Applied Liquid Water Proofing	J30
+J30.2310	Hot Applied Liquid Tanking	J30
+J30.2320	Hot Applied Liquid Water Proofing	J30
+J30.4110	Liquid Applied Membrane	J30
+J30.4991	Protection Boards	J30
+J31	Liquid applied waterproof roof coatings	J
+J31.2210	Cold Applied Liquid Roofing (Cold Roof)	J31
+J31.2220	Cold Applied Liquid Roofing (Warm Roof)	J31
+J31.2230	Cold Applied Liquid Roofing (Inverted Roof)	J31
+J31.2310	Hot Applied Liquid Roofing (Cold Roof)	J31
+J31.2320	Hot Applied Liquid Roofing (Warm Roof)	J31
+J31.2330	Hot Applied Liquid Roofing (Inverted Roof)	J31
+J31.4110	Liquid Applied Membrane	J31
+J31.4921	Vapour Barrier	J31
+J31.4923	Separating Membrane	J31
+J31.4928	Filter Membrane	J31
+J31.4930	Insulation	J31
+J31.4993	Solar Reflective Paint	J31
+J31.4996	Timber Decking	J31
+J31.4997	Paving Slabs	J31
+J40	Flexible sheet tanking/damp proofing	J
+J40.4100	Self Adhesive Bitumen Damp Proof Membrane	J40
+J40.4110	Self Adhesive Bitumen Gas Membrane	J40
+J40.4150	Torch On Bitumen Damp Proof Membrane	J40
+J40.4160	Torch On Bitumen Gas Membrane	J40
+J40.4200	Loose Laid Polypropylene Damp Proof Membrane	J40
+J40.4210	Loose Laid Polypropylene Gas Membrane	J40
+J40.4300	Loose Laid Bentonite 	J40
+J41	Built up felt roof coverings	J
+J41.4210	Pour & Roll Bitumen Membrane Roofing (Warm Roof)	J41
+J41.4220	Torch On Bitumen Membrane Roofing (Warm Roof)	J41
+J41.4230	Self Adhesive Bitumen Membrane Roofing (Warm Roof)	J41
+J41.4310	Pour & Roll Membrane Bitumen Roofing (Inverted Roof)	J41
+J41.4320	Torch On Membrane Bitumen Roofing (Inverted Roof)	J41
+J41.4330	Self Adhesive Membrane Bitumen Roofing (Inverted Roof)	J41
+J41.4921	Vapour Barrier	J41
+J41.4928	Filter Membrane	J41
+J41.4930	Insulation	J41
+J41.4991	Walkway Membrane	J41
+J41.4993	Solar Reflective Paint	J41
+J41.4996	Timber Decking	J41
+J41.4997	Paving Slabs	J41
+J42	Single layer polymeric roof coverings	J
+J42.4200	Single Ply Membrane (Warm Roof)	J42
+J42.4300	Single Ply Membrane (Inverted Roof)	J42
+J42.4921	Vapour Barrier	J42
+J42.4928	Filter Membrane	J42
+J42.4930	Insulation	J42
+J42.4991	Walkway Membrane	J42
+J42.4997	Paving Slabs	J42
+K	Linings/Sheathing/Dry partitioning
+K10	Plasterboard dry lining/partitions/ceilings	K
+K10.2100	Plasterboard Lining System	K10
+K10.2200	Plasterboard Casing System	K10
+K10.2300	Plasterboard Partitioning System	K10
+K10.2400	Plasterboard Ceiling Lining System	K10
+K10.2500	Plasterboard Suspended Ceiling System	K10
+K10.4110	Plasterboard	K10
+K10.4210	Metal Framing System	K10
+K10.4220	Timber Framing	K10
+K10.4921	Damp Proof Membrane	K10
+K10.4922	Vapour Barrier	K10
+K10.4930	Insulation	K10
+K11	Rigid sheet flooring/sheathing/linings/casings	K
+K20	Timber board flooring/sheathing/linings/casings	K
+K21	Timber strip/board fine flooring/linings	K
+K21.2110	Timber Flooring	K21
+K21.2120	Floating Timber Flooring	K21
+K21.2130	Battened Floating Timber Flooring	K21
+K21.2200	Timber Wall Lining	K21
+K21.4100	Timber Floor Boards	K21
+K21.4200	Timber Wall Lining	K21
+K21.4300	Sub-floor System	K21
+K21.4400	Underlay	K21
+K21.4921	Damp Proof Membrane	K21
+K21.4930	Insulation	K21
+L	Windows/Doors/Stairs
+L10	Windows	L
+L10.4100	Fixed Timber Windows	L10
+L10.4110	Fixed Composite Windows	L10
+L10.4120	Fixed GRP Windows	L10
+L10.4130	Fixed UPVC Windows	L10
+L10.4140	Fixed Aluminium Windows	L10
+L10.4200	Side Hung Timber Windows	L10
+L10.4210	Side Hung Composite Windows	L10
+L10.4240	Side Hung Aluminium Windows	L10
+L10.4300	Top Hung Timber Windows	L10
+L10.4310	Top Hung Composite Windows	L10
+L10.4340	Top Hung Aluminium Windows	L10
+L10.4410	Tilt & Turn Composite Windows	L10
+L10.4440	Tilt & Turn Aluminium Windows	L10
+L10.4510	Reversible Composite Windows	L10
+L10.4540	Reversible Aluminium Windows	L10
+L10.4600	Sash Timber Windows	L10
+L10.4710	Horizontal Sliding Composite Windows	L10
+L10.4740	Horizontal Sliding Aluminium Windows	L10
+L10.4810	Louvred Composite Windows	L10
+L10.4840	Louvred Aluminium Windows	L10
+L20	Doors	L
+L20.4000	Timber Doors	L20
+L20.4005	Timber Frames	L20
+L20.4100	Timber Doorset	L20
+L20.4110	Composite Doorset	L20
+L20.4120	GRP Doorset	L20
+L20.4130	UPVC Doorset	L20
+L20.4140	Glass Doorset	L20
+L20.4150	Steel Doorset	L20
+L20.4160	Aluminium Doorset	L20
+L20.4200	Pivot Timber Doorset	L20
+L20.4300	Folding Timber Doorset	L20
+L20.4310	Folding Composite Doorset	L20
+L20.4440	Revolving Glass Doors	L20
+L20.4500	Sliding/Telescopic Timber Doors	L20
+L20.4510	Sliding/Telescopic Composite Doors	L20
+L20.4550	Sliding/Telescopic Steel Doors	L20
+L20.4650	Sectional Overhead Steel Doors	L20
+L20.4660	Sectional Overhead Aluminium Doors	L20
+L20.4750	Rolling Steel Doors	L20
+L20.4760	Rolling Aluminium Doors	L20
+L20.4800	Up & Over Timber Doors	L20
+L20.4820	Up & Over GRP Doors	L20
+L20.4850	Up & Over Steel Doors	L20
+L30	Stairs/Walkways/Balustrades	L
+L30.4120	Timber Staircase	L30
+L30.4130	Steel Staircase	L30
+L30.4140	Stainless Steel Staircase	L30
+L30.4240	Stainless Steel Spiral Stair	L30
+L30.4250	Aluminium Spiral Stair	L30
+L30.4330	Steel Ladder	L30
+L30.4350	Aluminium Ladder	L30
+L30.4420	Timber Loft Ladder	L30
+L30.4450	Aluminium Loft Ladder	L30
+L30.4530	Steel Walkway	L30
+L30.4820	Timber Balustrade & Handrail	L30
+L30.4830	Steel Balustrade & Handrail	L30
+L30.4840	Stainless Steel Balustrade & Handrail	L30
+L30.4860	Aluminium Balustrade & Handrail	L30
+L30.4920	Timber Handrail	L30
+L30.4940	Stainless Steel Handrail	L30
+M	Surface finishes
+M10	Cement and concrete screeds/toppings	M
+M10.4100	Sand & Cement Wearing Screed - Bonded	M10
+M10.4200	Sand & Cement Levelling Screed - Bonded	M10
+M10.4202	Sand & Cement Levelling Screed - Unbonded	M10
+M10.4204	Sand & Cement Levelling Screed - Floating	M10
+M10.4210	Fibre Reinforced Screed Levelling Screed - Bonded	M10
+M10.4212	Fibre Reinforced Screed Levelling Screed - Unbonded	M10
+M10.4214	Fibre Reinforced Screed Levelling Screed - Floating	M10
+M10.4220	Fast Drying Levelling Screed - Bonded	M10
+M10.4222	Fast Drying Levelling Screed - Unbonded	M10
+M10.4224	Fast Drying Levelling Screed - Floating	M10
+M10.4230	Polymer Resin Levelling Screed - Bonded	M10
+M10.4232	Polymer Resin Levelling Screed - Unbonded	M10
+M10.4234	Polymer Resin Levelling Screed - Floating	M10
+M10.4240	Lytag Levelling Screed - Bonded	M10
+M10.4242	Lytag Levelling Screed - Unbonded	M10
+M10.4244	Lytag Levelling Screed - Floating	M10
+M10.4250	Granolithic Levelling Screed - Bonded	M10
+M10.4260	Latex Self-levelling Screed - Bonded	M10
+M20	Plastered/Rendered/Roughcast coatings	M
+M20.4100	Lime Render	M20
+M40	Stone/Concrete/Quarry/Ceramic tiling/Mosaic	M
+M40.4100	Ceramic Wall Tiling	M40
+M40.4110	Ceramic Floor Tiling	M40
+M40.4200	Porcelain Wall Tiling	M40
+M40.4210	Porcelain Floor Tiling	M40
+M40.4300	Stone Wall Tiling	M40
+M40.4310	Stone Floor Tiling	M40
+M40.4400	Glass Wall Tiling	M40
+M40.4500	Mosaic Wall Tiling	M40
+M40.4510	Mosaic Floor Tiling	M40
+M40.4600	Pool Tank Floor/Wall Tiling	M40
+M40.4610	Pool Tank Edge Detail	M40
+M40.4620	Pool Hall Floor Surround	M40
+M50	Rubber/Plastics/Cork/Lino/Carpet tiling/sheeting	M
+M50.4100	Carpet Tiling	M50
+M50.4200	Rubber Floor Tiling	M50
+M50.4210	Rubber Safety Floor Tiling	M50
+M50.4220	Rubber Anti-Static Floor Tiling	M50
+M50.4250	Rubber Floor Sheeting	M50
+M50.4260	Rubber Safety Floor Sheeting	M50
+M50.4300	Vinyl Floor Tiling	M50
+M50.4310	Vinyl Safety Floor Tiling	M50
+M50.4320	Vinyl Anti-Static Floor Tiling	M50
+M50.4330	Vinyl Acoustic Floor Tiling	M50
+M50.4340	Vinyl Sport Floor Tiling	M50
+M50.4350	Vinyl Floor Sheeting	M50
+M50.4360	Vinyl Safety Floor Sheeting	M50
+M50.4370	Vinyl Anti-Static Floor Sheeting	M50
+M50.4380	Vinyl Acoustic Floor Sheeting	M50
+M50.4390	Vinyl Sport Floor Sheeting	M50
+M50.4400	Linoleum Floor Sheeting	M50
+M50.4410	Linoleum Safety Floor Sheeting	M50
+M50.4500	Cork Floor Tiling	M50
+M50.4600	Polyethylene Floor Tiling	M50
+M50.4610	Polyethylene Safety Floor Tiling	M50
+M50.4900	Entrance Matting	M50
+M51	Edge fixed carpeting	M
+M51.4100	Broadloom Carpet	M51
+M52	Decorative papers/fabrics	M
+M52.4100	Wall Covering	M52
+M52.4900	Whiteboard Wall Covering	M52
+M52.4910	Magnetic Wall Covering	M52
+M52.4920	Electromagnetic Wall Covering	M52
+M60	Painting/Clear finishing	M
+M60.4110	Wood Primer	M60
+M60.4120	Metal Primer	M60
+M60.4130	Multi-Purpose Primer	M60
+M60.4140	Plaster Sealer	M60
+M60.4200	Matt Paint	M60
+M60.4210	Eggshell Paint	M60
+M60.4220	Satin Paint	M60
+M60.4230	Silk Paint	M60
+M60.4240	Gloss Paint	M60
+M60.4300	Matt Paint to Masonry	M60
+M60.4340	Gloss Paint to Joinery	M60
+M60.4360	Stain Paint to Joinery	M60
+M60.4370	Varnish Paint to Joinery	M60
+M60.4380	Oil Paint to Joinery	M60
+M60.4540	Gloss Paint to Metal	M60
+M60.4600	Matt Paint to Concrete/Stone	M60
+M60.4800	Solar Reflective Paint	M60
+M60.4810	Fire Retardant Paint	M60
+M60.4820	Anti-Climb Paint	M60
+M60.4830	Anti Bacterial Paint	M60
+M60.4840	Anti Static Paint	M60
+M60.4850	Anti Condensation Paint	M60
+M60.4860	Anti Corrosion Paint	M60
+M60.4870	Anti Glare Paint	M60
+M60.4880	Fungicidal/Insecticidal Paint	M60
+M60.4910	Chalkboard Paint	M60
+M60.4920	Magnetic Paint	M60
+N	Furniture/Equipment
+N10	General fixtures/furnishings/equipment	N
+N10.4100	Built-in Furniture	N10
+N10.4400	Seating	N10
+N10.4410	Tables	N10
+N10.4420	Beds	N10
+N10.4430	Storage	N10
+N10.4500	Shelving	N10
+N10.4510	Mirrors	N10
+N10.4520	Hooks	N10
+N10.4550	Curtains	N10
+N10.4560	Blinds	N10
+N11	Domestic kitchen fittings	N
+N11.4100	Worktops	N11
+N11.4200	Base Units	N11
+N11.4210	Wall Mounted Units	N11
+N11.4220	Island Unit	N11
+N11.4250	Combination Units	N11
+N11.4300	Kitchen Sink	N11
+N11.4400	Cooker	N11
+N11.4410	Hob	N11
+N11.4420	Oven	N11
+N11.4430	Grill	N11
+N11.4500	Extract Hood	N11
+N11.4600	Refrigerator	N11
+N11.4650	Freezer	N11
+N11.4700	Dishwasher	N11
+N11.4800	Waste Disposal Unit	N11
+N13	Sanitary appliances/fittings	N
+N13.4100	Close Coupled WCs	N13
+N13.4110	Back To Wall WCs	N13
+N13.4120	Wall Mounted WCs	N13
+N13.4130	Low/High Level WCs	N13
+N13.4200	Floor Standing Bidets	N13
+N13.4250	Bowl Urinals	N13
+N13.4260	Waterless Bowl Urinals	N13
+N13.4270	Trough Urinals	N13
+N13.4300	Pedestal Washbasins	N13
+N13.4310	Wall Mounted Washbasins	N13
+N13.4320	Semi-Countertop Washbasins	N13
+N13.4330	Countertop Washbasins	N13
+N13.4340	Under-Countertop Washbasins	N13
+N13.4360	Cleaners Sinks	N13
+N13.4370	Belfast Sinks	N13
+N13.4400	Vanity Unit Tops	N13
+N13.4410	Vanity Base Units	N13
+N13.4500	Slop Hopper	N13
+N13.4550	Wall Mounted Water Fountain	N13
+N13.4600	Bath	N13
+N13.4610	Free Standing Bath	N13
+N13.4620	Whirlpool/Spa	N13
+N13.4650	Shower Tray	N13
+N13.4660	Shower Enclosure	N13
+N13.4670	Shower Fittings	N13
+N13.4711	Soap Dispenser	N13
+N13.4712	Air Freshener	N13
+N13.4713	Toilet Paper	N13
+N13.4714	Paper Towel	N13
+N13.4715	Tissues	N13
+N13.4716	Sanitary Sundries	N13
+N13.4717	Seat Liner	N13
+N13.4718	Baby Change Liner	N13
+N13.4721	Macerators	N13
+N13.4722	Incinerators	N13
+N13.4731	Hand Dryers	N13
+N13.4741	Shower Curtain	N13
+N13.4751	Nappy Changing Unit	N13
+N13.4761	Hoists	N13
+N13.4771	Shower/Bath Seats	N13
+N13.4781	Hand/Grab Rails	N13
+N13.4791	Mirror	N13
+N13.4792	Shelving	N13
+N13.4793	Towel Rails	N13
+N13.4794	Soap Tray	N13
+N13.4800	Integrated Plumbing System	N13
+N13.4810	Integrated Plumbing System - WCs	N13
+N13.4820	Integrated Plumbing System - Urinals	N13
+N13.4830	Integrated Plumbing System - Washbasins	N13
+N13.4840	Integrated Plumbing System - Showers	N13
+N13.4850	Integrated Plumbing System - Vanity Unit	N13
+N13.4910	Doc M Pack/Kit - Disabled WCs	N13
+N13.4920	Doc M Pack/Kit - Ambulant Disabled WCs	N13
+N13.4930	Doc M Pack/Kit - Shower	N13
+N13.4940	Doc M Pack/Kit - Changing	N13
+N13.4950	Doc M Pack/Kit - Bathroom	N13
+P	Building fabric sundries
+P10	Sundry insulation/proofing work/fire stops	P
+P10.4100	Glass Fibre Insulation	P10
+P10.4150	Mineral Fibre Insulation	P10
+P10.4200	Extruded Polyethylene (XPE) Insulation	P10
+P10.4300	Extruded Polystyrene (XPS) Insulation	P10
+P10.4310	Expanded Polystyrene (EPS) Insulation	P10
+P10.4400	Phenolic Foam Board Insulation	P10
+P10.4500	PIR Insulation	P10
+P10.4550	PUR Insulation	P10
+P10.4600	Bubble Foil Insulation	P10
+P10.4700	Natural Fibre Insulation	P10
+P20	Unframed isolated trims/skirtings/sundry items	P
+P20.4100	Softwood Skirting	P20
+P20.4110	Softwood Architrave	P20
+P20.4120	Softwood Cill Board	P20
+P20.4130	Softwood Pattress	P20
+P20.4200	Hardwood Skirting	P20
+P20.4210	Hardwood Architrave	P20
+P20.4220	Hardwood Cill Board	P20
+P20.4230	Hardwood Pattress	P20
+P20.4300	MDF Skirting	P20
+P20.4310	MDF Architrave	P20
+P20.4320	MDF Cill Board	P20
+P20.4330	MDF Pattress	P20
+P21	Ironmongery	P
+P21.4100	Lever Handles	P21
+P21.4110	Pull Handles	P21
+P21.4120	Flush Pull Handles	P21
+P21.4130	Flush Rings Handles	P21
+P21.4140	Door Knobs	P21
+P21.4150	Push Plates	P21
+P21.4160	Kick Plates	P21
+P21.4170	Escutcheons	P21
+P21.4180	Emergency Release	P21
+P21.4200	Cylinder Locks	P21
+P21.4210	Cylinder Latches	P21
+P21.4220	Mortice Locks	P21
+P21.4230	Mortice Cylinder Locks	P21
+P21.4240	Mortice Latches	P21
+P21.4250	Tubular Mortice Latches	P21
+P21.4260	Multi Point Locking Systems	P21
+P21.4270	Vertical Rod Lock Systems	P21
+P21.4280	Digital Locks	P21
+P21.4290	Gate Latches	P21
+P21.4300	Butt Hinges	P21
+P21.4310	Rising Butt Hinges	P21
+P21.4320	Falling Hinges	P21
+P21.4330	Lift Off Butt Hinges	P21
+P21.4340	Mortice Hinges	P21
+P21.4350	Continuous Hinges	P21
+P21.4360	Double Action Hinges	P21
+P21.4400	Overhead Door Closers	P21
+P21.4410	Concealed Door Closers	P21
+P21.4420	Jamb Concealed Door Closers	P21
+P21.4430	Electronic Door Closers	P21
+P21.4440	Floor Springs	P21
+P21.4450	Floor Pivots	P21
+P21.4460	Electromagnetic Door Retainers	P21
+P21.4500	Lever Action Flush Bolts	P21
+P21.4510	Surface Bolts	P21
+P21.4520	Surface Espagnolette Bolts	P21
+P21.4530	Security Bolts	P21
+P21.4640	Panic Bolts	P21
+P21.4650	Panic Latches	P21
+P21.4660	Push Pads	P21
+P21.4670	Push Bars	P21
+P21.4700	Door Holders	P21
+P21.4710	Door Stops	P21
+P21.4720	Letter Plates	P21
+P21.4730	Door Knockers	P21
+P21.4740	Cylinder Pulls	P21
+P21.4750	Door Chains	P21
+P21.4800	Retractable Door Seals	P21
+P21.4810	Overhead Door Holders	P21
+P21.4820	Door Viewers	P21
+P21.4900	Door Numbers	P21
+P21.4910	Door Signage	P21
+P21.4920	Cloakroom Signage	P21
+P21.4930	Fire Escape Signage	P21
+P21.4940	Safety Signage	P21
+Q	Paving/Planting/Fencing/Site furniture
+Q10	Kerbs/Edgings/Channels/Paving accessories	Q
+Q10.4101	Bullnosed Clay Kerb	Q10
+Q10.4102	Splayed Clay Kerb	Q10
+Q10.4103	Square Clay Kerb	Q10
+Q10.4112	Dished Clay Channel	Q10
+Q10.4120	Flat Top Clay Edging	Q10
+Q10.4121	Bullnosed Clay Edging	Q10
+Q10.4122	Round Top Clay Edging	Q10
+Q10.4200	Half Battered Concrete Kerb	Q10
+Q10.4201	Bullnosed Concrete Kerb	Q10
+Q10.4202	Splayed Concrete Kerb	Q10
+Q10.4203	Square Concrete Kerb	Q10
+Q10.4204	Bus Stop Concrete Kerb	Q10
+Q10.4205	High Containment Concrete Kerb	Q10
+Q10.4206	Concrete Kerb Drain	Q10
+Q10.4210	Square Concrete Channel	Q10
+Q10.4211	Bullnosed Concrete Channel	Q10
+Q10.4212	Dished Concrete Channel	Q10
+Q10.4213	Fluted Concrete Channel	Q10
+Q10.4214	Slotted Concrete Channel	Q10
+Q10.4220	Flat Top Concrete Edging	Q10
+Q10.4221	Bullnosed Concrete Edging	Q10
+Q10.4222	Round Top Concrete Edging	Q10
+Q10.4303	Square Natural Stone Kerb	Q10
+Q10.4310	Square Natural Stone Channel	Q10
+Q10.4320	Flat Top Natural Stone Edging	Q10
+Q23	Gravel/Hoggin/Bark roads/pavings	Q
+Q23.4100	Loose Gravel	Q23
+Q23.4110	Resin Bonded Aggregate	Q23
+Q23.4120	Resin Bound Aggregate	Q23
+Q23.4130	Gravel Drainage/Border Strip	Q23
+Q23.4200	Hoggin	Q23
+Q23.4300	Bark	Q23
+Q23.4400	Rubber Shred	Q23
+Q40	Fencing	Q
+Q40.4100	Concrete Post & Wire Fence	Q40
+Q40.4110	Concrete Post & Wire Mesh Fence	Q40
+Q40.4130	Concrete Panel Fence	Q40
+Q40.4200	Timber Post & Wire Fence	Q40
+Q40.4210	Timber Post & Wire Mesh Fence	Q40
+Q40.4220	Timber Palisade Fence	Q40
+Q40.4230	Timber Panel Fence	Q40
+Q40.4240	Timber Post & Rail Fence	Q40
+Q40.4250	Timber Hit & Miss Fence	Q40
+Q40.4260	Timber Picket Fence	Q40
+Q40.4270	Timber Split Rail Fence	Q40
+Q40.4290	Timber Gates	Q40
+Q40.4310	Painted Steel Post & Wire Mesh Fence	Q40
+Q40.4320	Painted Steel Palisade Fence	Q40
+Q40.4330	Painted Steel Panel Fence	Q40
+Q40.4340	Painted Steel Post & Rail Fence	Q40
+Q40.4390	Painted Steel Gates	Q40
+Q40.4410	Galvanised Steel Post & Wire Mesh Fence	Q40
+Q40.4420	Galvanised Steel Palisade Fence	Q40
+Q40.4430	Galvanised Steel Panel Fence	Q40
+Q40.4440	Galvanised Steel Post & Rail Fence	Q40
+Q40.4490	Galvanised Steel Gates	Q40
+Q40.4510	Plastic Covered Steel Post & Wire Mesh Fence	Q40
+Q40.4590	Plastic Covered Steel Gates	Q40
+Q40.4620	Wrought Iron Palisade Fence	Q40
+Q40.4690	Wrought Iron Gates	Q40
+Q50	Site/Street furniture/equipment	Q
+Q50.4100	Seats	Q50
+Q50.4101	Picnic Tables	Q50
+Q50.4110	Bins	Q50
+Q50.4111	Dog Station	Q50
+Q50.4120	Bicycle Stands	Q50
+Q50.4121	Bicycle Racks	Q50
+Q50.4122	Bicycle Lockers	Q50
+Q50.4200	Bollards	Q50
+Q50.4210	Road Blockers	Q50
+Q50.4220	Barriers	Q50
+Q50.4300	Planters	Q50
+Q50.4350	Tree Grills	Q50
+Q50.4360	Tree Guards	Q50
+Q50.4400	Play Ground Equipment	Q50
+Q50.4500	External Sports Equipment	Q50
+Q50.4600	External Exercise Equipment	Q50
+Q50.4700	Shelters	Q50
+Q50.4710	Fabric Canopies	Q50
+Q50.4800	External Signage	Q50
+Q50.4901	Flag Post	Q50
+R	Disposal systems
+R10	Rainwater drainage systems	R
+R10.4100	Siphonic Rainwater Drainage System	R10
+R10.4310	Guttering	R10
+R10.4320	Rainwater Pipes	R10
+R10.4330	Rainwater Outlet	R10
+R10.4331	Hopper Head Outlet	R10
+R10.4332	Vertical Outlet	R10
+R10.4333	Balcony Outlet	R10
+R10.4334	Two Way Outlet	R10
+R10.4335	Gulley Outlet	R10
+R10.4336	Water Spout	R10
+R10.4400	Rainwater Management System	R10
+R11	Above ground foul drainage systems	R

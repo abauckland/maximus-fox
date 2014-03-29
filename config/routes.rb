@@ -134,7 +134,12 @@ SpecrightDev::Application.routes.draw do
     get :download, :on => :member
   end
   
-  resources :products
+  resources :products do
+    get :product_key, :on => :member
+    get :product_value, :on => :member
+  end
+  
+ 
   resources :productexports
   resources :productimports do
     get :csv_product_upload, :on => :member

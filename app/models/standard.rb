@@ -1,6 +1,10 @@
 class Standard < ActiveRecord::Base
 
-has_many :txt6units
+has_many :performvalues
 has_many :standardsubsections
+
+  def standard_ref_and_title
+    ref + ' ' + title
+  end
 
 end

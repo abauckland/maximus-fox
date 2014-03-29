@@ -129,8 +129,8 @@ end
 
 #def performance_pair(specline)  
   
-#  performance_key = Txt3.includes(:preformances).where('performances.id' => specline.txt6_id).first
-#  key_text_string = performance_key.text 
+#  perform_key = Txt3.includes(:preforms).where('performs.id' => specline.txt6_id).first
+#  key_text_string = perform_key.text 
 #  
 #  performance_values = Performtxt6unit.includes(:txt6units => [:txt6s, :units, :standards]).where(:performance_id => specline.txt6_id)   
 #    last_value = performance_values.pop    
@@ -147,7 +147,7 @@ end
 #      value_text_string << ' to '<< value.txt6unit.standard.text
 #    end      
 #  end  
-#  "<td class='text_text'><span id='#{specline.id}'class='editable_text3'>#{key_text_string}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_value'>##{value_text_string}</span></td>".html_safe
+#  "<td class='text_text'><span id='#{specline.id}'class='editable_product_key'>#{key_text_string}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_product_value'>##{value_text_string}</span></td>".html_safe
 #end
 
 

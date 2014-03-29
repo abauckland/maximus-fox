@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
 
-before_filter :require_user
+before_filter :require_user, :except => [:product_key, :product_value]
 
 
 layout "products"
@@ -16,12 +16,32 @@ end
 
 def new
   @product = Product.new
-  @product_import_errors =params[:product_import_errors] 
+  @txt3_options 
 end
 
 
-def show
+  def product_key
+    #temporary code for testing
+    txt3_options = Txt3.limit(20).collect{|i| i.text}.sort.uniq
+    specline = Specline.where(:id => params[:id]).first
 
+    #create hash of options
+    @txt3_options = {}
+    @txt3_options['Not specified'] = 'Not specified'    
+    txt3_options.each do |txt|
+      @txt3_options[txt] = txt
+    end
+    #identify which is currently selected option - txt5 value
+    @txt3_options['selected'] = specline.txt3.text
+
+    #render as json for jeditable
+    render :json => @txt3_options
+      
+  end
+
+
+def product_value
+  
 end
 
 

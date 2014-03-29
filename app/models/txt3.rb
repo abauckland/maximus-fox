@@ -2,7 +2,6 @@ class Txt3 < ActiveRecord::Base
 #associations
 has_many :speclines
 has_many :changes
-has_many :performances
 
 
 #validation                                                 

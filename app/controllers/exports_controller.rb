@@ -27,7 +27,7 @@ class ExportsController < ActionController::Base
       current_project_sections = Section.joins(:subsections => [:clauserefs => [:clauses => :speclines]]).where('speclines.project_id' => @current_project.id).order('id').uniq        
       current_project_sections.each_with_index do |section, i|
         #project section    
-        csv << [section.ref, section.text] 
+        csv << [section.ref, section.text]
         #for each subsection     
         current_project_subsections = Subsection.joins(:clauserefs => [:clauses => :speclines]).includes(:section).where('speclines.project_id' => @current_project.id, :section_id => section.id).order('id').uniq         
         current_project_subsections.each_with_index do |subsection, n|
@@ -42,7 +42,7 @@ class ExportsController < ActionController::Base
         end 
       end
     end  
-    send_data @bim_revit_export, :type => 'text/plain', :disposition => 'attachment; filename=#{filename}.txt'        
+    send_data @bim_revit_export, :type => 'text/plain', :disposition => 'attachment; filename=#{filename}.txt'      
   end
 
 

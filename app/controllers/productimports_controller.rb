@@ -76,7 +76,7 @@ def create
           
 #          unit_list = Unit.all.collect{|m| m.text} #[" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
 #          if unit_list.include?(cell.last)
-#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sqm, sq ft, etc.')     
+#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sq m, sq ft, etc.')     
 #          end
           
           if cell.first != cell.first.capitalize
@@ -124,173 +124,206 @@ def csv_product_upload
 
   #validate csv to check that correct columns are included and they are completed
 
+#csv import file structure
+#column structure
+    # => line[0] = clauseref
+    # => line[1] = clausetitle
+    # => line[2] = producttype
+    #----------------------------    
+    # =>        identity_keys (manufacturer, product reference, product name)
+    #----------------------------
+    # =>        instance
+    #----------------------------    
+    # =>        perform_keys
 
-
+#row structure
+    #row 1 => headers, identity keys, perform keys
+    #row 2 => units
+    #row 3 => standard references
+    #row 4+ => product data
+ 
     
-    #line[0] = clause reference
-    #line[1] = clausetitle
-    #line[2] = subtitle (txt4)
-    #line[3] = product reference
-    #line[4] = product name
-    
-    #line[5] = item reference
-    #line[6] = item name
-    
+  #get all name of csv files to be imported  
   product_imports = Productimport.where('date_completed IS ?', nil)
   
+#process each csv file
   product_imports.each do |product_import|
   
+    #read csv file
     csv = CSV.read(product_import.csv.url)
-    csv_numrows = (csv.length) - 2
+    #count total number of rows of product data
+    csv_numrows = (csv.length) - 3
 
    
     headers = @csv[0]
+    
     units = @csv[1]
-    standards = @csv[1]
-    line_array_length = headers.length    
-#!!!!!!!!!!prepare line data    
-  ##array of tx3_ids for headers
-    line_array_length = headers.length
+     # units.each_with_index do |u, i|
+      #  if units[i].empty?
+      #    next
+      #  else
+      #    unit = Unit.where(:text => units[i]).first_or_create
+      #    units[i] = unit.id
+      #  end
+      #end
+    
+    standards = @csv[2]
+      #standards.each_with_index do |s, i|
+      #  if standards[i].empty?
+      #    next
+       # else
+       #   standard = Standard.where(:text => standards[i]).first_or_create
+       #   standards[i] = standard.id
+       # end
+      #end
+
+    
+    ##count total number of columns (no headers should be empty - checked on preload)
+    #header_array_length = headers.length    
+    
+    #find where 'instance' column is
+    instance_column = headers.index('instance')
+    #find range of headers with identity keys
+    indentity_headers_range = [4..(instance_column - 1)]    
+    #find range of headers with perform keys
+    perform_headers_range = [(instance_column + 1)..headers.length]
+
+#create array to hold encoded product information
+    product_array = []
+    
+    #for each line of data
+      csv(4..csv_numrows).each do |line|
+      #create array for each product line of clause ids
+
+        #reference private method 'clause_check(clauseref, clausetitle)'
+        clause_check(line[0], line[1]) 
+        product_array[0] = clause_check.id
+
+      #create array for each product line of product type ids
+        product_array[1] = Producttype.where(:text => line[2]).first_or_create
       
-      header_txt3_id_array = [] 
-      unit_id_array = [] 
-      standard_id_array = [] 
-             
-      (7..line_array_length).each do |i|        
-
-        header_txt3_check = Txt3.find_or_create_by_text(headers[i])
-        #header_txt3_check = Txt3.where(:text => headers[i]).first_or_create
-        header_txt3_id_array[i] = header_txt3_check.id
-        #starts from 7...
-
-        unit_check = Unit.find_or_create_by_text(units[i])
-        #unit_check = Unit.where(:text => units[i]).first_or_create
-        unit_id_array[i] = unit_check.id
-        #starts from 7...
-        
-        standard_check = Standard.find_or_create_by_text(standards[i])
-        #unit_check = Unit.where(:text => units[i]).first_or_create
-        standard_id_array[i] = standard_check.id
-        #starts from 7...
-        
-      end      
-
-
-    csv(3..csv_numrows).each do |line|  
-
+      #create array for each product line of identity pair ids
+        identity_pair_array = []
+        (identity_headers_range).each do |i|
             
-  ##find or create txt4 record for clause substitle    
-      subtitle_check = Txt4.find_or_create_by_text(line[2])
-      #subtitle_check = Txt4.where(:text => line[2]).first_or_create
-
-  ##check if product group exists
-        #find or create product group
-        check_productgroup = Productgroup.joins(:productclauses).where(
-          :company_id => current_user.company_id,
-          :txt4_id => subtitle_check,
-          :ref => line[3],
-          :name => line[4]
-        ).first
-              
-        if check_productgroup.blank?
-          check_productgroup = Productgroup.create(
-            :company_id => current_user.company_id,
-            :txt4_id => subtitle_check,
-            :ref => line[3],
-            :name => line[4]
-          ).first
-          #remove any productgroups not updated - record change          
-        end
-
-  ##check if product item exists
-        check_product = Product.where(
-          :productgroup_id => check_productgroup.id,
-          :ref => line[5],
-          :name => line[6]
-        ).first
-        
-        if check_product.blank?
-          check_product = Product.create(
-            :productgroup_id => check_productgroup.id,
-            :ref => line[5],
-            :name => line[6]
-          ).first
-          #record change        
-        end 
-
-
-  ##check if product assigned to clause
-
-  ##find clause_id - clauseref and clause title (checked that it exists on uploaed)
-      #private method
-      clause_check(line[0], line[1])
-
-      check_product_clause = Productclause.where(:product_id => check_productgroup, :clause_id => clause_check.id).first
-      if check_product_clause
-        check_product_clause = Productclause.create(:product_id => check_productgroup, :clause_id => clause_check.id) 
-      end
-
-
-
-#!!!!!!!!!find or create performance records for line
-        line_txt6 = line.drop(7)
-        
-        performance_pairs = []
-        line_txt6.each do |txt6_text, i|
-
-          txt6 = Txt6.find_or_create_by_text(txt6_text)
-          
-          
-          txt3_id = header_txt3_id_array[i]
-          unit_id = unit_id_array[i]
-          standard_id = standard_id_array[i]
-
-          txt6unit = Txt6unit.find_or_create(:txt6_id => txt6.id, :unit_id => unit_id, :standard_id => standard_id)
-          
-           performance_pair = Performtxt6unit.includes(:performance).where(:txt6unit_id => txt6unit.id, 'performances.txt3_id' => txt3_id).first
-           if performance_pair.blank?
-             performance_ref = Performance.create(:txt3_id => txt3_id)
-             performance_pair = Performtxt6unit.create(:performance_id=> performance_ref.id, :txt6unit_id => txt6unit.id)
-           end
-           performance_pairs[i] = performance_pair.id
-
-        end   
-
-##check if product has values not in current product data upload
-        performance_pairs = performance_pairs.sort
-        existing_product_performance_pairs = Characteritic.where(:product_id => check_product.id).collect{|i| i.performance_id}.sort
-        
-        if existing_product_performance_pairs.blank?
-          performance_pairs.each do |pair|
-            product_charactistic_check = Characteristic.create(:product_id => check_product.id, :performance_id => pair)
-            #record change          
-          end                
-        else
-          if performance_pairs == existing_product_performance_pairs
-            #record change
-          else
-            old_pairs_no_listed = existing_product_performance_pairs.delete_if{|x| performance_pairs.includes?(x)}
-            if old_pairs_no_listed
-              #delete old records not in current upload
-              if params[:action] == 'overwrite'
-                old_pairs_no_listed.each do |pair|
-                  product_charactistic_check = Characteristic.delete(:product_id => check_product.id, :performance_id => pair).first
-                end
-              end
-              #record change
-            end
-            new_pairs_no_listed = performance_pairs.delete_if{|x| existing_product_performance_pairs.includes?(x)}
-            if new_pairs_no_listed
-              #add new reords not in existing database
-              if params[:action] == 'overwrite'
-                new_pairs_no_listed.each do |pair|
-                  product_charactistic_check = Characteristic.create(:product_id => check_product.id, :performance_id => pair)
-                end
-              end
-              #record change            
+            identity_key = Identkey.where(:text => headers[i]).first_or_create
+            
+            if headers[i].downcase! == 'manufacturer'
+              product_company = Company.where(:name => line[i]).first              
+              identity_value = Identvalue.where(:company_id => product_company.id).first_or_create
+            else
+              identity_text = Identtxt.where(:text => line[i]).first_or_create
+              identity_value = Identvalue.where(:identtxt_id => identity_text.id).first_or_create
             end  
-          end
+            
+            identity_pair = Identity.where(:identkey_id => identity_key.id, :identvalue_id => identity_value.id).first_or_create
+            identity_pair_array[i] = identity_pair.id
+
         end
+        product_array[2] = identity_pair_array
+      #create array for each product line of instance ids
+        #not used, included for consistency
+        product_array[3] = line[instance_column]
+      
+      #create array for each product line of peform pair ids
+        perform_pair_array = []
+        (perform_headers_range).each do |i|
+            
+            #find or create perform pair key
+            perform_key = Performkey.where(:text => headers[i]).first_or_create
+            
+            #find or create perform pair value
+            unit = Unit.where(:text => units[i]).first_or_create
+            standard = Standards.where(:ref => standards[i]).first_or_create
+            performtxt = Performtxt.where(:text => line[i]).first_or_create
+                                              
+            #note performvalue is not is not unique, only unique when combined with performvalue array
+            #need to check if combined performvalue and performtxtarray exist 
+            check_performa_value_id = Peformvalue.where(:unit_id => unit.id, :standard_id => standard.id).pluck(:id)            
+            check_performtxtarray = Peformtxtarray.where(:performtxt_id => performtxt, :performvalue_id => check_performa_value_ids).first
+
+            if check_performtxtarray
+              performvalue_id = check_performtxtarray.performvalue_id
+            else
+                #if combined performvalue and performtxtarray does not exist create new
+                new_performa_value = Peformvalue.create(:unit_id => unit.id, :standard_id => standard.id)
+                new_performtxtarray = Peformtxtarray.create(:performtxt_id => performtxt, :performvalue_id => new_performa_value.id)
+                performvalue_id = new_performtxtarray.id          
+            end
+            ###find or create perform pair
+            
+            peform = Perform.where(:performkey_id => perform_key.id, :performvalue_id => performvalue_id).first_or_create
+            
+            perform_pair_array[i] = perform_id
+        end
+        product_array[4] = perform_pair_array
+      
+      end
+    #=> for each row of product data
+    #=> [[clause_id], [producttype_id], [identity_pair_array], [instance],[perform_pair_array]]
+
+##PERFORMANCE IMPROVEMENTS TO MAKE
+#find or create units, standards and headers before iterating through lines - current finds or creates each for every line
+
+
+#update product tables
+    #check if product with all identity exists - identical match
+    if product_match
+      #check if product clause relationship exists
+      #if product clause relationship does not exist create
+      clauseproduct = Clauseproduct.create(:clause_id => product_array[0], :product_id => existing_product.id).first_or_create
+      #update time stamps?
+      
+      #check if product exists check if instance of product with same peform pairs exists
+      if instance_match
+        #update time stamps?
+      
+      #if no instance of the product exists with the same peform pairs    
+      else 
+        #check if instances with some of the same, but no conflicting, perform values exists
+        if instance_partial_match
+          
+        else
+          #no instance with some of the same, but no conflicting, perform values exist
+          #create instance
+          create_new_product_instance(existing_product.id, product_array[4])
+        end          
+      end             
+    #if no product with all identity exists - not an identical match    
+    else
+      #check if any products all of whose identity values match, but not all values are present
+      if product_partial_match
+    
+      #if no products all of whose identity values match does not exist
+      else
+        #create new product
+        create_new_product(product_array[0], product_array[1], product_array[2])
+        #create new instance
+        create_new_product_instance(new_product.id, product_array[4])
+      end
+    end
+    
+    
+def create_new_product(clause_id, producttype_id, identity_pair_array)
+    new_product = Product.create(:producttype_id => producttype_id)
+    #set up product clause relationship
+    new_clauseproduct = Clauseproduct.create(:clause_id => clause_id, :product_id => new_product.id)
+    #link identity pairs with new product
+    identity_pair_array.each do |identity_pair_id|
+      new_descripts = Descript.create(:instance_id => new_instance.id, :perform_id => identity_pair_id)
+    end         
+end    
+
+def create_new_product_instance(product_id, perform_pair_array)
+    new_instance = Instance.create(:product_id => product_id)
+    #lin perform pairs with new instance
+    perform_pair_array.each do |perform_pair_id|
+      new_charcs = Charc.create(:instance_id => new_instance.id, :perform_id => perform_pair_id)
+    end         
+end  
+    
+    
+    
 
 
 
@@ -309,10 +342,6 @@ def csv_product_upload
         #find all productgroups without products and delete
       end
 
-    #end to each csv line
-    end
-  #end to each csv file to be uploaded   
-  end
 end
 
 
