@@ -9,14 +9,14 @@
     			
     		<div class="column_sub_content">
 				
-					<% if @productimport.errors.any? %>
+					<% if @product_import_errors %>
 					<div class="column_error">      		    
-        				<div class="column_error_heading">
+        				<div class="column_error_heading
         					<p>The file has not been uploaded, the following errors exist:</p>
         				</div>
         				<div class="column_error_content">
-        					<%@productimport.errors.each do |attribute, message|%>
-								<li><%= "#{attribute}: #{message}" %></li>
+        					<%@product_import_errors.each_with_index do |error, i|%>
+								<li><%= error %></li>
 							<%end%>
         				</div>
         				<div class="column_error_print">

@@ -1,0 +1,12 @@
+	<div class="sml_menu_tile">
+		<div class="sml_menu_tile_container">
+		<% @menu_contents.each_with_index do |content,i|%>
+		    <div id ="sml_menu_tile_<%= i %>" class="sml_menu_tile_item">
+      			<a href="<%= feature_path(content) %>">
+       				<%= image_tag "#{content.title}.png", :border=>0, :height=> '40', :width => '100', :class=>"sml_menu_tile_image" %>
+       				<p class="sml_menu_tile_title"><%= content.title %></p>     
+      			</a>
+    		</div>
+    	<% end %>
+    	</div>		
+	</div>

@@ -5,19 +5,10 @@
 	</div>
 	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-	<div class="web_feature_index_large">
-		<div class="web_feature_index_large_container">
-		<% @features.each do |feature|%>
-		    <div class="web_feature_menu_item_large">
-      			<a href="<%=feature_path(feature) %>">
-       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_large_img" %>
-       				<p class="web_feature_title_large"><%= feature.title %></p>
-       				<p class="web_feature_text_large"><%= feature.shorttext %></p>     
-      			</a>
-    		</div>
-    	<% end %>
-    	</div>		
-	</div>
+
+	
+	<%= render :partial => "application/lrg_menu_tile", locals: {contents: @contents}  %>
+	
 	
 	<%= render :partial => "application/web_footer" %>
 	

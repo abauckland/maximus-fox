@@ -423,72 +423,22 @@
 
 
 /* features menu large*/
-.web_feature_index_large{
+//css for large menu tiled
+.lrg_menu_tile{
   float: left;
   width: 100%;
-  padding: 0px 0px 10px 0px; 
 }
 
-.web_feature_index_large_container{
-}
+.lrg_menu_tile_container{float: left;}
 
-.web_feature_menu_item_large{
+.lrg_menu_tile_item{
   float: left;
   width: 260px;
   height: 225px;
-  margin: 5px 5px 5px 5px;
+  padding: 5px 20px 5px 20px;
   @include border-radius(5px);
   border: 2px solid #fff;
-  background: #f2f2f2;
-  @include shadow-all(0px 0px 5px #aeaeae);
-  a{
-    text-decoration: none;  
-  }
-  &:hover{
-    border: 2px solid #66aa00;
-  }
-}
-
-.web_feature_large_img{
-  margin: 10px 0px 0px 20px;
-  height: 90px;
-  overflow: hidden;
-  border: 0px solid #bebebe;   
-}
-
-.web_feature_title_large{
-  margin: 10px 0px 5px 0px;
-  font-size: 2.0rem;
-  text-align: center;
-  color: #767676;
-}
-
-.web_feature_text_large{
-  margin: 0px 10px 0px 10px;
-  font-size: 1.2rem;
-  text-align: center;
-  color: #000;   
-}
-
-
-/* features menu small*/
-.web_feature_index_small{
-  float: left;
-  width: 100%;
-  padding: 10px 0px 10px 0px;
-  border-bottom: 2px solid #dddddd;  
-}
-
-.web_feature_index_small_container{
-}
-
-.web_feature_menu_item_small{
-  float: left;
-  min-width: 120px;
-  margin: 5px 5px 5px 5px;
-  @include border-radius(5px);
-  border: 2px solid #fff;
-  background: #f2f2f2;
+  background-color: #f2f2f2;
   @include shadow-all(0px 0px 5px #aeaeae);
   a{
     color: #fff;
@@ -500,14 +450,62 @@
   }
 }
 
-.web_feature_small_img{
-  margin: 10px 0px 0px 15px;
-  height: 40px;
-  overflow: hidden;
-  border: 0px solid #bebebe;    
+.lrg_menu_tile_image{
+    margin: 10px 0px 0px 20px;
 }
 
-.web_feature_title_small{
+.lrg_menu_tile_title{
+  margin: 10px 0px 5px 0px;
+  font-size: 2.0rem;
+  text-align: center;
+  color: #767676;  
+}
+
+.lrg_menu_tile_text{
+  margin: 0px 10px 0px 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  color: #000;  
+}
+
+
+
+
+/* features menu small*/
+.sml_menu_tile{
+  float: left;
+  width: 100%;
+  }
+
+.sml_menu_tile_container{
+  float: left;
+  }
+
+.sml_menu_tile_item{
+  float: left;
+  min-width: 120px;
+  padding: 5px 5px 5px 5px;
+  @include border-radius(5px);
+  border: 2px solid #fff;
+  background-color: #f2f2f2;
+  @include shadow-all(0px 0px 5px #aeaeae);
+  a{
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;    
+  }
+  &:hover{
+    border: 2px solid #66aa00;
+  }
+}
+
+.sml_menu_tile_image{
+  margin: 10px 0px 0px 10px;
+  overflow: hidden;
+  border: 0px solid #bebebe; 
+}
+
+.sml_menu_tile_title{
   margin: 0px 0px 10px 0px;
   font-size: 1.1rem;
   text-align: center;
@@ -515,78 +513,56 @@
 }
 
 
-/* sub content menu*/
-.web_sub_content{
+/* feature content*/
+.web_title_band_2 {
   float: left;
   width: 100%;
-  margin-top: 20px;
-  }
- 
-
-.web_sub_column_3{
-  float: left;
-  width: 30%;
-  padding: 0px 20px 0px 20px;
-}
-  @media screen and (max-width: $medium_menu) {
-    .web_sub_column_3 {
-      padding: 10px 20px 10px 20px;
-      }
+  height: 10px;
+  border-top: 2px solid #dddddd;
+    color: #555;
   }
 
-.web_sub_column_2{
-  @extend .web_sub_column_3;
-  border-right: 2px solid #dddddd;
-  }
-  @media screen and (max-width: $medium_menu) {
-    .web_sub_column_2 {
-      border-right: none;
-      }
-  }  
-  
-.web_sub_column_1{
-  @extend .web_sub_column_2;
-  }
-  @media screen and (max-width: $medium_menu) {
-    .web_sub_column_1 {
-      border-right: none;
-      }
-  }  
-    
-
-.web_sub_title{
-  font-family: $heading_font;
+.content_tile{
   float: left;
   width: 100%;
-  text-align: center;
-  font-size: 2rem;
-  line-height: 1.8rem;
-  padding: 10px 0px 10px 0px;  
-  a{
-    color: #66aa00;
-    text-decoration: none; 
-    &:hover{text-decoration: underline;} 
+}
+
+.content_tile_container{float: left;}
+
+.content_tile_item{
+  float: left;
+  width: 260px;
+  height: 400px;
+  padding: 0px 20px 20px 20px;
+  a {
+    text-decoration:none;
   }
 }
 
-.web_sub_text{
-  font-size: 1.4rem;
-  line-height: 1.5rem;
-  text-align: center;
-  padding: 15px 0px 10px 0px;   
+.web_content_tile_image{
+  width: 260px;
+  height: 225px;
+  background-color: #fff;
+  @include border-radius(8px);
+  border: 2px solid #66aa00;
 }
-  @media screen and (max-width: $medium_menu) {
-    .web_sub_text{      
-      font-size: 1.3rem;
-      line-height: 1.4rem; 
-      }
-  }
-  @media screen and (max-width: $small_menu) {
-    .web_sub_text {      
-      font-size: 1.2rem;
-      line-height: 1.3rem; 
-      }
-  }
+
+.web_content_tile_title{
+  width: 260px;
+  height: 30px;
+  margin: 10px 0px 5px 0px;
+  font-size: 2.0rem;
+  text-align: center;
+  color: #66aa00;  
+}
+
+.web_content_tile_text{
+  width: 260px;
+  height: 100px;
+  font-size: 1.2rem;
+  text-align: justify;
+  color: #000;  
+}
 
 
 /* FAQs */

@@ -4,49 +4,11 @@
 	</div>
 	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-	<div class="web_main_content">
-    	<div class="web_main_column_1">
+	<%= render :partial => "application/content_tile", locals: {feature_contents: @feature_contents}  %>
+	
+	<div class="web_title_band_2"></div>
 
-      		<div class="web_home_image_lndscp"><%= image_tag "#{@feature.feature_show_img}_lndscp.png"%></div>
-			<div class="web_home_image_prtrt"><%= image_tag "#{@feature.feature_show_img}_prtrt.png"%></div>
-
-    	</div>        
-    	<div class="web_main_column_2">
-  				
-  			<div class="web_main_text"><%= @feature.text_1.html_safe %></div>
-
-    	</div>     
-	</div>
-
-<% if  [7,8,9].include?(@feature.id) %>
-	<!-- features index --> 
-	<div class="web_feature_index_small">
-		<div class="web_feature_index_small_container">
-		<% @features.each do |feature|%>
-		    <div class="web_feature_menu_item_small">
-      			<a href="<%=feature_path(feature) %>">
-       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_small_img" %>
-       				<p class="web_feature_title_small"><%= feature.title %></p>     
-      			</a>
-    		</div>
-    	<% end %>
-    	</div>		
-	</div>
-<% else %>
-	<!-- features index --> 
-	<div class="web_feature_index_small">
-		<div class="web_feature_index_small_container">
-		<% @features_2.each do |feature|%>
-		    <div class="web_feature_menu_item_small">
-      			<a href="<%=feature_path(feature) %>">
-       				<%= image_tag "#{feature.title}.png", :border=>0, :class=>"web_feature_small_img" %>
-       				<p class="web_feature_title_small"><%= feature.title %></p>     
-      			</a>
-    		</div>
-    	<% end %>
-    	</div>		
-	</div>
-<% end %>    
+	<%= render :partial => "application/sml_menu_tile", locals: {menu_contents: @menu_contents}  %>     
 
 	<%= render :partial => "application/web_footer" %>
 

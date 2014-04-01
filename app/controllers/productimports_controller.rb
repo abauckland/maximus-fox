@@ -22,71 +22,97 @@ def create
   
   @csv = CSV.read(params[:productimport][:csv].path)   
   headers = @csv[0]
-
+  units = @csv[1]
+  standards = @csv[2]
   
   @product_import_errors = []
-  #check no header values are nil
-  if headers.include?(nil)
-    missing_header_count = headers.length - headers.compact.length
-    @product_import_errors << (missing_header_count.to_s << ' column heading(s) are blank, please ensure that all columns have a header title')   
-  end
   
-  
-  #check fixed headers are correct
-  check_array = ['Clause Ref','Subtitle','Product Ref','Product Name','Item Ref', 'Item Name']
-  check_header_array = headers[0..5]   
-  if check_array != check_header_array
-    @product_import_errors << ('Compulsory columns are not correct, they are either missing, in the incorrect order or misspelt. Please correct errors and reload file.')
-  end
-  
-  @csv_no_headers = @csv.drop(1)
-  
-  if !@csv_no_headers.empty?
-    if @productimport.empty?
+  #check if header, units and standards rows
+  if @csv.length <= 3
+    @product_import_errors << ('insufficient data in uploaded file')     
+  else
     
-      #check if clause references are valid for each line
-##??amend to take account of productclauses table
-      #if clause.blank?      
-        @csv_no_headers.each_with_index do |line, i| 
-          #private method
-          clause_check(line[0], line[1])                 
-          if check_clause.blank?      
-            @product_import_errors << ('Clause reference' << line[0].to_s << 'does not exist.') 
+    #check no header values are nil
+    missing_header_count = headers.length - headers.compact.length
+    if missing_header_count >= 1
+   # if headers.include?(nil)
+      @product_import_errors << (missing_header_count.to_s << ' column heading(s) are blank, all columns must have a title')   
+    end
+
+    #check fixed headers are correct
+    if headers[0].downcase != 'clause ref'
+      @product_import_errors << ('please make sure first column is titled "clause ref"')    
+    end
+  
+    if headers[1].downcase != 'clause title'
+      @product_import_errors << ('please make sure first column is titled "clause title"')    
+    end
+  
+    if headers[2].downcase != 'product type'
+      @product_import_errors << ('please make sure first column is titled "product type"')    
+    end
+  
+    #check unit headers are units
+    units.each_with_index do |unit, i|
+      if unit
+        check_unit = Unit.where(:text => unit).first
+        if !check_unit
+          @product_import_errors << ('"'<< unit.to_s << '" not recognised as a unit in column ' << i.to_s)
+        end
+      end  
+    end
+  
+    #check standard refs are standards
+    standards.each_with_index do |standard, i|
+      if standard
+        check_standard = Standard.where(:ref => standard).first
+        if !check_standard
+          @product_import_errors << ('"'<< standard.to_s << '" not recognised standard in column ' << i.to_s)
+        end
+      end     
+    end
+
+    if !@product_import_errors.any?
+      last_row_of_data = (@csv.length - 1)
+      
+      (3..last_row_of_data).each do |i| 
+        
+        line = @csv[i]
+
+        if !line[0].empty?
+          @product_import_errors << ('Clause reference "' << line[i].to_s << '" must be included.') 
+        else
+          if !line[1].empty?
+            @product_import_errors << ('Clause title "' << line[i].to_s << '" must be included.') 
+          else
+            clauseref = line[0]
+            clausetitle = line[1]  
+            clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('sections.ref' => clauseref[0], 'subsections.ref' => clauseref[1..2], 'clauserefs.clausetype_id' => clauseref[4], 'clauserefs.clause' => clauseref[5], 'clauserefs.subclause' => clauseref[6..7], 'clausetitles.text' => clausetitle).first  
+     
+            if clause_check.blank?      
+              @product_import_errors << ('Clause reference "' << line[i].to_s << '" does not exist.') 
+            end              
           end
         end
-      #end
-
-      @csv.each_with_index do |line, i|    
+        
+        if line[2].empty?
+          @product_import_errors << ('Product type "' << line[i].to_s << '" must be stated.')         
+        end
+        
+      
+        
         line.each_with_index do |cell, n|
-
-          if cell.strip! != nil
-            @product_import_errors << ('Line ' << i.to_s << ', cell '<< n.to_s << ', Cell data error: white space before and, or, after text.')     
+          if cell.to_s.strip! != nil
+            @product_import_errors << ('Line ' << i.to_s << ', cell '<< n.to_s << ', Cell data error: remove white space before and, or, after text.')     
           end
           
           punt_list = [".", ",", ";", ":", "!", "?", "/", "'"]
           if punt_list.include?(cell.last)
-            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: punctuation after text.')     
+            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: remove punctuation after text.')     
           end
-
-#units in second header row or in cell?          
-#          unit_list = Unit.all.collect{|m| m.text} #[" mm", " m ", " cm", " ft", " kg", " g ", " l ", " W ", " Pa "]
-#          if unit_list.include?(cell.last)
-#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: space between units and number.')     
-#          end
-          
-#          unit_list = Unit.all.collect{|m| m.text} #[" mm2", " m2 ", " cm2", " mm3" " m3", " cm3 ", " ft2"]
-#          if unit_list.include?(cell.last)
-#            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: define area using sq m, sq ft, etc.')     
-#          end
-          
-          if cell.first != cell.first.capitalize
-#what if numerical value?
-            @product_import_errors << ('Line ' << i.to_s  << ', cell '<<  n.to_s << ', Cell data error: first letter must be a capital letter.')     
-          end
-          #degrees and other sufixes          
-        end   
+                   
+        end
       end
-    
     end
   end
 
@@ -103,7 +129,7 @@ def create
     end
   end  
 end
-
+end
 
 
 
@@ -265,45 +291,44 @@ def csv_product_upload
 ##PERFORMANCE IMPROVEMENTS TO MAKE
 #find or create units, standards and headers before iterating through lines - current finds or creates each for every line
 
-
 #update product tables
-    #check if product with all identity exists - identical match
-    if product_match
-      #check if product clause relationship exists
-      #if product clause relationship does not exist create
-      clauseproduct = Clauseproduct.create(:clause_id => product_array[0], :product_id => existing_product.id).first_or_create
-      #update time stamps?
-      
-      #check if product exists check if instance of product with same peform pairs exists
-      if instance_match
-        #update time stamps?
-      
-      #if no instance of the product exists with the same peform pairs    
-      else 
-        #check if instances with some of the same, but no conflicting, perform values exists
-        if instance_partial_match
+      product_array.each do |product|
+        
+        existing_product = Product.joins(:descripts => :identities).where('identities.id' => product_array[2]).group(:id).count
+        #check if product with matching identities exists
+        if existing_product.count == 0
+          #if no product has any of the same identities pairs
+          #create new product
+          create_new_product(product_array[0], product_array[1], product_array[2])
+          #create new instance
+          create_product_instance(new_product, product_array[4])         
           
-        else
-          #no instance with some of the same, but no conflicting, perform values exist
-          #create instance
-          create_new_product_instance(existing_product.id, product_array[4])
-        end          
-      end             
-    #if no product with all identity exists - not an identical match    
-    else
-      #check if any products all of whose identity values match, but not all values are present
-      if product_partial_match
-    
-      #if no products all of whose identity values match does not exist
-      else
-        #create new product
-        create_new_product(product_array[0], product_array[1], product_array[2])
-        #create new instance
-        create_new_product_instance(new_product.id, product_array[4])
+        else  
+          #if product with some matching identity pairs exists
+          #check if product with all identity pairs exists
+          if existing_product.key(perform_pair_array.length)
+            #if product with all identity exists (will get first in hash if more than one match)
+            #check if product clause relationship exists
+            #if product clause relationship does not exist create
+            existing_product_id = existing_product.key(product_array[2].length)
+            clauseproduct = Clauseproduct.create(:clause_id => product_array[0], :product_id => existing_product.id).first_or_create
+#update time stamps?
+            #check if instance of product with same peform pairs exists     
+            update_create_instance(existing_product.id, product_array[4])
+          
+          else
+            product_id = existing_product.key(existing_product.values.max)
+            #get product with most identity value matches
+#?????            update_product(product_array[0], product_array[1], product_array[2])
+
+            #check if instance of product with same peform pairs exists     
+            update_create_instance(product_id, product_array[4])
+          end            
+        end
       end
-    end
-    
-    
+  end
+
+
 def create_new_product(clause_id, producttype_id, identity_pair_array)
     new_product = Product.create(:producttype_id => producttype_id)
     #set up product clause relationship
@@ -312,9 +337,41 @@ def create_new_product(clause_id, producttype_id, identity_pair_array)
     identity_pair_array.each do |identity_pair_id|
       new_descripts = Descript.create(:instance_id => new_instance.id, :perform_id => identity_pair_id)
     end         
-end    
+end 
 
-def create_new_product_instance(product_id, perform_pair_array)
+
+def create_new_product(clause_id, producttype_id, identity_pair_array)
+    new_product = Product.create(:producttype_id => producttype_id)
+    #set up product clause relationship
+    new_clauseproduct = Clauseproduct.create(:clause_id => clause_id, :product_id => new_product.id)
+    #link identity pairs with new product
+    identity_pair_array.each do |identity_pair_id|
+      new_descripts = Descript.create(:instance_id => new_instance.id, :perform_id => identity_pair_id)
+    end         
+end 
+
+
+
+
+def update_create_instance(product, perform_pair_array)
+  existing_instance = Product.joins(:instances => [:charcs => [:performs]]).where(:id => product.id, 'performs.id' => perform_pair_array).group(:id).count 
+
+  if existing_instance.count == 0
+    create_product_instance(product.id, perform_pair_array)
+  else
+    #check if instance to all perform pairs exists
+    if existing_instance.key(perform_pair_array.length).nil?
+      #if exists do not alter
+      #if does not exist, get id of instance with least number of perform pair matches, may only be one in hashh
+      instance_id = existing_instance.key(existing_instance.values.min)
+      #update instance
+      update_product_instance(instance_id, perform_pair_array)
+    end  
+  end
+end
+ 
+      
+def create_product_instance(product_id, perform_pair_array)
     new_instance = Instance.create(:product_id => product_id)
     #lin perform pairs with new instance
     perform_pair_array.each do |perform_pair_id|
@@ -322,8 +379,12 @@ def create_new_product_instance(product_id, perform_pair_array)
     end         
 end  
     
-    
-    
+def update_product_instance(instance_id, perform_pair_array)
+    perform_pair_array.each do |perform_pair_id|
+      new_charcs = Charc.where(:instance_id => instance_id, :perform_id => perform_pair_id).first_or_create
+    end         
+end
+  
 
 
 
@@ -350,7 +411,7 @@ private
 
 def clause_check(clauseref, clausetitle)
 #!!! 'dot' in clause reference not accounted for
-  clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('section.ref = ? AND subsection.ref = ? AND clauseref.clausetype_id = ? AND clauseref.clause =? AND clauseref.subclause = ? AND clausetitle.text', clauseref[0], clauseref[1..2], clauseref[3], clauseref[4], clauseref[5..6], clausetitle).first  
+  clause_check = Clause.joins(:clausetitle, :clauseref => [:subsection => [:section]]).where('sections.ref' => clauseref[0], 'subsections.ref' => clauseref[1..2], 'clauserefs.clausetype_id' => clauseref[4],'clauserefs.clause' => clauseref[5], 'clauserefs.subclause' => clauseref[6..7], 'clausetitles.text' => clausetitle).first  
 end
 
 
@@ -383,5 +444,3 @@ def characteristic_delete(characteristic)
 end
 
 
-    
-end

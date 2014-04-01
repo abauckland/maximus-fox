@@ -1,1 +1,4 @@
-Clause,Subtitle,Product Ref,Product Name,Item Ref,Item Name,,tset,teset
+clause ref,clause title,product type,Product Name,Item Ref,Item Name,Instance,tset,teset
+,,,,,,,m2,
+,,,,,,,,
+Clause,Subtitle,Product Ref,Product Name,Item Ref  ,Item Name,,tset,teset

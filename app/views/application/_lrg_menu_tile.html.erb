@@ -1,0 +1,14 @@
+	<div class="lrg_menu_tile">		
+		<div class="lrg_menu_tile_container">
+			<% @contents.each_with_index do |content, i|%>
+			<div id ="lrg_menu_tile_<%= i %>" class="lrg_menu_tile_item">
+      			<a href="<%=feature_path(content) %>">
+       				<%= image_tag "#{content.title}.png", :border=>0, :height=> '88', :width => '220', :class=>"lrg_menu_tile_image" %>
+       				<p class="lrg_menu_tile_title"><%= content.title %></p>
+       				<p class="lrg_menu_tile_text"><%= content.text %></p>     
+      			</a>
+      		</div>
+      		<% end %>	  	
+    	</div>
+    		
+	</div>

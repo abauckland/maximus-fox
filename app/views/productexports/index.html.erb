@@ -25,7 +25,7 @@
 				<div class="radio_button"><%= radio_button_tag :data, 'company_data', :checked => true %></div>
 				<div class="radio_button_label">Company product data</div>			
 			</td></tr>
-			<% if !@product_clauses.empty? %>
+			<% if @product_clauses %>
 			<tr><td>
 				<div class="radio_button"><%= radio_button_tag :data, 'company_clauses'%></div>
 				<div class="radio_button_label">Company product data by Clause Reference:</div>			
