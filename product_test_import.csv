@@ -1,4 +1,51 @@
-clause ref,clause title,product type,Product Name,Item Ref,Item Name,Instance,tset,teset
-,,,,,,,m2,
-,,,,,,,,
-Clause,Subtitle,Product Ref,Product Name,Item Ref  ,Item Name,,tset,teset
+clause ref,clause title,product type,manufacturer,product name,instance,type,size,width,length,height,freeze/thaw resistance,active soluble salt content ,compressive strength,water absorption (max)
+,,,,,,,mm,mm,mm,mm,,,N/mm2,%
+,,,,,,,,,,,BS EN 771 ,BS EN 771 ,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Old Clamp,YORKH-0001-0001-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Old Clamp,YORKH-0001-0001-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Old Clamp,YORKH-0001-0001-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hambleton,YORKH-0001-0002-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hambleton,YORKH-0001-0002-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hambleton,YORKH-0001-0002-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Galtres,YORKH-0001-0003-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Galtres,YORKH-0001-0003-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Galtres,YORKH-0001-0003-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hunsingore,YORKH-0001-0004-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hunsingore,YORKH-0001-0004-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Hunsingore,YORKH-0001-0004-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Lindum,YORKH-0001-0005-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Lindum,YORKH-0001-0005-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Lindum,YORKH-0001-0005-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Thirkleby,YORKH-0001-0006-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Thirkleby,YORKH-0001-0006-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Thirkleby,YORKH-0001-0006-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Aldwick,YORKH-0001-0007-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Aldwick,YORKH-0001-0007-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Aldwick,YORKH-0001-0007-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Laddus,YORKH-0001-0008-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Laddus,YORKH-0001-0008-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Laddus,YORKH-0001-0008-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,17.6,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Kilburn,YORKH-0001-0009-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Kilburn,YORKH-0001-0009-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Kilburn,YORKH-0001-0009-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Byland,YORKH-0001-0010-0001,Handmade,215 x 102.5 x 50,102.5,215,50,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Byland,YORKH-0001-0010-0002,Handmade,215 x 102.5 x 65,102.5,215,65,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Byland,YORKH-0001-0010-0003,Handmade,215 x 102.5 x 73,102.5,215,73,F2,S2,36,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Huby,YORKH-0001-0011-0001,Machine made,215 x 102.5 x 50,102.5,215,50,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Huby,YORKH-0001-0011-0002,Machine made,215 x 102.5 x 65,102.5,215,65,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Huby,YORKH-0001-0011-0003,Machine made,215 x 102.5 x 73,102.5,215,73,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Bootham,YORKH-0001-0012-0001,Machine made,215 x 102.5 x 50,102.5,215,50,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Bootham,YORKH-0001-0012-0002,Machine made,215 x 102.5 x 65,102.5,215,65,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Bootham,YORKH-0001-0012-0003,Machine made,215 x 102.5 x 73,102.5,215,73,F2,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Tollerton,YORKH-0001-0013-0001,Machine made,215 x 102.5 x 50,102.5,215,50,,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Tollerton,YORKH-0001-0013-0002,Machine made,215 x 102.5 x 65,102.5,215,65,,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Tollerton,YORKH-0001-0013-0003,Machine made,215 x 102.5 x 73,102.5,215,73,,S2,37,18
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Alne,YORKH-0001-0014-0001,Machine made,215 x 102.5 x 50,102.5,215,50,,S2,37,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Alne,YORKH-0001-0014-0002,Machine made,215 x 102.5 x 65,102.5,215,65,,S2,37,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Alne,YORKH-0001-0014-0003,Machine made,215 x 102.5 x 73,102.5,215,73,,S2,37,16
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Clifton,YORKH-0001-0015-0001,Machine made,215 x 102.5 x 50,102.5,215,50,,,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Clifton,YORKH-0001-0015-0002,Machine made,215 x 102.5 x 65,102.5,215,65,,,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Clifton,YORKH-0001-0015-0003,Machine made,215 x 102.5 x 73,102.5,215,73,,,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Suffolk,YORKH-0001-0016-0001,Machine made,215 x 102.5 x 50,102.5,215,50,,,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Suffolk,YORKH-0001-0016-0002,Machine made,215 x 102.5 x 65,102.5,215,65,,,,
+F10.4110,Facing Clay Brick,product,The York Handmade Brick Company Ltd,Suffolk,YORKH-0001-0016-0003,Machine made,215 x 102.5 x 73,102.5,215,73,,,,

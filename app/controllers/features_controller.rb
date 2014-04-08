@@ -13,7 +13,7 @@ end
 
 def show
     @feature = Feature.where('id = ?', params[:id]).first
-    @feature_contents = Featurecontent.where(:feature_id => params[:id])
+    @contents = Featurecontent.where(:feature_id => params[:id])
       
     @menu_contents = Feature.where(:id => 1..6).where('id <> ?', params[:id])
 

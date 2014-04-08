@@ -1,28 +1,32 @@
-
-
-
 <div class="company_product_table">    
-
-	
-	
-
-
 
 <table id="products">
 <thead>
   <tr>
-    <th>Product Name</th>
-    <th>Category</th>
-    <th>Product Name</th>
-    <th>Category</th>
-        <th>Product Name</th>
-    <th>Category</th>
+  		<% @headers_row.each do |header| %>
+    		<th><%= header %></th>
+    	<% end %>
   </tr>
 </thead>
 <tbody>
-  <% @products.each do |product| %>
-
-  <% end %>
+	<tr>
+  		<% @unit_row.each do |header| %>
+    		<td><%= header %></td>
+    	<% end %>		
+	</tr>
+	<tr>
+  		<% @unit_row.each do |header| %>
+    		<td><%= header %></td>
+    	<% end %>		
+	</tr>
+	
+  	<% @product_array.each do |product| %>
+		<tr>
+  			<% product.each_with_index.each do |product, i| %>
+    			<td><%= product[i] %></td>
+    		<% end %>		
+		</tr>
+    <% end %>	
 </tbody>
 </table>
 

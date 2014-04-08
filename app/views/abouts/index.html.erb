@@ -1,19 +1,12 @@
 <div class="web_page_body">
 	<div class="web_title_band">
-		<div class="web_title">About Specright</div>
+		<div class="web_title">About Us</div>
 	</div>
 	<div class="web_title_signup_link"><%= link_to "create free account", sign_up_path %></div>
 
-	<div class="web_terms_box">
-		<table> 
-  		<% @abouts.each do |about|%>
-  			<tr>    
-    			<td class="about_text"><%= about.text.html_safe%></td>
-  			</tr>
-  		<% end %>
-  		</table> 
-	</div>
+	<%= render :partial => "application/content_tile", locals: {contents: @contents}  %>
+	 
 
 	<%= render :partial => "application/web_footer" %>
-	
+
 </div>

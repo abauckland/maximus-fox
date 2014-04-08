@@ -2,6 +2,7 @@ class Company < ActiveRecord::Base
 
 has_many :users
 has_many :accounts
+has_many :identvalues
 has_attached_file :photo
 accepts_nested_attributes_for :accounts
 accepts_nested_attributes_for :users

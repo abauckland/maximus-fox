@@ -4,5 +4,5 @@ class Perform < ActiveRecord::Base
   has_many :instances, :through => :charcs
   
   belongs_to :performkey
-  belongs_to :performvalues
+  belongs_to :performvalue
 end

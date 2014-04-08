@@ -1,5 +1,9 @@
 SpecrightDev::Application.routes.draw do
   
+  get "productimports/new"
+
+  get "productimports/create"
+
   resources :sponsors
 
   resources :suppliers
@@ -34,6 +38,8 @@ SpecrightDev::Application.routes.draw do
   resources :guidenotes
   resources :sponsors
   resources :guidedownloads
+  resources :priceplans
+  resources :planfeatures
 
   
   resources :posts do
@@ -146,6 +152,7 @@ SpecrightDev::Application.routes.draw do
     get :product_error_print, :on => :member
   end
   resources :productreports
+  resources :productimports
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do

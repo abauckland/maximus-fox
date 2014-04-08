@@ -1,6 +1,6 @@
 	<div class="content_tile">		
 		<div class="content_tile_container">
-			<% @feature_contents.each_with_index do |content, i|%>
+			<% @contents.each_with_index do |content, i|%>
 			<div id ="content_tile_<%= i %>" class="content_tile_item">
       			<a href="<%=feature_path(content) %>">
        				<%= image_tag "#{content.image}.png", :border=>0, :class=>"web_content_tile_image" %>

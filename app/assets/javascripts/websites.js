@@ -294,6 +294,18 @@ $(document).ready(function(){
 	});
 
 
+	//responsive layout of price plan
+	var price_tile_frame = '.content_tile';
+	var price_tile = ".content_price_item";
+	var price_tile_container = '.content_tile_container';
+	var price_tile_id = '#content_price_';	
+	content_tiling(price_tile_frame, price_tile_container, price_tile, price_tile_id);
+
+	$(window).resize(function(){
+		content_tiling(price_tile_frame, price_tile_container, price_tile, price_tile_id);
+	});
+
+
 //OLD JQUERY
 
 //variables for setting column widths - where 3 coloumns

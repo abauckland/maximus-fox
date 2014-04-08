@@ -1,0 +1,41 @@
+<div class="web_page_body">
+	
+	<div class="web_title_band">
+		<div class="web_title">Pricing</div>
+	</div>
+	
+	<div class="content_tile">		
+		<div class="content_tile_container">
+			<% @price_plans.each_with_index do |plan, i|%>
+			<div id ="content_price_<%= i %>" class="content_price_item_container">
+				<div class="content_price_item">
+
+      				<div class="content_price_name"><%= plan.name %></div>
+      				<div class="content_price_price"><%= plan.price %></div>
+      				<div class="content_price_features" >
+      					<% plan.planfeatures.each do |feature|%>
+      						<div class="content_price_feature_item"><%= feature.text %></div>
+      					<% end %>
+      				</div>
+      				<% if plan.signup == true %>
+      					<div class="content_price_signup">
+      						<div class="priceplan_signup_link">
+      							<%= link_to "Create Account", sign_up_path %>      							
+      						</div>
+      					</div>
+      				<% else %>
+      					<div class="content_price_signup">
+      						<div class="priceplan_signup_link">
+      							<%= link_to "Contact Us", about_us_path %>
+      						</div>	
+      					</div>
+      				<% end %>
+      			</div>
+      		</div>	
+      		<% end %>	  	
+    	</div>    		
+	</div>	
+	
+	<%= render :partial => "application/web_footer" %>
+	
+</div>

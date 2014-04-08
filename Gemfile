@@ -22,6 +22,7 @@ gem 'prawnto'
 gem 'paperclip', '~> 3.1.4'
 gem 'mail'
 gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'roo'
 
 gem "gibbon", "~> 1.0.4"
 

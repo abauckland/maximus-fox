@@ -3,7 +3,7 @@ class AboutsController < ActionController::Base
 layout "websites"
 
   def index
-    @abouts = About.all
+    @contents = About.all
   end
     
 end

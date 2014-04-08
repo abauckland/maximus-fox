@@ -95,7 +95,7 @@ def export
         row = []
 
         clause = Clause.where(:id => instance_clause.id).first
-        row[0] = clause.full_reference
+        row[0] = clause.clause_code
         row[1] = clause.clausetitle.text
 
         producttype = Producttype.where('instances.id' => instance.id).pluck(:text)
@@ -126,7 +126,7 @@ def export
           n = n + 1
           perform_text = Performtxt.where('instances.id' => instance.id, 'performkeys.text' => performkey).first
           if perform_text
-            row[n] = petform_text.text
+            row[n] = perform_text.text
           else
             row[n] = ""
           end
