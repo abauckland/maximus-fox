@@ -12,6 +12,9 @@ belongs_to :txt4
 belongs_to :txt5
 belongs_to :txt6
 
+belongs_to :identity
+belongs_to :perform
+
 belongs_to :linetype
 
 

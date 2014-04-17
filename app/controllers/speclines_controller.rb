@@ -1,6 +1,6 @@
 class SpeclinesController < ApplicationController
 
-before_filter :require_user, :except => :xref_data 
+before_filter :require_user, :except => [:xref_data]
 before_filter :check_specline_ownership, :except => [:xref_data, :add_clause, :manage_clauses, :add_clauses, :delete_clauses, :guidance]
 #before_filter :check_project_ownership, :except => [:add_clause, :add_clauses, :delete_clauses, :edit, :new_specline, :move_specline, :update_specline_3, :update_specline_4, :update_specline_5, :update_specline_6, :update, :delete_specline, :delete_clause, :guidance]
 
@@ -188,11 +188,37 @@ def add_clause
     update_subsequent_specline_clause_line_ref(existing_subsequent_specline_lines, 'new', @specline)
       
     if @specline.clause_line == 0
-      linetype_id = 3
+      case @specline.clausetype_id
+        when '1' ;  @linetype_id = 7
+        when '2' ;  @linetype_id = 8
+        when '3' ;  @linetype_id = 8
+        when '4' ;  @linetype_id = 8
+        when '5' ;  @linetype_id = 8
+        when '6' ;  @linetype_id = 7
+        when '7' ;  @linetype_id = 7
+        when '8' ;  @linetype_id = 7
+      end
     else
       linetype_id = @specline.linetype_id
     end 
-      
+    
+    #if specline is a product or reference line (linetype 10, 11 or 12) 
+    if [10,11].include?(@specline.linetype_id) 
+     @new_specline = Specline.new do |n|        
+            n.project_id = @specline.project_id 
+            n.clause_id = @specline.clause_id 
+            n.clause_line = @specline.clause_line + 1
+            n.txt1_id = 1
+            n.txt2_id = 1
+            n.txt3_id = 1
+            n.txt4_id = 1
+            n.txt5_id = 1
+            n.txt6_id = 1
+            n.identity_id = 1
+            n.perform_id = 1
+            n.linetype_id = linetype_id
+          end  
+     else
      @new_specline = Specline.new do |n|        
             n.project_id = @specline.project_id 
             n.clause_id = @specline.clause_id 
@@ -203,10 +229,13 @@ def add_clause
             n.txt4_id = @specline.txt4_id
             n.txt5_id = @specline.txt5_id
             n.txt6_id = @specline.txt6_id
+            n.identity_id = @specline.identity_id
+            n.perform_id = @specline.perform_id
             n.linetype_id = linetype_id
-          end
-          @new_specline.save
-  
+          end                
+     end  
+     @new_specline.save 
+      
     #if other lines of clause have been deleted in same revision then amended to recorded change event for line
       @current_revision = Revision.where('project_id = ?', @specline.project_id).last
       previous_change_to_clause = Change.where('project_id = ? AND clause_id = ? AND revision_id =?', @specline.project_id, @specline.clause_id, @current_revision.id).order('created_at').last
@@ -512,8 +541,7 @@ end
       else
          new_txt4_text = txt4_exist
       end
-    
-    
+        
       #check if new text is similar to old text 
       @specline_update.txt4_id = new_txt4_text.id
       if txt4_check.blank?
@@ -623,66 +651,160 @@ end
   end  
 
 
+def update_product_key
+  #key text returned
+  @specline_update = @specline  
+  key = params[:value]
+
+    #get product identity pairs in clause which have been completed, not including current line
+    product_identity_pairs = Specline.joins(:identity => [:identvalue => :identtxt]).where(
+      :project_id => @specline.project_id,
+      :clause_id => @specline.clause_id,
+      :linetype_id => 10,
+      ).where('identtxts.text != ?', "Not specified"
+      ).where('speclines.id <> ?', @specline.id
+      ).pluck('speclines.identity_id')
+   
+    #get product perform pairs in clause which have been completed, not including current line
+    product_perform_pairs = Specline.joins(:clause, :perform => [:performvalue => [:performtxt]]).where(
+      :project_id => @specline.project_id,
+      :clause_id => @specline.clause_id, 
+      :linetype_id => 11
+      ).where('performtxts.text != ?', "Not specified"
+      ).where('speclines.id <> ?', @specline.id
+      ).pluck('speclines.perform_id')
+
+get_sub_clause_ids(@specline.clause_id)
+    #get cpossible products for line
+    #if specline linetype == 10 (identity pair)
+    #get possible products for identity and perform pairs
+    if product_identity_pairs.empty?
+      if product_perform_pairs.empty?
+         possible_products = Product.joins(:clauseproducts).where(
+          'clauseproducts.clause_id' => @sub_clause_ids)  
+      else
+        possible_products = Product.joins(:clauseproducts, :instances => :charcs).where(
+          'clauseproducts.clause_id' => @sub_clause_ids,
+          'charcs.perform_id'=>  product_perform_pairs)        
+      end
+    else
+      if product_perform_pairs.empty?
+        possible_products = Product.joins(:clauseproducts, :descripts).where(
+          'clauseproducts.clause_id' => @sub_clause_ids,
+          'descripts.identity_id'=> product_identity_pairs) 
+      else
+        possible_products = Product.joins(:clauseproducts, :descripts, :instances => :charcs).where(
+          'clauseproducts.clause_id' => @sub_clause_ids,
+          'descripts.identity_id'=> product_identity_pairs,
+          'charcs.perform_id'=> product_perform_pairs)     
+      end        
+    end
+    possible_product_ids = possible_products.collect{|x| x.id}.uniq    
 
 
-#def get_product_keys
+
   
-#end
-
-#def get_product_values
-
-
-#performance_ids establish for clause, product title, existing product date and txt3
-# hash of performance_ids and txt6unit text
-#  performance_pairs = {}
-
-#  performance_ids.each do |id|
-#    performance = Performtxt6unit.includes(:txt6unit => [:txt6, :unit, :standard]).where(:performance_id => id).first
-
-#    performance_text = performance.txt6unit.txt6.text
-
-#    if value.txt6unit.unit_id
-#      performance_text << ' '<< value.txt6unit.unit.text
-#    end         
-#    if value.txt6unit.standard_id
-#      performance_text << ' to '<< value.txt6unit.standard.text
-#    end      
-#  performance_pairs[id] = performance_text
-#  end
-#  render json: @statuses
-#end
-
-#def update_product_key
+  #establish type of key - identity or perform key
+  #check possible identity keys possible products
+  check_identkey_exist = Identkey.joins(:identities => :descripts).where('descripts.product_id' => possible_product_ids, :text => key).first
   
-#end
+  #if identity key then linetype = 10
+  if check_identkey_exist
+    #update linetype
+    if @specline_update.linetype_id != 10
+      @specline_update.linetype_id = 10
+      @specline_update.save
+#insert change record event - because linetype has been changed?      
+    end
+    
+    #if only one value option auto complete otherwise set value to 1 ('not specified')
+    #estabish if pair exists for lintype, if not create  
+    check_identity_ids = Identity.joins(:identkey, :descripts).where(
+      'descripts.product_id' => possible_product_ids,
+      'identkeys.text' => key
+      ).collect{|x| x.id}.uniq
+    
+    if check_identity_ids.length == 1
+      #save new identvalue for specline
+      update_identity_id = check_identity_ids[0]  
+    else
+      #save or create identkey with 'not specified' value for specline     
+      check_identity = Identity.where(:identvalue_id => 1, :identkey_id => check_identkey_exist.id).first_or_create 
+      update_identity_id = check_identity.id     
+    end
+    @specline_update.identity_id = update_identity_id
+    @specline_update.save
+#insert change record event?
+    
+  else
+    if @specline_update.linetype_id != 11
+      @specline_update.linetype_id = 11
+      @specline_update.save
+#insert change record event - because linetype has been changed?      
+    end
+    
+    #if only one value option auto complete otherwise set value to 1 ('not specified')
+    #estabish if pair exists for lintype, if not create  
+    check_perform_ids = Perform.joins(:performkey, :performvalue, :charcs => :instance).where(
+      'instances.product_id' => possible_product_ids,
+      'performkeys.text' => key
+      ).collect{|x| x.id}.uniq
+    
 
-#def update_product_values
-    #new value is an array of values - values are txt6unit_ids
-    #new_value = params[:value] 
-    #if new_value.length == 1
-      #change value to specline.txt6_id to this
-    #else
-      #find if performtxt6unit exists
-      #!!!check_preformance_array = performance.where(:txt6unit => new_value_array).first
-      #if check_preformance_array
-        #change value to specline.txt6_id to check_preformance_array.id
-      #else
-        #create performance_array
-        #performance_ref = Performance.create(:txt3_id => txt3_id)
-        #params[:value].each do |value|       
-          #performance_pair = Performtxt6unit.create(:performance_id=> performance_ref.id, :txt6unit_id => value)
-        #end
-        #change value to specline.txt6_id to check_preformance_array.id
-      #end      
-    #end
-    #record change
+       
+    if check_perform_ids.length == 1
+      #save new identvalue for specline
+      update_perform_id = check_perform_ids[0]  
+    else
+      #save or create identkey with 'not specified' value for specline
+      check_performkey_exist = Performkey.where(:text => key).first     
+      check_perform = Perform.where(:performvalue_id => 1, :performkey_id => check_performkey_exist.id).first_or_create 
+      update_perform_id = check_perform.id     
+    end
+    @specline_update.perform_id = update_perform_id
+    @specline_update.save
+#insert change record event?    
+  end
+ 
+    #render :text=> params[:value]  
+    render :update, :layout => false
+      
+  
+end
+
+def update_product_value
+  #value text returned
+  @specline_update = @specline  
+
+  if params[:value] == "Not specified"
+    render :text => params[:value]
+  else
+  
+  if @specline.linetype_id == 10
+    if @specline.identity.identkey.text == "Manufacturer"
+      company_id = params[:value]
+      new_identity_pair = Identity.joins(:identvalue).where(:identkey_id => @specline.identity.identkey_id, 'identvalues.company_id' => company_id).first     
+      render_value_text = new_identity_pair.identvalue.company.company_address  
+    else
+      identtxt_id = params[:value]
+      new_identity_pair = Identity.joins(:identvalue).where(:identkey_id => @specline.identity.identkey_id, 'identvalues.identtxt_id' => identtxt_id).first
+      render_value_text = new_identity_pair.identvalue.identtxt.text
+    end
+    @specline_update.identity_id = new_identity_pair.id
+    @specline_update.save
+    #record change      
+  else
+      performvalue_id = params[:value]    
+      new_perform_pair = Perform.where(:performkey_id => @specline.perform.performkey_id, :performvalue_id  => performvalue_id).first
+      render_value_text = new_perform_pair.performvalue.full_perform_value
+      @specline_update.perform_id = new_perform_pair.id
+      @specline_update.save
+      #record change    
+  end  
         
-    #render :text=> params[:value]   
-#end
-
-
-
-
+  render :text => render_value_text
+  end   
+end
 
   
   # PUT /speclines/1
@@ -850,6 +972,29 @@ def update_txt5_delete_cross_refence(specline_id)
     @specline_update.save
 
   end
+
+
+def get_sub_clause_ids(clause_id)
+
+  clause = Clause.where(:id => clause_id).first
+  if clause.clauseref.subclause != 0
+    @sub_clause_ids = [clause.id]
+  else
+    if clause.clauseref.clause != 0 
+      if clause.clauseref.clause.multiple_of?(10)
+        low_ref = clause.clauseref.clause
+        high_ref = clause.clauseref.clause + 9
+        @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => [low_ref..high_ref]).pluck('clauses.id')
+      else
+        @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => clause.clauseref.clause).pluck('clauses.id')
+      end
+    else
+      @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id).pluck('clauses.id')
+    end
+  end
+end
+
+
 
 #end of class  
 end

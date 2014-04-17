@@ -24,6 +24,29 @@ $('table#<%=@specline.id%>').after('<%= escape_javascript(render :partial => 'sp
 	});
 
 
+//jeditbale functions
+$.editable.addInputType('autogrow', {
+                element : function(settings, original) {
+                    var textarea = $('<textarea />');
+                    if (settings.rows) {
+                        textarea.attr('rows', settings.rows);
+                    } else if (settings.height != "none") {
+                        textarea.height(settings.height);
+                    }
+
+                   	textarea.width(settings.width);	                       	                       	
+
+                    textarea.css("font", "normal 12px arial").css("padding-top", "0px");
+                    $(this).append(textarea);
+                    return(textarea);
+                },
+    			plugin : function(settings, original) {
+        			$('textarea', this).symbols();
+        			$('textarea', this).autogrow();
+    			},
+});
+
+
 $('.editable_text3').mouseover(function(){
 var spec_id = $(this).attr('id');
 $(this).editable('/speclines/'+spec_id+'/update_specline_3', {id: spec_id, width: ($(this).width() + 10)+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
@@ -41,6 +64,50 @@ $('.editable_text6').mouseover(function(){
 var spec_id = $(this).attr('id');
 $(this).editable('/speclines/'+spec_id+'/update_specline_6', {id: spec_id, width: $(this).width()+'px', type: 'text', onblur: 'submit', method: 'PUT', indicator: 'Saving..', submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}});    
 });
+
+
+$('.editable_xref').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_specline_5', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://www.specright.co.uk/speclines/'+spec_id+'/xref_data',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
+
+$('.editable_product_key').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_product_key', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://localhost:3000/products/'+spec_id+'/product_keys',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		ajaxoptions: {dataType: 'script'},
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
+
+$('.editable_product_value').mouseover(function(){
+var spec_id = $(this).attr('id');
+	$(this).editable('/speclines/'+spec_id+'/update_product_value', {
+		id: spec_id, width: ($(this).width() +10)+'px',
+		loadurl : 'http://localhost:3000/products/'+spec_id+'/product_values',
+		type: 'select',
+		onblur: 'submit',
+		method: 'PUT',
+		indicator: 'Saving..',
+		submitdata: {_method: 'put', 'id': '<%= @line.id%>', authenticity_token: AUTH_TOKEN}
+	});    
+});
+
+
+
 
 $('table#<%=@new_specline.id%> a.delete').deleteWithAjax();
 $('table#<%=@new_specline.id%> a.put').putWithAjax();

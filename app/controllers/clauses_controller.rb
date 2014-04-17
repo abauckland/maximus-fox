@@ -86,10 +86,10 @@ layout "projects"
                 
                 case clausetype_id
                   when '1' ;  @linetype_id = 7
-                  when '2' ;  @linetype_id = 6
-                  when '3' ;  @linetype_id = 5
-                  when '4' ;  @linetype_id = 6
-                  when '5' ;  @linetype_id = 7
+                  when '2' ;  @linetype_id = 8
+                  when '3' ;  @linetype_id = 8
+                  when '4' ;  @linetype_id = 8
+                  when '5' ;  @linetype_id = 8
                   when '6' ;  @linetype_id = 7
                   when '7' ;  @linetype_id = 7
                   when '8' ;  @linetype_id = 7

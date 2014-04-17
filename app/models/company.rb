@@ -52,4 +52,9 @@ validates_attachment :photo,
   end  
 
 
+def company_address
+#this needs to be sorted, unclear what is going on
+    company_name << ', Tel: ' << tel.to_s  << ', Web: ' << www  << '.'
+end    
+
 end

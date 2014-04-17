@@ -99,17 +99,20 @@ def specline_table(specline)
       when 7 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
       #editable text: editable text                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
       when 8 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
-      #product clause subtitle
-#     when 10 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span></td>    <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
-      #product data (linked to product database)
-#     when 11 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td><td><table><tr>#{performance_pair(specline)}</tr></table></td>  <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
+      #product identity pair text
+      when 10 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td> #{identity_pair(specline)} <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
+      #product peform pair text
+      when 11 ; "#{html_data_prefix(specline)}  <td class='prefix' width='10px'>-</td> #{perform_pair(specline)} <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
       #cross reference
-      when 12 ; "#{html_xref_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_xref'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
+      when 12 ; "#{html_xref_prefix(specline)}  <td class='prefix' width='10px'>-</td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td><td class='text_text'><span id='#{specline.id}' class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_xref'>#{specline.txt5.text}</span></td></tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe   
       #product information (not linked to product database)
 #     when 13 ; "#{html_prefix(specline)}  <td class='prefix' width='10px'>-</td><td class='text_text'><span id='#{specline.id}'class='editable_text4'>#{specline.txt4.text}</span>: <span id='#{specline.id}'class='editable_text5'>#{specline.txt5.text}</span></td>   <td class='suffixed_line_menu_mob'>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
 
     end
 end
+
+
+
 
 def html_prefix(specline)
     "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'>#{specline_move}</td>".html_safe
@@ -127,7 +130,15 @@ def html_suffix(specline)
   "<td class='suffixed_line_menu_mob>#{specline_mob_spec_menu(specline)}</td>#{specline_links(specline)}</tr><tr class='specline_mob_menu_popup'><td class='mob_line_menu' colspan=3 >#{specline_suffix_menu_mob_spec(specline)}</td></tr></table>".html_safe
 end
 
-#def performance_pair(specline)  
+def identity_pair(specline)
+  if specline.identity.identkey.text == "Manufacturer"
+  "<td class='data_key'><span id='#{specline.id}'class='editable_product_key'>#{specline.identity.identkey.text}</span>: <span id='#{specline.id}'class='editable_product_value'>#{specline.identity.identvalue.company.company_address}</span></td>".html_safe
+  else
+  "<td class='data_key'><span id='#{specline.id}'class='editable_product_key'>#{specline.identity.identkey.text}</span>: <span id='#{specline.id}'class='editable_product_value'>#{specline.identity.identvalue.identtxt.text}</span></td>".html_safe  
+  end
+end
+
+def perform_pair(specline)  
   
 #  perform_key = Txt3.includes(:preforms).where('performs.id' => specline.txt6_id).first
 #  key_text_string = perform_key.text 
@@ -147,8 +158,8 @@ end
 #      value_text_string << ' to '<< value.txt6unit.standard.text
 #    end      
 #  end  
-#  "<td class='text_text'><span id='#{specline.id}'class='editable_product_key'>#{key_text_string}</span></td><td>:</td><td width = '5'></td><td><span id='#{specline.id}'class='editable_product_value'>##{value_text_string}</span></td>".html_safe
-#end
+  "<td class='text_text'><span id='#{specline.id}'class='editable_product_key'>#{specline.perform.performkey.text}</span>: <span id='#{specline.id}'class='editable_product_value'>#{specline.perform.performvalue.full_perform_value}</span></td>".html_safe
+end
 
 
 def specline_move
