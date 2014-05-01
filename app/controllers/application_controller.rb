@@ -125,6 +125,8 @@ protected
             n.txt4_id = @specline.txt4_id
             n.txt5_id = @specline.txt5_id
             n.txt6_id = @specline.txt6_id
+            n.identity_id = @specline.identity_id
+            n.perform_id = @specline.perform_id            
             n.user_id = current_user.id
           end
           new_delete_rec.save  
@@ -183,6 +185,8 @@ protected
             n.txt4_id = @new_specline.txt4_id
             n.txt5_id = @new_specline.txt5_id
             n.txt6_id = @new_specline.txt6_id
+            n.identity_id = @new_specline.identity_id
+            n.perform_id = @new_specline.perform_id 
             n.user_id = current_user.id
           end
           new_new_rec.save
@@ -224,6 +228,8 @@ protected
               n.txt4_id = @previous_changed_specline.txt4_id
               n.txt5_id = @previous_changed_specline.txt5_id
               n.txt6_id = @previous_changed_specline.txt6_id
+              n.identity_id = @previous_changed_specline.identity_id
+              n.perform_id = @previous_changed_specline.perform_id               
               n.user_id = current_user.id
             end
             new_new_rec.save           
@@ -274,6 +280,8 @@ protected
             n.txt4_id = @specline.txt4_id 
             n.txt5_id = @specline.txt5_id
             n.txt6_id = @specline.txt6_id
+            n.identity_id = @specline.identity_id
+            n.perform_id = @specline.perform_id            
             n.user_id = current_user.id
           end
           new_new_rec.save
@@ -284,6 +292,8 @@ protected
                 existing_change_record.txt4_id = @specline_update.txt4_id
                 existing_change_record.txt5_id = @specline_update.txt5_id
                 existing_change_record.txt6_id = @specline_update.txt6_id
+                existing_change_record.identity_id = @specline_update.identity_id
+                existing_change_record.perform_id = @specline_update.perform_id
                 existing_change_record.linetype_id = @specline_update.linetype_id
                 existing_change_record.user_id = current_user.id
                 existing_change_record.save                     
@@ -349,6 +359,8 @@ protected
                   n.txt4_id = @specline.txt4_id
                   n.txt5_id = @specline.txt5_id
                   n.txt6_id = @specline.txt6_id
+                  n.identity_id = @specline.identity_id
+                  n.perform_id = @specline.perform_id                  
                   n.user_id = current_user.id
                 end
                 new_deleted_rec.save  
@@ -367,6 +379,8 @@ protected
               previous_changes_for_specline.txt4_id = @specline_update.txt4_id
               previous_changes_for_specline.txt5_id = @specline_update.txt5_id
               previous_changes_for_specline.txt6_id = @specline_update.txt6_id
+              previous_changes_for_specline.identity_id = @specline_update.identity_id
+              previous_changes_for_specline.perform_id = @specline_update.perform_id
               previous_changes_for_specline.user_id = current_user.id           
               previous_changes_for_specline.save                         
             else                 
@@ -405,6 +419,8 @@ protected
                   n.txt4_id = @specline.txt4_id
                   n.txt5_id = @specline.txt5_id
                   n.txt6_id = @specline.txt6_id
+                  n.identity_id = @specline.identity_id
+                  n.perform_id = @specline.perform_id                  
                   n.user_id = current_user.id
                 end
                 previous_changes_for_specline.save 
@@ -445,6 +461,8 @@ protected
                   previous_changes_for_specline.txt4_id = current_matched_specline.txt4_id
                   previous_changes_for_specline.txt5_id = current_matched_specline.txt5_id
                   previous_changes_for_specline.txt6_id = current_matched_specline.txt6_id
+                  previous_changes_for_specline.identity_id = current_matched_specline.identity_id
+                  previous_changes_for_specline.perform_id = current_matched_specline.perform_id                  
                   previous_changes_for_specline.user_id = current_user.id
                   previous_changes_for_specline.save
                   #update specline_id of all previous changes for selected change record specline with specline of matched change line
@@ -612,12 +630,18 @@ private
       if linetype[:txt6] == true     
         specline_hash['txt6s.text'] = specline_update.txt6.text
       end
+      if linetype[:identity] == true     
+        specline_hash['identities.id'] = specline_update.identity.id
+      end
+      if linetype[:perform] == true     
+        specline_hash['performs.id'] = specline_update.perform.id
+      end            
       specline_hash[:revision_id] = current_revision.id
       specline_hash[:project_id] = specline_update.project_id
       specline_hash[:clause_id] = specline_update.clause_id
       specline_hash[:linetype_id] = specline_update.linetype_id 
 
-      @check_new_match_previous = Change.joins(:txt3, :txt4, :txt5, :txt5).where(specline_hash).first
+      @check_new_match_previous = Change.joins(:txt3, :txt4, :txt5, :txt6, :identity, :perform).where(specline_hash).first
 
   end
   

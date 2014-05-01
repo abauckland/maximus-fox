@@ -40,7 +40,7 @@ class ChangesController < ApplicationController
             record_new
             @hide_line_in_view = true
           else
-            existing_delete_record = Change.where(:project_id => @new_specline.project_id, :linetype_id => @new_specline.linetype_id, :clause_id => @new_specline.clause_id, :txt3_id => @new_specline.txt3_id, :txt4_id => @new_specline.txt4_id, :txt5_id => @new_specline.txt5_id, :txt6_id => @new_specline.txt6_id, :event => 'deleted', :revision_id => @current_revision.id).first
+            existing_delete_record = Change.where(:project_id => @new_specline.project_id, :linetype_id => @new_specline.linetype_id, :clause_id => @new_specline.clause_id, :txt3_id => @new_specline.txt3_id, :txt4_id => @new_specline.txt4_id, :txt5_id => @new_specline.txt5_id, :txt6_id => @new_specline.txt6_id, :identity_id => @new_specline.identity_id, :perform_id => @new_specline.perform_id, :event => 'deleted', :revision_id => @current_revision.id).first
             #if !existing_delete_record.blank?
             prior_specline_changes = Change.where(:specline_id => existing_delete_record.specline_id)
             prior_specline_changes.each do |prior_change|
@@ -85,7 +85,7 @@ class ChangesController < ApplicationController
           record_new
         @hide_line_in_view = true
         else
-          existing_delete_record = Change.where(:project_id => @new_specline.project_id, :linetype_id => @new_specline.linetype_id, :clause_id => @new_specline.clause_id, :txt3_id => @new_specline.txt3_id, :txt4_id => @new_specline.txt4_id, :txt5_id => @new_specline.txt5_id, :txt6_id => @new_specline.txt6_id, :event => 'deleted', :revision_id => @current_revision.id).first
+          existing_delete_record = Change.where(:project_id => @new_specline.project_id, :linetype_id => @new_specline.linetype_id, :clause_id => @new_specline.clause_id, :txt3_id => @new_specline.txt3_id, :txt4_id => @new_specline.txt4_id, :txt5_id => @new_specline.txt5_id, :txt6_id => @new_specline.txt6_id, :identity_id => @new_specline.identity_id, :perform_id => @new_specline.perform_id, :event => 'deleted', :revision_id => @current_revision.id).first
           #if !existing_delete_record.blank?
           prior_specline_changes = Change.where(:specline_id => existing_delete_record.specline_id)
             prior_specline_changes.each do |prior_change|
@@ -110,6 +110,8 @@ class ChangesController < ApplicationController
           changed_specline.txt4_id = @change.txt4_id
           changed_specline.txt5_id = @change.txt5_id
           changed_specline.txt6_id = @change.txt6_id
+          changed_specline.identity_id = @change.identity_id
+          changed_specline.perform_id = @change.perform_id
           changed_specline.save
           @hide_line_in_view = true                    
         else        
@@ -118,6 +120,8 @@ class ChangesController < ApplicationController
           changed_specline.txt4_id = @change.txt4_id
           changed_specline.txt5_id = @change.txt5_id
           changed_specline.txt6_id = @change.txt6_id
+          changed_specline.identity_id = @change.identity_id
+          changed_specline.perform_id = @change.perform_id          
           changed_specline.save
           @change.destroy
           @hide_line_in_view = false                              
@@ -170,6 +174,8 @@ private
       n.txt4_id = changed_clause_line.txt4_id
       n.txt5_id = changed_clause_line.txt5_id
       n.txt6_id = changed_clause_line.txt6_id
+      n.identity_id = changed_clause_line.identity_id
+      n.perform_id = changed_clause_line.perform_id
     end
     @new_specline.save
   end 

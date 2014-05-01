@@ -481,8 +481,21 @@ end
   # GET /speclines/1/edit
   def edit     
     #before filter establishes @specline
-    @linetypes = Linetype.joins(:lineclausetypes).where('lineclausetypes.clausetype_id'=> @specline.clause.clauseref.clausetype_id).order('id')
-            
+    
+    #check if products exist for clause
+    product_check = Clauseproduct.where(:clause_id => @specline.clause_id).first
+    if product_check
+      #show linetype option for product data    
+      @linetypes = Linetype.joins(:lineclausetypes).where('lineclausetypes.clausetype_id'=> @specline.clause.clauseref.clausetype_id).order('id')
+    else
+      #do not show linetype option for product data
+      @linetypes = Linetype.joins(:lineclausetypes).where('lineclausetypes.clausetype_id'=> @specline.clause.clauseref.clausetype_id).where('linetypes.id <> ?', 10).order('id')
+    end
+    
+    respond_to do |format|
+      format.js   { render :edit, :layout => false } 
+    end    
+              
   end
   
   
@@ -831,8 +844,12 @@ end
     if new_linetype_array != old_linetype_array
       record_change 
     end
-     
-    @specline_update.update_attributes(params[:specline])
+        #if new linetype is for product data set identity and perform value pairs to 'not specified'
+    if [10,11].include?(params[:specline][:linetype_id])
+      @specline_update.update_attributes(:linetype_id => new_linetype.id, :perform_id => 1, :identity_id => 1)
+    else
+      @specline_update.update_attributes(params[:specline])
+    end    
   
   end
 

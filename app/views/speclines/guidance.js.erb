@@ -1,10 +1,10 @@
 $('.guide').remove();
 
 
-var p = $('table#<%=@selected_specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.suffixed_line_menu');
+var p = $('table#<%=@selected_specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_data_row').children('td.suffixed_line_menu');
 var position_a = p.offset();
 
-var p = $('table#<%=@selected_specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row').children('td.suffixed_line_menu_mob');
+var p = $('table#<%=@selected_specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_data_row').children('td.suffixed_line_menu_mob');
 var position_b = p.offset();
 
 if ($('.suffixed_line_menu_mob').css('display') == 'none'){

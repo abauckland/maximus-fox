@@ -203,7 +203,7 @@ layout "projects", :except => [:print_project]
     
     @revision_subsections = Subsection.where(:id => revision_subsection_id_array)
 
-        @revision_prelim_subsections = Subsection.where(:id => revision_subsection_id_array, :section_id => 1)
+    @revision_prelim_subsections = Subsection.where(:id => revision_subsection_id_array, :section_id => 1)
     revision_prelim_subsection_id_array = @revision_prelim_subsections.collect{|item| item.id}.sort
 
     @current_clause_id_array = Specline.select('DISTINCT clause_id').where(:project_id => @current_project.id).collect{|item| item.clause_id}.sort       
@@ -211,7 +211,7 @@ layout "projects", :except => [:print_project]
 
     @current_subsections = Subsection.where(:id => current_subsection_id_array) 
     @current_prelim_subsections = Subsection.where(:id => current_subsection_id_array, :section_id => 1)
-    @current_none_prelim_subsections = @current_subsections - @current_prelim_subsections
+    @current_none_prelim_subsections = Subsection.where(:id => current_subsection_id_array).where('subsections.section_id <> ?', 1) 
 
 ##prelim subsections
 
@@ -343,9 +343,13 @@ layout "projects", :except => [:print_project]
     
     @company = Company.find(current_user.company_id) 
    
+ @font = "Times-Roman"
+ #@font = "Helvetica"
+ @font_space = "7.mm"
+   
     #respond_to do |format|
     #  format.pdf  {render :layout => false}
-      prawnto :filename => @current_project.code+"_rev_"+@print_revision_rev+".pdf", :prawn => {:page_size => "A4", :margin => [20.mm, 14.mm, 5.mm, 20.mm], :font => 'Times-Roman'}, :inline=>false     
+      prawnto :filename => @current_project.code+"_rev_"+@print_revision_rev+".pdf", :prawn => {:page_size => "A4", :margin => [20.mm, 14.mm, 5.mm, 20.mm]}, :inline=>false     
     #end
   end
 

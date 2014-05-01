@@ -11,16 +11,23 @@ def index
   @product_array = []
 
     #get unique performance pairs for selected range of clauses
-    product_ids = Product.joins(:descripts => [:identity => [:identvalue]]).where('identvalues.company_id' => 35).collect{|x| x.id}.uniq
+    product_ids = Product.joins(:descripts => [:identity => :identvalue]
+                        ).where('identvalues.company_id' => 35
+                        ).collect{|x| x.id}.uniq
 
     if product_ids.empty?
       redirect_to new_productimport_path
     else
 
     #all identkeys for manufacturer
-    ident_header_array = Identkey.joins(:identities => :descripts).where('descripts.product_id' => product_ids).collect{|x| x.text}.uniq
+    ident_header_array = Identkey.joins(:identities => :descripts
+                                ).where('descripts.product_id' => product_ids
+                                ).collect{|x| x.text}.uniq
+    
     #all performkeys for manufacturer
-    perform_header_array = Performkey.joins(:performs => [:charcs => [:instance]]).where('instances.product_id' => product_ids).collect{|x| x.text}.uniq
+    perform_header_array = Performkey.joins(:performs => [:charcs => :instance]
+                                    ).where('instances.product_id' => product_ids
+                                    ).collect{|x| x.text}.uniq
 
     
     @headers_row = []
@@ -44,13 +51,17 @@ def index
       header_title_string = perform_text.to_s 
      
       #get units for headers
-      unit = Unit.joins(:valuetypes => [:performvalues => [:performs => [:performkey, :charcs => :instance]]]).where('performkeys.text' => perform_text, 'instances.product_id' => product_ids).first
+      unit = Unit.joins(:valuetypes => [:performvalues => [:performs => [:performkey, :charcs => :instance]]]
+                ).where('performkeys.text' => perform_text, 'instances.product_id' => product_ids
+                ).first
       if unit
         header_title_string = header_title_string + ' (' + unit.text.to_s + ') '
       end 
 
       #get standards for headers
-      standard = Standard.joins(:valuetypes => [:performvalues => [:performs => [:performkey, :charcs => :instance]]]).where('performkeys.text' => perform_text, 'instances.product_id' => product_ids).first
+      standard = Standard.joins(:valuetypes => [:performvalues => [:performs => [:performkey, :charcs => :instance]]]
+                        ).where('performkeys.text' => perform_text, 'instances.product_id' => product_ids
+                        ).first
       if standard
         header_title_string = header_title_string + ' (' + standard.ref.to_s + ') '
       end
@@ -92,7 +103,9 @@ def index
         n = 2
         ident_header_array.each do |identkey|
           n = n + 1
-          ident_value = Identvalue.joins(:identities => [:identkey, :descripts => [:product => :instances]]).where('instances.id' => instance.id, 'identkeys.text' => identkey).first
+          ident_value = Identvalue.joins(:identities => [:identkey, :descripts => [:product => :instances]]
+                                  ).where('instances.id' => instance.id, 'identkeys.text' => identkey
+                                  ).first
    
           if ident_value
             if ident_value.identtxt_id
@@ -111,7 +124,9 @@ def index
         n = n
         perform_header_array.each do |performkey|
           n = n + 1
-          perform_text = Performtxt.joins(:performvalues => [:performs => [:performkey, :charcs]]).where('charcs.instance_id' => instance.id, 'performkeys.text' => performkey).first
+          perform_text = Performtxt.joins(:performvalues => [:performs => [:performkey, :charcs]]
+                                  ).where('charcs.instance_id' => instance.id, 'performkeys.text' => performkey
+                                  ).first
           if perform_text
             product[n] = perform_text.text
           else
@@ -148,74 +163,68 @@ end
     get_sub_clause_ids(specline.clause_id)
     
     #get product identity pairs in clause which have been completed, not including current line
-    product_identity_pairs = Specline.joins(:clause, :identity => [:identvalue => :identtxt]).where(
-      :project_id => specline.project_id,
-      'clauses.clauseref_id' => @sub_clause_ids, 
-      :linetype_id => 10
-      ).where('identtxts.text != ?', "Not specified"
-      ).where('speclines.id <> ?', specline.id
-      ).pluck('speclines.identity_id')
+    product_identity_pairs = Specline.joins(:clause, :identity => [:identvalue => :identtxt]
+                                    ).where(:project_id => specline.project_id, 'clauses.clauseref_id' => @sub_clause_ids, :linetype_id => 10
+                                    ).where('identtxts.text != ?', "Not specified"
+                                    ).where('speclines.id <> ?', specline.id
+                                    ).pluck('speclines.identity_id')
    
     #get product perform pairs in clause which have been completed, not including current line
-    product_perform_pairs = Specline.joins(:clause, :perform => [:performvalue => [:performtxt]]).where(
-      :project_id => specline.project_id, 
-      'clauses.clauseref_id' => @sub_clause_ids, 
-      :linetype_id => 11
-      ).where('performtxts.text != ?', "Not specified"
-      ).where('speclines.id <> ?', specline.id
-      ).pluck('speclines.perform_id')
+    product_perform_pairs = Specline.joins(:clause, :perform => [:performvalue => [:performtxt]]
+                                    ).where(:project_id => specline.project_id, 'clauses.clauseref_id' => @sub_clause_ids, :linetype_id => 11
+                                    ).where('performtxts.text != ?', "Not specified"
+                                    ).where('speclines.id <> ?', specline.id
+                                    ).pluck('speclines.perform_id')
 
     #get possible products for identity and perform pairs
     if product_identity_pairs.empty?
       if product_perform_pairs.empty?
-         possible_products = Product.joins(:clauseproducts).where(
-          'clauseproducts.clause_id' => @sub_clause_ids)  
+         possible_products = Product.joins(:clauseproducts
+                                    ).where('clauseproducts.clause_id' => @sub_clause_ids
+                                    )  
       else
-        possible_products = Product.joins(:clauseproducts, :instances => :charcs).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'charcs.perform_id'=>  product_perform_pairs)        
+        possible_products = Product.joins(:clauseproducts, :instances => :charcs
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'charcs.perform_id'=>  product_perform_pairs
+                                  )        
       end
     else
       if product_perform_pairs.empty?
-        possible_products = Product.joins(:clauseproducts, :descripts).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'descripts.identity_id'=> product_identity_pairs) 
+        possible_products = Product.joins(:clauseproducts, :descripts
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'descripts.identity_id'=> product_identity_pairs
+                                  ) 
       else
-        possible_products = Product.joins(:clauseproducts, :descripts, :instances => :charcs).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'descripts.identity_id'=> product_identity_pairs,
-          'charcs.perform_id'=> product_perform_pairs)     
+        possible_products = Product.joins(:clauseproducts, :descripts, :instances => :charcs
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'descripts.identity_id'=> product_identity_pairs, 'charcs.perform_id'=> product_perform_pairs
+                                  )     
       end        
     end
     possible_product_ids = possible_products.collect{|x| x.id}.uniq  
-
    
     #get all possible identity keys
-    identity_option_texts = Identkey.joins(:identities => [:descripts => :product]).where(
-      'products.id' => possible_product_ids
-      ).collect{|x| x.text}.uniq
+    identity_option_texts = Identkey.joins(:identities => [:descripts => :product]
+                                    ).where('products.id' => possible_product_ids
+                                    ).collect{|x| x.text}.uniq
+    
     #get all existing identity keys within selected clause    
-    existing_identity_keys = Identkey.joins(:identities => :speclines).where(
-      'speclines.project_id' => specline.project_id,
-      'speclines.clause_id' => specline.clause_id,
-      'speclines.linetype_id' => 10
-      ).where('speclines.id <> ?', params[:id]
-      ).pluck('identkeys.text')
+    existing_identity_keys = Identkey.joins(:identities => :speclines
+                                    ).where('speclines.project_id' => specline.project_id,'speclines.clause_id' => specline.clause_id, 'speclines.linetype_id' => 10
+                                    ).where('speclines.id <> ?', params[:id]
+                                    ).pluck('identkeys.text')
+    
     #get list of identity keys not in use within selected clause
     identity_key_options = identity_option_texts - existing_identity_keys
 
 
     #get all possible perform keys
-    performkey_option_texts = Performkey.joins(:performs => [:charcs => [:instance => :product]]).where(
-      'products.id' => possible_product_ids
-      ).collect{|x| x.text}.uniq
+    performkey_option_texts = Performkey.joins(:performs => [:charcs => [:instance => :product]]
+                                        ).where('products.id' => possible_product_ids
+                                        ).collect{|x| x.text}.uniq
+    
     #get all existing perform keys within selected clause 
-    existing_perform_keys = Performkey.joins(:performs => :speclines).where(
-      'speclines.project_id' => specline.project_id,
-      'speclines.clause_id' => specline.clause_id,
-      'speclines.linetype_id' => 11
-      ).where('speclines.id <> ?', params[:id]
-      ).pluck('performkeys.text')  
+    existing_perform_keys = Performkey.joins(:performs => :speclines
+                                      ).where('speclines.project_id' => specline.project_id, 'speclines.clause_id' => specline.clause_id, 'speclines.linetype_id' => 11
+                                      ).where('speclines.id <> ?', params[:id]
+                                      ).pluck('performkeys.text')  
     #get list of perform keys not in use within selected clause
     perform_key_options = performkey_option_texts - existing_perform_keys
    
@@ -242,46 +251,52 @@ end
     get_sub_clause_ids(specline.clause_id)
     
     #get product identity pairs in clause which have been completed, not including current line
-    product_identity_pairs = Specline.joins(:identity => [:identvalue => :identtxt]).where(
-      :project_id => specline.project_id,
-      :clause_id => specline.clause_id, 
-      :linetype_id => 10
-      ).where('identtxts.text != ?', "Not specified"
-      ).where('speclines.id <> ?', specline.id
-      ).pluck('speclines.identity_id')
-   
+    product_identity_pairs = Specline.joins(:identity => [:identvalue => :identtxt]
+                                    ).where(:project_id => specline.project_id, :clause_id => specline.clause_id, :linetype_id => 10
+                                    ).where('identtxts.text != ?', "Not specified"
+                                    ).where('speclines.id <> ?', specline.id                                    
+                                    ).pluck('speclines.identity_id'
+                                    )   
     #get product perform pairs in clause which have been completed, not including current line
-    product_perform_pairs = Specline.joins(:perform => [:performvalue => [:performtxt]]).where(
-      :project_id => specline.project_id,
-      :clause_id => specline.clause_id, 
-      :linetype_id => 11
-      ).where('performtxts.text != ?', "Not specified"
-      ).where('speclines.id <> ?', specline.id
-      ).pluck('speclines.perform_id')
-
+    product_perform_pairs = Specline.joins(:perform => [:performvalue => [:performtxt]]
+                                    ).where(:project_id => specline.project_id, :clause_id => specline.clause_id, :linetype_id => 11
+                                    ).where('performtxts.text != ?', "Not specified"
+                                    ).where('speclines.id <> ?', specline.id
+                                    ).pluck('speclines.perform_id'
+                                    )
     @product_value_options = {}
     #get cpossible products for line
     #if specline linetype == 10 (identity pair)
     #get possible products for identity and perform pairs
     if product_identity_pairs.empty?
       if product_perform_pairs.empty?
-         possible_products = Product.joins(:clauseproducts).where(
-          'clauseproducts.clause_id' => @sub_clause_ids)  
+        possible_products = Product.joins(:clauseproducts
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids)  
       else
-        possible_products = Product.joins(:clauseproducts, :instances => :charcs).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'charcs.perform_id'=>  product_perform_pairs)        
+        possible_products = Product.joins(:clauseproducts, :instances => :charcs
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'charcs.perform_id'=>  product_perform_pairs
+                                  ).group('products.id)'
+                                  ).having('count(products.id) == product_perform_pairs.count'                                 
+                                  )        
       end
     else
       if product_perform_pairs.empty?
-        possible_products = Product.joins(:clauseproducts, :descripts).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'descripts.identity_id'=> product_identity_pairs) 
+        possible_products = Product.joins(:clauseproducts, :descripts
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'descripts.identity_id'=> product_identity_pairs
+                                  ).group('products.id)'
+                                  ).having('count(products.id) == product_identity_pairs.count'
+                                  ) 
       else
-        possible_products = Product.joins(:clauseproducts, :descripts, :instances => :charcs).where(
-          'clauseproducts.clause_id' => @sub_clause_ids,
-          'descripts.identity_id'=> product_identity_pairs,
-          'charcs.perform_id'=> product_perform_pairs)     
+        possible_ident_product_ids = Product.joins(:clauseproducts, :descripts
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'descripts.identity_id'=> product_identity_pairs
+                                  ).group('products.id)'
+                                  ).having('count(products.id) == product_identity_pairs.count'
+                                  ).collect{|x | x.id}.uniq        
+        possible_products = Product.joins(:clauseproducts, :descripts, :instances => :charcs
+                                  ).where('clauseproducts.clause_id' => @sub_clause_ids, 'descripts.identity_id'=> product_identity_pairs, 'product.id'=> possible_ident_product_ids
+                                  ).group('products.id)'
+                                  ).having('count(products.id) > product_perform_pairs.count'
+                                  )     
       end        
     end
     possible_product_ids = possible_products.collect{|x| x.id}.uniq
@@ -290,19 +305,23 @@ end
     if specline.linetype_id == 10
       key_id = specline.identity.identkey_id 
       if specline.identity.identkey.text == "Manufacturer"
-        identity_option_values = Company.joins(:identvalues => [:identities => :descripts]).where(
-          'descripts.product_id' => possible_product_ids,
-          'identities.identkey_id' => key_id
-          )
+        identity_option_values = Company.joins(:identvalues => [:identities => :descripts]
+                                        ).where('descripts.product_id' => possible_product_ids, 'identities.identkey_id' => key_id
+                                        )
+        
+        identity_option_values.each do |value|    
+          @product_value_options[value.id] = value.company_name 
+        end
       else
-        identity_option_values = Identtxt.joins(:identvalues => [:identities => [:descripts, :identkey]]).where(
-          'descripts.product_id' => possible_product_ids,
-          'identities.identkey_id' => key_id
-          )  
+        identity_option_values = Identtxt.joins(:identvalues => [:identities => [:descripts, :identkey]]
+                                        ).where('descripts.product_id' => possible_product_ids, 'identities.identkey_id' => key_id
+                                        )
+        
+        identity_option_values.each do |value|    
+          @product_value_options[value.id] = value.text 
+        end  
       end
-      identity_option_values.each do |value|    
-        @product_value_options[value.id] = value.text 
-      end
+
       #find identity value pair of key and 'Not specified' value
       performvalue_not_specified_option = Identtxt.where(:text => "Not Specified").first          
       @product_value_options[performvalue_not_specified_option.id] = performvalue_not_specified_option.text 
@@ -310,10 +329,9 @@ end
       
     else
       key_id = specline.perform.performkey_id
-      performvalue_option_values = Performvalue.joins(:performs => [:charcs => [:instance => [:product => [:clauseproducts, :descripts]]]]).where(
-        'descripts.product_id' => possible_product_ids,
-        'performs.performkey_id' => key_id
-        )
+      performvalue_option_values = Performvalue.joins(:performs => [:charcs => [:instance => [:product => [:clauseproducts, :descripts]]]]
+                                              ).where('descripts.product_id' => possible_product_ids, 'performs.performkey_id' => key_id
+                                              )
     
       performvalue_option_values.each do |value| 
         
@@ -360,12 +378,18 @@ def get_sub_clause_ids(clause_id)
       if clause.clauseref.clause.multiple_of?(10)
         low_ref = clause.clauseref.clause
         high_ref = clause.clauseref.clause + 9
-        @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => [low_ref..high_ref]).pluck('clauses.id')
+        @sub_clause_ids = Clause.joins(:clauseref
+                                ).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => [low_ref..high_ref]
+                                ).pluck('clauses.id')
       else
-        @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => clause.clauseref.clause).pluck('clauses.id')
+        @sub_clause_ids = Clause.joins(:clauseref
+                                ).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id, 'clauserefs.clause' => clause.clauseref.clause
+                                ).pluck('clauses.id')
       end
     else
-      @sub_clause_ids = Clause.joins(:clauseref).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id).pluck('clauses.id')
+      @sub_clause_ids = Clause.joins(:clauseref
+                              ).where('clauserefs.clausetype_id' => clause.clauseref.clausetype_id
+                              ).pluck('clauses.id')
     end
   end
 end

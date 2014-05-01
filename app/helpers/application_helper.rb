@@ -119,7 +119,7 @@ def html_prefix(specline)
 end
 
 def html_data_prefix(specline)
-    "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_data_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'>#{specline_move}</td>".html_safe
+    "<table id='#{specline.id}' class='specline_table' width='100%'><tr class='specline_data_row'><td class='prefixed_line_space'></td><td class='prefixed_line_menu'></td>".html_safe
 end
 
 def html_xref_prefix(specline)

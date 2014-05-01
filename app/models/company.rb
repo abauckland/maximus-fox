@@ -35,10 +35,6 @@ validates :company_name,
           :uniqueness => {:message => "An account for the company already exists, please contact your administrator"} 
           
 
-validates :tel,
-          on: :create,    
-          :presence => true
-
 validates_attachment :photo,
   :attachment_content_type => { :content_type => ["image/png", "image/jpg"] },
   :size => { :in => 0..1000.kilobytes },

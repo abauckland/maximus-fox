@@ -208,13 +208,20 @@ module RevisionsHelper
         when 6 ; "<table><tr><td>#{line.txt3.text}:</td><td width = '5'></td><td>#{line.txt5.text}</td></tr></table>".html_safe
         when 7 ; "#{line.txt4.text}".html_safe
         when 8 ; "#{line.txt4.text}: #{line.txt5.text}".html_safe
-#       when 10 ; "#{line.txt4.text}".html_safe
-#       when 11 ; "#{line.txt3.text}: #{line.txt6.text}".html_safe 
-#       when 12 ; "#{line.txt3.text}: #{line.txt5.text}".html_safe 
+        when 10 ; line_identity_content(line)
+        when 11 ; "#{line.perform.performkey.text}: #{line.perform.performvalue.full_perform_value}".html_safe 
+        when 12 ; "#{line.txt4.text}: #{line.txt5.text}".html_safe 
 #       when 13 ; "#{line.txt4.text}: #{line.txt5.text}".html_safe           
     end  
   end
 
+def line_identity_content(line)
+  if specline.identity.identkey.text == "Manufacturer"
+  "#{line.identity.identkey.text}: #{line.identity.identvalue.company.company_address}".html_safe
+  else
+  "#{line.identity.identkey.text}: #{line.identity.identvalue.identtxt.text}".html_safe  
+  end  
+end
 
 
 #revision line menu links/icons

@@ -27,6 +27,9 @@ gem 'roo'
 gem "gibbon", "~> 1.0.4"
 
 gem 'jquery-datatables-rails'
+
+gem 'rails4_upgrade'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

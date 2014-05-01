@@ -1,10 +1,10 @@
 
 
 
-var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row').children('td.suffixed_line_menu');
+var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row, tr.specline_data_row').children('td.suffixed_line_menu');
 var position_a = p.offset();
 
-var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row').children('td.suffixed_line_menu_mob');
+var p = $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row, tr.specline_data_row').children('td.suffixed_line_menu_mob');
 var position_b = p.offset();
 
 if ($('.suffixed_line_menu_mob').css('display') == 'none'){
@@ -21,16 +21,16 @@ $('body').after('<%= escape_javascript(render :partial => 'edit', :locals => {:s
 $('.linetype_menu').css({top: p_top});
 
 $('div.linetype_menu').hover(function (){
-  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row').css('background-color', '#efefef');
+  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row, tr.specline_data_row').css('background-color', '#efefef');
     },
   function (){
-  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row').css('background-color', '#fff');
+  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row, tr.specline_data_row').css('background-color', '#fff');
 });
 
 $('span.button').click(function (){
   $(this).parents('form:first').submit();
   $('div.linetype_menu').remove();
-  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row').css('background-color', '#fff');
+  $('table#<%=@specline.id%>').children('tbody').children('tr.specline_row, tr.new_specline_row, tr.specline_xref_row, tr.specline_data_row').css('background-color', '#fff');
      return false;
 });
 
